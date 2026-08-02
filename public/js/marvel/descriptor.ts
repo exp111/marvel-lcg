@@ -296,6 +296,9 @@ export class CardDescriptor {
                 copyToClipboard(text);
             }
             else {
+                if( HoverCard.hover_card != card_div ) {
+                    HoverCard.set(card_div)
+                }
                 HoverCard.flip();
             }
 

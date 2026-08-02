@@ -515,12 +515,16 @@ export class Debug {
         }
         else {
             if( right ) {
-                if( HoverCard.hover_card ) {
-                    const object_id = Number(HoverCard.hover_card.dataset.id!)
-                    if( Cards.getCard(object_id)!.isVisible() || Setting.showAllCards() ) {
-                        HoverCard.flip()
-                        return false;
+                const card = Cards.getCard(object_id)
+                if( card && (card.isVisible() || Setting.showAllCards()) ) {
+                    // Hotseat rendering can replace or reveal a card without a new
+                    // mouseenter event. Use the card that received the right-click
+                    // instead of relying on stale hover state.
+                    if( HoverCard.hover_card != card_div ) {
+                        HoverCard.set(card_div)
                     }
+                    HoverCard.flip()
+                    return false;
                 }
             }
         }
@@ -532,4 +536,3 @@ export class Debug {
 }
 
 (window as any).Debug = Debug;
-

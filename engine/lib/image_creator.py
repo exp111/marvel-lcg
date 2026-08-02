@@ -55,7 +55,7 @@ class ImageCreatorHelper:
         return ImageLib.ImageToByteArray(image)
 
     @staticmethod
-    def CreateImage(image_data: bytes|None, name: str, type: str="", desc: str="", aspect: str="", rotate: bool=False) -> bytes:
+    def CreateImage(image_data: bytes|None, name: str, type: str="", desc: str="", aspect: str="", rotate: bool=False, footer: str="") -> bytes:
         def remove_html_tags(text: str):
             return ImageCreatorHelper.re.sub(ImageCreatorHelper.clean, '', text)
 
@@ -87,6 +87,10 @@ class ImageCreatorHelper:
         if isinstance(ImageCreatorHelper.font, ImageFont.FreeTypeFont):
             ImageCreatorHelper.DrawText(draw, remove_html_tags(desc), (padding, start_height), ImageCreatorHelper.font, max_width)
 
+        if footer:
+            footer_y = height - ImageCreatorHelper.font_size - 8
+            ImageCreatorHelper.DrawText(draw, footer, (padding, footer_y), ImageCreatorHelper.font, max_width)
+
         if rotate:
             image = image.rotate(90, expand=True)
 
@@ -96,22 +100,24 @@ class ImageCreatorHelper:
     @staticmethod
     def DrawText(draw: ImageDraw.ImageDraw, text: str, position: Tuple[int, int], font: ImageFont.ImageFont|ImageFont.FreeTypeFont, max_width: int, fill: str='black', wrap: bool=False) -> None:
         lines: List[str] = []
-        filtered_text = text
-        words = filtered_text.split()
-        current_line = ""
+        filtered_text = text.strip()
 
-        # for word in words:
-        #     # Check if adding the next word would exceed the max width
-        #     test_line = f"{current_line} {word}".strip()
-        #     if draw.textsize(test_line, font=ImageCreatorHelper.font)[0] <= max_width:
-        #         current_line = test_line
-        #     else:
-        #         lines.append(current_line)
-        #         current_line = word
+        def text_width(value: str) -> int:
+            left, _, right, _ = draw.textbbox((0, 0), value, font=font)
+            return right - left
 
-        # Add the last line if there's any text left
-        if current_line:
-            lines.append(current_line)
+        for paragraph in filtered_text.splitlines():
+            words = paragraph.split()
+            current_line = ""
+            for word in words:
+                test_line = f"{current_line} {word}".strip()
+                if not current_line or text_width(test_line) <= max_width:
+                    current_line = test_line
+                else:
+                    lines.append(current_line)
+                    current_line = word
+            if current_line:
+                lines.append(current_line)
 
         # Adjust the starting position to center the text vertically
         y_position = position[1]
@@ -209,6 +215,6 @@ class ImageCreator:
         if not ImageCreator.show_image_text:
             return ImageCreator.LoadImageByColor(data.aspect)
 
-        image_data = ImageCreatorHelper.CreateImage(None, data.name, data.type, data.text, data.aspect, data.rotate)
+        name = data.name or "Image unavailable"
+        image_data = ImageCreatorHelper.CreateImage(None, name, data.type, data.text, data.aspect, data.rotate, card_id)
         return image_data
-

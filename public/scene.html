@@ -1707,7 +1707,7 @@ p:has(#timeout_text) {
             const newUrl = `${currentProtocol}//${currentHost}`;
 
             if( player_id == "hot_seat" ) {
-                return `${newUrl}/?hot_seat${options}`
+                return `${newUrl}/?hot_seat&ui=202${options}`
             } else {
                 return `${newUrl}?p=${player_id}${options}`
             }

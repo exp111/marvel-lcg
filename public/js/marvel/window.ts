@@ -182,6 +182,10 @@ export class WindowLoad {
             }
             else
             if (event.key === "Enter") {
+                if( event.repeat ) {
+                    event.preventDefault();
+                    return
+                }
                 if( !SelectStep.isCard() ) {
                     Button.doBtnOk()
                 }
@@ -189,11 +193,19 @@ export class WindowLoad {
             }
             else
             if (event.key === "Escape") {
+                if( event.repeat ) {
+                    event.preventDefault();
+                    return
+                }
                 if( HistoryLog.isOpen() ) {
                     HistoryLog.toggle()
+                    event.preventDefault();
+                    return
                 }
                 if( HoverCard.center_preview.has_image ) {
                     Button.disablePause()
+                    event.preventDefault();
+                    return
                 }
                 // else
                 // if( (SelectStep.isTargets() || SelectStep.isCost()) && 
@@ -206,15 +218,34 @@ export class WindowLoad {
                     Effect.onCancel()
                 }
                 else
-                if( SelectStep.isCard() ||
+                if( Effect.response_json_ask && Effect.show_cancel && (
                     Effect.isExEffect() && (SelectStep.isTargets() || SelectStep.isCost()) && Effect.select_effect_obj.selected_targets.length == 0 ||
-                    // Effect.isExEffect() && (SelectStep.isTargets() || SelectStep.isCost()) ||
                     Effect.isExEffect() && SelectStep.isEffect() ||
                     Effect.is_in_event == 'response' ||
-                    Effect.is_in_event == 'interrupt'
+                    Effect.is_in_event == 'interrupt' ||
+                    Effect.is_in_event == 'asking'
+                    )
                 ) {
+                    // Optional choices nested inside a forced effect (for example,
+                    // an obligation's "You may flip" instruction) must submit the
+                    // prompt's explicit Cancel effect.  /skip 0 supplies effect id
+                    // 0 instead, which is invalid for the surrounding forced choice.
+                    Button.doBtnCancel()
+                }
+                else
+                if( Effect.response_json_ask && !Effect.show_cancel && (
+                    Effect.is_in_event == 'response' ||
+                    Effect.is_in_event == 'interrupt' ||
+                    Effect.is_in_event == 'asking'
+                    )
+                ) {
+                    // A forced response/interrupt has no legal cancel action.
+                    // Leave the prompt in place until the required choice is made.
+                    return
+                }
+                else
+                if( SelectStep.isCard() ) {
                     Button.doRedo()
-                    // Replay.doReplay(true)
                 }
                 else {
                     Button.doBtnCancel()

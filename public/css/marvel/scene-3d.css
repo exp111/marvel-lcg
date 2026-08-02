@@ -13,6 +13,16 @@ body,
 
 #camera {
     overflow: visible;
+    pointer-events: none;
+}
+
+/*
+ * Chrome can hit-test the transformed camera plane in front of cards that are
+ * visually higher on the 3D board.  Let empty scene space ignore pointer input,
+ * then opt cards back in so hover, click, and context-menu events reach them.
+ */
+#camera .card {
+    pointer-events: auto;
 }
 
 /* Debug use */
@@ -155,4 +165,3 @@ body,
 .deck .card.activating {
     --z: 100;
 }
-

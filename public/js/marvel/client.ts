@@ -561,7 +561,17 @@ export class Client {
                 if( Effect.response_json_ask.options.length > 0 )
                 {
                     if( Setting.is_hot_seat ) {
-                        if( !Game.asking_players.includes(Game.forced_on_player) ) {
+                        // The returned option is authoritative when multiple
+                        // hotseat players are waiting for input. The asking-player
+                        // list alone cannot identify which prompt was returned.
+                        const prompt_player_id = Effect.response_json_ask.options[0].bind_player_id
+                        if( prompt_player_id != undefined ) {
+                            Setting.player_id = prompt_player_id
+                            if( Game.forced_on_player != prompt_player_id ) {
+                                UI.focusOnPlayer(prompt_player_id)
+                            }
+                        }
+                        else if( !Game.asking_players.includes(Game.forced_on_player) ) {
                             UI.focusOnPlayer(Game.asking_players[0])
                         }
                     }
@@ -620,4 +630,3 @@ export class Client {
         }
     }
 }
-

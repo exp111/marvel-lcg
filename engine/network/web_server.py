@@ -9,6 +9,7 @@ from engine.lib import MimeType, Json, Ver
 from engine.log import Log
 from engine.file import FileManager
 import hashlib
+import re
 
 CATEGORY_NAME = "WEB"
 
@@ -40,7 +41,14 @@ class WebServer:
         else:
             self.hash_password = None
 
-        WebServer.HeaderCache = {'Cache-Control': f'public, max-age={CACHE_MAX_AGE.value}'}
+        if CACHE_MAX_AGE.value <= 0:
+            WebServer.HeaderCache = {
+                'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+                'Pragma': 'no-cache',
+                'Expires': '0',
+            }
+        else:
+            WebServer.HeaderCache = {'Cache-Control': f'public, max-age={CACHE_MAX_AGE.value}'}
 
     ################################################################################
     #
@@ -50,7 +58,10 @@ class WebServer:
 
     @final
     def LoadHtmlCleanCache(self):
-        return self.ReadFile('./public/clean_cache.html')
+        response = self.ReadFile('./public/clean_cache.html')
+        response.headers['Clear-Site-Data'] = '"cache"'
+        response.headers['Cache-Control'] = 'no-store'
+        return response
 
     ################################################################################
     #
@@ -236,7 +247,33 @@ class WebServer:
             return self.ReadFile(request.path, ['./public/css', './public/'])
 
         async def handle_js(request: web.Request):
-            return self.ReadFile(request.path, ['./public/js', './public/'])
+            response = self.ReadFile(request.path, ['./public/js', './public/'])
+            if response.status != 200 or not response.body:
+                return response
+
+            source = response.body.decode('utf-8')
+            version = Ver.ui_version_str
+
+            def version_path(match: 're.Match[str]') -> str:
+                path = match.group('path')
+                separator = '&' if '?' in path else '?'
+                return f"{match.group('prefix')}{match.group('quote')}{path}{separator}v={version}{match.group('quote')}"
+
+            # Version static imports, side-effect imports, and dynamic imports.
+            # This prevents one stale dependency from surviving a hard reload.
+            import_patterns = [
+                r'(?P<prefix>\bfrom\s*)(?P<quote>[\'\"])(?P<path>[^\'\"]+\.js(?:\?[^\'\"]*)?)(?P=quote)',
+                r'(?P<prefix>\bimport\s*)(?P<quote>[\'\"])(?P<path>[^\'\"]+\.js(?:\?[^\'\"]*)?)(?P=quote)',
+                r'(?P<prefix>\bimport\s*\(\s*)(?P<quote>[\'\"])(?P<path>[^\'\"]+\.js(?:\?[^\'\"]*)?)(?P=quote)',
+            ]
+            for pattern in import_patterns:
+                source = re.sub(pattern, version_path, source)
+
+            return web.Response(
+                text=source,
+                content_type='application/javascript',
+                headers=WebServer.HeaderCache,
+            )
 
         async def handle_ts(request: web.Request):
             if Build.release:
@@ -289,4 +326,3 @@ class WebServer:
 
         self.AddAwaitGetSecurity(r'/{path:.+\.svg}', handle_svg)
         self.AddAwaitGetSecurity(r'/{path:.+\.gif}', handle_gif)
-

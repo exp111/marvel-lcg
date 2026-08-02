@@ -22,6 +22,7 @@ import { Command } from './command.js'
 export class Button{
     static goto_id = document.querySelector("#goto-id") as HTMLInputElement
     static goto_id_value = Button.goto_id?.previousElementSibling as HTMLOutputElement
+    private static is_posting = false
 
     static doToggleHistory() {
         HistoryLog.toggle()
@@ -32,7 +33,7 @@ export class Button{
     }
 
     static doBtnCancel() {
-        if( Game.is_lost_connect || BtnOk.btn_end_div.disabled ) {
+        if( Game.is_lost_connect || Button.is_posting || BtnOk.btn_end_div.disabled ) {
             return
         }
         Button.disablePause()
@@ -40,7 +41,7 @@ export class Button{
     }
 
     static doBtnOk() {
-        if( Game.is_lost_connect || BtnOk.btn_ok_div.disabled || SelectStep.isCard() ) {
+        if( Game.is_lost_connect || Button.is_posting || BtnOk.btn_ok_div.disabled || SelectStep.isCard() ) {
             return
         }
         Button.disablePause()
@@ -131,7 +132,12 @@ export class Button{
             }
         }
         else if( SelectStep.isCost() ) {
+            if( Button.is_posting ) {
+                return
+            }
+
             let selected_data_text = '{}'
+            let bind_player_id = Setting.player_id
             if( Effect.select_effect_obj.id != -1 ) {
                 let result_json = {
                     'id': Effect.select_effect_obj.id,
@@ -148,22 +154,24 @@ export class Button{
                 }
                 selected_data_text = JSON.stringify(result_json)
             }
+            if( Effect.select_effect_obj.bind_player_id != undefined ) {
+                bind_player_id = Effect.select_effect_obj.bind_player_id
+            }
             Effect.select_effect_obj.clear()
 
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    SelectStep.setBegin()
-                    console.log('post', selected_data_text)
-                    UI.update()
+                if (this.readyState == 4) {
+                    Button.is_posting = false
+                    if( this.status == 200 ) {
+                        SelectStep.setBegin()
+                        console.log('post', selected_data_text)
+                        UI.update()
+                    }
                 }
             };
 
-            let bind_player_id = Setting.player_id
-            if( Effect.select_effect_obj.bind_player_id != undefined ) {
-                bind_player_id = Effect.select_effect_obj.bind_player_id
-            }
-
+            Button.is_posting = true
             Button.clean()
             let text = `post?p=${bind_player_id}`
             console.log(text)

@@ -34,8 +34,9 @@ export class Effect {
     }
 
     static get show_cancel() {
-        return Effect.response_json_ask.show_cancel ||
-            Effect.response_json_ask.options[Effect.response_json_ask.options.length-1].name == "Cancel"
+        const response = Effect.response_json_ask
+        const last_option = response?.options?.[response.options.length - 1]
+        return response?.show_cancel == true || last_option?.name == "Cancel"
     }
 
     static reset() {
@@ -937,4 +938,3 @@ export class Effect {
 }
 
 (window as any).Effect = Effect;
-
