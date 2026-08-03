@@ -467,7 +467,7 @@ class CostFunc:
     #     self.cost_funcs.append(deal_damage_to_this)
 
     class TakeDamageUpToHealth(Base):
-        def __init__(self, target: 'TARGET_TYPE|None'=None) -> None:
+        def __init__(self, target: 'TARGET_TYPE|None'=None, *, min_damage: int=1, max_damage: int|None=None) -> None:
             self.return_damage: int = 0
 
             def has_enough_health(effect: 'Effect', face: 'CardFace') -> bool:
@@ -479,7 +479,14 @@ class CostFunc:
             def on_call(targets: Sequence['CardFace'], effect: 'Effect', player: 'Player|None') -> bool:
                 if not player:
                     return False
-                damage = player.DeclareNumber(1, player.GetIdentity().health)
+                maximum = player.GetIdentity().health
+                if max_damage is not None:
+                    maximum = min(maximum, max_damage)
+                damage = player.DeclareNumber(min_damage, maximum)
+
+                if damage == 0:
+                    self.return_damage = 0
+                    return True
 
                 if TakeDamageOnCall(targets, damage, effect):
                     # For "44004"
@@ -1141,4 +1148,3 @@ class CostFunc:
             else:
                 target = Select.From(target)
             super().__init__(target, on_call)
-

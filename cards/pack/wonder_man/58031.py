@@ -15,6 +15,11 @@ def GetAbilities() -> Sequence['Ability']:
             initiator,
             card_type=Ally,
             card_class="IdentitySpecific",
+            check_fn=lambda paper:
+                paper.set_name not in [
+                    player.GetIdentity().paper.set_name
+                    for player in Worlds.GetPlayers(effect)
+                ],
         )
 
         if ally:
@@ -30,4 +35,3 @@ def GetAbilities() -> Sequence['Ability']:
             cameo
         ),
     ]
-

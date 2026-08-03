@@ -3,6 +3,14 @@ from . import *
 class AbilityFactoryResources:
 
     @staticmethod
+    def CanPlayersHelpPay(effect: 'Effect', message: 'Message.CheckPlayerCanPayCost') -> bool:
+        paying_card = message.paying_for_effect.this
+        return any(
+            upgrade.IsName("Coordinated Effort")
+            for upgrade in paying_card.GetAttachedUpgrades()
+        )
+
+    @staticmethod
     def DoubleResourcesThisGenerates(for_card: 'CardFinder',
                                     ) -> 'Ability':
         def the_power_of_leadership(effect: 'Effect', message: 'Message.CheckPlayerCanPayCost') -> 'Resources|None':
@@ -44,6 +52,8 @@ class AbilityFactoryResources:
             if Event.IsType(message.paying_for_effect.this):
                 if message.paying_for_effect.this.alliance:
                     return True
+            if AbilityFactoryResources.CanPlayersHelpPay(effect, message):
+                return True
             if effect.ability.CheckAnyPlayerCanTriggerThis(effect):
                 return True
             # HACK, TODO: clean this
@@ -237,6 +247,8 @@ class AbilityFactoryResources:
             if Event.IsType(message.paying_for_effect.this):
                 if message.paying_for_effect.this.alliance:
                     return True
+            if AbilityFactoryResources.CanPlayersHelpPay(effect, message):
+                return True
             # Hack
             player = message.GetToPlayer()
             effect.context.initiator = player
@@ -694,4 +706,3 @@ class AbilityFactoryResources:
             ],
             operation
         )
-

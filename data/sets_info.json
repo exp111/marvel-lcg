@@ -391,6 +391,20 @@
         "encounters": ["mighty_avengers", "the_initiative", "maria_hill", "dangerous_recruits", "cape_killer", "martial_law", "heroes_for_hire", "paladin", "new_avengers", "secret_avengers", "namor", "atlanteans", "spider_man", "defenders", "hells_kitchen", "cloak_dagger"],
         "max_id": "56214"
     },
+    "58. Wonder Man": {
+        "name": "wonder_man",
+        "scenarios": [],
+        "heroes": ["wonder_man"],
+        "encounters": [],
+        "max_id": "58034"
+    },
+    "59. Hercules": {
+        "name": "hercules",
+        "scenarios": [],
+        "heroes": ["hercules"],
+        "encounters": [],
+        "max_id": "59034"
+    },
     "90. Ronan Modular Set": {
         "name": "ron",
         "scenarios": [],
@@ -430,5 +444,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "0460f7beba029ced19aa8125c07e58161e805c67a33060eb57e2c24d3249fd23"
+    "checksum": "2f9e92001a01a6320862d2abbf68e54700a6bcaf60a1559f95a09cfb6ad07ecc"
 }

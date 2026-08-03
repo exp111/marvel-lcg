@@ -195,6 +195,21 @@ class EffectChecker:
 
                 effect.context.paid_this_cost = need_cost
                 payment = self.cost_for_different_target.GetPayment(target)
+
+                # Mr. Hollywood can only supply a resource after the card's
+                # resource cost has already been met by the other payments.
+                if any(paid_effect.this.IsName("Mr. Hollywood") for paid_effect in paid_effects):
+                    other_resources = Resources("0")
+                    for paid_effect in paid_effects:
+                        if paid_effect.this.IsName("Mr. Hollywood"):
+                            continue
+                        for pay_info in payment.payments:
+                            if paid_effect in pay_info:
+                                other_resources += Resources.FromText(pay_info[paid_effect])
+                                break
+                    if not other_resources.IsMatchCost(need_cost):
+                        return False
+
                 effect.context.paid_this_resources = player.SpendResource(effect, paid_effects, payment)
                 player.res_pool.Reset()
                 return effect.context.paid_this_resources.IsMatchCost(need_cost)
@@ -370,4 +385,3 @@ class EffectChecker:
 
         self.failures.Set(asked_player, EffectFailure.OK)
         return True
-
