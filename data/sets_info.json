@@ -391,6 +391,13 @@
         "encounters": ["mighty_avengers", "the_initiative", "maria_hill", "dangerous_recruits", "cape_killer", "martial_law", "heroes_for_hire", "paladin", "new_avengers", "secret_avengers", "namor", "atlanteans", "spider_man", "defenders", "hells_kitchen", "cloak_dagger"],
         "max_id": "56214"
     },
+    "57. Synthezoid Smackdown": {
+        "name": "synthezoid",
+        "scenarios": ["she_hulk", "vision"],
+        "heroes": [],
+        "encounters": ["shield_ops", "thunderbolts", "taskmaster", "deadly_duo", "young_avengers", "scarlet_twins", "moon_knight", "royal_guard"],
+        "max_id": "57073"
+    },
     "58. Wonder Man": {
         "name": "wonder_man",
         "scenarios": [],
@@ -444,5 +451,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "2f9e92001a01a6320862d2abbf68e54700a6bcaf60a1559f95a09cfb6ad07ecc"
+    "checksum": "2ab2a9599ea16aa95decc22530b378ffdb894d32764601cff612f52ef5468c97"
 }
