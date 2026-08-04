@@ -9,7 +9,8 @@ def GetAbilities() -> Sequence['Ability']:
         if face and HasCost.IsType(face):
             value = face.printed_cost.val
             Faces.DiscardAll([face], effect)
-            this.PlaceThreatOnSchemes("MainScheme", value, effect)
+            if not this.PlaceThreatOnSchemes("MainScheme", value, effect):
+                ThisCardGainSurge(effect)
         else:
             ThisCardGainSurge(effect)
     return [AbilityFactory.WhenThisRevealed(None, revealed)]

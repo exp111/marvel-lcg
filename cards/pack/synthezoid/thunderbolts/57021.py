@@ -6,7 +6,7 @@ def GetAbilities() -> Sequence['Ability']:
             "AnyPlayer",
             "This",
             conditions=[lambda effect, message: bool(Worlds.GetOnFieldEnemies(
-                effect, CardFinder(card_type=Minion, set_name="Thunderbolts")
+                effect, CardFinder(card_type=Minion, trait="THUNDERBOLT")
             ))],
         )
     ]

@@ -7,5 +7,5 @@ def GetAbilities() -> Sequence['Ability']:
         ),
         *AbilityFactory.GiveKeywordToAttached(Enemy, attack=1),
         AbilityFactory.UnitAttackGainKeyword("Attached", piercing=True),
-        AbilityFactory.PlayerActionToDiscardThis(AbilityType.HeroAction).SetCost(Cost("YR")),
+        AbilityFactory.PlayerActionToDiscardThis(AbilityType.HeroAction).SetCost(Cost("BR")),
     ]

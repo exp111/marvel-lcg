@@ -6,4 +6,11 @@ def GetAbilities() -> Sequence['Ability']:
         if leader:
             Faces.GiveStatus([leader], "Tough", effect)
             Faces.GiveFacedownBoostCards([leader], 1, effect)
-    return [AbilityFactory.WhenThisRevealed(None, revealed)]
+
+    def boost(effect: 'Effect', message: 'Message.WhenCardBecomeBoost') -> None:
+        message.GiveActivatingEnemyAdditionalBoostCard(1, effect)
+
+    return [
+        AbilityFactory.WhenThisRevealed(None, revealed),
+        AbilityFactory.WhenCardBecomeBoost("This", boost),
+    ]

@@ -24,7 +24,7 @@ def GetAbilities() -> Sequence['Ability']:
 
     return [
         AbilityFactory.WhenUnitDefendAgainstAttack(
-            AbilityType.Interrupt,
+            AbilityType.HeroInterrupt,
             "YourHero",
             disarming_defense,
         ).SetPlay().SetLabel('defense'),

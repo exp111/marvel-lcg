@@ -8,4 +8,11 @@ def GetAbilities() -> Sequence['Ability']:
             Faces.DiscardAll([face], effect)
         else:
             ThisCardGainSurge(effect)
-    return [AbilityFactory.WhenThisRevealed(None, revealed)]
+
+    def boost(effect: 'Effect', message: 'Message.WhenCardBecomeBoost') -> None:
+        message.GetToPlayer().DiscardControlCards(effect, upgrade=True)
+
+    return [
+        AbilityFactory.WhenThisRevealed(None, revealed),
+        AbilityFactory.WhenCardBecomeBoost("This", boost),
+    ]

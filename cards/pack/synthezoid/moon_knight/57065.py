@@ -5,4 +5,4 @@ def GetAbilities() -> Sequence['Ability']:
         face = Worlds.GetEncounterDiscardPile(effect).FindTopmost(CardFinder(card_type=Treachery))
         if face:
             face.ResolveAbility(message.GetToPlayer(), AbilityType.WhenRevealed, effect)
-    return [AbilityFactory.WhenThisRevealed(None, revealed).LimitOncePerRound()]
+    return [AbilityFactory.WhenThisRevealed(None, revealed)]

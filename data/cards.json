@@ -60320,7 +60320,8 @@
             "name": "Spellcasting",
             "subtitle": "",
             "desc": {
-                "Boost": "1"
+                "Boost": "1",
+                "GiveTo": ""
             },
             "traits": [],
             "set_name": "Scarlet Twins",
@@ -60454,7 +60455,8 @@
             "name": "Blood Debt",
             "subtitle": "",
             "desc": {
-                "Boost": "1"
+                "Boost": "1",
+                "GiveTo": ""
             },
             "traits": [],
             "set_name": "Royal Guard",
@@ -60895,7 +60897,8 @@
             "name": "Pacifism",
             "subtitle": "",
             "desc": {
-                "Boost": "2"
+                "Boost": "2",
+                "GiveTo": "Simon Williams"
             },
             "traits": [],
             "set_name": "Wonder Man",
@@ -61096,7 +61099,7 @@
             "type": "Obligation",
             "name": "Protect Humanity",
             "subtitle": "",
-            "desc": {"Uses": "3,labor", "Victory": "0"},
+            "desc": {"Uses": "3,labor", "Victory": "0", "GiveTo": ""},
             "traits": ["LABOR"],
             "set_name": "Hercules",
             "text": "Uses (3 labor counters). Victory 0.\n<b>When Revealed</b>: Find Amadeus Cho and put him into play.\n<b>Forced Interrupt</b>: When the villain would attack Hercules, choose 1 of your allies. The villain attacks that ally instead. After that attack resolves, if Hercules defended, remove 1 labor counter from here."
@@ -61379,5 +61382,5 @@
         {"card_id": "59033", "full_link": "01092"},
         {"card_id": "59034", "full_link": "08023"}
     ],
-    "checksum": "58df0ab153b878f1c3a153e8592c3d46d7125346f29a85f8d82d00776186d19a"
+    "checksum": "23040552525a9d709639ba1f32ae4428c5e4132fcdabad009a9b434c17be32cf"
 }

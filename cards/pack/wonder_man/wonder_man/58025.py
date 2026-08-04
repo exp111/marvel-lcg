@@ -19,7 +19,7 @@ def GetAbilities() -> Sequence['Ability']:
 
     return [
         *AbilityFactory.UnitCannotAttackTarget(
-            CardFinder(name="Wonder Man"),
+            "AttachedIdentity",
             cannot_attack=True,
             cannot_trigger_attack_ability=True,
         ),
@@ -36,4 +36,3 @@ def GetAbilities() -> Sequence['Ability']:
             ],
         ),
     ]
-

@@ -15,9 +15,15 @@ def GetAbilities() -> Sequence['Ability']:
             ),
         )
         if scheme:
-            printed = scheme.paper.desc.get("StartingThreat", "0")
-            one_player_threat = int(eval(printed.replace("*", "*1"), {}, {}))
-            scheme.SetTokens(one_player_threat, "threat", effect)
+            def one_player_value(key: str) -> int:
+                printed = scheme.paper.desc.get(key, "0")
+                return int(printed[:-1]) if printed.endswith("*") else int(printed)
+
+            scheme.SetTokens(
+                one_player_value("StartingThreat") + one_player_value("Hinder"),
+                "threat",
+                effect,
+            )
             this.AttachTo2(scheme, effect)
             this.PlaceThreatOnSchemes([scheme], 6, effect)
 

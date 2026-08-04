@@ -1,6 +1,16 @@
 from . import *
 
 def GetAbilities() -> Sequence['Ability']:
-    def revealed(effect: 'Effect', message: 'Message.WhenCardRevealed') -> None:
-        Faces.GiveStatus([message.GetToPlayer().GetIdentity()], "Stunned", effect)
-    return [AbilityFactory.WhenThisRevealed(None, revealed)]
+    def defeated(effect: 'Effect', message: 'Message.WhenSchemeBeDefeated') -> None:
+        identity = message.GetDefeatingPlayer().GetIdentity()
+        if not Faces.GiveStatus([identity], "Confused", effect):
+            Faces.GiveStatus([identity], "Stunned", effect)
+
+    return [
+        AbilityFactory.WhenSchemeBeDefeated(
+            AbilityType.WhenDefeated,
+            "This",
+            defeated,
+            has_defeating_player=True,
+        )
+    ]

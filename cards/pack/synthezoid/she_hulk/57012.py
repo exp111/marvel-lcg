@@ -1,7 +1,7 @@
 from . import *
 
 def GetAbilities() -> Sequence['Ability']:
-    def remove_threat(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> None:
+    def remove_threat(effect: 'Effect', message: 'Message.AfterUnitChangeForm') -> None:
         this = effect.this.CastTo(EncounterSideScheme)
         this.RemoveThreatFromSchemes([this], 3, effect)
     return [
@@ -10,7 +10,10 @@ def GetAbilities() -> Sequence['Ability']:
             "This",
             conditions=[lambda effect, message: Hero.IsType(message.by_effect.this) or Ally.IsType(message.by_effect.this)],
         ),
-        AbilityFactory.WhenInYourPlayTurn(
-            AbilityType.AlterEgoAction, remove_threat
+        AbilityFactory.AfterUnitChangeForm(
+            AbilityType.AlterEgoResponse,
+            "You",
+            remove_threat,
+            to_form=AlterEgo,
         ).SetCostFunc(CostFunc.Exhaust("YourIdentity")),
     ]

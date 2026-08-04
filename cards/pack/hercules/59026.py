@@ -12,7 +12,6 @@ def GetAbilities() -> Sequence['Ability']:
             include_discard_pile=True,
             card_type=Upgrade,
             card_class="IdentitySpecific",
-            may=True,
         )
         if upgrade:
             Faces.MoveAllTo([upgrade], player.hand_cards, effect)

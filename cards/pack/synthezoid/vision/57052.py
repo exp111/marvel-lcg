@@ -10,8 +10,10 @@ def GetAbilities() -> Sequence['Ability']:
         if not leader:
             return
         forms = leader.GetAttachedAttachments()
-        if CardFinder(name="Dense").Checks(forms):
-            effect.this.DealDamage([player.GetIdentity()], 2, effect)
-        elif CardFinder(name="Intangible").Checks(forms):
-            forms[0].card.Flip(effect)
+        dense = CardFinder(name="Dense").Checks(forms)
+        intangible = CardFinder(name="Intangible").Checks(forms)
+        if target and dense:
+            effect.this.DealDamage([target], 2, effect)
+        elif intangible:
+            intangible[0].card.Flip(effect)
     return [AbilityFactory.WhenThisRevealed(None, revealed)]

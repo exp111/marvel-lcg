@@ -11,5 +11,5 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.WhenUnitWouldTakeDamage(
             AbilityType.ForcedInterrupt, "AttachedCharacter", shield
         ),
-        AbilityFactory.PlayerActionToDiscardThis(AbilityType.HeroAction).SetCost(Cost("YR")),
+        AbilityFactory.PlayerActionToDiscardThis(AbilityType.HeroAction).SetCost(Cost("BR")),
     ]
