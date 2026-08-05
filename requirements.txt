@@ -1,5 +1,4 @@
 packaging
-PIL
 Pillow
 requests
 aiohttp

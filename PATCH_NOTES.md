@@ -20,6 +20,7 @@ These notes compare the final community release with the original upstream relea
 - Retained selection support for **The Rise of Red Skull** and **Sinister Motives** alongside the six newly implemented campaign flows.
 - Added campaign-log card previews with a fixed, readable tooltip size and position.
 - Added campaign-specific setup screens, scenario progression, persistent rewards and penalties, campaign pools, and scenario-dependent setup instructions.
+- Added persistent remaining-hit-point setup fields for each selected player. Recorded values can be used in standard or expert campaigns; Age of Apocalypse retains its matching option to place 3 threat on the mission and heal to full whenever this feature is used.
 - Added Mutant Genesis role and reward content for **Brawler**, **Commander**, **Defender**, and **Peacekeeper**, plus campaign player side schemes and the complete Magneto campaign-card behavior, including flipped permanents and attachments.
 - Added the NeXt Evolution campaign player side schemes and their scenario-specific setup and persistence rules.
 - Added Age of Apocalypse campaign missions, mission allies, overseers, resource matching, mission attempts, campaign setup choices, and campaign upgrades.
