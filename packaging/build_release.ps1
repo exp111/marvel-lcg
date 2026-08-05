@@ -73,6 +73,16 @@ foreach ($relativePath in $requiredPaths) {
     }
 }
 
+$expectedUiVersion = "$applicationVersion" + "r"
+$marvelHtml = Get-Content -Raw (Join-Path $projectRoot "public\marvel.html")
+$staleUiVersions = [regex]::Matches($marvelHtml, '[?&]v=([^"''&]+)') |
+    ForEach-Object { $_.Groups[1].Value } |
+    Where-Object { $_ -ne $expectedUiVersion } |
+    Sort-Object -Unique
+if ($staleUiVersions) {
+    throw "public\marvel.html contains stale UI cache version(s): $($staleUiVersions -join ', '). Expected $expectedUiVersion."
+}
+
 $python = Join-Path $projectRoot ".venv\Scripts\python.exe"
 $pyinstaller = Join-Path $projectRoot ".venv\Scripts\pyinstaller.exe"
 if (-not (Test-Path -LiteralPath $python)) {
