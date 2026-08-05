@@ -147,7 +147,18 @@
     <button id='btn-ok' class="button ok" onclick="Button.doBtnOk()" disabled>OK</button>
 
     <div id="right-side-bar" class="side-bar">
-        <input type="range" min="0" max=".4" value=".2" step="0.05" class="slider" id="anime-time">
+        <button type="button" id="right-side-bar-handle" aria-controls="interaction-speed-control" aria-expanded="false">Speed</button>
+        <div id="interaction-speed-control">
+            <label for="anime-time">
+                <span>Card speed</span>
+                <output id="anime-speed-value" for="anime-time">1&times;</output>
+            </label>
+            <input type="range" min=".25" max="2" value="1" step=".25" class="slider" id="anime-time">
+            <div class="speed-scale" aria-hidden="true">
+                <span>Slower</span>
+                <span>Faster</span>
+            </div>
+        </div>
         <input type="range" min="100" max="1500" value="600" class="slider hide" id="delay-range">
         <input type="range" min="-5" max="5" value=".5" step="0.1" class="slider hide" id="hand-card-margin">
         <input type="range" min="-5" max="5" value=".5" step="0.1" class="slider hide" id="hand-card-margin-bottom">

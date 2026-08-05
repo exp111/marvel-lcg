@@ -16,10 +16,66 @@
     transition: .15s linear left;
 }
 #right-side-bar {
-    --width: calc(4 * var(--font-size-out));
+    --width: calc(12 * var(--font-size-out));
     right: calc(-1 * var(--width) + 4px);
     bottom: 0;
     transition: .15s linear right;
+}
+
+#right-side-bar-handle {
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    width: auto;
+    padding: 6px 8px;
+    border: 1px solid #777;
+    border-right: 0;
+    border-radius: 6px 0 0 6px;
+    background: rgba(25, 25, 25, .94);
+    color: white;
+    font-family: monospace;
+    font-size: var(--font-size-out);
+    cursor: pointer;
+}
+
+#right-side-bar.open {
+    right: 0;
+}
+
+#interaction-speed-control {
+    padding: 8px 10px;
+    border: 1px solid #777;
+    border-radius: 6px 0 0 6px;
+    background: rgba(25, 25, 25, .94);
+    color: white;
+    font-family: monospace;
+}
+
+#interaction-speed-control label,
+#interaction-speed-control .speed-scale {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#interaction-speed-control label {
+    margin-bottom: 6px;
+}
+
+#interaction-speed-control output {
+    color: #73c9ff;
+    font-weight: bold;
+}
+
+#interaction-speed-control input {
+    width: 100%;
+    cursor: pointer;
+}
+
+#interaction-speed-control .speed-scale {
+    margin-top: 2px;
+    color: #bbb;
+    font-size: 12px;
 }
 
 .side-bar > * {
@@ -57,7 +113,8 @@
     align-content: center;
 }
 #right-side-bar > .button {
-    /* padding-left: 5px; */
+    width: calc(4 * var(--font-size-out));
+    justify-self: end;
     justify-content: center;
     align-content: center;
 }
@@ -126,4 +183,3 @@
         background-position: -50px -50px;
     }
 }
-

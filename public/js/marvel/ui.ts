@@ -252,7 +252,10 @@ export class UI {
     private static hand_card_margin_div         = document.getElementById("hand-card-margin") as HTMLTextAreaElement;
     private static hand_card_total_deg          = document.getElementById("hand-card-total-deg") as HTMLTextAreaElement;
     private static hand_card_margin_bottom_div  = document.getElementById("hand-card-margin-bottom") as HTMLTextAreaElement;
-    private static anime_time_div               = document.getElementById("anime-time") as HTMLTextAreaElement;
+    private static anime_speed_div              = document.getElementById("anime-time") as HTMLInputElement;
+    private static anime_speed_value_div        = document.getElementById("anime-speed-value") as HTMLOutputElement;
+    private static speed_drawer_div             = document.getElementById("right-side-bar") as HTMLElement;
+    private static speed_drawer_handle          = document.getElementById("right-side-bar-handle") as HTMLButtonElement;
     private static phase_div                    = document.querySelector('#phase') as HTMLElement
     private static current_div = document.querySelector("#current-round") as HTMLInputElement
 
@@ -348,7 +351,17 @@ export class UI {
         UI.delay_time = Number(UI.slider_div.value)
         UI.slider_div.oninput = UI.resetDelayTime
 
-        UI.anime_time_div.oninput = UI.updateAnimeTime
+        const saved_speed = parseFloat(Lib.cookie.getBtnString("card_interaction_speed"))
+        if( Number.isFinite(saved_speed) ) {
+            const min_speed = parseFloat(UI.anime_speed_div.min)
+            const max_speed = parseFloat(UI.anime_speed_div.max)
+            UI.anime_speed_div.value = Math.min(max_speed, Math.max(min_speed, saved_speed)).toString()
+        }
+        UI.anime_speed_div.oninput = UI.updateAnimeTime
+        UI.speed_drawer_handle.onclick = () => {
+            const is_open = UI.speed_drawer_div.classList.toggle("open")
+            UI.speed_drawer_handle.setAttribute("aria-expanded", is_open.toString())
+        }
 
         UI.updateAnimeTime()
 
@@ -462,11 +475,14 @@ export class UI {
     }
 
     static updateAnimeTime() {
+        const speed = parseFloat(UI.anime_speed_div.value) || 1
         if( UI.hold_ctrl ) {
             UI.anime_time = .01
         } else {
-            UI.anime_time = parseFloat(UI.anime_time_div.value)
+            UI.anime_time = .2 / speed
         }
+        UI.anime_speed_value_div.value = `${speed.toFixed(2).replace(/\.00$/, '').replace(/0$/, '')}×`
+        Lib.cookie.setBtnString("card_interaction_speed", speed.toString())
         UI.anime_move_time = UI.anime_time * 1.5
         UI.anime_shuffle_time = UI.anime_time * 4
         UI.anime_time_card = UI.anime_time * 4
@@ -479,7 +495,7 @@ export class UI {
         UI.delay_time = Number(UI.slider_div.value);
     }
     static getDelayTime() {
-        let value = parseFloat(UI.anime_time_div.value) * 2000 + 100
+        let value = UI.anime_time * 2000 + 100
         return value
     }
     static addDelayTime(time: number) {
