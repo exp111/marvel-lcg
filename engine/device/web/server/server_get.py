@@ -21,7 +21,10 @@ PUZZLE_TEST_FOLDER      = ConfigVariables.Folder('puzzle_test_folder')
 class GameServerGet(GameServerBase):
 
     def ListFile(self, *folders: str, ext: str|None=None) -> web.Response:
-        return web.json_response(FileManager.ListFiles(*folders, ext=ext))
+        return web.json_response(
+            FileManager.ListFiles(*folders, ext=ext),
+            headers=self.HeaderCache,
+        )
 
     async def list_file(self, request: web.Request) -> web.Response:
         return self.ListFile(request.path)
@@ -111,7 +114,7 @@ class GameServerGet(GameServerBase):
 
     async def get_sets_custom_scenario(self, request: web.Request) -> web.Response:
         files = FileManager.ListFiles(CUSTOM_SCENARIOS_FOLDER.value, ".json")
-        return web.json_response(files)
+        return web.json_response(files, headers=self.HeaderCache)
 
     async def get_cards_json(self, request: web.Request) -> web.Response:
         return self.ReadJsonFile(CARDS_JSON_FILE.value)
@@ -195,4 +198,3 @@ class GameServerGet(GameServerBase):
         self.AddAwaitGetSecurity('/get_replay_json', self.get_replay_json)
 
         self.AddAwaitGetSecurity('/get_gamers', self.get_gamers)
-

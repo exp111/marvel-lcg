@@ -358,6 +358,15 @@ let sets_json = {}
 
 var last_current_package = ""
 
+/**
+ * Setup metadata changes between application builds. Always revalidate these
+ * requests so an older browser cache cannot hide newly added scenarios, heroes,
+ * or encounter sets after the user updates the game.
+ */
+function fetchFresh(resource, options = {}) {
+    return fetch(resource, { ...options, cache: 'no-store' })
+}
+
 /** @param {string} path */
 function getFileName(path) {
     // return path.split('/').pop();
@@ -367,7 +376,7 @@ function getFileName(path) {
 }
 
 async function createScenarios() {
-    const response_set = await fetch(`get_sets_json?`);
+    const response_set = await fetchFresh(`get_sets_json?`);
     if (!response_set.ok) {
         throw new Error('Network response was not ok: ' + response_set.statusText);
     }
@@ -375,7 +384,7 @@ async function createScenarios() {
     for( let key in set_raw_json ) {
         sets_json[key] = new SetInfo(set_raw_json[key])
     }
-    const response_custom = await fetch(`get_sets_custom_scenario?`);
+    const response_custom = await fetchFresh(`get_sets_custom_scenario?`);
     if (!response_custom.ok) {
         throw new Error('Network response was not ok: ' + response_set.statusText);
     }
@@ -389,7 +398,7 @@ async function createScenarios() {
         encounters: []
     })
 
-    const response = await fetch(`list_scenarios?`);
+    const response = await fetchFresh(`list_scenarios?`);
     if (!response.ok) {
         throw new Error('Network response was not ok: ' + response.statusText);
     }
@@ -562,7 +571,7 @@ async function createScenarios() {
 <script>
 
 async function createSets() {
-    const response = await fetch(`list_encounter_sets?`);
+    const response = await fetchFresh(`list_encounter_sets?`);
     if (!response.ok) {
         throw new Error('Network response was not ok: ' + response.statusText);
     }
@@ -579,7 +588,7 @@ async function createSets() {
     var modular_select = document.querySelector("#modular-sets");
 
     async function createButtons(text, nemesis=false) {
-        const response = await fetch(`get_encounter_set_json?${text}`);
+        const response = await fetchFresh(`get_encounter_set_json?${text}`);
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
@@ -1424,7 +1433,7 @@ p:has(#timeout_text) {
 
         <script>
             (async () => {
-                const response_rate = await fetch(`get_completion_rate?`);
+                const response_rate = await fetchFresh(`get_completion_rate?`);
                     if (!response_rate.ok) {
                         throw new Error('Network response was not ok: ' + response_rate.statusText);
                     }
@@ -1679,7 +1688,7 @@ p:has(#timeout_text) {
 
         async function OpenToLAN() {
             const port = window.location.port;
-            const response = await fetch(`new_game_lan?port=${port}`);
+            const response = await fetchFresh(`new_game_lan?port=${port}`);
             const data = await response.text()
             currentHost = data
             doCreateNewGame()
@@ -1923,7 +1932,7 @@ p:has(#timeout_text) {
 
         async function getScenario(name) {
             if( name ) {
-                const response = await fetch(`get_scenario_json?${name}`);
+                const response = await fetchFresh(`get_scenario_json?${name}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok: ' + response.statusText);
                 }
@@ -1955,7 +1964,7 @@ p:has(#timeout_text) {
 
 <script>
     (async () => {
-        const response_get_gamers = await fetch(`get_gamers?`);
+        const response_get_gamers = await fetchFresh(`get_gamers?`);
         const num = parseInt(await response_get_gamers.text())
         enableFirstJoinButtons(num)
     })();

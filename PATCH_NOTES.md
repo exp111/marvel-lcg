@@ -1,6 +1,6 @@
 # Release 1.0 patch set
 
-Application version: **1.0.0.0r**
+Application version: **1.0.0.1r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
@@ -12,6 +12,7 @@ These notes compare the final community release with the original upstream relea
 - Added the **Wonder Man** and **Hercules** hero expansions, including starter decks, hero cards, obligations, and nemesis content.
 - Added the **Synthezoid Smackdown** cooperative content, including She-Hulk and Vision scenarios and eight modular encounter sets.
 - Added an adjustable card-interaction speed setting that changes presentation timing without changing game-state resolution.
+- Incremented the application build and disabled browser caching for scene-setup metadata so updated scenarios, heroes, and encounter sets appear after installing a new release.
 - Corrected fixed-total threat and damage selection, attached-identity restrictions, and several card scripts present in the original release.
 
 ## Campaign support
