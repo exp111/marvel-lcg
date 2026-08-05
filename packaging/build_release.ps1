@@ -40,11 +40,17 @@ function Get-ProjectVersion {
     return $parts -join "."
 }
 
+$applicationVersion = Get-ProjectVersion
 if (-not $Version) {
-    $Version = Get-ProjectVersion
+    if ($applicationVersion -match '^(\d+\.\d+\.\d+)\.0$') {
+        $Version = $Matches[1]
+    }
+    else {
+        $Version = $applicationVersion
+    }
 }
-if ($Version -notmatch '^\d+\.\d+\.\d+\.\d+$') {
-    throw "Version must use the application's four-part format, for example 0.5.9.202."
+if ($Version -notmatch '^\d+\.\d+\.\d+(\.\d+)?$') {
+    throw "Release version must use three or four numeric parts, for example 1.0.0 or 0.5.9.202."
 }
 
 $requiredPaths = @(
@@ -81,12 +87,12 @@ if (-not $typescript) {
 }
 
 if ($PreflightOnly) {
-    Write-Host "Release preflight passed for Marvel LCG $Version."
+    Write-Host "Release preflight passed for Marvel LCG $Version (application $applicationVersion)."
     Write-Host "Downloaded assets/cache and optional assets/pics are excluded by the staging manifest."
     exit 0
 }
 
-$stageRoot = Join-Path $workRoot "marvel-lcg-$Version"
+$stageRoot = Join-Path $workRoot "marvel-lcg-v$Version"
 $binaryRoot = Join-Path $workRoot "binary"
 $pyinstallerWork = Join-Path $workRoot "pyinstaller"
 foreach ($path in @($stageRoot, $binaryRoot, $pyinstallerWork)) {
@@ -161,7 +167,8 @@ if ($LASTEXITCODE -ne 0) {
 }
 $manifest = @"
 Marvel LCG Digital community build
-Version: $Version
+Release version: $Version
+Application version: $applicationVersion
 Source commit: $commit
 
 Included assets: sounds and interface textures
@@ -170,7 +177,7 @@ Card artwork is retrieved using the image servers configured in launch.json.
 "@
 Set-Content -LiteralPath (Join-Path $stageRoot "RELEASE-MANIFEST.txt") -Value $manifest -Encoding UTF8
 
-$archive = Join-Path $artifactRoot "marvel-lcg-$Version-windows.zip"
+$archive = Join-Path $artifactRoot "marvel-lcg-v$Version-windows.zip"
 $checksum = "$archive.sha256"
 foreach ($path in @($archive, $checksum)) {
     if (Test-Path -LiteralPath $path) {

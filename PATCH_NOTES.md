@@ -1,6 +1,6 @@
 # Release 1.0 patch set
 
-Application version: **0.5.9.202r**
+Application version: **1.0.0.0r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
