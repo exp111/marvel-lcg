@@ -1,10 +1,17 @@
 # Release 1.0 patch set
 
-Application version: **1.0.0.1r**
+Application version: **1.0.0.2r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
 These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
+
+## v1.0.0.2 hotfix
+
+- Fixed Hercules's Atonement continuation, identity readiness, optional form change, and Protect Humanity ally selection during villain attacks.
+- Restored shared player setup handling so printed Permanent cards begin in play before the player deck is shuffled and printed Setup cards resolve their setup instructions after entering play.
+- Fixed Wonder Man's Ionic Physiology starting in the player deck instead of in play.
+- Fixed Energy Siphon's invalid resource ability registration in development builds.
 
 ## Highlights
 

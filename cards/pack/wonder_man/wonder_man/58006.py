@@ -14,7 +14,7 @@ def GetAbilities() -> Sequence['Ability']:
 
     return [
         AbilityFactory.DoDiscardThisToGenerateResources(
-            AbilityType.HeroInterrupt,
+            AbilityType.DiscardForResource,
             res_fn=generated_resources,
         ).SetCostFunc(CostFunc.TakeDamageUpToHealth("YourIdentity", min_damage=0, max_damage=3)),
         AbilityFactory.CheckThisCanDropPay(

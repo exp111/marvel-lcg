@@ -12,6 +12,18 @@ class PlayerSetup:
     def __init__(self, player: 'Player') -> None:
         self.player = player
 
+    @staticmethod
+    def PutPermanentCardsIntoPlay(
+        cards: Sequence['Card'],
+        player: 'Player',
+        by_effect: 'Effect',
+    ) -> None:
+        """Keep printed permanent player cards out of the shuffled deck."""
+        for card in cards:
+            face = card.face
+            if HasPermanent.IsType(face) and face.printed_permanent:
+                face.PutIntoPlay(player, by_effect)
+
     def SetupPlayerAbility(self, hero: 'CardFace'):
         from game.message import Message
         player = self.player
@@ -234,7 +246,12 @@ class PlayerSetup:
             player_hero_deck = list(player_deck) + list(hero_deck)
         else:
             player_hero_deck = list(hero_deck) + list(player_deck)
-        CardFactory.GenerateCards(player_hero_deck, player.player_deck, player.world)
+        generated_cards = CardFactory.GenerateCards(
+            player_hero_deck,
+            player.player_deck,
+            player.world,
+        )
+        self.PutPermanentCardsIntoPlay(generated_cards, player, rule)
 
         player.stat.ResetPlayedRevealedCards()
         player.flag.Reset()

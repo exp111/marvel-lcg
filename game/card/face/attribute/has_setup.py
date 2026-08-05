@@ -15,5 +15,5 @@ class HasSetup(HasAttribute):
             player = self.GetControlByOrOwner()
             if not Player.IsType(player):
                 player = Worlds.GetFirstPlayer(by_effect)
-            self.PutIntoPlay(player, by_effect)
-
+            if self.PutIntoPlay(player, by_effect):
+                self.Setup(False)
