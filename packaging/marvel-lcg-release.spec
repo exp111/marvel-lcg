@@ -19,6 +19,7 @@ def python_modules_under(folder: Path) -> list[str]:
 # Card abilities are imported dynamically from card IDs. PyInstaller cannot
 # discover those imports from the static import graph.
 card_hiddenimports = python_modules_under(project_root / "cards")
+release_hiddenimports = ["numpy", *card_hiddenimports]
 
 
 a = Analysis(
@@ -26,7 +27,7 @@ a = Analysis(
     pathex=[str(project_root)],
     binaries=[],
     datas=[],
-    hiddenimports=card_hiddenimports,
+    hiddenimports=release_hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

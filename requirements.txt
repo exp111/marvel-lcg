@@ -1,5 +1,6 @@
 packaging
 Pillow
+numpy==2.5.1
 requests
 aiohttp
 typing_extensions
