@@ -4,7 +4,7 @@ Application version: **0.5.9.202r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
-These notes describe the final behavior in this community release. Superseded experiments and reverted implementations are intentionally omitted.
+These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
 
 ## Highlights
 
@@ -12,7 +12,7 @@ These notes describe the final behavior in this community release. Superseded ex
 - Added the **Wonder Man** and **Hercules** hero expansions, including starter decks, hero cards, obligations, and nemesis content.
 - Added the **Synthezoid Smackdown** cooperative content, including She-Hulk and Vision scenarios and eight modular encounter sets.
 - Added an adjustable card-interaction speed setting that changes presentation timing without changing game-state resolution.
-- Corrected campaign-card transitions, distributed threat and damage selection, attachment behavior, resource reductions, and numerous individual card scripts.
+- Corrected fixed-total threat and damage selection, attached-identity restrictions, and several card scripts present in the original release.
 
 ## Campaign support
 
@@ -20,12 +20,12 @@ These notes describe the final behavior in this community release. Superseded ex
 - Retained selection support for **The Rise of Red Skull** and **Sinister Motives** alongside the six newly implemented campaign flows.
 - Added campaign-log card previews with a fixed, readable tooltip size and position.
 - Added campaign-specific setup screens, scenario progression, persistent rewards and penalties, campaign pools, and scenario-dependent setup instructions.
-- Added Mutant Genesis role and reward content for **Brawler**, **Commander**, **Defender**, and **Peacekeeper**, plus the campaign player side schemes and Magneto campaign cards.
+- Added Mutant Genesis role and reward content for **Brawler**, **Commander**, **Defender**, and **Peacekeeper**, plus campaign player side schemes and the complete Magneto campaign-card behavior, including flipped permanents and attachments.
 - Added the NeXt Evolution campaign player side schemes and their scenario-specific setup and persistence rules.
-- Added Age of Apocalypse campaign missions, mission allies, overseers, mission attempts, campaign setup choices, and campaign upgrades.
-- Added Agents of S.H.I.E.L.D. campaign progression, evidence and Executive Board state, and scenario setup choices.
-- Added Galaxy's Most Wanted credits, market purchases, ship upgrades, and scenario progression.
-- Added The Mad Titan's Shadow campaign cards, scenario progression, and campaign state used across its five scenarios.
+- Added Age of Apocalypse campaign missions, mission allies, overseers, resource matching, mission attempts, campaign setup choices, and campaign upgrades.
+- Added Agents of S.H.I.E.L.D. campaign progression, evidence, Board Member attachment and loss conditions, Executive Board state, and scenario setup choices.
+- Added Galaxy's Most Wanted credits, market purchases and discards, ship upgrades, market-card abilities, and scenario progression.
+- Added The Mad Titan's Shadow campaign cards, flipped-permanent placement, scenario progression, and campaign state used across its five scenarios.
 
 ## Added content packs
 
@@ -50,47 +50,34 @@ These notes describe the final behavior in this community release. Superseded ex
 - Added mechanics for glory counters, side-scheme interaction, printed threat restoration, and Hercules-specific costs and responses.
 - Added the set image and card-database registration.
 
-## Gameplay and card corrections
+## Existing-release gameplay and card corrections
 
-### Campaign cards
-
-- **Magneto's Fortress / Magneto's Power:** flipping the side scheme now puts Magneto's Power into play attached to Magneto, so its SCH and ATK modifiers apply.
-- **Orbital Decay / Physical Strain:** Physical Strain now enters play attached to Magneto after the side scheme flips, allowing its Steady reduction to function.
-- Corrected flipped campaign permanents and player side schemes so their reverse faces enter the correct play area instead of remaining detached after a raw card flip.
-- Corrected Age of Apocalypse overseer name matching, multi-resource mission matches, player choice when more than one resource matches, Professor X checks, and mission reward values.
-- Corrected Agents of S.H.I.E.L.D. Board Member cards so they attach to the villain and the third attachment ends the game as required.
-- Corrected Galaxy's Most Wanted market purchases to discard purchased cards rather than remove them from the game, corrected **Close Call** to a Hero Interrupt, and prevented forced random-discard effects from prompting against an empty hand.
+- Corrected **Creative Solution** so a purchased market card is discarded rather than removed from the game.
+- Corrected **Close Call** to use Hero Interrupt timing.
+- Prevented **Badoon Headhunter** from prompting for a random discard when the affected player's hand is empty.
 - Corrected Sinister Motives S.H.I.E.L.D. Tech ownership and stat application, basic-thwart restrictions, the correct side of **Shock Knuckles** receiving its ATK bonus, and empty-hand handling for **Back Alley Burglary**.
-- Corrected **Improved Recovery Upgrade** so using its recovery bonus exhausts the upgrade.
-- Corrected campaign metadata, setup flags, unit costs, incite values, victory values, card wording, and the card-database checksum.
+- Corrected **Improved Recovery Upgrade** from The Rise of Red Skull so using its recovery bonus exhausts the upgrade.
+
+### Card data corrections
+
+- Added the printed one-per-enemy limit to **Concussive Blow**.
+- Corrected punctuation in **Defy Danger**.
+- Added the printed unit cost of 5 to **Onrush**.
+- Corrected **North American Sea Wall** to Victory 2.
+- Added Incite 1 to both resource sides of **A.I.M. Interference**.
+- Corrected the spelling of Aggression in **Authority**.
+- Regenerated the card-database checksum after the final data changes.
 
 ### Threat and damage distribution
 
 - Added an exact-up-to-available target range for effects that distribute a fixed total. Players must now allocate the full legal amount while still being allowed to resolve an effect when fewer valid threat or health points exist.
-- **Surprise!** now removes up to 3 total threat, distributed among schemes as chosen, and then confuses the villain.
-- Corrected distributed selection for **Heroic Intervention**, **Mentorship**, **Gunboat Diplomacy**, **Mutant Peacekeepers**, **Torrential Rain**, **Inconspicuous**, and **Giant Help**.
+- Corrected distributed selection for the original-release cards **Gunboat Diplomacy**, **Mutant Peacekeepers**, **Torrential Rain**, **Inconspicuous**, and **Giant Help**.
 - Corrected **Mutant Peacekeepers** so its final threat value is calculated after choosing and exhausting participating X-Men allies.
 - **Shadowcat** can now select a side scheme with zero threat when placing threat through her response.
-
-### Added-pack audit corrections
-
-- **Embody Pathos** now restores a side scheme's one-player starting threat plus its one-player hinder value before attaching.
-- **Ancient Rivalry** now performs its required identity-specific search rather than presenting it as optional.
-- Corrected **Jester's Yo-Yo** and **Mimicked Move** boost effects.
-- Corrected **Deadly Duo**, **Superpowered Siblings**, and **Just Passing Through** to resolve their defeated-side-scheme effects at the proper timing and against the defeating player.
-- Corrected **Superspeed** so its reveal and boost branches use the appropriate random or chosen discard behavior.
-- Corrected **Gamma Slam** to gain surge when its threat cannot be placed.
-- Corrected **Legal Practice** to respond after changing to alter-ego form and exhaust the identity as its cost.
-- Corrected Taskmaster's reveal activation, Sword and Shield resource costs, and the Thunderbolts trait check.
-- Implemented the missing **Solar Gem** and **Vision's Cape** attachment, response, form-flip, and boost behavior.
-- Corrected **Superdense Strike** and **Phase Disruption** to inspect and flip the correct Vision mass-form attachment and to affect the correct target.
-- Corrected **Disarming Defense** to use Hero Interrupt timing.
-- Corrected **Pacifism** so its attack restriction applies to the attached identity.
 
 ### Attack and condition interactions
 
 - Corrected attached-identity defense restrictions so they bind to the attached player instead of being interpreted as a card finder. This prevents attack windows from suppressing or breaking otherwise legal identity abilities, including Nightcrawler interactions.
-- Confirmed through regression coverage that shared play-cost reducers subtract from the actual play cost and that **Uncanny X-Men** applies only to its controller.
 
 ## Interface, hotseat, and loading improvements
 
@@ -117,7 +104,6 @@ These notes describe the final behavior in this community release. Superseded ex
 - Added regression tests for fixed-value distributed targeting, repeat-target maximum calculation, and low-availability target pools.
 - Added regression coverage for Shadowcat selecting a zero-threat side scheme.
 - Added regression tests for shared resource-cost reduction and Uncanny X-Men controller scoping.
-- Audited all retained campaign card scripts and the Synthezoid Smackdown, Wonder Man, and Hercules implementations against their final card text and engine conventions.
 
 ## Distribution changes
 
