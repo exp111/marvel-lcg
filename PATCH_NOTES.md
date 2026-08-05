@@ -50,6 +50,7 @@ These notes compare the final community release with the original upstream relea
 - Added Hercules's identity, hero kit, obligation-related content, and supporting player cards.
 - Added the Hercules starter deck.
 - Added mechanics for glory counters, side-scheme interaction, printed threat restoration, and Hercules-specific costs and responses.
+- Corrected Atonement so Hercules readies and receives the optional alter-ego form change after a Gift's enter-play response resolves.
 - Added the set image and card-database registration.
 
 ## Existing-release gameplay and card corrections
