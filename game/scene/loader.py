@@ -39,6 +39,11 @@ class LoaderHelper:
 class SceneLoader:
 
     @staticmethod
+    def MergeEncounterSets(required: Sequence[str], selected: Sequence[str]) -> List[str]:
+        """Keep scenario-required sets while accepting the player's modular choices."""
+        return list(dict.fromkeys([*required, *selected]))
+
+    @staticmethod
     def NewFromJson(campaign_json: str, encounter_set_names: List[str]|None, hero_jsons: List[str], seed: int, rules: List[str], campaign_log: Dict[str, str]) -> 'Scene':
         players: List[HeroDescriptor] = []
         for hero_text in hero_jsons:
@@ -50,7 +55,10 @@ class SceneLoader:
         campaign.UpdateVersion()
 
         if encounter_set_names != None:
-            campaign.encounter_sets = encounter_set_names[:]
+            campaign.encounter_sets = SceneLoader.MergeEncounterSets(
+                campaign.encounter_sets,
+                encounter_set_names,
+            )
         else:
             campaign.encounter_sets += campaign.modular_sets
 
@@ -88,4 +96,3 @@ class SceneLoader:
             return scene
         else:
             return None
-

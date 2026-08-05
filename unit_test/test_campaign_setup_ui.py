@@ -15,6 +15,13 @@ class TestCampaignSetupUI(unittest.TestCase):
         self.assertIn("SetHero(j, i)", html)
         self.assertGreaterEqual(html.count("updateCampaignPlayerRows()"), 3)
 
+    def test_required_encounter_set_buttons_cannot_be_deselected(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("if( div.classList.contains('lock') )", html)
+
 
 if __name__ == "__main__":
     unittest.main()

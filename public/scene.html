@@ -594,6 +594,9 @@ async function createSets() {
         div.setAttribute('data-display', `${j['encounters'][0]} ${text}`)
         div.appendChild(img)
         div.onclick = () => {
+            if( div.classList.contains('lock') ) {
+                return
+            }
             div.classList.toggle('click')
             for( let name of ['standard', 'expert'] ) {
                 if( div.classList.contains('click') && div.dataset.name.startsWith(name) ) {

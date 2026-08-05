@@ -58,6 +58,7 @@ These notes compare the final community release with the original upstream relea
 - Prevented **Badoon Headhunter** from prompting for a random discard when the affected player's hand is empty.
 - Corrected Sinister Motives S.H.I.E.L.D. Tech ownership and stat application, basic-thwart restrictions, the correct side of **Shock Knuckles** receiving its ATK bonus, and empty-hand handling for **Back Alley Burglary**.
 - Corrected **Improved Recovery Upgrade** from The Rise of Red Skull so using its recovery bonus exhausts the upgrade.
+- Corrected scenario creation so locked, mandatory encounter sets cannot be deselected in the setup interface and are restored server-side if omitted from the submitted selection.
 
 ### Card data corrections
 
