@@ -26,6 +26,10 @@ def GetAbilities() -> Sequence['Ability']:
 
         RunAt.AfterEventEnd(effect, attack_message, after_attack)
 
+    def you_control_an_ally(effect: 'Effect', message: 'Message.WhenUnitWouldAttackUnit') -> bool:
+        this = effect.this.CastTo(Obligation)
+        return bool(this.GetGaveToPlayer().GetControlAllies())
+
     return [
         AbilityFactory.WhenThisRevealed(None, protect_humanity_revealed),
         AbilityFactory.WhenUnitWouldAttackUnit(
@@ -33,9 +37,6 @@ def GetAbilities() -> Sequence['Ability']:
             Villain,
             CardFinder(name="Hercules", card_type=Hero),
             redirect_villain,
-            conditions=[
-                lambda effect, message:
-                    bool(effect.GetInitiator().GetControlAllies()),
-            ],
+            conditions=[you_control_an_ally],
         ).SetTarget(Ally, from_where=["YouControlCards"]),
     ]

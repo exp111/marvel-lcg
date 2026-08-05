@@ -51,6 +51,7 @@ These notes compare the final community release with the original upstream relea
 - Added the Hercules starter deck.
 - Added mechanics for glory counters, side-scheme interaction, printed threat restoration, and Hercules-specific costs and responses.
 - Corrected Atonement so Hercules readies and receives the optional alter-ego form change after a Gift's enter-play response resolves.
+- Corrected Protect Humanity so a villain attack checks the assigned player's allies and presents the required redirection target instead of treating the villain as the player.
 - Added the set image and card-database registration.
 
 ## Existing-release gameplay and card corrections
