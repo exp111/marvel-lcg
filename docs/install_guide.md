@@ -12,42 +12,65 @@ unless you intentionally need to migrate a setting. If a build older than
 `1.0.0.1r` was previously opened, clear the browser's site data for
 `127.0.0.1:2345` once if the interface still appears out of date.
 
-## 1. Install python
+## Running the development build on Windows
 
-https://www.python.org/ftp/python/
+### 1. Install the prerequisites
 
-We've tested in py 3.10.5 and py 3.14.2
+Install [Python](https://www.python.org/downloads/) and
+[Node.js](https://nodejs.org/en/download). Python 3.10 and Python 3.14 are
+supported; the current development build has been verified with Python 3.14.
 
-## 2. Install requirements
+### 2. Download the source
 
-```cmd
-pip install -r requirements.txt
+Clone the repository and enter its root folder:
+
+```powershell
+git clone https://github.com/sdolle1775/marvel-lcg.git
+cd marvel-lcg
 ```
 
-## 3. Download nodejs
+Alternatively, download the repository ZIP from GitHub, extract it into a new
+folder, and open PowerShell in that folder.
 
-https://nodejs.org/en/download
+### 3. Create the Python environment
 
-## 4. Install typescript
+Run these commands from the repository root:
 
+```powershell
+py -3.14 -m venv .venv
+& ".\.venv\Scripts\python.exe" -m pip install -r requirements.txt
 ```
-npm install -g typescript
+
+If Python 3.14 is not installed, replace `-3.14` with the version you installed.
+
+### 4. Compile the TypeScript client
+
+Install TypeScript and compile the browser client once:
+
+```powershell
+npm install --global typescript
+cmd /c tsc -p public\js\tsconfig.json
 ```
 
-## 5. Compile ts to js
+Using `cmd /c` avoids PowerShell execution-policy errors that can prevent the
+`tsc.ps1` wrapper from running. Contributors actively editing TypeScript can
+instead run `public\js\watch.bat` and leave that terminal open.
 
-Double click to run "\public\js\watch.bat"
+### 5. Start the game
 
-## 6. Card images
-
-The repository includes the small sounds and interface textures required to run the game. Standard card artwork is downloaded on demand from the image servers configured in `launch.json` and stored in `assets/cache`.
-
-For offline play, an optional image package can be placed in `assets/pics` or referenced through `image_folders` in `launch.json`.
-
-## 7. Start the game
-
-Run the game from the repository root so its relative data and asset paths resolve correctly:
+Run the game from the repository root so its relative data and asset paths
+resolve correctly:
 
 ```powershell
 & ".\.venv\Scripts\python.exe" ".\main.py"
 ```
+
+Open <http://127.0.0.1:2345/scene> if the setup page does not open
+automatically. Close any older running copy of the game first because port
+`2345` must be available.
+
+### 6. Card images
+
+The repository includes the small sounds and interface textures required to run the game. Standard card artwork is downloaded on demand from the image servers configured in `launch.json` and stored in `assets/cache`.
+
+For offline play, an optional image package can be placed in `assets/pics` or referenced through `image_folders` in `launch.json`.
