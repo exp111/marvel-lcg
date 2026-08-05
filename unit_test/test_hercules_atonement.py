@@ -11,7 +11,7 @@ class TestHerculesAtonement(unittest.TestCase):
     def test_ready_and_flip_continue_after_gift_enter_play_responses(self):
         module = import_module("cards.pack.hercules.hercules.59001a")
         ability = module.GetAbilities()[0]
-        identity = MagicMock()
+        identity = SimpleNamespace()
         player = SimpleNamespace(GetIdentity=MagicMock(return_value=identity))
         effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
         gift = MagicMock()
@@ -25,7 +25,10 @@ class TestHerculesAtonement(unittest.TestCase):
         ) as after_enter, patch.object(
             module,
             "YouMayFlipToYourAlterEgoForm",
-        ) as may_flip:
+        ) as may_flip, patch.object(
+            module.Faces,
+            "ReadyAll",
+        ) as ready_all:
             ability.operation(effect, SimpleNamespace())
 
             after_enter.assert_called_once()
@@ -34,19 +37,19 @@ class TestHerculesAtonement(unittest.TestCase):
                 effect,
                 under_control=True,
             )
-            identity.Ready.assert_not_called()
+            ready_all.assert_not_called()
             may_flip.assert_not_called()
 
             self.assertEqual(len(deferred), 1)
             deferred[0]()
 
-            identity.Ready.assert_called_once_with(effect)
+            ready_all.assert_called_once_with([identity], effect)
             may_flip.assert_called_once_with(player, effect)
 
     def test_ready_and_flip_still_resolve_when_gift_deck_is_empty(self):
         module = import_module("cards.pack.hercules.hercules.59001a")
         ability = module.GetAbilities()[0]
-        identity = MagicMock()
+        identity = SimpleNamespace()
         player = SimpleNamespace(GetIdentity=MagicMock(return_value=identity))
         effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
         deck = SimpleNamespace(GetTop=MagicMock(return_value=None))
@@ -54,10 +57,13 @@ class TestHerculesAtonement(unittest.TestCase):
         with patch.object(module, "GetGiftDeck", return_value=deck), patch.object(
             module,
             "YouMayFlipToYourAlterEgoForm",
-        ) as may_flip:
+        ) as may_flip, patch.object(
+            module.Faces,
+            "ReadyAll",
+        ) as ready_all:
             ability.operation(effect, SimpleNamespace())
 
-        identity.Ready.assert_called_once_with(effect)
+        ready_all.assert_called_once_with([identity], effect)
         may_flip.assert_called_once_with(player, effect)
 
 

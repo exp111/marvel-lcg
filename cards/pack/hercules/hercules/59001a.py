@@ -7,7 +7,7 @@ def GetAbilities() -> Sequence['Ability']:
         player = effect.GetInitiator()
 
         def finish_atonement() -> None:
-            player.GetIdentity().Ready(effect)
+            Faces.ReadyAll([player.GetIdentity()], effect)
             YouMayFlipToYourAlterEgoForm(player, effect)
 
         deck = GetGiftDeck(player)

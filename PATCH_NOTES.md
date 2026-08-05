@@ -50,8 +50,9 @@ These notes compare the final community release with the original upstream relea
 - Added Hercules's identity, hero kit, obligation-related content, and supporting player cards.
 - Added the Hercules starter deck.
 - Added mechanics for glory counters, side-scheme interaction, printed threat restoration, and Hercules-specific costs and responses.
-- Corrected Atonement so Hercules readies and receives the optional alter-ego form change after a Gift's enter-play response resolves.
+- Corrected Atonement so Hercules readies through the standard ready operation and receives the optional alter-ego form change after a Gift's enter-play response resolves.
 - Corrected Protect Humanity so a villain attack checks the assigned player's allies and presents the required redirection target instead of treating the villain as the player.
+- Corrected Son of Zeus so its Hercules and identity-specific upgrade ready effects use the supported ready operation.
 - Added the set image and card-database registration.
 
 ## Existing-release gameplay and card corrections
