@@ -1,0 +1,186 @@
+[CmdletBinding()]
+param(
+    [string]$Version,
+    [string]$OutputDirectory,
+    [switch]$PreflightOnly
+)
+
+$ErrorActionPreference = "Stop"
+Set-StrictMode -Version Latest
+
+$projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+if (-not $OutputDirectory) {
+    $OutputDirectory = Join-Path $projectRoot "release-artifacts"
+}
+$artifactRoot = [System.IO.Path]::GetFullPath($OutputDirectory)
+$workRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".work"))
+
+function Assert-ChildPath {
+    param(
+        [Parameter(Mandatory)][string]$Parent,
+        [Parameter(Mandatory)][string]$Child
+    )
+
+    $parentPath = [System.IO.Path]::GetFullPath($Parent).TrimEnd('\') + '\'
+    $childPath = [System.IO.Path]::GetFullPath($Child)
+    if (-not $childPath.StartsWith($parentPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Refusing to modify path outside '$Parent': $Child"
+    }
+}
+
+function Get-ProjectVersion {
+    $buildText = Get-Content -Raw (Join-Path $projectRoot "build.py")
+    $parts = foreach ($name in @("MAJOR", "MINOR", "PATCH", "BUILD")) {
+        $match = [regex]::Match($buildText, "(?m)^\s*$name\s*=\s*(\d+)\s*$")
+        if (-not $match.Success) {
+            throw "Could not read $name from build.py"
+        }
+        $match.Groups[1].Value
+    }
+    return $parts -join "."
+}
+
+if (-not $Version) {
+    $Version = Get-ProjectVersion
+}
+if ($Version -notmatch '^\d+\.\d+\.\d+\.\d+$') {
+    throw "Version must use the application's four-part format, for example 0.5.9.202."
+}
+
+$requiredPaths = @(
+    "build.py",
+    "main.py",
+    "launch.json",
+    "data\cards.json",
+    "public\marvel.html",
+    "assets\sounds",
+    "assets\textures",
+    "deck\starter",
+    "PATCH_NOTES.md",
+    "ATTRIBUTION.md",
+    "packaging\marvel-lcg-release.spec"
+)
+foreach ($relativePath in $requiredPaths) {
+    $path = Join-Path $projectRoot $relativePath
+    if (-not (Test-Path -LiteralPath $path)) {
+        throw "Required release input is missing: $relativePath"
+    }
+}
+
+$python = Join-Path $projectRoot ".venv\Scripts\python.exe"
+$pyinstaller = Join-Path $projectRoot ".venv\Scripts\pyinstaller.exe"
+if (-not (Test-Path -LiteralPath $python)) {
+    throw "Release Python was not found at $python. Create .venv and install requirements-release.txt."
+}
+if (-not (Test-Path -LiteralPath $pyinstaller)) {
+    throw "PyInstaller was not found at $pyinstaller. Install requirements-release.txt into .venv."
+}
+$typescript = Get-Command "tsc.cmd" -ErrorAction SilentlyContinue
+if (-not $typescript) {
+    throw "TypeScript compiler tsc.cmd was not found. Install TypeScript with npm install -g typescript."
+}
+
+if ($PreflightOnly) {
+    Write-Host "Release preflight passed for Marvel LCG $Version."
+    Write-Host "Downloaded assets/cache and optional assets/pics are excluded by the staging manifest."
+    exit 0
+}
+
+$stageRoot = Join-Path $workRoot "marvel-lcg-$Version"
+$binaryRoot = Join-Path $workRoot "binary"
+$pyinstallerWork = Join-Path $workRoot "pyinstaller"
+foreach ($path in @($stageRoot, $binaryRoot, $pyinstallerWork)) {
+    Assert-ChildPath -Parent $workRoot -Child $path
+}
+
+if (Test-Path -LiteralPath $workRoot) {
+    Assert-ChildPath -Parent $PSScriptRoot -Child $workRoot
+    Remove-Item -LiteralPath $workRoot -Recurse -Force
+}
+New-Item -ItemType Directory -Path $stageRoot -Force | Out-Null
+New-Item -ItemType Directory -Path $artifactRoot -Force | Out-Null
+
+Push-Location $projectRoot
+try {
+    & $typescript.Source -p (Join-Path $projectRoot "public\js\tsconfig.json")
+    if ($LASTEXITCODE -ne 0) {
+        throw "TypeScript compilation failed with exit code $LASTEXITCODE."
+    }
+
+    & $pyinstaller `
+        --noconfirm `
+        --clean `
+        --distpath $binaryRoot `
+        --workpath $pyinstallerWork `
+        (Join-Path $projectRoot "packaging\marvel-lcg-release.spec")
+    if ($LASTEXITCODE -ne 0) {
+        throw "PyInstaller failed with exit code $LASTEXITCODE."
+    }
+}
+finally {
+    Pop-Location
+}
+
+$executable = Join-Path $binaryRoot "marvel-lcg.exe"
+if (-not (Test-Path -LiteralPath $executable)) {
+    throw "PyInstaller did not produce $executable"
+}
+Copy-Item -LiteralPath $executable -Destination $stageRoot
+
+foreach ($folder in @("data", "public", "docs")) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot $folder) -Destination $stageRoot -Recurse
+}
+New-Item -ItemType Directory -Path (Join-Path $stageRoot "deck") -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $projectRoot "deck\starter") -Destination (Join-Path $stageRoot "deck") -Recurse
+
+New-Item -ItemType Directory -Path (Join-Path $stageRoot "assets") -Force | Out-Null
+foreach ($folder in @("sounds", "textures")) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot "assets\$folder") -Destination (Join-Path $stageRoot "assets") -Recurse
+}
+# Keep the expected runtime paths, but never seed them with a developer's card scans.
+New-Item -ItemType Directory -Path (Join-Path $stageRoot "assets\cache") -Force | Out-Null
+New-Item -ItemType Directory -Path (Join-Path $stageRoot "assets\pics") -Force | Out-Null
+
+foreach ($file in @("launch.json", "README.md", "PATCH_NOTES.md", "ATTRIBUTION.md")) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot $file) -Destination $stageRoot
+}
+
+# TypeScript sources and source maps are build inputs, not runtime files.
+Get-ChildItem -LiteralPath (Join-Path $stageRoot "public\js") -Recurse -File |
+    Where-Object { $_.Extension -in @(".ts", ".map") -or $_.Name -in @("tsconfig.json", "watch.bat") } |
+    Remove-Item -Force
+
+$forbiddenFiles = Get-ChildItem -LiteralPath (Join-Path $stageRoot "assets\cache"), (Join-Path $stageRoot "assets\pics") -Recurse -File
+if ($forbiddenFiles) {
+    throw "Release staging unexpectedly contains cached or optional card images."
+}
+
+$commit = & git -c safe.directory='*' -C $projectRoot rev-parse --short HEAD 2>$null
+if ($LASTEXITCODE -ne 0) {
+    $commit = "unknown"
+}
+$manifest = @"
+Marvel LCG Digital community build
+Version: $Version
+Source commit: $commit
+
+Included assets: sounds and interface textures
+Excluded assets: downloaded card cache and optional offline card-image pack
+Card artwork is retrieved using the image servers configured in launch.json.
+"@
+Set-Content -LiteralPath (Join-Path $stageRoot "RELEASE-MANIFEST.txt") -Value $manifest -Encoding UTF8
+
+$archive = Join-Path $artifactRoot "marvel-lcg-$Version-windows.zip"
+$checksum = "$archive.sha256"
+foreach ($path in @($archive, $checksum)) {
+    if (Test-Path -LiteralPath $path) {
+        Assert-ChildPath -Parent $artifactRoot -Child $path
+        Remove-Item -LiteralPath $path -Force
+    }
+}
+Compress-Archive -LiteralPath $stageRoot -DestinationPath $archive -CompressionLevel Optimal
+$hash = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+Set-Content -LiteralPath $checksum -Value "$hash  $([System.IO.Path]::GetFileName($archive))" -Encoding ASCII
+
+Write-Host "Created $archive"
+Write-Host "SHA-256 $hash"

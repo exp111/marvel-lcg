@@ -1,0 +1,47 @@
+name: Build Windows release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install build dependencies
+        shell: pwsh
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+          .\.venv\Scripts\python.exe -m pip install -r requirements-release.txt
+          npm install --global typescript
+
+      - name: Build release archive
+        shell: pwsh
+        run: .\packaging\build_release.ps1
+
+      - name: Upload release archive and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: marvel-lcg-windows
+          path: release-artifacts/*
+          if-no-files-found: error

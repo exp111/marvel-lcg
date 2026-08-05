@@ -1118,7 +1118,7 @@ class AbilityFactoryDoAttack:
         ]
 
         if cannot_trigger_defense_ability != False:
-            if cannot_trigger_defense_ability == True and which_unit == "Attached":
+            if cannot_trigger_defense_ability == True and which_unit in ("Attached", "AttachedIdentity"):
                 check_player = "AttachedPlayer"
             elif which_unit:
                 assert isinstance(which_unit, CardFinder)

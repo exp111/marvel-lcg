@@ -26,12 +26,16 @@ npm install -g typescript
 
 Double click to run "\public\js\watch.bat"
 
-## 6. Download assets
+## 6. Card images
 
-You need to download the game to gain its `assets` folder from [itch.io](https://irefrixs.itch.io/marvel-lcg) and put it in the root folder of this project
+The repository includes the small sounds and interface textures required to run the game. Standard card artwork is downloaded on demand from the image servers configured in `launch.json` and stored in `assets/cache`.
+
+For offline play, an optional image package can be placed in `assets/pics` or referenced through `image_folders` in `launch.json`.
 
 ## 7. Start the game
 
-```
-py main.py
+Run the game from the repository root so its relative data and asset paths resolve correctly:
+
+```powershell
+& ".\.venv\Scripts\python.exe" ".\main.py"
 ```
