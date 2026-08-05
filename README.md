@@ -4,9 +4,20 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Release information
+## What's new in community release 1.0
 
-- [Release 1.0 patch notes](PATCH_NOTES.md)
+- Complete campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
+- New **Synthezoid Smackdown** cooperative scenarios and encounter sets.
+- New playable **Wonder Man** and **Hercules** hero expansions with starter decks.
+- An adjustable card-interaction speed setting that changes presentation timing without affecting gameplay resolution.
+- Improved MarvelCDB deck imports, hotseat prompt ownership, card-image loading, browser cache handling, and card interaction reliability.
+- Rules corrections for fixed-total threat and damage distribution, attached-identity restrictions, and cards present in the original release.
+- Reproducible Windows packaging with checksums and an automated GitHub build workflow.
+
+[Read the complete release 1.0 patch notes](PATCH_NOTES.md).
+
+## Release and distribution
+
 - [Release build and publishing guide](docs/release_guide.md)
 - Standard card artwork is downloaded from the image servers configured in `launch.json` and cached locally. Downloaded card images are not included in the main release archive.
 - The release build includes the small sounds, card backs, status cards, placeholders, and set textures required by the interface.
