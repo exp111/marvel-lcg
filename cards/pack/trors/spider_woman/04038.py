@@ -16,7 +16,6 @@ def GetAbilities() -> Sequence['Ability']:
             inconspicuous
         ).SetPlay().SetLabel('thwart')
         .SetTarget(Scheme2,
-            range=(1, 3),
+            range=Select.ExactTargetCountUpToAvailable(3),
             repeat_rules="Threat"),
     ]
-

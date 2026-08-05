@@ -27,6 +27,17 @@ class SELECT:
 class Select:
 
     @staticmethod
+    def ExactTargetCountUpToAvailable(value: int) -> Callable[['Effect'], int]:
+        """Require as many targets as possible, up to ``value``.
+
+        Repeat-target selectors represent each point of distributed threat or
+        damage as one legal target.  Their range must therefore collapse to an
+        exact count or the UI can submit the effect after selecting only one
+        point.
+        """
+        return lambda effect: min(value, len(effect.context.all_legal_targets))
+
+    @staticmethod
     def GetYouSafe(effect: 'Effect') -> 'Player|None':
         if not effect.this.IsInPlay():
             return None
@@ -305,4 +316,3 @@ class Select:
             select_rule="MustIncludeTraits"
         )
         return selector
-

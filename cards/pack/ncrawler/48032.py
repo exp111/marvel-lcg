@@ -22,7 +22,11 @@ def GetAbilities() -> Sequence['Ability']:
                 lambda targets:
                     this.RemoveThreatFromSchemes(targets, 1, effect)
             ).SetLabel('thwart')
-            .SetTarget(Scheme2, range=(0, thwart), repeat_rules="Threat")
+            .SetTarget(
+                Scheme2,
+                range=Select.ExactTargetCountUpToAvailable(thwart),
+                repeat_rules="Threat",
+            )
         )
         initiator.ChooseAbilities(
             effect,
@@ -31,7 +35,11 @@ def GetAbilities() -> Sequence['Ability']:
                 lambda targets:
                     this.DealDamage(targets, 1, effect)
             ).SetLabel('attack')
-            .SetTarget(Enemy, range=(0, thwart), repeat_rules="Health")
+            .SetTarget(
+                Enemy,
+                range=Select.ExactTargetCountUpToAvailable(thwart),
+                repeat_rules="Health",
+            )
         )
 
 
@@ -44,4 +52,3 @@ def GetAbilities() -> Sequence['Ability']:
         .SetTarget2(Scheme2)
         .SetTarget2(Enemy)
     ]
-
