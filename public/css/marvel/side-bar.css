@@ -35,11 +35,13 @@
     color: white;
     font-family: monospace;
     font-size: var(--font-size-out);
-    cursor: pointer;
+    cursor: default;
+    opacity: 1;
+    transition: opacity .08s linear;
 }
 
-#right-side-bar.open {
-    right: 0;
+#right-side-bar:hover #right-side-bar-handle {
+    opacity: 0;
 }
 
 #interaction-speed-control {

@@ -254,8 +254,6 @@ export class UI {
     private static hand_card_margin_bottom_div  = document.getElementById("hand-card-margin-bottom") as HTMLTextAreaElement;
     private static anime_speed_div              = document.getElementById("anime-time") as HTMLInputElement;
     private static anime_speed_value_div        = document.getElementById("anime-speed-value") as HTMLOutputElement;
-    private static speed_drawer_div             = document.getElementById("right-side-bar") as HTMLElement;
-    private static speed_drawer_handle          = document.getElementById("right-side-bar-handle") as HTMLButtonElement;
     private static phase_div                    = document.querySelector('#phase') as HTMLElement
     private static current_div = document.querySelector("#current-round") as HTMLInputElement
 
@@ -358,10 +356,6 @@ export class UI {
             UI.anime_speed_div.value = Math.min(max_speed, Math.max(min_speed, saved_speed)).toString()
         }
         UI.anime_speed_div.oninput = UI.updateAnimeTime
-        UI.speed_drawer_handle.onclick = () => {
-            const is_open = UI.speed_drawer_div.classList.toggle("open")
-            UI.speed_drawer_handle.setAttribute("aria-expanded", is_open.toString())
-        }
 
         UI.updateAnimeTime()
 
