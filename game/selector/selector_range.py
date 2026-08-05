@@ -4,6 +4,19 @@ from game.card.face import *
 from game.effect import *
 from game.selector.selector_rule import *
 
+
+class ExactTargetCountUpToAvailableRange:
+
+    def __init__(self, value: int) -> None:
+        self.value: Final = value
+
+    def __call__(self, effect: 'Effect') -> int:
+        return self.GetTargetCount(effect.context.all_legal_targets)
+
+    def GetTargetCount(self, targets: Sequence['CardFace']) -> int:
+        return min(self.value, len(targets))
+
+
 class SelectorRange:
 
     # Zero means: `lambda effect: len(effect.all_legal_targets)`
@@ -64,8 +77,15 @@ class SelectorRange:
             return len(targets) if not self.has_repeat_rules else Math.INT_INF
         elif isinstance(self.max_fn, int):
             return self.max_fn
+        elif isinstance(self.max_fn, ExactTargetCountUpToAvailableRange):
+            return self.max_fn.GetTargetCount(targets)
         else:
             return self.max_fn(effect)
+
+    def GetRepeatTargetMax(self, effect: 'Effect', targets: Sequence['CardFace']) -> int:
+        if isinstance(self.max_fn, ExactTargetCountUpToAvailableRange):
+            return self.max_fn.value
+        return self.GetTargetMax(effect, targets)
 
     def GetTargetMin(self, effect: 'Effect', targets: Sequence['CardFace']) -> int:
         if self.select_all:
@@ -74,6 +94,7 @@ class SelectorRange:
             return len(targets)
         elif isinstance(self.min_fn, int):
             return self.min_fn
+        elif isinstance(self.min_fn, ExactTargetCountUpToAvailableRange):
+            return self.min_fn.GetTargetCount(targets)
         else:
             return self.min_fn(effect)
-

@@ -15,6 +15,18 @@ class TestDistributedTargeting(unittest.TestCase):
         self.assertEqual(count_targets(self.make_effect(3)), 3)
         self.assertEqual(count_targets(self.make_effect(6)), 3)
 
+    def test_exact_target_count_does_not_depend_on_prepopulated_context(self):
+        count_targets = Select.ExactTargetCountUpToAvailable(3)
+        selector_range = Select.From(
+            range=count_targets,
+            repeat_rules="Threat",
+        ).selector_range
+        effect = self.make_effect(0)
+
+        self.assertEqual(selector_range.GetRepeatTargetMax(effect, [None]), 3)
+        self.assertEqual(selector_range.GetTargetMin(effect, [None] * 2), 2)
+        self.assertEqual(selector_range.GetTargetMax(effect, [None] * 5), 3)
+
     def test_fixed_value_distribution_cards_require_the_full_amount(self):
         expected_counts = {
             "cards.pack.mut_gen.defender.32187": 3,

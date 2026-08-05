@@ -11,7 +11,7 @@ from game.deck import *
 from game.selector.selector_rule import SelectorRule
 from game.selector.selector_target import SelectorTarget
 from game.selector.selector_where import SelectorWhere
-from game.selector.selector_range import SelectorRange
+from game.selector.selector_range import ExactTargetCountUpToAvailableRange, SelectorRange
 
 class SELECT:
     RULE                : TypeAlias = 'SelectorRule.RULE_BASE'
@@ -27,7 +27,7 @@ class SELECT:
 class Select:
 
     @staticmethod
-    def ExactTargetCountUpToAvailable(value: int) -> Callable[['Effect'], int]:
+    def ExactTargetCountUpToAvailable(value: int) -> ExactTargetCountUpToAvailableRange:
         """Require as many targets as possible, up to ``value``.
 
         Repeat-target selectors represent each point of distributed threat or
@@ -35,7 +35,7 @@ class Select:
         exact count or the UI can submit the effect after selecting only one
         point.
         """
-        return lambda effect: min(value, len(effect.context.all_legal_targets))
+        return ExactTargetCountUpToAvailableRange(value)
 
     @staticmethod
     def GetYouSafe(effect: 'Effect') -> 'Player|None':

@@ -98,7 +98,7 @@ class SelectorRule:
             from game.card.face.base import Scheme2
             from game.card.face.base import Unit2
 
-            max_value = selector_range.GetTargetMax(effect, legal_faces)
+            max_value = selector_range.GetRepeatTargetMax(effect, legal_faces)
             face_list: List[CardFace] = []
             for face in Types.RemoveDuplicates(legal_faces):
                 for allow_repeat in self.repeat_rules:
@@ -187,4 +187,3 @@ class SelectorRule:
                 return False
 
         return True
-
