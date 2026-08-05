@@ -36,6 +36,11 @@ class TestDistributedTargeting(unittest.TestCase):
                     expected_count,
                 )
 
+    def test_shadowcat_can_choose_a_zero_threat_side_scheme(self):
+        ability = import_module("cards.pack.iceman.46019").GetAbilities()[1]
+
+        self.assertIsNone(ability.selectors[0].selector_filter.finder.has_threat)
+
     @staticmethod
     def make_effect(legal_target_count):
         return SimpleNamespace(
