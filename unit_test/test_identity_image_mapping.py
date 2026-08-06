@@ -27,11 +27,15 @@ class TestIdentityImageMapping(unittest.TestCase):
         ("38001a", "38001b"),  # Rogue
     )
 
-    def test_marvelcdb_is_the_primary_image_source(self):
+    def test_cerebro_is_the_primary_image_source(self):
         project_root = Path(__file__).resolve().parents[1]
         launch = json.loads((project_root / "launch.json").read_text(encoding="utf-8"))
 
-        self.assertIn("marvelcdb.com", launch["image_servers"][0])
+        self.assertIn(
+            "cerebrodatastorage.blob.core.windows.net",
+            launch["image_servers"][0],
+        )
+        self.assertIn("marvelcdb.com", launch["image_servers"][1])
 
     def test_cerebro_identity_sides_are_swapped_to_match_game_data(self):
         cerebro = (

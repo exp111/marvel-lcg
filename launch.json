@@ -15,8 +15,8 @@
     "save_empty_image": false,
 
     "image_servers": [
-        "https://marvelcdb.com/bundles/cards/{card_id}.jpg",
-        "https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/{card_id:U}.jpg"
+        "https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/{card_id:U}.jpg",
+        "https://marvelcdb.com/bundles/cards/{card_id}.jpg"
     ],
 
     "image_folders": ["./assets/pics/"],

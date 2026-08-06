@@ -13,6 +13,7 @@ These notes compare the final community release with the original upstream relea
 - Corrected Synthezoid Smackdown villain and encounter-card behavior, including Vision's Mass Form flips, forced effects, expert-stage inheritance, and duplicated printed ATK and SCH modifiers.
 - Restored mandatory end-phase discards so players above their hand size cannot cancel the discard prompt, while optional discard prompts remain optional.
 - Corrected mismatched hero and alter-ego artwork for Colossus, Shadowcat, Cyclops, Phoenix, Wolverine, Storm, Gambit, and Rogue, without reusing stale reversed images from the local cache.
+- Restored Cerebro as the primary card-art source with MarvelCDB as fallback, avoiding repeated MarvelCDB timeouts while preserving the corrected hero-side mapping for Cerebro images.
 
 ### Updating from an earlier build
 
