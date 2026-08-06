@@ -1,7 +1,7 @@
 from importlib import import_module
 from types import SimpleNamespace
 import unittest
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 
 from engine import Engine  # noqa: F401 - establishes the project's import order
 
@@ -19,7 +19,7 @@ class TestHerculesDefeatTheHydra(unittest.TestCase):
             GetToPlayer=MagicMock(return_value=self.player),
         )
 
-    def test_uses_normal_eligible_minion_before_nemesis_fallback(self):
+    def test_finds_and_reveals_any_eligible_minion(self):
         target = MagicMock()
 
         with patch.object(
@@ -37,56 +37,42 @@ class TestHerculesDefeatTheHydra(unittest.TestCase):
         self.labor.AttachTo2.assert_called_once_with(target, self.effect)
         discard_all.assert_not_called()
 
-    def test_falls_back_to_hercules_nemesis_minion(self):
-        target = MagicMock()
-        normal_finder = object()
-        nemesis_finder = object()
-
+    def test_search_does_not_exclude_any_players_nemesis_set(self):
+        finder = object()
         with patch.object(
             self.module,
             "CardFinder",
-            side_effect=[normal_finder, nemesis_finder],
+            return_value=finder,
         ) as card_finder, patch.object(
             self.module.Find,
             "FindAndReveal",
-            side_effect=[None, target],
-        ) as find_and_reveal, patch.object(
-            self.module.Faces,
-            "DiscardAll",
-        ) as discard_all:
+            return_value=MagicMock(),
+        ) as find_and_reveal:
             self.ability.operation(self.effect, self.message)
 
-        fallback_kwargs = card_finder.call_args_list[1].kwargs
-        self.assertIs(fallback_kwargs["card_type"], self.module.Minion)
-        self.assertEqual(fallback_kwargs["non_trait"], "ELITE")
-        self.assertIs(fallback_kwargs["is_nemesis"], self.player)
+        finder_kwargs = card_finder.call_args.kwargs
+        self.assertIs(finder_kwargs["card_type"], self.module.Minion)
+        self.assertEqual(finder_kwargs["non_trait"], "ELITE")
+        self.assertNotIn("is_nemesis", finder_kwargs)
+        self.assertNotIn("set_name", finder_kwargs)
+        self.assertNotIn("non_set_name", finder_kwargs)
         self.assertTrue(
-            fallback_kwargs["check_face_fn"](
+            finder_kwargs["check_face_fn"](
                 SimpleNamespace(printed_health=6),
             )
         )
-        self.assertEqual(
-            card_finder.call_args_list[0].kwargs["is_nemesis"],
-            False,
+        find_and_reveal.assert_called_once_with(
+            self.effect,
+            self.player,
+            who_perform=self.player,
+            finder=finder,
         )
-        self.assertEqual(
-            find_and_reveal.call_args_list[1],
-            call(
-                self.effect,
-                self.player,
-                who_perform=self.player,
-                finder=nemesis_finder,
-            ),
-        )
-        self.labor.HealthUnits.assert_called_once_with([target], "All", self.effect)
-        self.labor.AttachTo2.assert_called_once_with(target, self.effect)
-        discard_all.assert_not_called()
 
     def test_discards_labor_when_no_target_exists_anywhere(self):
         with patch.object(
             self.module.Find,
             "FindAndReveal",
-            side_effect=[None, None],
+            return_value=None,
         ), patch.object(
             self.module.Faces,
             "DiscardAll",

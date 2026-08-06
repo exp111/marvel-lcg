@@ -1,4 +1,5 @@
 from importlib import import_module
+from inspect import getclosurevars
 from types import SimpleNamespace
 import unittest
 from unittest.mock import MagicMock, call, patch
@@ -115,6 +116,34 @@ class TestGauntletsOfHercules(unittest.TestCase):
 
         with patch.object(module, "CountGifts", return_value=1):
             self.assertTrue(gift_condition(effect, SimpleNamespace()))
+
+
+class TestOlympus(unittest.TestCase):
+
+    def test_exhaust_cost_is_paid_once_by_the_resource_check_effect(self):
+        module = import_module("cards.pack.hercules.hercules.59012")
+        generate_resources, can_generate_resources = module.GetAbilities()
+
+        self.assertEqual(generate_resources.cost_funcs, [])
+        self.assertEqual(len(can_generate_resources.cost_funcs), 1)
+        self.assertIsInstance(
+            can_generate_resources.cost_funcs[0],
+            module.CostFunc.Exhaust,
+        )
+
+    def test_generates_one_wild_resource_per_gift(self):
+        module = import_module("cards.pack.hercules.hercules.59012")
+        generate_resources, can_generate_resources = module.GetAbilities()
+        player = MagicMock()
+        effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
+        message = SimpleNamespace()
+
+        resource_function = getclosurevars(generate_resources.operation).nonlocals["res_fn"]
+        with patch.object(module, "CountGifts", return_value=1):
+            generated = resource_function(effect, message)
+
+        self.assertEqual(generated.g, 1)
+        self.assertEqual(generated.val, 1)
 
 
 class TestSonOfZeus(unittest.TestCase):

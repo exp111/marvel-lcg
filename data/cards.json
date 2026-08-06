@@ -61420,8 +61420,7 @@
                 "HP": "6",
                 "ATK": "2",
                 "SCH": "0",
-                "Boost": "1",
-                "Nemesis": "Hercules"
+                "Boost": "1"
             },
             "traits": ["CREATURE", "HYDRA"],
             "set_name": "Hercules Nemesis",

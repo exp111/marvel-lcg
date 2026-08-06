@@ -22,12 +22,12 @@ class TestHerculesNemesisRegistration(unittest.TestCase):
             ["59036", "59037", "59038", "59039", "59040"],
         )
 
-    def test_minions_are_registered_as_hercules_nemeses(self):
+    def test_only_ares_is_registered_as_hercules_nemesis_minion(self):
         cards = json.loads((ROOT / "data" / "cards.json").read_text())
         papers = {paper["card_id"]: paper for paper in cards["hercules"]}
 
         self.assertEqual(papers["59036"]["desc"]["Nemesis"], "Hercules")
-        self.assertEqual(papers["59037"]["desc"]["Nemesis"], "Hercules")
+        self.assertNotIn("Nemesis", papers["59037"]["desc"])
         self.assertEqual(papers["59037"]["desc"]["HP"], "6")
         for card_id in ("59036", "59037", "59038", "59039", "59040"):
             self.assertEqual(papers[card_id]["set_name"], "Hercules Nemesis")
