@@ -17,5 +17,9 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityType.HeroInterrupt,
             CardFinder(name="Hercules", card_type=Hero),
             gauntlets,
+            conditions=[
+                lambda effect, message:
+                    CountGifts(effect.GetInitiator()) > 0,
+            ],
         ).SetCostFunc(CostFunc.Exhaust("This")),
     ]

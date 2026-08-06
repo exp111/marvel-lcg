@@ -59873,8 +59873,7 @@
                 "THUNDERBOLT"
             ],
             "set_name": "Deadly Duo",
-            "text": "<b>When Revealed</b>: Discard the top 3 cards of your deck. Place 1 threat on the main scheme for each different card type discarded this way.",
-            "ability_link": "06030"
+            "text": "<b>When Revealed</b>: Discard the top 3 cards of your deck. Place 1 threat on the main scheme for each different card type discarded this way."
         },
         {
             "card_id": "57029",
@@ -61468,5 +61467,5 @@
             "text": "Each minion attacks the player it is engaged with (even if that player is in alter-ego form). If no minion activates this way, discard cards from the top of the encounter deck until a minion is discarded and reveal that minion."
         }
     ],
-    "checksum": "2cc5f5d3981a0ba0b16f73641721c77a90808f957040cfbe688fa9803b52aa17"
+    "checksum": "e20181e71c025847de703c95e9e56784c59a9fb038e5275331d89e78d00f1cef"
 }

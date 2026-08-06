@@ -26,6 +26,8 @@ def GetAbilities() -> Sequence['Ability']:
         ),
         *AbilityFactory.GiveKeywordToAttached(
             Minion,
+            attack=1,
+            scheme=1,
             health=4,
             stalwart=1,
         ),
@@ -34,4 +36,3 @@ def GetAbilities() -> Sequence['Ability']:
             resistance_fighter_boost
         ),
     ]
-

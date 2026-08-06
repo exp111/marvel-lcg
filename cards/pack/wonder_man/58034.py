@@ -4,6 +4,12 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
+    def can_use_avengers_compound(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> bool:
+        this = effect.this.CastTo(Support)
+        if this.GetPlacedCardArea().GetSize() > 0:
+            return True
+        return any(Ally.IsType(face) for face in effect.GetInitiator().hand_cards.Get(True))
+
     def avengers_compound(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> None:
         this = effect.this.CastTo(Support)
         initiator = effect.GetInitiator()
@@ -27,5 +33,6 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.Action,
             avengers_compound,
+            conditions=[can_use_avengers_compound],
         ).SetCostFunc(CostFunc.Exhaust("This")),
     ]

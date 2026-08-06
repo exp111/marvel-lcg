@@ -52,6 +52,7 @@ class Find:
     def FindAndReveal(by_effect: 'Effect',
                     to_player: 'Player',
                     *,
+                    who_perform: 'Player|None'=None,
                     finder: 'CardFinder|None'=None,
                     name: str|None=None,
                     trait: "CardFace.TRAITS|None"=None,
@@ -60,6 +61,7 @@ class Find:
                     ) -> TC|None:
         face = Find.Find(
             by_effect,
+            who_perform=who_perform,
             finder=finder,
             name=name,
             trait=trait,
@@ -143,4 +145,3 @@ class Find:
                 **kwargs) & finder,
         )
         return face # type: ignore
-

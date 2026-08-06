@@ -5,6 +5,7 @@ class HasAttribute(CardFace):
     def __init__(self, paper: 'Paper') -> None:
         self.attributes: Dict[str, Tuple[str|Callable[[str], None]|None, Type[int|str|bool]|None]] = {}
         self.player_num: int = 0
+        self.player_num_icon_override: int|None = None
         self.info_dict: List[str] = []
         super().__init__(paper)
 
@@ -64,4 +65,3 @@ class HasAttribute(CardFace):
                 value = 0
             dic |= {key: int(value)}
         return dic | super().GetInfoDict()
-

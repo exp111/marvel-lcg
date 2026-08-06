@@ -10,6 +10,9 @@ def GetAbilities() -> Sequence['Ability']:
 
         initiator = effect.GetInitiator()
 
+        def place_fallback_threat() -> None:
+            this.PlaceThreatOnSchemes("MainScheme", 6, effect)
+
         scheme = Search.EncounterCard(
             effect,
             initiator,
@@ -17,9 +20,15 @@ def GetAbilities() -> Sequence['Ability']:
             card_type=SchemeSide2
         )
         if scheme:
-            scheme.Reveal(initiator, effect)
+            revealed = scheme.Reveal(
+                initiator,
+                effect,
+                if_no_entered_play=place_fallback_threat,
+            )
+            if revealed is None:
+                place_fallback_threat()
         else:
-            this.PlaceThreatOnSchemes("MainScheme", 6, effect)
+            place_fallback_threat()
 
 
     return [
@@ -29,4 +38,3 @@ def GetAbilities() -> Sequence['Ability']:
             sentry
         ),
     ]
-

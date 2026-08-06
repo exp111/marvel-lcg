@@ -74,6 +74,7 @@ class TestHerculesDefeatTheHydra(unittest.TestCase):
             call(
                 self.effect,
                 self.player,
+                who_perform=self.player,
                 finder=nemesis_finder,
             ),
         )

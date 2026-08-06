@@ -666,6 +666,9 @@ class Worlds:
 
     @staticmethod
     def GetPlayerNumIcon(by_effect: 'Effect') -> int:
+        override = getattr(by_effect.this, "player_num_icon_override", None)
+        if override is not None:
+            return override
         world = by_effect.world
         return world.GetPlayerNumIcon()
 

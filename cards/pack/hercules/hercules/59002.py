@@ -9,6 +9,7 @@ def GetAbilities() -> Sequence['Ability']:
         minion = Find.FindAndReveal(
             effect,
             player,
+            who_perform=player,
             finder=CardFinder(
                 card_type=Minion,
                 non_trait="ELITE",
@@ -20,6 +21,7 @@ def GetAbilities() -> Sequence['Ability']:
             minion = Find.FindAndReveal(
                 effect,
                 player,
+                who_perform=player,
                 finder=CardFinder(
                     card_type=Minion,
                     non_trait="ELITE",

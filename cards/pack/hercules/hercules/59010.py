@@ -3,6 +3,20 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
+    def can_resolve_son_of_zeus(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> bool:
+        player = effect.GetInitiator()
+        identity = player.GetIdentity()
+        gifts = CountGifts(player)
+        if identity.CanReady():
+            return True
+        if gifts >= 1 and player.GetControlCards(
+            CardFinder(card_type=Upgrade, card_class="IdentitySpecific", canbe_ready=True),
+        ):
+            return True
+        if gifts >= 2 and identity.CanGainTough():
+            return True
+        return gifts >= 3
+
     def son_of_zeus(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> None:
         player = effect.GetInitiator()
         identity = player.GetIdentity()
@@ -25,5 +39,6 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.HeroAction,
             son_of_zeus,
+            conditions=[can_resolve_son_of_zeus],
         ).SetPlay(),
     ]

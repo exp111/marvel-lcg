@@ -4,6 +4,19 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
+    def can_use_signature_sunglasses(effect: 'Effect', message: 'Message.AfterUnitChangeForm') -> bool:
+        ionic = FindIonicPhysiology(effect)
+        if not ionic:
+            return False
+        if ionic.GetPlacedCardArea().GetSize() > 0:
+            return True
+        if ionic.GetPlacedCardArea().GetSize() >= 3:
+            return False
+        return any(
+            (Event.IsType(face) or Resource.IsType(face)) and HasPrintedEnergy(face)
+            for face in effect.GetInitiator().discard_pile.Get(True)
+        )
+
     def signature_sunglasses(effect: 'Effect', message: 'Message.AfterUnitChangeForm') -> None:
         initiator = effect.GetInitiator()
         ionic = FindIonicPhysiology(effect)
@@ -35,6 +48,7 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityType.Response,
             "YourIdentity",
             signature_sunglasses,
+            conditions=[can_use_signature_sunglasses],
         ),
     ]
 
