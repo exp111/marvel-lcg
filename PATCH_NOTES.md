@@ -6,12 +6,16 @@ Baseline: Irefrixs Team upstream `master` at `a77154a`
 
 These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
 
-## v1.0.0.3 campaign hotfix
+## v1.0.0.3 campaign, Wonder Man, and Hercules hotfix
 
 - Added automatic local persistence for setup choices across every campaign. The game now saves the current campaign settings to `campaign_settings.json` whenever a game launches and restores them in later sessions.
 - Added a randomizer for the Agents of S.H.I.E.L.D. Evidence Seed and marked the seed as a value that must not change during a campaign.
 - Corrected Agents of S.H.I.E.L.D. evidence so earned cards remain out of play, reveal a random eligible card after a qualifying victory, and resolve their Setup abilities during subsequent scenario setup.
 - Corrected Executive Board members so they flip at the standard or expert secret threshold, become villain attachments, retain their attachment abilities, and persist as flipped through campaign settings.
+- Restored Hercules's missing obligation and complete nemesis set, including their starter-deck and encounter-set registrations.
+- Corrected **Defeat the Hydra** so it searches Hercules's nemesis set when no normal eligible minion is available, discards cleanly when no target exists, and sends resolved Labor cards to the encounter discard pile.
+- Corrected Hercules nemesis and obligation timing for **Appeal to Athena**, Ares, Lernean Hydra, and **Protect Humanity**.
+- Corrected Wonder Man's nemesis registration and Grim Reaper presence checks so a stunned or otherwise prevented activation does not incorrectly trigger fallback damage or another search/reveal.
 
 ### Updating from an earlier build
 

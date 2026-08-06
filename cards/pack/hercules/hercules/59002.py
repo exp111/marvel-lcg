@@ -12,12 +12,26 @@ def GetAbilities() -> Sequence['Ability']:
             finder=CardFinder(
                 card_type=Minion,
                 non_trait="ELITE",
+                is_nemesis=False,
                 check_face_fn=lambda face: face.printed_health >= 6,
             ),
         )
+        if not minion:
+            minion = Find.FindAndReveal(
+                effect,
+                player,
+                finder=CardFinder(
+                    card_type=Minion,
+                    non_trait="ELITE",
+                    is_nemesis=player,
+                    check_face_fn=lambda face: face.printed_health >= 6,
+                ),
+            )
         if minion:
             this.HealthUnits([minion], "All", effect)
             this.AttachTo2(minion, effect)
+        else:
+            Faces.DiscardAll([this], effect)
 
     def prevent_non_hercules_damage(effect: 'Effect', message: 'Message.WhenUnitWouldTakeDamage') -> None:
         message.PreventDamage("All", effect)

@@ -18,6 +18,8 @@ def GetGiftDeck(player: 'Player') -> 'Deck|None':
 
 
 def CountGifts(player: 'Player') -> int:
+    if player.obligations_area.FindCard(name="Appeal to Athena"):
+        return 0
     return len(player.GetControlCards(CardFinder(trait="GIFT")))
 
 
@@ -37,6 +39,7 @@ def SetupHerculesSpecialDecks(effect: 'Effect', message: 'Message.WhenPlayerSele
     set_aside = player.set_aside_deck.Get()
     labors = CardFinder(trait="LABOR").Checks(set_aside)
     gifts = CardFinder(trait="GIFT").Checks(set_aside)
+    Faces.BindDiscardPile(labors, Worlds.GetEncounterDiscardPile(effect))
     Faces.MoveAllTo(labors, labor_deck, effect)
     Faces.MoveAllTo(gifts, gift_deck, effect)
     Message.WhenDeckCreated_Text(labor_deck)

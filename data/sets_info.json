@@ -410,7 +410,7 @@
         "scenarios": [],
         "heroes": ["hercules"],
         "encounters": [],
-        "max_id": "59034"
+        "max_id": "59040"
     },
     "90. Ronan Modular Set": {
         "name": "ron",
@@ -451,5 +451,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "2ab2a9599ea16aa95decc22530b378ffdb894d32764601cff612f52ef5468c97"
+    "checksum": "eddf0e593c90a4c97ed6e36db1c6e29915a116b41d0b921ea7f400b4d50c48df"
 }

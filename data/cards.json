@@ -60914,7 +60914,8 @@
                 "ATK": "2",
                 "SCH": "2",
                 "Boost": "2",
-                "Quickstrike": "1"
+                "Quickstrike": "1",
+                "Nemesis": "Wonder Man"
             },
             "traits": [
                 "CYBORG"
@@ -61380,7 +61381,92 @@
         {"card_id": "59031", "full_link": "01090"},
         {"card_id": "59032", "full_link": "58034"},
         {"card_id": "59033", "full_link": "01092"},
-        {"card_id": "59034", "full_link": "08023"}
+        {"card_id": "59034", "full_link": "08023"},
+        {
+            "card_id": "59035",
+            "type": "Obligation",
+            "name": "Appeal to Athena",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "GiveTo": "Hercules"
+            },
+            "traits": [],
+            "set_name": "Hercules",
+            "text": "Give to the Hercules player.\nWhen counting [[GIFT]] cards you control, you are considered to control none.\n<b>Alter-Ego Action</b>: Exhaust Hercules or spend [mental] [mental] → remove this obligation from the game."
+        },
+        {
+            "card_id": "59036",
+            "type": "Minion",
+            "name": "* Ares",
+            "subtitle": "",
+            "desc": {
+                "HP": "5",
+                "ATK": "3",
+                "SCH": "0*",
+                "Boost": "2",
+                "Retaliate": "1",
+                "Nemesis": "Hercules"
+            },
+            "traits": ["ELITE", "OLYMPUS"],
+            "set_name": "Hercules Nemesis",
+            "text": "Retaliate 1.\n[star] <b>Forced Response</b>: After Ares schemes, deal yourself 1 facedown encounter card.\n<i>(Hercules's nemesis minion.)</i>"
+        },
+        {
+            "card_id": "59037",
+            "type": "Minion",
+            "name": "* Lernean Hydra",
+            "subtitle": "",
+            "desc": {
+                "HP": "6",
+                "ATK": "2",
+                "SCH": "0",
+                "Boost": "1",
+                "Nemesis": "Hercules"
+            },
+            "traits": ["CREATURE", "HYDRA"],
+            "set_name": "Hercules Nemesis",
+            "text": "<b>Forced Response</b>: After a character you control attacks and damages Lernean Hydra, choose:\n• Spend a [physical] resource.\n• Lernean Hydra heals 2 damage."
+        },
+        {
+            "card_id": "59038",
+            "type": "SideScheme",
+            "name": "Olympic Feud",
+            "subtitle": "",
+            "desc": {
+                "StartingThreat": "2",
+                "Hazard": "1",
+                "Boost": "3"
+            },
+            "traits": [],
+            "set_name": "Hercules Nemesis",
+            "text": "<b>When Revealed</b>: Place 1 additional threat here for each [[OLYMPUS]] card in play."
+        },
+        {
+            "card_id": "59039",
+            "type": "Attachment",
+            "name": "Ares's Axe",
+            "subtitle": "",
+            "desc": {
+                "ATK+": "2",
+                "Boost": "2"
+            },
+            "traits": ["WEAPON"],
+            "set_name": "Hercules Nemesis",
+            "text": "Attach to Ares. Otherwise, attach to the villain.\n[star] <b>Forced Response</b>: After attached enemy attacks, if no friendly character took damage from this attack, discard this card."
+        },
+        {
+            "card_id": "59040",
+            "type": "Treachery",
+            "name": "God of War",
+            "subtitle": "",
+            "desc": {
+                "Boost": "3"
+            },
+            "traits": [],
+            "set_name": "Hercules Nemesis",
+            "text": "Each minion attacks the player it is engaged with (even if that player is in alter-ego form). If no minion activates this way, discard cards from the top of the encounter deck until a minion is discarded and reveal that minion."
+        }
     ],
-    "checksum": "23040552525a9d709639ba1f32ae4428c5e4132fcdabad009a9b434c17be32cf"
+    "checksum": "2cc5f5d3981a0ba0b16f73641721c77a90808f957040cfbe688fa9803b52aa17"
 }

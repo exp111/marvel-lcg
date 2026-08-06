@@ -11,13 +11,14 @@ def GetAbilities() -> Sequence['Ability']:
             card_type=Ally,
         )
 
-    def redirect_villain(effect: 'Effect', message: 'Message.WhenUnitWouldAttackUnit') -> None:
+    def redirect_villain(effect: 'Effect', message: 'Message.WhenUnitWouldAttack') -> None:
         this = effect.this.CastTo(Obligation)
         ally = effect.targets[0]
         assert Unit2.IsType(ally)
-        message.ChangeTarget(ally, effect)
+        message.ReplaceTarget(ally)
+        message.Present_Activate(None, effect)
 
-        attack_message = message.would_atk_message
+        attack_message = message
 
         def after_attack() -> None:
             defender = attack_message.defender
@@ -26,17 +27,17 @@ def GetAbilities() -> Sequence['Ability']:
 
         RunAt.AfterEventEnd(effect, attack_message, after_attack)
 
-    def you_control_an_ally(effect: 'Effect', message: 'Message.WhenUnitWouldAttackUnit') -> bool:
+    def you_control_an_ally(effect: 'Effect', message: 'Message.WhenUnitWouldAttack') -> bool:
         this = effect.this.CastTo(Obligation)
         return bool(this.GetGaveToPlayer().GetControlAllies())
 
     return [
         AbilityFactory.WhenThisRevealed(None, protect_humanity_revealed),
-        AbilityFactory.WhenUnitWouldAttackUnit(
+        AbilityFactory.WhenUnitWouldAttack(
             AbilityType.ForcedInterrupt,
             Villain,
-            CardFinder(name="Hercules", card_type=Hero),
             redirect_villain,
+            attack_targets=CardFinder(name="Hercules", card_type=Hero),
             conditions=[you_control_an_ally],
         ).SetTarget(Ally, from_where=["YouControlCards"]),
     ]
