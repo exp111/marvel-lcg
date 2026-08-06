@@ -1,10 +1,24 @@
 # Release 1.0 patch set
 
-Application version: **1.0.0.3r**
+Application version: **1.0.0.4r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
 These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
+
+## v1.0.0.4 Wonder Man, Hercules, and Synthezoid Smackdown hotfix
+
+- Corrected Wonder Man card and nemesis scripting, including Ionic Physiology, Signature Sunglasses, Avengers Compound, Stronger Together, Fallen Sentry, and Grim Reaper activation handling.
+- Corrected Hercules's Labor completion and Atonement timing, Hydra interactions, attack redirection, temporary bonuses, excess-damage healing, and other hero-card effects.
+- Corrected Synthezoid Smackdown villain and encounter-card behavior, including Vision's Mass Form flips, forced effects, expert-stage inheritance, and duplicated printed ATK and SCH modifiers.
+- Restored mandatory end-phase discards so players above their hand size cannot cancel the discard prompt, while optional discard prompts remain optional.
+- Corrected mismatched hero and alter-ego artwork for Colossus, Shadowcat, Cyclops, Phoenix, Wolverine, Storm, Gambit, and Rogue, without reusing stale reversed images from the local cache.
+
+### Updating from an earlier build
+
+1. Extract v1.0.0.4 into a new, empty folder.
+2. Copy `campaign_settings.json` from the old build folder into the new build folder. Replace or overwrite the destination file if prompted; this preserves the saved setup choices for all campaigns.
+3. Copy any personal saves, replays, and custom decks that you want to retain. Do not copy the old executable, `public`, `data`, `assets/cache`, or `launch.json`.
 
 ## v1.0.0.3 campaign, Wonder Man, and Hercules hotfix
 
