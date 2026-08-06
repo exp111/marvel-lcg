@@ -19,6 +19,34 @@ class Cache:
     cache: Dict[str, bytes] = {}
     link_pic: Dict[str, str] = {}
 
+    # These physical cards use Alter-Ego A / Hero B numbering. MarvelCDB
+    # normalizes their images to Hero A / Alter-Ego B to match the card data,
+    # while Cerebro retains the physical side letters.
+    CEREBRO_REVERSED_IDENTITY_SIDES: Dict[str, str] = {
+        "32001a": "32001b", "32001b": "32001a",  # Colossus
+        "32030a": "32030b", "32030b": "32030a",  # Shadowcat
+        "33001a": "33001b", "33001b": "33001a",  # Cyclops
+        "34001a": "34001b", "34001b": "34001a",  # Phoenix
+        "35001a": "35001b", "35001b": "35001a",  # Wolverine
+        "36001a": "36001b", "36001b": "36001a",  # Storm
+        "37001a": "37001b", "37001b": "37001a",  # Gambit
+        "38001a": "38001b", "38001b": "38001a",  # Rogue
+    }
+
+    @staticmethod
+    def GetCacheFileName(card_id: str) -> str:
+        if card_id in Cache.CEREBRO_REVERSED_IDENTITY_SIDES:
+            # Do not reuse files downloaded before the provider-side mapping
+            # was corrected. Those files may contain the opposite face.
+            return f"normalized-identity-sides/{card_id}"
+        return card_id
+
+    @staticmethod
+    def GetRemoteCardId(site: str, card_id: str) -> str:
+        if "cerebrodatastorage.blob.core.windows.net" in site:
+            return Cache.CEREBRO_REVERSED_IDENTITY_SIDES.get(card_id, card_id)
+        return card_id
+
     @staticmethod
     def SetLinkPic(card_id: str, link_to_pic_id: str):
         Cache.link_pic[card_id] = link_to_pic_id
@@ -39,7 +67,8 @@ class Cache:
         assert card_id != "", f"{card_id=}"
         file_name = card_id
 
-        check_folders = IMAGE_FOLDERS.value + [TEXTURE_FOLDER.value] + [CACHE_FOLDER.value]
+        check_folders = IMAGE_FOLDERS.value + [TEXTURE_FOLDER.value]
+        cache_file_name = Cache.GetCacheFileName(file_name)
 
         def try_load_image_data(image_data: bytes):
             return ImageLib.TryRotateImage(image_data)
@@ -64,6 +93,13 @@ class Cache:
             return None
 
         image_data = try_load_image_name(file_name)
+        if image_data:
+            Cache.SetCache(file_name, image_data)
+            return image_data
+
+        image_data = try_load_image_path(
+            FileManager.JoinPath(CACHE_FOLDER.value, cache_file_name)
+        )
         if image_data:
             Cache.SetCache(file_name, image_data)
             return image_data
@@ -104,8 +140,9 @@ class Cache:
 
             for site in IMAGE_SERVERS.value:
                 full_url = site
-                full_url = full_url.replace('{card_id}', card_id)
-                full_url = full_url.replace('{card_id:U}', card_id.upper())
+                remote_card_id = Cache.GetRemoteCardId(site, card_id)
+                full_url = full_url.replace('{card_id}', remote_card_id)
+                full_url = full_url.replace('{card_id:U}', remote_card_id.upper())
 
                 try:
                     Log.DebugInfo(CATEGORY_NAME, f"Downloading from {full_url}")
@@ -129,7 +166,7 @@ class Cache:
                     Log.DebugInfo(CATEGORY_NAME, f"Downloaded: {file_name}")
                     data = response.content
                     # Save the image to the cache
-                    save_to_file(file_name, ext_name, data)
+                    save_to_file(cache_file_name, ext_name, data)
                     # Get the image data from the response
                     image_data = try_load_image_data(data)
                     Cache.SetCache(file_name, image_data)
@@ -143,7 +180,6 @@ class Cache:
         # raise Exception(f"Failed to load {file_name} from the internet")
         image_data = ImageCreator.CreateNoImage(card_id)
         if SAVE_EMPTY_IMAGE.value and not is_time_out:
-            save_to_file(file_name, "jpg", image_data)
+            save_to_file(cache_file_name, "jpg", image_data)
         Cache.SetCache(file_name, image_data)
         return image_data
-
