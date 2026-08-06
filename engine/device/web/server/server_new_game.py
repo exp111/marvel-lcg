@@ -3,9 +3,10 @@ from aiohttp import web
 from engine.device.web.server.server_base import GameServerBase
 
 from engine.lib import Json
-# from engine.log import Log
+from engine.log import Log
 from game.puzzle.puzzle_data import PuzzleData
 from game.game_run.game_new import NewGameDescriptor
+from game.game_run.campaign_settings import CampaignSettings
 
 class GameServerNewGame(GameServerBase):
 
@@ -16,6 +17,12 @@ class GameServerNewGame(GameServerBase):
     async def new_game(self, request: web.Request) -> web.Response:
         data = request.rel_url.query.get('data', "")
         new_game = Json.LoadsAs(data, NewGameDescriptor)
+        try:
+            CampaignSettings.UpdateForLaunch(new_game)
+        except Exception as exc:
+            # A local filesystem problem should not prevent the requested game
+            # from launching, even though the campaign state could not persist.
+            Log.Warn("CAMPAIGN_SETTINGS", f"Could not save campaign settings: {exc}")
         self.game.NewGame(new_game)
         return web.json_response({'result': "New game created"})
 
@@ -162,4 +169,3 @@ class GameServerNewGame(GameServerBase):
         self.AddAwaitGetSecurity('/new_puzzle', self.new_puzzle)
         self.AddAwaitGetSecurity('/new_game_online', self.new_game_online)
         self.AddAwaitGetSecurity('/new_game_lan', self.new_game_lan)
-

@@ -96,6 +96,9 @@ LOG_STR_KEY: TypeAlias = Literal[
     "Scenario 3 Overseer",
     "Scenario 4 Overseer",
     "Scenario 5 Overseer",
+    "Chief Medical Officer Flipped",
+    "Chief Surveillance Officer Flipped",
+    "Chief Tactical Officer Flipped",
 ]
 
 class CampaignLog:

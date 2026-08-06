@@ -13,6 +13,8 @@
 /crash.json
 /crash.log
 /statistics.json
+/campaign_settings.json
+/campaign_settings.json.tmp
 /deck/*.json
 /build/
 /dist/

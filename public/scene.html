@@ -1060,6 +1060,72 @@ p:has(#timeout_text) {
                     },
                 }
 
+                let savedCampaignSettings = {}
+
+                function campaignRandomSeed() {
+                    if( window.crypto && window.crypto.getRandomValues ) {
+                        const value = new Uint32Array(1)
+                        window.crypto.getRandomValues(value)
+                        return value[0] % 1000000000
+                    }
+                    return Math.floor(Math.random() * 1000000000)
+                }
+
+                function randomizeCampaignNumber(button) {
+                    const input = button.parentElement.querySelector('input[type="number"]')
+                    if( !input ) {
+                        return
+                    }
+                    input.value = campaignRandomSeed()
+                    input.dispatchEvent(new Event('input', { bubbles: true }))
+                    input.dispatchEvent(new Event('change', { bubbles: true }))
+                }
+
+                function applyCampaignSettings(campaign_id, container) {
+                    const settings = savedCampaignSettings[campaign_id]
+                    if( !settings ) {
+                        return
+                    }
+
+                    container.querySelectorAll('input[type="text"], input[type="number"], select').forEach(input => {
+                        const key = input.getAttribute('data-key')
+                        if( key && Object.prototype.hasOwnProperty.call(settings, key) ) {
+                            input.value = settings[key]
+                        }
+                    })
+
+                    container.querySelectorAll('input[type="hidden"]').forEach(input => {
+                        const key = input.getAttribute('data-key')
+                        const selected = Object.prototype.hasOwnProperty.call(settings, key)
+                            ? settings[key].split(';')
+                            : []
+                        input.parentElement.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(option => {
+                            option.checked = selected.includes(option.getAttribute('data-key'))
+                        })
+                    })
+                }
+
+                async function loadCampaignSettings() {
+                    try {
+                        const response = await fetchFresh('get_campaign_settings')
+                        if( !response.ok ) {
+                            throw new Error(`HTTP ${response.status}`)
+                        }
+                        savedCampaignSettings = await response.json()
+                        const campaign_id = document.querySelector('#campaign_selector').value
+                        if( campaign_id ) {
+                            applyCampaignSettings(
+                                campaign_id,
+                                document.querySelector('#campaign_log_container'),
+                            )
+                        }
+                    } catch(error) {
+                        console.error('Unable to load campaign settings:', error)
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', loadCampaignSettings)
+
                 function campaignPlayerNumber(description) {
                     const playerMatch = description.match(/^Player (\d+)/)
                     const legacyMatch = description.match(/P(\d+)$/)
@@ -1307,8 +1373,11 @@ p:has(#timeout_text) {
                         ],
                         agents_of_shield:
                         [
-                            { description: "Evidence Seed", type: "number", default: Math.floor(Math.random() * 1000000000) },
+                            { description: "Evidence Seed", label: "Evidence Seed (Do Not Change During a Campaign)", type: "number", default: campaignRandomSeed(), random: true },
                             { description: "Evidence Earned", type: "checkbox", options: ["50185", "50186", "50187", "50188", "50189", "50190", "50191", "50192", "50193"] },
+                            { description: "Chief Medical Officer Flipped", type: "select", options: ["Yes"] },
+                            { description: "Chief Surveillance Officer Flipped", type: "select", options: ["Yes"] },
+                            { description: "Chief Tactical Officer Flipped", type: "select", options: ["Yes"] },
 
                             { description: "Player 1 Remaining hit points", type: "number" },
                             { description: "Player 2 Remaining hit points", type: "number" },
@@ -1354,7 +1423,7 @@ p:has(#timeout_text) {
                             row.dataset.playerNumber = playerNumber
                         }
 
-                        row.innerHTML = `<td>${item.description}</td>`;
+                        row.innerHTML = `<td>${item.label ?? item.description}</td>`;
                         
                         if (item.type === "select") {
                             let html = `<input type="hidden" data-key="${item.description}">`;
@@ -1372,7 +1441,10 @@ p:has(#timeout_text) {
 
                             row.innerHTML += `<td>${html}</td>`
                         } else if (item.type === "number") {
-                            row.innerHTML += `<td><input type="number" data-key="${item.description}" step="1" min="0" value="${item.default ?? ""}"></td>`;
+                            const randomButton = item.random
+                                ? `<button type="button" onclick="randomizeCampaignNumber(this)">Random</button>`
+                                : ""
+                            row.innerHTML += `<td><input type="number" data-key="${item.description}" step="1" min="0" value="${item.default ?? ""}">${randomButton}</td>`;
                         } else if (item.type === "checkbox") {
 
                             let html = `<input type="hidden" data-key="${item.description}">`;
@@ -1397,6 +1469,7 @@ p:has(#timeout_text) {
 
                         container.appendChild(row);
                     });
+                    applyCampaignSettings(campaign_id, container)
                     updateCampaignPlayerRows()
                 }
             </script>

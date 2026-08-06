@@ -6,6 +6,7 @@ from engine.device import *
 from aiohttp import web
 from engine.device.web.server.server_base import GameServerBase
 from engine.config import ConfigVariables
+from game.game_run.campaign_settings import CampaignSettings
 
 READ_ONLY_FIRST_REPLAY_FOLDER   = ConfigVariables.Bool('read_only_first_replay_folder', True)
 CARDS_JSON_FILE         = ConfigVariables.File('cards_json_file')
@@ -138,6 +139,12 @@ class GameServerGet(GameServerBase):
     async def get_session_statistics(self, request: web.Request) -> web.Response:
         return web.json_response(self.game.session.statistics.dic)
 
+    async def get_campaign_settings(self, request: web.Request) -> web.Response:
+        return web.json_response(
+            CampaignSettings.Load(),
+            headers=self.HeaderCache,
+        )
+
     async def get_play_scene_name(self, request: web.Request) -> web.Response:
         controller = self.get_first_controller(request)
         if controller.world:
@@ -188,6 +195,7 @@ class GameServerGet(GameServerBase):
         self.AddAwaitGetSecurity('/get_sets_custom_scenario', self.get_sets_custom_scenario)
         self.AddAwaitGetSecurity('/get_cards_json', self.get_cards_json)
         self.AddAwaitGetSecurity('/get_translate_json', self.get_translate_json)
+        self.AddAwaitGetSecurity('/get_campaign_settings', self.get_campaign_settings)
         self.AddAwaitGetSecurity('/get_card_json', self.get_card_json)
         self.AddAwaitGetSecurity('/get_completion_rate', self.get_completion_rate)
         self.AddAwaitGetSecurity('/get_statistics', self.get_statistics)

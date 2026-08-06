@@ -7,6 +7,7 @@
     "translate_file": "",
 
     "game_statistics_file": "statistics.json",
+    "campaign_settings_file": "campaign_settings.json",
     "statistics": true,
     "show_image_text": true,
 

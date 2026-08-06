@@ -22,6 +22,18 @@ class TestCampaignSetupUI(unittest.TestCase):
 
         self.assertIn("if( div.classList.contains('lock') )", html)
 
+    def test_campaign_settings_are_loaded_and_evidence_seed_can_be_randomized(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("fetchFresh('get_campaign_settings')", html)
+        self.assertIn("function applyCampaignSettings(campaign_id, container)", html)
+        self.assertIn("function randomizeCampaignNumber(button)", html)
+        self.assertIn('onclick="randomizeCampaignNumber(this)"', html)
+        self.assertIn('description: "Evidence Seed"', html)
+        self.assertIn('label: "Evidence Seed (Do Not Change During a Campaign)"', html)
+
 
 if __name__ == "__main__":
     unittest.main()
