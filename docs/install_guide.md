@@ -6,10 +6,13 @@ Do not extract a new release over an existing Marvel LCG Digital folder. Extract
 each release into a new, empty folder so old application, data, and interface
 files cannot be mixed with the new build.
 
-Copy only personal saves, replays, or custom decks that you want to keep. Do not
-copy the previous executable, `public`, `data`, `assets/cache`, or `launch.json`
-unless you intentionally need to migrate a setting. If a build older than
-`1.0.0.1r` was previously opened, clear the browser's site data for
+Copy `campaign_settings.json` from the old build folder into the new build
+folder, replacing or overwriting the destination file if prompted. This file
+contains the saved setup choices for every campaign. Also copy any personal
+saves, replays, or custom decks that you want to keep. Do not copy the previous
+executable, `public`, `data`, `assets/cache`, or `launch.json` unless you
+intentionally need to migrate a setting. If a build older than `1.0.0.1r` was
+previously opened, clear the browser's site data for
 `127.0.0.1:2345` once if the interface still appears out of date.
 
 ## Running the development build on Windows

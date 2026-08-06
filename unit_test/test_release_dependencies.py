@@ -4,13 +4,13 @@ import unittest
 
 class TestReleaseDependencies(unittest.TestCase):
 
-    def test_release_build_invalidates_pre_release_browser_cache(self):
+    def test_release_version_matches_patch_notes(self):
         project_root = Path(__file__).resolve().parents[1]
         build = (project_root / "build.py").read_text(encoding="utf-8")
         patch_notes = (project_root / "PATCH_NOTES.md").read_text(encoding="utf-8")
 
-        self.assertIn("    BUILD = 1", build.splitlines())
-        self.assertIn("Application version: **1.0.0.1r**", patch_notes)
+        self.assertIn("    BUILD = 3", build.splitlines())
+        self.assertIn("Application version: **1.0.0.3r**", patch_notes)
 
     def test_scene_setup_metadata_bypasses_browser_cache(self):
         project_root = Path(__file__).resolve().parents[1]

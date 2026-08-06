@@ -17,6 +17,7 @@ The package deliberately excludes:
 
 - `assets/cache`, which is populated with downloaded card artwork during play
 - `assets/pics`, which is reserved for an optional offline or custom image pack
+- `campaign_settings.json`, which users carry forward from their previous build to retain saved campaign setup choices
 - saves, statistics, crash logs, virtual environments, source maps, and developer build output
 
 The empty `assets/cache` and `assets/pics` paths are created at staging time. Empty directories do not necessarily appear in the final ZIP, and the game can create its cache when needed.
@@ -60,7 +61,7 @@ The **Build Windows release** workflow can be run manually for testing. Pushing 
 7. Extract the ZIP into a clean directory and start `marvel-lcg.exe` from that directory.
 8. Smoke-test a new game, campaign setup, a remote card-image download, settings persistence, and hotseat play.
 9. Verify the published ZIP against its `.sha256` file.
-10. Publish the archive with `PATCH_NOTES.md` and credit the Irefrixs Team.
+10. Publish the archive with `PATCH_NOTES.md`, remind users to copy and overwrite `campaign_settings.json` into the new build folder, and credit the Irefrixs Team.
 
 ## Optional image package
 

@@ -6,6 +6,8 @@ The upstream developers have given permission for modified builds to be publishe
 
 ## What's new in community release 1.0
 
+- Campaign setup choices now persist locally across launches in `campaign_settings.json` for every campaign.
+- Agents of S.H.I.E.L.D. evidence rewards, Setup abilities, Evidence Seed handling, and persistent Executive Board attachments now follow the campaign rules.
 - Complete campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
 - New **Synthezoid Smackdown** cooperative scenarios and encounter sets.
 - New playable **Wonder Man** and **Hercules** hero expansions with starter decks.

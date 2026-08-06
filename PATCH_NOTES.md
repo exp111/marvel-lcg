@@ -1,10 +1,23 @@
 # Release 1.0 patch set
 
-Application version: **1.0.0.2r**
+Application version: **1.0.0.3r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
 These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
+
+## v1.0.0.3 campaign hotfix
+
+- Added automatic local persistence for setup choices across every campaign. The game now saves the current campaign settings to `campaign_settings.json` whenever a game launches and restores them in later sessions.
+- Added a randomizer for the Agents of S.H.I.E.L.D. Evidence Seed and marked the seed as a value that must not change during a campaign.
+- Corrected Agents of S.H.I.E.L.D. evidence so earned cards remain out of play, reveal a random eligible card after a qualifying victory, and resolve their Setup abilities during subsequent scenario setup.
+- Corrected Executive Board members so they flip at the standard or expert secret threshold, become villain attachments, retain their attachment abilities, and persist as flipped through campaign settings.
+
+### Updating from an earlier build
+
+1. Extract v1.0.0.3 into a new, empty folder.
+2. Copy `campaign_settings.json` from the old build folder into the new build folder. Replace or overwrite the destination file if prompted; this preserves the saved setup choices for all campaigns.
+3. Copy any personal saves, replays, and custom decks that you want to retain. Do not copy the old executable, `public`, `data`, `assets/cache`, or `launch.json`.
 
 ## v1.0.0.2 hotfix
 
