@@ -935,6 +935,11 @@ export class Effect {
         return Effect.select_effect_obj.name_with_space == 'End Phase' ||
                 Effect.select_effect_obj.name_with_space == 'Resolve Mulligans'
     }
+
+    static isMandatoryHandSizeDiscard() {
+        return Effect.isEndPhaseOrResolveMulligans() &&
+                Effect.select_effect_obj.target_num_range[0] > 0
+    }
 }
 
 (window as any).Effect = Effect;

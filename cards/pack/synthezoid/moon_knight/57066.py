@@ -9,6 +9,5 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.AttachToFaceWhenPutIntoPlay(
             CardFinder(name="Moon Knight"), otherwise_attach_to="EnemyLeader"
         ),
-        *AbilityFactory.GiveKeywordToAttached(Enemy, attack=2),
         AbilityFactory.WhenUnitWouldAttack(AbilityType.ForcedInterrupt, "AttachedCharacter", dart),
     ]

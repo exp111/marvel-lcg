@@ -5,7 +5,7 @@ def GetAbilities() -> Sequence['Ability']:
         RunAt.AfterEnemyActivationEnd(effect, message, lambda: Faces.DiscardAll([effect.this], effect))
     return [
         AbilityFactory.AttachToFaceWhenPutIntoPlay(CardFinder(name="She-Hulk", card_type=Leader)),
-        *AbilityFactory.GiveKeywordToAttached(Leader, scheme=1, stalwart=1),
+        *AbilityFactory.GiveKeywordToAttached(Leader, stalwart=1),
         AbilityFactory.WhenUnitWouldScheme(AbilityType.ForcedInterrupt, "AttachedCharacter", scheme),
         AbilityFactory.WhenCardBecomeBoost("This", RevealThisCard),
     ]

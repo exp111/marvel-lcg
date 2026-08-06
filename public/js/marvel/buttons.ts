@@ -33,7 +33,9 @@ export class Button{
     }
 
     static doBtnCancel() {
-        if( Game.is_lost_connect || Button.is_posting || BtnOk.btn_end_div.disabled ) {
+        if( Game.is_lost_connect || Button.is_posting ||
+            BtnOk.btn_end_div.disabled || Effect.isMandatoryHandSizeDiscard()
+        ) {
             return
         }
         Button.disablePause()
@@ -60,6 +62,11 @@ export class Button{
 
     static doCancel() {
         if( Game.is_lost_connect ) {
+            return
+        }
+        if( Effect.isMandatoryHandSizeDiscard() ) {
+            // A player above their hand size must discard down. Keep the
+            // mandatory selection open instead of posting an empty command.
             return
         }
         Replay.prepared_replay = false

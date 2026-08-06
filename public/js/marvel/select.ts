@@ -43,6 +43,9 @@ export class SelectStep {
         SelectStep.step = 'target'
         BtnOk.setDisable(false)
         BtnOk.setCancel('Cancel')
+        if( Effect.isMandatoryHandSizeDiscard() ) {
+            BtnOk.btn_end_div.disabled = true
+        }
 
         Effect.updateHighLight()
 

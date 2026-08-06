@@ -7,7 +7,6 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.AttachToFaceWhenPutIntoPlay(
             CardFinder(name="Taskmaster"), otherwise_attach_to="EnemyLeader"
         ),
-        *AbilityFactory.GiveKeywordToAttached(Enemy, scheme=1),
         AbilityFactory.WhenUnitWouldTakeDamage(
             AbilityType.ForcedInterrupt, "AttachedCharacter", shield
         ),

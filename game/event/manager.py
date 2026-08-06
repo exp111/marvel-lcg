@@ -824,8 +824,8 @@ class EventManager:
                 forced_effects = local_effect_priority_forced
                 if "Forced" in check_effects:
                     forced_effects += check_effects["Forced"]
-                if local_effect_priority_forced:
-                    if self.ProcessForcedEffect(message, local_effect_priority_forced, priority, undo_handle):
+                if forced_effects:
+                    if self.ProcessForcedEffect(message, forced_effects, priority, undo_handle):
                         return
 
             if  local_effect_priority_optional or \

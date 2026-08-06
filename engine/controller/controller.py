@@ -36,6 +36,18 @@ class Controller:
     ################################################################################
     #
     # GetInput
+    @staticmethod
+    def CanSubmitEmptyChoice(
+        is_forced: bool|Literal["Forced_Action"],
+        effect_descriptors: Sequence['EffectDescriptor'],
+    ) -> bool:
+        if not is_forced:
+            return True
+        return (
+            len(effect_descriptors) == 1
+            and effect_descriptors[0].target_num_range[0] == 0
+        )
+
     def ChoiceOne(self, effect_list: Sequence['Effect'], by_effect: 'Effect|None', message: 'Message2', priority: 'TimingPriority', is_forced: bool|Literal["Forced_Action"]) -> Tuple['Effect|None', bool]:
         from game.scene.replay.operation import CardEffectInt
 
@@ -270,8 +282,17 @@ class Controller:
                 input_effect = Json.LoadsAs(user_input, CommandDescriptor)
                 input_effect_id = CardEffectInt(input_effect.id)
                 if input_effect_id == 0:
-                    if is_forced:
-                        assert len(effect_descriptors) == 1 and effect_descriptors[0].target_num_range[0] == 0, f"{is_forced}"
+                    if not Controller.CanSubmitEmptyChoice(is_forced, effect_descriptors):
+                        # A stale replay or client can submit an empty command even
+                        # though this forced choice still requires targets. Stop
+                        # replaying that command and leave the prompt open.
+                        replay_input = None
+                        fallthrough_input = "{}"
+                        convert_fallthrough_input = "{}"
+                        if controller_manager.skip.SetIsSkipping(False):
+                            if self.world:
+                                self.world.render.PresentForceNoWait()
+                        continue
                     break
 
                 # Update selected

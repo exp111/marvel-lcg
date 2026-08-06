@@ -2,7 +2,7 @@ from . import *
 
 def _flip_mass_form(effect: 'Effect', message: 'Message.AfterResolveVillainPhaseStep') -> None:
     leader = effect.this.CastTo(Leader)
-    forms = CardFinder(name=["Dense", "Intangible"]).Checks(leader.GetAttachedAttachments())
+    forms = CardFinder(names=["Dense", "Intangible"]).Checks(leader.GetAttachedAttachments())
     if forms:
         forms[0].card.Flip(effect)
 
