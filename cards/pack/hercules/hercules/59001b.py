@@ -14,7 +14,6 @@ def GetAbilities() -> Sequence['Ability']:
     def no_labor_in_play(effect: 'Effect', message: 'Message.WhenPlayerInTurn') -> bool:
         return not effect.world.FindCardsOnField(
             finder=CardFinder(trait="LABOR"),
-            owner=effect.GetInitiator(),
         )
 
     return [

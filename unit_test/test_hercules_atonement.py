@@ -8,6 +8,20 @@ from engine import Engine  # noqa: F401 - establishes the project's import order
 
 class TestHerculesAtonement(unittest.TestCase):
 
+    def test_triggers_for_any_labor_added_to_the_victory_display(self):
+        module = import_module("cards.pack.hercules.hercules.59001a")
+        ability = module.GetAbilities()[0]
+        victory_display = object()
+        effect = SimpleNamespace()
+        message = SimpleNamespace(into_areas=[victory_display])
+
+        with patch.object(
+            module.Worlds,
+            "VictoryDisplay",
+            return_value=victory_display,
+        ):
+            self.assertTrue(ability.conditions[-1](effect, message))
+
     def test_ready_and_flip_continue_after_gift_enter_play_responses(self):
         module = import_module("cards.pack.hercules.hercules.59001a")
         ability = module.GetAbilities()[0]

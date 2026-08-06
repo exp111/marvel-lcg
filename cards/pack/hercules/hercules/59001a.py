@@ -30,9 +30,7 @@ def GetAbilities() -> Sequence['Ability']:
             atonement,
             conditions=[
                 lambda effect, message:
-                    Worlds.VictoryDisplay(effect) in message.into_areas and
-                    any(face.GetOwner() == effect.GetInitiator()
-                        for face in message.faces if face.HasTrait("LABOR")),
+                    Worlds.VictoryDisplay(effect) in message.into_areas,
             ],
         ).SetName("Atonement").LimitOncePerPhase(),
     ]

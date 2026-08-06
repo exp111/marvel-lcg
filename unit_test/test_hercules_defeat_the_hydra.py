@@ -1,4 +1,5 @@
 from importlib import import_module
+from inspect import getclosurevars
 from types import SimpleNamespace
 import unittest
 from unittest.mock import MagicMock, patch
@@ -82,6 +83,21 @@ class TestHerculesDefeatTheHydra(unittest.TestCase):
         discard_all.assert_called_once_with([self.labor], self.effect)
         self.labor.HealthUnits.assert_not_called()
         self.labor.AttachTo2.assert_not_called()
+
+    def test_completion_is_mandatory_and_moves_the_labor_to_victory(self):
+        completion = self.module.GetAbilities()[-1]
+        labor = MagicMock()
+        effect = SimpleNamespace(this=labor)
+
+        self.assertEqual(
+            completion.second_type,
+            self.module.AbilityType.ForcedInterrupt,
+        )
+        complete_labor = getclosurevars(completion.operation).nonlocals["operation"]
+        with patch.object(self.module.Faces, "AddToVictoryDisplay") as add_to_victory:
+            complete_labor(effect, SimpleNamespace())
+
+        add_to_victory.assert_called_once_with([labor], effect)
 
 
 class TestHerculesLaborDiscardRouting(unittest.TestCase):
