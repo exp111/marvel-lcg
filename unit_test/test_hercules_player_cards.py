@@ -1,5 +1,7 @@
 from importlib import import_module
 from inspect import getclosurevars
+import json
+from pathlib import Path
 from types import SimpleNamespace
 import unittest
 from unittest.mock import MagicMock, call, patch
@@ -373,6 +375,18 @@ class TestSonOfZeus(unittest.TestCase):
 
 
 class TestAncientRivalry(unittest.TestCase):
+
+    def test_card_data_registers_hercules_and_thor_team_up(self):
+        root = Path(__file__).resolve().parents[1]
+        cards = json.loads((root / "data" / "cards.json").read_text(encoding="utf-8"))
+        ancient_rivalry = next(
+            card
+            for pack in cards.values()
+            for card in pack
+            if card.get("card_id") == "59026"
+        )
+
+        self.assertEqual(ancient_rivalry["desc"]["TeamUp"], "Hercules;Thor")
 
     def test_event_is_unavailable_without_an_upgrade_to_recover_or_character_to_ready(self):
         module = import_module("cards.pack.hercules.59026")

@@ -33711,22 +33711,7 @@
             "set_name": "",
             "text": "Attach to a minion. Max 1 per minion.\nEach ally takes -1 consequential damage ([consequential]) when attacking attached minion."
         },
-        {
-            "card_id": "33017",
-            "type": "Event",
-            "name": "Teamwork",
-            "subtitle": "",
-            "desc": {
-                "Cost": "0",
-                "RES": "Y",
-                "Class": "Leadership"
-            },
-            "traits": [
-                "TACTIC"
-            ],
-            "set_name": "",
-            "text": "<b>Hero Interrupt</b> When you use your basic thwart power <i>(THW)</i> or basic attack power <i>(ATK)</i>, exhaust an ally you control \u2192 add that ally's matching power to your hero's power for this use."
-        },
+        {"card_id": "33017", "full_link": "06032"},
         {
             "card_id": "33018",
             "type": "Resource",
@@ -60770,23 +60755,7 @@
             "set_name": "",
             "text": "<b>Hero Action</b>: Heal 2 damage from an enemy \u2192 confuse that enemy."
         },
-        {
-            "card_id": "58017",
-            "type": "Event",
-            "name": "Bombs Away",
-            "subtitle": "",
-            "desc": {
-                "Cost": "2",
-                "RES": "Y",
-                "Class": "Aggression"
-            },
-            "traits": [
-                "AERIAL",
-                "TACTIC"
-            ],
-            "set_name": "",
-            "text": "<b>Hero Action</b>: Exhaust an [[AERIAL]] character you control and choose a player \u2192 deal 3 damage to the villain and each minion engaged with that player."
-        },
+        {"card_id": "58017", "full_link": "42029"},
         {
             "card_id": "58018",
             "type": "Event",
@@ -61297,22 +61266,7 @@
             "card_id": "59021",
             "full_link": "06032"
         },
-        {
-            "card_id": "59022",
-            "type": "PlayerSideScheme",
-            "name": "* Call for Backup",
-            "subtitle": "",
-            "desc": {
-                "Cost": "1",
-                "RES": "B",
-                "StartingThreat": "3*",
-                "Class": "Leadership",
-                "Victory": "0"
-            },
-            "traits": [],
-            "set_name": "",
-            "text": "Victory 0.\n<b>When Defeated</b>: Each player may search their deck and discard pile for an ally and put it into play. <i>(Shuffle.)</i>"
-        },
+        {"card_id": "59022", "full_link": "40018"},
         {
             "card_id": "59023",
             "type": "Support",
@@ -61359,7 +61313,7 @@
             "type": "Event",
             "name": "Ancient Rivalry",
             "subtitle": "",
-            "desc": {"Cost": "1", "RES": "G", "MaxPerDeck": "1", "Class": "Basic"},
+            "desc": {"Cost": "1", "RES": "G", "MaxPerDeck": "1", "Class": "Basic", "TeamUp": "Hercules;Thor"},
             "traits": ["ASGARD", "OLYMPUS"],
             "set_name": "",
             "text": "Team-Up (Hercules and Thor). Max 1 per deck.\n<b>Hero Action</b>: Search your discard pile for an identity-specific upgrade and add it to your hand. Ready Hercules and Thor."
@@ -61466,5 +61420,5 @@
             "text": "Each minion attacks the player it is engaged with (even if that player is in alter-ego form). If no minion activates this way, discard cards from the top of the encounter deck until a minion is discarded and reveal that minion."
         }
     ],
-    "checksum": "051c5378e250a93302a3c97249b557024f28475ca40e2e6283b44b63e4a0878f"
+    "checksum": "9a4fc8f867f32c2152bcdb993130720445c33f0a92c0c748fb09ac91046b313f"
 }

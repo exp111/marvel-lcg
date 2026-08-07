@@ -34,6 +34,11 @@ class SenderUnit:
                 assert False, f"{type(self.would_message)=}"
 
         def AddThatMatchingPower(self, allies: Sequence['CardFace'], by_effect: 'Effect'):
+            if self.power in ["ATK", "THW"]:
+                for ally in allies:
+                    self.would_message.AddMatchingPowerToThisPerformance(ally, by_effect)
+                return
+
             from game.card.face.attribute.can_attack import HasAttack
             from game.card.face.attribute.can_thwart import HasThwart
             value = 0
@@ -366,4 +371,3 @@ class SenderUnit:
         @property
         def would_change_message(self) -> 'Message.WhenUnitWouldChangeForm':
             return self.after_change_message.would_change_message
-
