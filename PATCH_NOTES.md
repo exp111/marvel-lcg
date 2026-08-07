@@ -1,18 +1,22 @@
 # Release 1.0 patch set
 
-Application version: **1.0.0.4r**
+Application version: **1.0.0.5r**
 
 Baseline: Irefrixs Team upstream `master` at `a77154a`
 
 These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
 
+## v1.0.0.5 community build
+
+- Labeled the main menu as the Community Build and made it request the running application's current version instead of displaying a stale browser cookie.
+- Restored Ancient Rivalry's missing Team-Up registration so it can be played while Hercules and Thor are both in play.
+- Corrected Teamwork and similar matching-power effects to add an ally's ATK, rather than THW, when thwarting an assault scheme.
+- Linked the Hercules and Wonder Man reprints of Call for Backup and Bombs Away to their original card implementations, and consolidated every Teamwork reprint on its original implementation.
+
 ## v1.0.0.4 Wonder Man, Hercules, and Synthezoid Smackdown hotfix
 
 - Corrected Wonder Man card and nemesis scripting, including Ionic Physiology, Signature Sunglasses, Avengers Compound, Stronger Together, Fallen Sentry, and Grim Reaper activation handling.
 - Corrected Hercules's Labor completion and Atonement timing, Hydra interactions, attack redirection, temporary bonuses, excess-damage healing, and other hero-card effects.
-- Restored Ancient Rivalry's missing Team-Up registration so it can be played while Hercules and Thor are both in play.
-- Corrected Teamwork and similar matching-power effects to add an ally's ATK, rather than THW, when thwarting an assault scheme.
-- Linked the Hercules and Wonder Man reprints of Call for Backup and Bombs Away to their original card implementations, and consolidated every Teamwork reprint on its original implementation.
 - Corrected Synthezoid Smackdown villain and encounter-card behavior, including Vision's Mass Form flips, forced effects, expert-stage inheritance, and duplicated printed ATK and SCH modifiers.
 - Restored mandatory end-phase discards so players above their hand size cannot cancel the discard prompt, while optional discard prompts remain optional.
 - Corrected mismatched hero and alter-ego artwork for Colossus, Shadowcat, Cyclops, Phoenix, Wolverine, Storm, Gambit, and Rogue, without reusing stale reversed images from the local cache.

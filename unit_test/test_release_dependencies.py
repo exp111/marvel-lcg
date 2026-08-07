@@ -9,8 +9,18 @@ class TestReleaseDependencies(unittest.TestCase):
         build = (project_root / "build.py").read_text(encoding="utf-8")
         patch_notes = (project_root / "PATCH_NOTES.md").read_text(encoding="utf-8")
 
-        self.assertIn("    BUILD = 4", build.splitlines())
-        self.assertIn("Application version: **1.0.0.4r**", patch_notes)
+        self.assertIn("    BUILD = 5", build.splitlines())
+        self.assertIn("Application version: **1.0.0.5r**", patch_notes)
+
+    def test_main_menu_identifies_the_community_build_with_the_live_version(self):
+        project_root = Path(__file__).resolve().parents[1]
+        main_html = (project_root / "public" / "main.html").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("Community Build v${version}", main_html)
+        self.assertIn("fetch('/get_version', { cache: 'no-store' })", main_html)
+        self.assertNotIn("versionElement.innerHTML = `v${version}`", main_html)
 
     def test_scene_setup_metadata_bypasses_browser_cache(self):
         project_root = Path(__file__).resolve().parents[1]

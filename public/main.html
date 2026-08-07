@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Champions: Digital Edition</title>
+    <title>Marvel Champions: Digital Edition Community Build</title>
     <style>
         body {
             background-color: rgb(43, 43, 43);
@@ -209,11 +209,22 @@
         }
 
         (async () => {
-            // const response_version = await fetch(`get_version?`);
-            // version = await response_version.text();
-            const version = getCookie('app_version')
+            let version = null;
+            try {
+                const response = await fetch('/get_version', { cache: 'no-store' });
+                if (response.ok) {
+                    version = (await response.text()).trim();
+                }
+            } catch (error) {
+                console.warn('Could not retrieve the current application version.', error);
+            }
+            if (!version) {
+                version = getCookie('app_version');
+            }
             const versionElement = document.querySelector(`#version`);
-            versionElement.innerHTML = `v${version}`;
+            versionElement.textContent = version
+                ? `Community Build v${version}`
+                : 'Community Build';
         })()
     </script>
 
