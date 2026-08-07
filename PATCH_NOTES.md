@@ -9,6 +9,7 @@ These notes compare the final community release with the original upstream relea
 ## v1.0.0.5 community build
 
 - Labeled the main menu as the Community Build and made it request the running application's current version instead of displaying a stale browser cookie.
+- Changed Windows packaging to a Python 3.12 PyInstaller one-folder bundle with UPX disabled, explicit Community Build version metadata, and developer-only command modules excluded from the release executable.
 - Restored Ancient Rivalry's missing Team-Up registration so it can be played while Hercules and Thor are both in play.
 - Corrected Teamwork and similar matching-power effects to add an ally's ATK, rather than THW, when thwarting an assault scheme.
 - Linked the Hercules and Wonder Man reprints of Call for Backup and Bombs Away to their original card implementations, and consolidated every Teamwork reprint on its original implementation.

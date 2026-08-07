@@ -27,10 +27,12 @@ The empty `assets/cache` and `assets/pics` paths are created at staging time. Em
 From the repository root, create the virtual environment and install the runtime and release dependencies:
 
 ```powershell
-py -3.14 -m venv .venv
-& ".\.venv\Scripts\python.exe" -m pip install -r requirements-release.txt
+py -3.12 -m venv .venv-release
+& ".\.venv-release\Scripts\python.exe" -m pip install -r requirements-release.txt
 npm install --global typescript
 ```
+
+The release build intentionally uses PyInstaller's one-folder mode with UPX disabled. The ZIP contains `marvel-lcg.exe` beside an `_internal` dependency directory, avoiding the temporary self-extraction behavior of one-file executables.
 
 Run the non-mutating preflight first:
 
@@ -61,7 +63,10 @@ The **Build Windows release** workflow can be run manually for testing. Pushing 
 7. Extract the ZIP into a clean directory and start `marvel-lcg.exe` from that directory.
 8. Smoke-test a new game, campaign setup, a remote card-image download, settings persistence, and hotseat play.
 9. Verify the published ZIP against its `.sha256` file.
-10. Publish the archive with `PATCH_NOTES.md`, remind users to copy and overwrite `campaign_settings.json` into the new build folder, and credit the Irefrixs Team.
+10. Scan `marvel-lcg.exe` with Microsoft Defender and review the result before publishing. Submit the ZIP or executable to VirusTotal only when release policy permits third-party redistribution of the sample.
+11. Publish the archive with `PATCH_NOTES.md`, remind users to copy and overwrite `campaign_settings.json` into the new build folder, and credit the Irefrixs Team.
+
+Public releases should eventually be Authenticode-signed. Azure Artifact Signing is Microsoft's recommended non-Store option; qualifying open-source projects can also investigate SignPath Foundation.
 
 ## Optional image package
 

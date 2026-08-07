@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.14"
+          python-version: "3.12"
           cache: pip
 
       - name: Set up Node.js
@@ -32,9 +32,9 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
           $PSNativeCommandUseErrorActionPreference = $true
-          python -m venv .venv
-          .\.venv\Scripts\python.exe -m pip install --upgrade pip
-          .\.venv\Scripts\python.exe -m pip install -r requirements-release.txt
+          python -m venv .venv-release
+          .\.venv-release\Scripts\python.exe -m pip install --upgrade pip
+          .\.venv-release\Scripts\python.exe -m pip install -r requirements-release.txt
           npm install --global typescript
 
       - name: Build release archive

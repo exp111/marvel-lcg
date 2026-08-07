@@ -35,6 +35,9 @@ class CheatCommand:
             else:
                 return
 
-        from game.world.cheat.cheat_cmd_helper import RunCheat
+        try:
+            from game.world.cheat.cheat_cmd_helper import RunCheat
+        except ModuleNotFoundError:
+            # Arbitrary debug commands are intentionally excluded from release bundles.
+            return
         RunCheat(self.world, commands, player_id)
-

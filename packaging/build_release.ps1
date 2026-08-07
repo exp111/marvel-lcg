@@ -2,6 +2,7 @@
 param(
     [string]$Version,
     [string]$OutputDirectory,
+    [string]$PythonEnvironment,
     [switch]$PreflightOnly
 )
 
@@ -83,13 +84,21 @@ if ($staleUiVersions) {
     throw "public\marvel.html contains stale UI cache version(s): $($staleUiVersions -join ', '). Expected $expectedUiVersion."
 }
 
-$python = Join-Path $projectRoot ".venv\Scripts\python.exe"
-$pyinstaller = Join-Path $projectRoot ".venv\Scripts\pyinstaller.exe"
+if (-not $PythonEnvironment) {
+    $PythonEnvironment = Join-Path $projectRoot ".venv-release"
+}
+$pythonEnvironmentRoot = [System.IO.Path]::GetFullPath($PythonEnvironment)
+$python = Join-Path $pythonEnvironmentRoot "Scripts\python.exe"
+$pyinstaller = Join-Path $pythonEnvironmentRoot "Scripts\pyinstaller.exe"
 if (-not (Test-Path -LiteralPath $python)) {
-    throw "Release Python was not found at $python. Create .venv and install requirements-release.txt."
+    throw "Release Python was not found at $python. Create a Python 3.12 .venv-release environment and install requirements-release.txt."
 }
 if (-not (Test-Path -LiteralPath $pyinstaller)) {
-    throw "PyInstaller was not found at $pyinstaller. Install requirements-release.txt into .venv."
+    throw "PyInstaller was not found at $pyinstaller. Install requirements-release.txt into .venv-release."
+}
+$pythonVersion = (& $python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')").Trim()
+if ($LASTEXITCODE -ne 0 -or $pythonVersion -ne "3.12") {
+    throw "Release builds require Python 3.12; $python reports '$pythonVersion'."
 }
 $typescript = Get-Command "tsc.cmd" -ErrorAction SilentlyContinue
 if (-not $typescript) {
@@ -97,7 +106,7 @@ if (-not $typescript) {
 }
 
 if ($PreflightOnly) {
-    Write-Host "Release preflight passed for Marvel LCG $Version (application $applicationVersion)."
+    Write-Host "Release preflight passed for Marvel LCG $Version (application $applicationVersion, Python $pythonVersion)."
     Write-Host "Downloaded assets/cache and optional assets/pics are excluded by the staging manifest."
     exit 0
 }
@@ -137,11 +146,17 @@ finally {
     Pop-Location
 }
 
-$executable = Join-Path $binaryRoot "marvel-lcg.exe"
+$binaryBundle = Join-Path $binaryRoot "marvel-lcg"
+$executable = Join-Path $binaryBundle "marvel-lcg.exe"
 if (-not (Test-Path -LiteralPath $executable)) {
     throw "PyInstaller did not produce $executable"
 }
-Copy-Item -LiteralPath $executable -Destination $stageRoot
+Get-ChildItem -LiteralPath $binaryBundle | Copy-Item -Destination $stageRoot -Recurse
+
+$internalDirectory = Join-Path $stageRoot "_internal"
+if (-not (Test-Path -LiteralPath $internalDirectory -PathType Container)) {
+    throw "PyInstaller did not produce the expected onedir _internal directory."
+}
 
 foreach ($folder in @("data", "public", "docs")) {
     Copy-Item -LiteralPath (Join-Path $projectRoot $folder) -Destination $stageRoot -Recurse

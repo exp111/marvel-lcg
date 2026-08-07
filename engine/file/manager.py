@@ -146,7 +146,12 @@ class FileManager:
 
     @staticmethod
     def EditCode(file_path: str) -> None:
-        System.Run(f'code {file_path}')
+        try:
+            from engine.file.code_editor import EditCode
+        except ModuleNotFoundError:
+            # Source editing is intentionally excluded from release bundles.
+            return
+        EditCode(file_path)
 
     @staticmethod
     def CleanName(name: str) -> str:
@@ -210,4 +215,3 @@ class FileManager:
         else:
             Log.Assert(CATEGORY_NAME, f"File {file_names} not found")
             return None
-

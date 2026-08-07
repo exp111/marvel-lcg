@@ -52,6 +52,55 @@ class TestReleaseDependencies(unittest.TestCase):
         self.assertIn('release_hiddenimports = ["numpy", *card_hiddenimports]', release_spec)
         self.assertIn("hiddenimports=release_hiddenimports", release_spec)
 
+    def test_release_uses_python_312_onedir_without_upx(self):
+        project_root = Path(__file__).resolve().parents[1]
+        release_spec = (
+            project_root / "packaging" / "marvel-lcg-release.spec"
+        ).read_text(encoding="utf-8")
+        release_script = (
+            project_root / "packaging" / "build_release.ps1"
+        ).read_text(encoding="utf-8")
+        workflow = (
+            project_root / ".github" / "workflows" / "build-release.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("exclude_binaries=True", release_spec)
+        self.assertIn("coll = COLLECT(", release_spec)
+        self.assertEqual(release_spec.count("upx=False"), 2)
+        self.assertIn('contents_directory="_internal"', release_spec)
+        self.assertIn('Join-Path $projectRoot ".venv-release"', release_script)
+        self.assertIn('$pythonVersion -ne "3.12"', release_script)
+        self.assertIn('python-version: "3.12"', workflow)
+
+    def test_release_executable_has_community_version_metadata(self):
+        project_root = Path(__file__).resolve().parents[1]
+        release_spec = (
+            project_root / "packaging" / "marvel-lcg-release.spec"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('StringStruct("CompanyName", "Marvel Champions Digital Community")', release_spec)
+        self.assertIn('StringStruct("ProductVersion", version_text)', release_spec)
+        self.assertIn("version=version_info", release_spec)
+
+    def test_release_excludes_developer_command_modules(self):
+        project_root = Path(__file__).resolve().parents[1]
+        release_spec = (
+            project_root / "packaging" / "marvel-lcg-release.spec"
+        ).read_text(encoding="utf-8")
+        system = (project_root / "core" / "utility" / "system.py").read_text(
+            encoding="utf-8"
+        )
+
+        for module in (
+            '"editor"',
+            '"engine.file.code_editor"',
+            '"engine.security.command_validation"',
+            '"game.world.cheat.cheat_cmd_helper"',
+            '"unit_test"',
+        ):
+            self.assertIn(module, release_spec)
+        self.assertNotIn("os.system", system)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,21 +1,18 @@
-import os
-
 class System:
 
     @staticmethod
-    def Run(cmd: str):
-        os.system(cmd)
+    def SetTitle(title: str) -> None:
+        import ctypes
+        import os
+
+        if os.name == "nt":
+            ctypes.windll.kernel32.SetConsoleTitleW(str(title))
 
     @staticmethod
-    def SetTitle(title: str):
-        System.Run(f'title {title}')
-
-    @staticmethod
-    def Pause():
-        System.Run('pause')
+    def Pause() -> None:
+        input("Press Enter to continue . . .")
 
     @staticmethod
     def Sleep(secs: float):
         from time import sleep
         return sleep(secs)
-
