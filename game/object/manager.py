@@ -6,6 +6,7 @@ class ObjectManager:
 
     OBJECT_CATEGORY = Literal[
         'card',
+        'reference_card',
         'effect',
         'player',
         'scenario',
@@ -21,6 +22,7 @@ class ObjectManager:
 
     INIT_DICT: Dict[OBJECT_CATEGORY, int] = {
         "card": -1,
+        "reference_card": -1000000,
         "effect": 0,
         "message": 0,
         'check_message': 0,
@@ -59,7 +61,7 @@ class ObjectManager:
         self.index_dict[category] += 1
         object_id = self.index_dict[category]
 
-        if category == 'card':
+        if category in ('card', 'reference_card'):
             self.card_dict[object_id] = Cast(Card, object)
         if category == 'effect':
             self.effect_dict[object_id] = Cast(Effect, object)
@@ -82,4 +84,3 @@ class ObjectManager:
 
     def ResetChooseEffect(self) -> None:
         self.index_dict['choose_effect'] = ObjectManager.INIT_DICT['choose_effect']
-

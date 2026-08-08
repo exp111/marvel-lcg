@@ -150,6 +150,11 @@ body.game-over .badge-new::before,
     display: none;
 }
 
+/* Negative object ids are reserved for display-only reference inserts. */
+.card.type-insert[data-id^="-"] {
+    display: flex;
+}
+
 .card.type-challenge {
     --card-width: var(--card-height);
 }

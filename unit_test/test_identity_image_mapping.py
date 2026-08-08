@@ -17,6 +17,8 @@ from engine.file.cache import (
 class TestIdentityImageMapping(unittest.TestCase):
 
     IDENTITY_PAIRS = (
+        ("16001a", "16001b"),  # Groot
+        ("16029a", "16029b"),  # Rocket Raccoon
         ("32001a", "32001b"),  # Colossus
         ("32030a", "32030b"),  # Shadowcat
         ("33001a", "33001b"),  # Cyclops

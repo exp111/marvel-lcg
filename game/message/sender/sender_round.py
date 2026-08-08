@@ -23,7 +23,22 @@ class SenderRound:
         def CreateSetAside(self):
             from game.card.factory import CardFactory
             from game.message import Message
-            CardFactory.GenerateCards(self.set_aside_card_ids, self.world.aside_deck, self.world)
+            gameplay_cards: List[str] = []
+            for card_ids in self.set_aside_card_ids:
+                papers = CardFactory.FindCardPapers(card_ids)
+                if all(paper.type == "Insert" for paper in papers):
+                    self.world.set_aside_reference_card_ids.append(card_ids)
+                else:
+                    gameplay_cards.append(card_ids)
+
+            CardFactory.GenerateCards(gameplay_cards, self.world.aside_deck, self.world)
+            CardFactory.GenerateCards(
+                self.world.set_aside_reference_card_ids,
+                self.world.aside_deck,
+                self.world,
+                ui_render=False,
+                is_reference=True,
+            )
             Message.WhenDeckCreated_Text(self.world.aside_deck)
 
         def CreateSetAsideModular(self):
@@ -136,4 +151,3 @@ class SenderRound:
         def __init__(self, step: int, message: 'Message.WhenVillainPhaseStepStart') -> None:
             self.step = step
             super().__init__(pre_message=message)
-

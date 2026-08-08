@@ -19,10 +19,19 @@ class Cache:
     cache: Dict[str, bytes] = {}
     link_pic: Dict[str, str] = {}
 
+    # Scenario reference cards are not exposed by the numbered card-image
+    # providers. Keep their official image locations explicit so they use the
+    # same on-disk cache and offline fallback as every other card image.
+    SPECIAL_IMAGE_URLS: Dict[str, str] = {
+        "shatter_the_illusion": "https://hallofheroeslcg.com/wp-content/uploads/2025/08/shattertheillusion.jpg",
+    }
+
     # These physical cards use Alter-Ego A / Hero B numbering. MarvelCDB
     # normalizes their images to Hero A / Alter-Ego B to match the card data,
     # while Cerebro retains the physical side letters.
     CEREBRO_REVERSED_IDENTITY_SIDES: Dict[str, str] = {
+        "16001a": "16001b", "16001b": "16001a",  # Groot
+        "16029a": "16029b", "16029b": "16029a",  # Rocket Raccoon
         "32001a": "32001b", "32001b": "32001a",  # Colossus
         "32030a": "32030b", "32030b": "32030a",  # Shadowcat
         "33001a": "33001b", "33001b": "33001a",  # Cyclops
@@ -121,8 +130,18 @@ class Cache:
             with FileManager.OpenFile(file_path, write=True, bin=True) as file:
                 file.Write(data)
 
+        remote_urls: List[str] = []
+        if card_id in Cache.SPECIAL_IMAGE_URLS:
+            remote_urls.append(Cache.SPECIAL_IMAGE_URLS[card_id])
+        elif IMAGE_SERVERS.value and check_is_card_id(card_id):
+            for site in IMAGE_SERVERS.value:
+                remote_card_id = Cache.GetRemoteCardId(site, card_id)
+                full_url = site.replace('{card_id}', remote_card_id)
+                full_url = full_url.replace('{card_id:U}', remote_card_id.upper())
+                remote_urls.append(full_url)
+
         is_time_out = True
-        if IMAGE_SERVERS.value and check_is_card_id(card_id):
+        if remote_urls:
             # Load the image from the internet
             skip_break = not BREAK_WHEN_LOAD_ONLINE_IMAGE.value
             if not skip_break:
@@ -138,12 +157,7 @@ class Cache:
 
             is_time_out = False
 
-            for site in IMAGE_SERVERS.value:
-                full_url = site
-                remote_card_id = Cache.GetRemoteCardId(site, card_id)
-                full_url = full_url.replace('{card_id}', remote_card_id)
-                full_url = full_url.replace('{card_id:U}', remote_card_id.upper())
-
+            for full_url in remote_urls:
                 try:
                     Log.DebugInfo(CATEGORY_NAME, f"Downloading from {full_url}")
 
@@ -178,7 +192,10 @@ class Cache:
                     Log.Warn(CATEGORY_NAME, f"Request failed with error: {e}")
 
         # raise Exception(f"Failed to load {file_name} from the internet")
-        image_data = ImageCreator.CreateNoImage(card_id)
+        image_data = ImageCreator.CreateNoImage(
+            card_id,
+            force_text=card_id in Cache.SPECIAL_IMAGE_URLS,
+        )
         if SAVE_EMPTY_IMAGE.value and not is_time_out:
             save_to_file(cache_file_name, "jpg", image_data)
         Cache.SetCache(file_name, image_data)

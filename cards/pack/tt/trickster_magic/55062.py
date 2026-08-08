@@ -16,11 +16,10 @@ def GetAbilities() -> Sequence['Ability']:
         *AbilityFactory.UnitCannotDefend(
             "AttachedAlly",
             Villain,
-            cannot_trigger_defense_ability=True
+            cannot_trigger_defense_ability=False
         ),
         AbilityFactory.PlayerActionToDiscardThis(
             AbilityType.AlterEgoAction,
         ).SetCost(Cost("B"))
         .SetCostFunc(CostFunc.Exhaust("Attached")),
     ]
-

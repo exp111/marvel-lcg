@@ -145,5 +145,23 @@ class TestMadJacksPlatform(unittest.TestCase):
         )
 
 
+class TestTaskmastersSword(unittest.TestCase):
+
+    def test_piercing_uses_the_supported_attached_character_selector(self):
+        module = import_module("cards.pack.synthezoid.taskmaster.57023")
+
+        with patch.object(
+            module.AbilityFactory,
+            "UnitAttackGainKeyword",
+            return_value=MagicMock(),
+        ) as gain_keyword:
+            module.GetAbilities()
+
+        gain_keyword.assert_called_once_with(
+            "AttachedCharacter",
+            piercing=True,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

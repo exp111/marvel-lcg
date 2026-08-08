@@ -52,8 +52,8 @@ class Card(Object):
                 return True
             return False
 
-    def __init__(self, owner: 'Player|Scenario', *faces: 'CardFace', world: 'World') -> None:
-        super().__init__('card', world)
+    def __init__(self, owner: 'Player|Scenario', *faces: 'CardFace', world: 'World', is_reference: bool=False) -> None:
+        super().__init__('reference_card' if is_reference else 'card', world)
 
         self.area: 'Deck'
 
@@ -881,4 +881,3 @@ class Card(Object):
             is_new              = Engine.statistics.IsNew(self.face.paper.card_id),
             is_action           = any(x for x in self.face.effects if x.ability.flags.is_action) #  or x.ability.type.is_resource
         )
-

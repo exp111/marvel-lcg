@@ -17,16 +17,22 @@ class CardFactory:
 
     @staticmethod
     # names ['01001', '01002']
-    def GenerateCards(names: Sequence[str], deck: 'Deck|None', world: 'World', *, ui_render: bool=True) -> Sequence['Card']:
+    def GenerateCards(names: Sequence[str], deck: 'Deck|None', world: 'World', *, ui_render: bool=True, is_reference: bool=False) -> Sequence['Card']:
         cards: List['Card'] = []
         for name in names:
             if name != '':
-                card = CardFactory.GenerateCard(name, deck, world, ui_render=ui_render)
+                card = CardFactory.GenerateCard(
+                    name,
+                    deck,
+                    world,
+                    ui_render=ui_render,
+                    is_reference=is_reference,
+                )
                 cards.append(card)
         return cards
 
     @staticmethod
-    def GenerateCard(name: str, deck: 'Deck|None', world: 'World', ui_render: bool=True) -> 'Card':
+    def GenerateCard(name: str, deck: 'Deck|None', world: 'World', ui_render: bool=True, *, is_reference: bool=False) -> 'Card':
         from game.card import Card
 
         papers = CardFactory.FindCardPapers(name)
@@ -47,7 +53,7 @@ class CardFactory:
         else:
             owner = world.GetScenario()
 
-        card = Card(owner, *faces, world=world)
+        card = Card(owner, *faces, world=world, is_reference=is_reference)
 
         if not deck:
             deck = world.area_removed
@@ -159,4 +165,3 @@ class CardFactory:
             return Json.LoadAs(file_path, EncounterSetDescriptor).encounters
         else:
             return []
-

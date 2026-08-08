@@ -49,7 +49,7 @@ class ToDescriptor:
 
         world_descriptor.prompt_last_text = world.render.last_prompt
         world_descriptor.prompt = world.render.prompt
-        world_descriptor.max_card_object_id = len(world.object_manager.card_dict)
+        world_descriptor.max_card_object_id = world.object_manager.index_dict["card"] + 1
         world_descriptor.sound_name = sound_name
 
         world_descriptor.active_card_ids = world.render.last_active_card_ids

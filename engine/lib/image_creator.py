@@ -197,7 +197,7 @@ class ImageCreator:
             translate_text = TransText(card_id)
             if translate_text.is_translated:
                 text = translate_text.text_symbol
-            if type in ["SideScheme", "MainScheme", "PlayerSideScheme", "Status"]:
+            if type in ["SideScheme", "MainScheme", "PlayerSideScheme", "Status", "Insert"]:
                 rotate = True
             if "Class" in CardsDB.papers[card_id].desc:
                 aspect = CardsDB.papers[card_id].desc["Class"]
@@ -207,12 +207,12 @@ class ImageCreator:
     ################################################################################
     #
     @staticmethod
-    def CreateNoImage(card_id: str) -> bytes:
+    def CreateNoImage(card_id: str, *, force_text: bool=False) -> bytes:
         if card_id in ImageCreator.face_back_dict:
             return ImageCreator.LoadImageByColor(card_id)
 
         data = ImageCreator.GetCardRenderData(card_id)
-        if not ImageCreator.show_image_text:
+        if not ImageCreator.show_image_text and not force_text:
             return ImageCreator.LoadImageByColor(data.aspect)
 
         name = data.name or "Image unavailable"

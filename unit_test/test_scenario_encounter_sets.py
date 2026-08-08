@@ -29,6 +29,33 @@ class TestScenarioEncounterSets(unittest.TestCase):
             ["prelates", "standard", "dark_riders", "infinites"],
         )
 
+    def test_selected_standard_variant_replaces_the_scenario_default(self):
+        merged = SceneLoader.MergeEncounterSets(
+            ["prelates", "standard", "expert"],
+            ["standard_iii", "expert", "dark_riders", "infinites"],
+        )
+
+        self.assertEqual(
+            merged,
+            ["prelates", "standard_iii", "expert", "dark_riders", "infinites"],
+        )
+
+    def test_selected_expert_variant_replaces_the_scenario_default(self):
+        merged = SceneLoader.MergeEncounterSets(
+            ["standard", "expert"],
+            ["standard", "expert_ii"],
+        )
+
+        self.assertEqual(merged, ["standard", "expert_ii"])
+
+    def test_only_the_last_selected_variant_from_each_family_is_retained(self):
+        merged = SceneLoader.MergeEncounterSets(
+            ["prelates", "standard", "expert"],
+            ["standard", "standard_iii", "expert", "expert_ii"],
+        )
+
+        self.assertEqual(merged, ["prelates", "standard_iii", "expert_ii"])
+
     def test_all_scenarios_preserve_valid_required_encounter_sets(self):
         sets_info = json.loads(
             (self.project_root / "data" / "sets_info.json").read_text(

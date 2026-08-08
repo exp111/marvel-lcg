@@ -19,7 +19,13 @@ class CampaignDescriptor:
     campaign_log: Dict[str, str] = field(default_factory=lambda: {})
 
     def UpdateVersion(self):
-        pass
+        # The God of Lies reference card was missing from early digital saves.
+        # Append it so existing replays retain every previously assigned object
+        # id; cards in the set-aside area are excluded from gameplay CRCs.
+        if self.name == "Loki: God of Lies":
+            reference_card = "shatter_the_illusion"
+            if reference_card not in self.set_aside:
+                self.set_aside.append(reference_card)
 
     def InferCampaignId(self) -> str:
         """Identify legacy campaign scenes that predate an explicit campaign id."""

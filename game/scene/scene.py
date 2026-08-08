@@ -11,6 +11,7 @@ CATEGORY_NAME = "SCENE"
 
 # These rules will be added for testing file, use when change some new rules as default
 TEST_RULES = ConfigVariables.ListStr('test_rules', [])
+GOD_OF_LIES_SHATTER_TOTAL_RULE = "fix_god_of_lies_shatter_total"
 
 METADATA_KEY_LIST = Literal[
     "step", "clients"
@@ -177,6 +178,8 @@ class Scene:
 
     # Call follow `Json.LoadAs` 
     def UpdateVersion(self):
+        self.campaign.UpdateVersion()
+        self.MigrateGodOfLiesShatterTotal()
         if "mode_skirmish" in self.metadata: # type: ignore
             self.rules.append("mode_skirmish")
             self.metadata.pop("mode_skirmish") # type: ignore
@@ -216,6 +219,19 @@ class Scene:
 
         del self.campaign.modular_sets
         self.rules = list(sorted(set(self.rules)))
+
+    def MigrateGodOfLiesShatterTotal(self) -> None:
+        if self.campaign.name != "Loki: God of Lies":
+            return
+        if GOD_OF_LIES_SHATTER_TOTAL_RULE in self.rules:
+            return
+
+        # Correct shatter damage changes Loki's health relative to saves made
+        # by the buggy implementation. Drop their recorded state snapshots so
+        # the original player choices can replay into the corrected state.
+        for operation in self.inputs:
+            operation.crc = ""
+        self.rules.append(GOD_OF_LIES_SHATTER_TOTAL_RULE)
 
     def HackTestRule(self):
         # from engine import Engine

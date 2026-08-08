@@ -13,9 +13,8 @@ def GetAbilities() -> Sequence['Ability']:
             cannot_thwart="This",
         ),
         *AbilityFactory.UnitCannotDefend(
-            Ally,
+            CardFinder(card_type=Ally),
             Villain,
-            cannot_trigger_defense_ability=True
+            cannot_trigger_defense_ability=False
         ),
     ]
-

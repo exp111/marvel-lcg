@@ -570,6 +570,15 @@ async function createScenarios() {
 
 <script>
 
+function getEncounterSetFamily(name) {
+    for( const family of ['standard', 'expert'] ) {
+        if( name === family || name.startsWith(`${family}_`) ) {
+            return family
+        }
+    }
+    return ''
+}
+
 async function createSets() {
     const response = await fetchFresh(`list_encounter_sets?`);
     if (!response.ok) {
@@ -601,20 +610,23 @@ async function createSets() {
         div.setAttribute('data-text', j['encounters'].length)
         div.setAttribute('data-name', text)
         div.setAttribute('data-display', `${j['encounters'][0]} ${text}`)
+        div.setAttribute('data-family', getEncounterSetFamily(text))
         div.appendChild(img)
         div.onclick = () => {
             if( div.classList.contains('lock') ) {
                 return
             }
+            if( div.classList.contains('click') && div.classList.contains('required-family') ) {
+                return
+            }
             div.classList.toggle('click')
-            for( let name of ['standard', 'expert'] ) {
-                if( div.classList.contains('click') && div.dataset.name.startsWith(name) ) {
-                    div.parentElement.querySelectorAll('button[data-name]').forEach(e => {
-                        if( e != div && e.dataset.name.startsWith(name)) {
-                            e.classList.remove('click')
-                        }
-                    })
-                }
+            const family = div.dataset.family
+            if( div.classList.contains('click') && family ) {
+                div.parentElement.querySelectorAll(`button[data-family="${family}"]`).forEach(e => {
+                    if( e != div ) {
+                        e.classList.remove('click')
+                    }
+                })
             }
         }
         if( nemesis ) {
@@ -1652,10 +1664,16 @@ p:has(#timeout_text) {
                 )
 
                 function click_encounter_set(e) {
+                    const family = e.dataset.family
+                    const familyIsRequired = family && j['encounter_sets'].some(
+                        name => getEncounterSetFamily(name) === family
+                    )
+                    e.classList.toggle('required-family', Boolean(familyIsRequired))
+
                     if( j['modular_sets'].includes(e.dataset.name) ||
                         j['encounter_sets'].includes(e.dataset.name)) {
                         if( j['encounter_sets'].includes(e.dataset.name) ) {
-                            e.classList.add('lock')
+                            e.classList.toggle('lock', !familyIsRequired)
                         } else {
                             e.classList.remove('lock')
                         }

@@ -101,6 +101,7 @@ class World(WorldAction, WorldFind):
 
         self.additional_decks: List[Deck] = []
         self.additional_discard_piles: List[Deck] = []
+        self.set_aside_reference_card_ids: List[str] = []
 
         self.scenario_decks: Dict[Worlds.ASIDE_DECK_NAME, SetAsideDeck] = {}
         for name in Types.LiteralToList(Worlds.ASIDE_DECK_NAME):
@@ -347,6 +348,7 @@ class World(WorldAction, WorldFind):
 
         begin_message = Message.WhenGameWouldBegin(self)
         begin_message.Send()
+
         return
 
     ################################################################################
