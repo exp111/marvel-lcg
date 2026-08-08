@@ -8,9 +8,20 @@ class TestReleaseDependencies(unittest.TestCase):
         project_root = Path(__file__).resolve().parents[1]
         build = (project_root / "build.py").read_text(encoding="utf-8")
         patch_notes = (project_root / "PATCH_NOTES.md").read_text(encoding="utf-8")
+        marvel_html = (project_root / "public" / "marvel.html").read_text(
+            encoding="utf-8"
+        )
 
-        self.assertIn("    BUILD = 5", build.splitlines())
-        self.assertIn("Application version: **1.0.0.5r**", patch_notes)
+        for version_part in (
+            "    MAJOR = 1",
+            "    MINOR = 1",
+            "    PATCH = 0",
+            "    BUILD = 0",
+        ):
+            self.assertIn(version_part, build.splitlines())
+        self.assertIn("Application version: **1.1.0r**", patch_notes)
+        self.assertNotIn("1.0.0.5r", marvel_html)
+        self.assertGreaterEqual(marvel_html.count("?v=1.1.0r"), 2)
 
     def test_main_menu_identifies_the_community_build_with_the_live_version(self):
         project_root = Path(__file__).resolve().parents[1]

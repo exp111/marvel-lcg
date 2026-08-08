@@ -74,7 +74,11 @@ foreach ($relativePath in $requiredPaths) {
     }
 }
 
-$expectedUiVersion = "$applicationVersion" + "r"
+$uiVersion = $applicationVersion
+if ($applicationVersion -match '^(\d+\.\d+\.\d+)\.0$') {
+    $uiVersion = $Matches[1]
+}
+$expectedUiVersion = "$uiVersion" + "r"
 $marvelHtml = Get-Content -Raw (Join-Path $projectRoot "public\marvel.html")
 $staleUiVersions = [regex]::Matches($marvelHtml, '[?&]v=([^"''&]+)') |
     ForEach-Object { $_.Groups[1].Value } |

@@ -9,8 +9,12 @@ class Ver:
 
     @staticmethod
     def Initialize():
-        Ver.version = Ver(f'{Build.MAJOR}.{Build.MINOR}.{Build.PATCH}.{Build.BUILD}')
-        Ver.ui_version_str = f"{Ver.version}{'r' if Build.release else 'd'}"
+        application_version = f'{Build.MAJOR}.{Build.MINOR}.{Build.PATCH}.{Build.BUILD}'
+        Ver.version = Ver(application_version)
+        display_version = f'{Build.MAJOR}.{Build.MINOR}.{Build.PATCH}'
+        if Build.BUILD:
+            display_version = application_version
+        Ver.ui_version_str = f"{display_version}{'r' if Build.release else 'd'}"
 
     # https://stackoverflow.com/questions/11887762/how-do-i-compare-version-numbers-in-python
     def __init__(self, ver: 'str|Ver') -> None:
@@ -85,4 +89,3 @@ class Versions:
     fix_surge               = Ver(f'0.5.9.142') # Enable "fix_surge" by default
     fix_treachery           = Ver(f'0.5.9.148') # Enable "fix_treachery" by default
     puzzle                  = Ver(f'0.5.8')
-

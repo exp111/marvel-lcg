@@ -4,16 +4,18 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest release: v1.0.0.5
+## Latest testing release: v1.1.0
 
-[Download Community Build v1.0.0.5 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.0.0.5)
+[Download Community Build v1.1.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.1.0)
 
-This release includes all v1.0.0.4 hotfixes for Wonder Man, Hercules, Synthezoid Smackdown, and the Agents of S.H.I.E.L.D. campaign, plus these additional corrections:
+This prerelease adds the first major content update after v1.0.0.5:
 
-- Ancient Rivalry can be played while Hercules and Thor are both in play.
-- Teamwork and similar matching-power effects correctly use an ally's ATK when thwarting an assault scheme.
-- Hercules and Wonder Man reprints of existing cards use their original implementations.
-- The main menu identifies the game as the Community Build and displays the current application version.
+- Complete standard and expert **Loki: God of Lies** content from Trickster Takeover, including the Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic.
+- Complete expert variants for the **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman** Civil War scenarios.
+- Correct Standard/Expert encounter-set replacement during setup, plus fixes for reported crashes, targeting, identity artwork, save migration, and Loki's Shatter-counter resolution.
+- Versioned browser startup and navigation so the interface bundled with the current executable is used without requiring a manual cache clear.
+
+It also includes all campaigns, heroes, scenarios, modular sets, interface improvements, and accumulated corrections from the v1.0 community releases.
 
 Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
 
@@ -21,12 +23,12 @@ See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/ins
 
 ## Antivirus scan and Windows packaging
 
-v1.0.0.5 uses a Python 3.12 PyInstaller one-folder package with UPX disabled. This avoids the previous one-file executable's self-extraction into a temporary directory, which can contribute to heuristic antivirus detections.
+v1.1.0 uses a Python 3.12 PyInstaller one-folder package with UPX disabled. This avoids the previous one-file executable's self-extraction into a temporary directory, which can contribute to heuristic antivirus detections.
 
-The [VirusTotal results for the exact v1.0.0.5 executable](https://www.virustotal.com/gui/file/db4cd4e71296a4de9f90bf2da712c0e767d2ff7c0f865d8258763d398cb1709e/detection) are comparable to those of the original development team's executable; this is not a promise of zero detections. The build is currently unsigned, so Microsoft SmartScreen or individual antivirus products may still display a warning.
+The [VirusTotal results for the previous v1.0.0.5 executable](https://www.virustotal.com/gui/file/db4cd4e71296a4de9f90bf2da712c0e767d2ff7c0f865d8258763d398cb1709e/detection) are retained as historical packaging context; they do not cover the v1.1.0 executable. The build is currently unsigned, so Microsoft SmartScreen or individual antivirus products may still display a warning.
 
-- Executable SHA-256: `db4cd4e71296a4de9f90bf2da712c0e767d2ff7c0f865d8258763d398cb1709e`
-- Release ZIP SHA-256: `af6944dd33eb9e50b75042c85dd35b6f7d4f5b8f53391c31d43655a2743e7d47`
+- Previous v1.0.0.5 executable SHA-256: `db4cd4e71296a4de9f90bf2da712c0e767d2ff7c0f865d8258763d398cb1709e`
+- Previous v1.0.0.5 release ZIP SHA-256: `af6944dd33eb9e50b75042c85dd35b6f7d4f5b8f53391c31d43655a2743e7d47`
 
 ## Community build highlights
 

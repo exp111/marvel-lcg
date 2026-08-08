@@ -1,166 +1,42 @@
-# Release 1.0 patch set
+# Marvel Champions Digital v1.1.0
 
-Application version: **1.0.0.5r**
+Application version: **1.1.0r**
+Windows file version: **1.1.0.0**
 
-Baseline: Irefrixs Team upstream `master` at `a77154a`
+This testing build contains the first feature release after v1.0.0.5. The package keeps the normal v1.1.0 filename and version; it can be marked as a prerelease on GitHub while public testing is in progress.
 
-These notes compare the final community release with the original upstream release. Development-only corrections to campaigns and content packs introduced by this release are represented by their final features, not listed as separate fixes. Superseded and reverted implementations are omitted.
+## New content
 
-## v1.0.0.5 community build
+### Trickster Takeover
 
-- Labeled the main menu as the Community Build and made it request the running application's current version instead of displaying a stale browser cookie.
-- Changed Windows packaging to a Python 3.12 PyInstaller one-folder bundle with UPX disabled, explicit Community Build version metadata, and developer-only command modules excluded from the release executable.
-- Restored Ancient Rivalry's missing Team-Up registration so it can be played while Hercules and Thor are both in play.
-- Corrected Teamwork and similar matching-power effects to add an ally's ATK, rather than THW, when thwarting an assault scheme.
-- Linked the Hercules and Wonder Man reprints of Call for Backup and Bombs Away to their original card implementations, and consolidated every Teamwork reprint on its original implementation.
+- Added the complete **Loki: God of Lies** scenario in standard and expert modes.
+- Implemented Loki's Avatar stages, Synergy environments, encounter cards, setup flow, and the **Trickster Magic** modular set.
+- Added **Shatter the Illusion** to the visible out-of-play area and implemented its Shatter-counter damage resolution, including compatibility for saves created during development.
 
-## v1.0.0.4 Wonder Man, Hercules, and Synthezoid Smackdown hotfix
+### Civil War
 
-- Corrected Wonder Man card and nemesis scripting, including Ionic Physiology, Signature Sunglasses, Avengers Compound, Stronger Together, Fallen Sentry, and Grim Reaper activation handling.
-- Corrected Hercules's Labor completion and Atonement timing, Hydra interactions, attack redirection, temporary bonuses, excess-damage healing, and other hero-card effects.
-- Corrected Synthezoid Smackdown villain and encounter-card behavior, including Vision's Mass Form flips, forced effects, expert-stage inheritance, and duplicated printed ATK and SCH modifiers.
-- Restored mandatory end-phase discards so players above their hand size cannot cancel the discard prompt, while optional discard prompts remain optional.
-- Corrected mismatched hero and alter-ego artwork for Colossus, Shadowcat, Cyclops, Phoenix, Wolverine, Storm, Gambit, and Rogue, without reusing stale reversed images from the local cache.
-- Restored Cerebro as the primary card-art source with MarvelCDB as fallback, avoiding repeated MarvelCDB timeouts while preserving the corrected hero-side mapping for Cerebro images.
+- Completed the expert versions of the **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman** villain scenarios.
+- Added the missing stage III/IV data and linked those stages to the matching scripted leader behavior.
+- Completed missing Civil War card data and scripting coverage.
 
-### Updating from an earlier build
+## Fixes and improvements
 
-1. Extract v1.0.0.4 into a new, empty folder.
-2. Copy `campaign_settings.json` from the old build folder into the new build folder. Replace or overwrite the destination file if prompted; this preserves the saved setup choices for all campaigns.
-3. Copy any personal saves, replays, and custom decks that you want to retain. Do not copy the old executable, `public`, `data`, `assets/cache`, or `launch.json`.
+- Standard and Expert encounter-set variants now replace the scenario default instead of combining multiple Standard or Expert decks. Setup can also switch cleanly between variants.
+- Versioned browser startup and menu navigation prevent an older cached menu or setup page from replacing the interface bundled with the running executable.
+- Fixed crashes reported while starting Enchantress games and while resolving Taskmaster's Sword against attached characters.
+- Two-Gun Kid must now choose a different enemy for the additional attack and cannot apply both attacks to the same target.
+- Corrected Groot and Rocket Raccoon's hero/alter-ego image-side mappings when loading artwork from Cerebro.
+- Improved scenario/save migration behavior for newly completed content and corrected Loki's Shatter-counter damage total.
 
-## v1.0.0.3 campaign, Wonder Man, and Hercules hotfix
+## Previously included from the v1.0 releases
 
-- Added automatic local persistence for setup choices across every campaign. The game now saves the current campaign settings to `campaign_settings.json` whenever a game launches and restores them in later sessions.
-- Added a randomizer for the Agents of S.H.I.E.L.D. Evidence Seed and marked the seed as a value that must not change during a campaign.
-- Corrected Agents of S.H.I.E.L.D. evidence so earned cards remain out of play, reveal a random eligible card after a qualifying victory, and resolve their Setup abilities during subsequent scenario setup.
-- Corrected Executive Board members so they flip at the standard or expert secret threshold, become villain attachments, retain their attachment abilities, and persist as flipped through campaign settings.
-- Restored Hercules's missing obligation and complete nemesis set, including their starter-deck and encounter-set registrations.
-- Corrected **Defeat the Hydra** so it searches Hercules's nemesis set when no normal eligible minion is available, discards cleanly when no target exists, and sends resolved Labor cards to the encounter discard pile.
-- Corrected Hercules nemesis and obligation timing for **Appeal to Athena**, Ares, Lernean Hydra, and **Protect Humanity**.
-- Corrected Wonder Man's nemesis registration and Grim Reaper presence checks so a stunned or otherwise prevented activation does not incorrectly trigger fallback damage or another search/reveal.
+v1.1.0 also contains all earlier community-build work: the Mutant Genesis, NeXt Evolution, Age of Apocalypse, Agents of S.H.I.E.L.D., Galaxy's Most Wanted, and The Mad Titan's Shadow campaign flows; the Wonder Man and Hercules hero expansions; Synthezoid Smackdown scenarios and modular sets; persistent campaign settings; Cerebro-first card artwork loading; community menu branding; release packaging hardening; browser cache protections; and the accumulated card, campaign, encounter, targeting, and save-compatibility corrections from v1.0.0 through v1.0.0.5.
 
-### Updating from an earlier build
+## Testing and installation
 
-1. Extract v1.0.0.3 into a new, empty folder.
-2. Copy `campaign_settings.json` from the old build folder into the new build folder. Replace or overwrite the destination file if prompted; this preserves the saved setup choices for all campaigns.
-3. Copy any personal saves, replays, and custom decks that you want to retain. Do not copy the old executable, `public`, `data`, `assets/cache`, or `launch.json`.
+1. Extract the ZIP into a new, empty folder rather than overwriting an older installation.
+2. Copy `campaign_settings.json` from the previous build if you want to retain campaign setup choices.
+3. Copy any personal saves, replays, or custom decks you want to test. Do not copy the old executable, `public`, `data`, `assets/cache`, or `launch.json`.
+4. Smoke-test both a new game and an existing save before relying on the build for a longer campaign.
 
-## v1.0.0.2 hotfix
-
-- Fixed Hercules's Atonement continuation, identity readiness, optional form change, and Protect Humanity ally selection during villain attacks.
-- Restored shared player setup handling so printed Permanent cards begin in play before the player deck is shuffled and printed Setup cards resolve their setup instructions after entering play.
-- Fixed Wonder Man's Ionic Physiology starting in the player deck instead of in play.
-- Fixed Energy Siphon's invalid resource ability registration in development builds.
-
-## Highlights
-
-- Added complete digital campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
-- Added the **Wonder Man** and **Hercules** hero expansions, including starter decks, hero cards, obligations, and nemesis content.
-- Added the **Synthezoid Smackdown** cooperative content, including She-Hulk and Vision scenarios and eight modular encounter sets.
-- Added an adjustable card-interaction speed setting that changes presentation timing without changing game-state resolution.
-- Incremented the application build and disabled browser caching for scene-setup metadata so updated scenarios, heroes, and encounter sets appear after installing a new release.
-- Corrected fixed-total threat and damage selection, attached-identity restrictions, and several card scripts present in the original release.
-
-## Campaign support
-
-- Added a campaign selector with stable internal campaign identifiers so campaign setup, logs, replay data, and saved state select the intended campaign reliably.
-- Retained selection support for **The Rise of Red Skull** and **Sinister Motives** alongside the six newly implemented campaign flows.
-- Added campaign-log card previews with a fixed, readable tooltip size and position.
-- Added campaign-specific setup screens, scenario progression, persistent rewards and penalties, campaign pools, and scenario-dependent setup instructions.
-- Added persistent remaining-hit-point setup fields for each selected player. Recorded values can be used in standard or expert campaigns; Age of Apocalypse retains its matching option to place 3 threat on the mission and heal to full whenever this feature is used.
-- Added Mutant Genesis role and reward content for **Brawler**, **Commander**, **Defender**, and **Peacekeeper**, plus campaign player side schemes and the complete Magneto campaign-card behavior, including flipped permanents and attachments.
-- Added the NeXt Evolution campaign player side schemes and their scenario-specific setup and persistence rules.
-- Added Age of Apocalypse campaign missions, mission allies, overseers, resource matching, mission attempts, campaign setup choices, and campaign upgrades.
-- Added Agents of S.H.I.E.L.D. campaign progression, evidence, Board Member attachment and loss conditions, Executive Board state, and scenario setup choices.
-- Added Galaxy's Most Wanted credits, market purchases and discards, ship upgrades, market-card abilities, and scenario progression.
-- Added The Mad Titan's Shadow campaign cards, flipped-permanent placement, scenario progression, and campaign state used across its five scenarios.
-
-## Added content packs
-
-### Synthezoid Smackdown
-
-- Added standard and expert scenario definitions for **She-Hulk** and **Vision**.
-- Added the **Deadly Duo**, **Moon Knight**, **Royal Guard**, **Scarlet Twins**, **S.H.I.E.L.D. Ops**, **Taskmaster**, **Thunderbolts**, and **Young Avengers** modular encounter sets.
-- Added encounter scripting for the She-Hulk and Vision scenario sets, including form interactions, attachments, boost effects, defeated-side-scheme effects, and encounter-card targeting.
-- Added the set image and all required database and encounter-set registrations.
-
-### Wonder Man
-
-- Added Wonder Man's identity, hero kit, obligation, and nemesis set.
-- Added the Wonder Man starter deck and supporting player cards included with the pack.
-- Added mechanics for ionic counters, discard-based costs, identity-specific targeting, and Wonder Man's campaign/player-card interactions.
-- Added the set image and card-database registration.
-
-### Hercules
-
-- Added Hercules's identity, hero kit, obligation-related content, and supporting player cards.
-- Added the Hercules starter deck.
-- Added mechanics for glory counters, side-scheme interaction, printed threat restoration, and Hercules-specific costs and responses.
-- Corrected Atonement so Hercules readies through the standard ready operation and receives the optional alter-ego form change after a Gift's enter-play response resolves.
-- Corrected Protect Humanity so a villain attack checks the assigned player's allies and presents the required redirection target instead of treating the villain as the player.
-- Corrected Son of Zeus so its Hercules and identity-specific upgrade ready effects use the supported ready operation.
-- Added the set image and card-database registration.
-
-## Existing-release gameplay and card corrections
-
-- Corrected **Creative Solution** so a purchased market card is discarded rather than removed from the game.
-- Corrected **Close Call** to use Hero Interrupt timing.
-- Prevented **Badoon Headhunter** from prompting for a random discard when the affected player's hand is empty.
-- Corrected Sinister Motives S.H.I.E.L.D. Tech ownership and stat application, basic-thwart restrictions, the correct side of **Shock Knuckles** receiving its ATK bonus, and empty-hand handling for **Back Alley Burglary**.
-- Corrected **Improved Recovery Upgrade** from The Rise of Red Skull so using its recovery bonus exhausts the upgrade.
-- Corrected scenario creation so locked, mandatory encounter sets cannot be deselected in the setup interface and are restored server-side if omitted from the submitted selection.
-
-### Card data corrections
-
-- Added the printed one-per-enemy limit to **Concussive Blow**.
-- Corrected punctuation in **Defy Danger**.
-- Added the printed unit cost of 5 to **Onrush**.
-- Corrected **North American Sea Wall** to Victory 2.
-- Added Incite 1 to both resource sides of **A.I.M. Interference**.
-- Corrected the spelling of Aggression in **Authority**.
-- Regenerated the card-database checksum after the final data changes.
-
-### Threat and damage distribution
-
-- Added an exact-up-to-available target range for effects that distribute a fixed total. Players must now allocate the full legal amount while still being allowed to resolve an effect when fewer valid threat or health points exist.
-- Corrected distributed selection for the original-release cards **Gunboat Diplomacy**, **Mutant Peacekeepers**, **Torrential Rain**, **Inconspicuous**, and **Giant Help**.
-- Corrected **Mutant Peacekeepers** so its final threat value is calculated after choosing and exhausting participating X-Men allies.
-- **Shadowcat** can now select a side scheme with zero threat when placing threat through her response.
-
-### Attack and condition interactions
-
-- Corrected attached-identity defense restrictions so they bind to the attached player instead of being interpreted as a card finder. This prevents attack windows from suppressing or breaking otherwise legal identity abilities, including Nightcrawler interactions.
-
-## Interface, hotseat, and loading improvements
-
-- Improved MarvelCDB deck imports by selecting heroes from the returned hero name and preserving non-hero cards in campaign decks that intentionally violate normal deckbuilding validation.
-- Updated Enter and Escape hotkeys to respect the active prompt, disabled buttons, card-selection steps, and cancellation state.
-- Prevented duplicate submissions while a choice or cost request is already being posted.
-- Improved hotseat prompt ownership so the interface focuses the player bound to the returned choice instead of relying on stale waiting-player state.
-- Corrected right-click and hover behavior when hotseat rendering replaces a card without generating a new mouse-enter event.
-- Corrected transformed-board pointer hit testing so visible cards receive clicks even when an empty 3D camera plane overlaps them.
-- Added reliable no-cache headers, a complete browser cache-clear response, and version parameters for static and dynamic JavaScript imports.
-- Added MarvelCDB as a fallback card-image server, stopped empty placeholder responses from being cached as downloaded art, and improved generated missing-image placeholders.
-- Increased the application build number to **0.5.9.202**.
-
-## Card interaction speed setting
-
-- Replaced the old raw animation-time control with a labeled **Card speed** slider ranging from 0.25× to 2×.
-- Stored the selected speed locally so it persists between sessions.
-- Applied the setting only to client presentation delays and animation durations; it does not change game rules, effect ordering, targeting, or server-side resolution.
-- Kept the control inside the normal right-side hover drawer.
-- Added a **Settings** edge label while the drawer is closed and hide that label while the drawer is visible.
-
-## Validation coverage
-
-- Added regression tests for fixed-value distributed targeting, repeat-target maximum calculation, and low-availability target pools.
-- Added regression coverage for Shadowcat selecting a zero-threat side scheme.
-- Added regression tests for shared resource-cost reduction and Uncanny X-Men controller scoping.
-
-## Distribution changes
-
-- Added a reproducible Windows release script and PyInstaller specification with dynamic card-module discovery.
-- Added a GitHub Actions workflow that builds the Windows archive on demand or for `v*` tags.
-- Added an explicit packaging allowlist, SHA-256 generation, release manifest, attribution, and release checklist.
-- Included required sounds and interface textures in the repository while continuing to exclude downloaded card scans, optional offline images, saves, statistics, crash logs, virtual environments, and generated build output.
+This is a community-maintained build based on the Irefrixs Team project. Card artwork remains excluded from the main package and is downloaded using the image servers configured in `launch.json`.
