@@ -3,6 +3,8 @@ param(
     [string]$Version,
     [string]$OutputDirectory,
     [string]$PythonEnvironment,
+    [switch]$NoArchive,
+    [switch]$CustomBootloader,
     [switch]$PreflightOnly
 )
 
@@ -52,6 +54,21 @@ if (-not $Version) {
 }
 if ($Version -notmatch '^\d+\.\d+\.\d+(\.\d+)?$') {
     throw "Release version must use three or four numeric parts, for example 1.0.0 or 0.5.9.202."
+}
+
+if ($NoArchive -and $CustomBootloader) {
+    throw "NoArchive and CustomBootloader are separate comparison variants and cannot be combined."
+}
+
+$variantSuffix = if ($CustomBootloader) { "-customboot" } elseif ($NoArchive) { "-noarchive" } else { "" }
+$packagingVariant = if ($CustomBootloader) {
+    "PyInstaller onedir with locally compiled bootloader"
+}
+elseif ($NoArchive) {
+    "PyInstaller onedir with individual Python modules"
+}
+else {
+    "PyInstaller onedir with embedded Python module archive"
 }
 
 $requiredPaths = @(
@@ -110,12 +127,13 @@ if (-not $typescript) {
 }
 
 if ($PreflightOnly) {
-    Write-Host "Release preflight passed for Marvel LCG $Version (application $applicationVersion, Python $pythonVersion)."
+    Write-Host "Release preflight passed for Marvel LCG $Version$variantSuffix (application $applicationVersion, Python $pythonVersion)."
+    Write-Host "Packaging variant: $packagingVariant"
     Write-Host "Downloaded assets/cache and optional assets/pics are excluded by the staging manifest."
     exit 0
 }
 
-$stageRoot = Join-Path $workRoot "marvel-lcg-v$Version"
+$stageRoot = Join-Path $workRoot "marvel-lcg-v$Version$variantSuffix"
 $binaryRoot = Join-Path $workRoot "binary"
 $pyinstallerWork = Join-Path $workRoot "pyinstaller"
 foreach ($path in @($stageRoot, $binaryRoot, $pyinstallerWork)) {
@@ -136,14 +154,35 @@ try {
         throw "TypeScript compilation failed with exit code $LASTEXITCODE."
     }
 
-    & $pyinstaller `
-        --noconfirm `
-        --clean `
-        --distpath $binaryRoot `
-        --workpath $pyinstallerWork `
-        (Join-Path $projectRoot "packaging\marvel-lcg-release.spec")
-    if ($LASTEXITCODE -ne 0) {
-        throw "PyInstaller failed with exit code $LASTEXITCODE."
+    $previousNoArchive = [Environment]::GetEnvironmentVariable(
+        "MARVEL_LCG_NOARCHIVE",
+        [EnvironmentVariableTarget]::Process
+    )
+    try {
+        if ($NoArchive) {
+            $env:MARVEL_LCG_NOARCHIVE = "1"
+        }
+        else {
+            Remove-Item Env:\MARVEL_LCG_NOARCHIVE -ErrorAction SilentlyContinue
+        }
+
+        & $pyinstaller `
+            --noconfirm `
+            --clean `
+            --distpath $binaryRoot `
+            --workpath $pyinstallerWork `
+            (Join-Path $projectRoot "packaging\marvel-lcg-release.spec")
+        if ($LASTEXITCODE -ne 0) {
+            throw "PyInstaller failed with exit code $LASTEXITCODE."
+        }
+    }
+    finally {
+        if ($null -eq $previousNoArchive) {
+            Remove-Item Env:\MARVEL_LCG_NOARCHIVE -ErrorAction SilentlyContinue
+        }
+        else {
+            $env:MARVEL_LCG_NOARCHIVE = $previousNoArchive
+        }
     }
 }
 finally {
@@ -199,6 +238,7 @@ Marvel LCG Digital community build
 Release version: $Version
 Application version: $applicationVersion
 Source commit: $commit
+Packaging variant: $packagingVariant
 
 Included assets: sounds and interface textures
 Excluded assets: downloaded card cache and optional offline card-image pack
@@ -206,7 +246,7 @@ Card artwork is retrieved using the image servers configured in launch.json.
 "@
 Set-Content -LiteralPath (Join-Path $stageRoot "RELEASE-MANIFEST.txt") -Value $manifest -Encoding UTF8
 
-$archive = Join-Path $artifactRoot "marvel-lcg-v$Version-windows.zip"
+$archive = Join-Path $artifactRoot "marvel-lcg-v$Version$variantSuffix-windows.zip"
 $checksum = "$archive.sha256"
 foreach ($path in @($archive, $checksum)) {
     if (Test-Path -LiteralPath $path) {

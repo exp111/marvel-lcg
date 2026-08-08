@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import re
 
 from PyInstaller.utils.win32.versioninfo import (
@@ -55,6 +56,7 @@ def application_version() -> tuple[int, int, int, int]:
 
 
 version = application_version()
+noarchive = os.environ.get("MARVEL_LCG_NOARCHIVE") == "1"
 version_text = ".".join(str(part) for part in version)
 version_info = VSVersionInfo(
     ffi=FixedFileInfo(
@@ -95,7 +97,7 @@ a = Analysis(
     hooksconfig={},
     runtime_hooks=[],
     excludes=release_excludes,
-    noarchive=False,
+    noarchive=noarchive,
     optimize=0,
 )
 pyz = PYZ(a.pure)
