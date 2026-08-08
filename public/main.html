@@ -151,8 +151,15 @@
         <div id="version"></div>
         <div style="margin-bottom: 5rem;"></div>
         <script>
+            let currentApplicationVersion = null;
+
             function Open(url) {
-                window.location.href = url
+                const version = currentApplicationVersion || getCookie('app_version');
+                const destination = new URL(url, window.location.origin);
+                if (version) {
+                    destination.searchParams.set('v', version);
+                }
+                window.location.href = destination.toString();
             }
         </script>
 
@@ -221,6 +228,7 @@
             if (!version) {
                 version = getCookie('app_version');
             }
+            currentApplicationVersion = version;
             const versionElement = document.querySelector(`#version`);
             versionElement.textContent = version
                 ? `Community Build v${version}`

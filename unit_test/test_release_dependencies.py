@@ -22,6 +22,21 @@ class TestReleaseDependencies(unittest.TestCase):
         self.assertIn("fetch('/get_version', { cache: 'no-store' })", main_html)
         self.assertNotIn("versionElement.innerHTML = `v${version}`", main_html)
 
+    def test_packaged_build_opens_versioned_html_routes(self):
+        project_root = Path(__file__).resolve().parents[1]
+        launch = (project_root / "launch.json").read_text(encoding="utf-8")
+        manager = (
+            project_root / "engine" / "device" / "manager" / "web" / "manager.py"
+        ).read_text(encoding="utf-8")
+        main_html = (project_root / "public" / "main.html").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('"open_browser_on_startup": true', launch)
+        self.assertIn("/main?v={quote(version, safe='')}", manager)
+        self.assertIn("webbrowser.open, url, new=2", manager)
+        self.assertIn("destination.searchParams.set('v', version)", main_html)
+
     def test_scene_setup_metadata_bypasses_browser_cache(self):
         project_root = Path(__file__).resolve().parents[1]
         scene_html = (project_root / "public" / "scene.html").read_text(encoding="utf-8")

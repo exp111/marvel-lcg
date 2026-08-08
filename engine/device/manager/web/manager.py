@@ -3,18 +3,49 @@ from engine.config import ConfigVariables
 from engine.log import Log
 from engine.device import *
 from engine.controller import *
+from engine.task import TaskManager
 from engine.device.manager.web.client import ClientManager
 from engine.network.net_lib import NetLib
+from engine.lib import Ver
+from urllib.parse import quote
 
 IP                  = ConfigVariables.Str('ip', "")
 PORT                = ConfigVariables.Int('port', 2345)
 SERVER_ADDRESSES    = ConfigVariables.ListStr('server_addresses', [
     "127.0.0.1:2345"
 ])
+OPEN_BROWSER_ON_STARTUP = ConfigVariables.Bool('open_browser_on_startup', False)
 
 CATEGORY_NAME = "WEB_DEVICE_MANAGER"
 
 class WebDeviceManager(DeviceManager):
+
+    @staticmethod
+    def VersionedMenuUrl(server_address: str, version: str) -> str:
+        return f"http://{server_address}/main?v={quote(version, safe='')}"
+
+    @staticmethod
+    async def OpenVersionedMenu(ip: str, port: int, server_address: str) -> None:
+        import asyncio
+        import webbrowser
+
+        # The web server starts on its own task thread. Wait until it accepts a
+        # connection before handing the versioned menu URL to the browser.
+        for _ in range(50):
+            try:
+                reader, writer = await asyncio.open_connection(ip, port)
+                writer.close()
+                await writer.wait_closed()
+                del reader
+                break
+            except OSError:
+                await asyncio.sleep(0.1)
+        else:
+            Log.Warn(CATEGORY_NAME, f"Could not open the browser because {server_address} did not start")
+            return
+
+        url = WebDeviceManager.VersionedMenuUrl(server_address, Ver.ui_version_str)
+        await asyncio.to_thread(webbrowser.open, url, new=2)
 
     def __init__(self) -> None:
         from engine.device.web.server.server import GameServer
@@ -33,6 +64,8 @@ class WebDeviceManager(DeviceManager):
             else:
                 server_addresses.append(f"{ip_address}:{port}")
 
+        browser_target: Tuple[str, int, str]|None = None
+
         for server_address in set(server_addresses):
 
             ip_port = NetLib.ExtractIpAndPort(server_address)
@@ -45,6 +78,19 @@ class WebDeviceManager(DeviceManager):
 
             self.httpds.append(GameServer(self))
             self.httpds[-1].Run(ip, port, "Server")
+
+            if browser_target is None or (
+                browser_target[0] not in ("127.0.0.1", "::1") and
+                ip in ("127.0.0.1", "::1")
+            ):
+                browser_target = (ip, port, server_address)
+
+        if OPEN_BROWSER_ON_STARTUP.value and browser_target:
+            TaskManager.AddTask(
+                self.OpenVersionedMenu,
+                *browser_target,
+                name="Open Browser",
+            )
 
         self.stat_sent_size: Dict[str, int] = {}
 
@@ -147,4 +193,3 @@ class WebDeviceManager(DeviceManager):
         self.stat_sent_size[category] += byte_size
         size_mb = self.stat_sent_size[category] / (1024 * 1024)
         Log.DebugSilent(CATEGORY_NAME, f"Size: [{category}] {size_mb:.2f} MB ({byte_size})")
-

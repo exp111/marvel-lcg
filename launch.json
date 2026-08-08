@@ -2,6 +2,7 @@
     "server_addresses": [
         "127.0.0.1:2345"
     ],
+    "open_browser_on_startup": true,
     "password": "",
 
     "translate_file": "",

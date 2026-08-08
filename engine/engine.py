@@ -24,7 +24,7 @@ PROFILE_FOLDER      = ConfigVariables.Folder('profile_folder')
 TEST_ALL            = ConfigVariables.Bool('test_all', False)
 EDITOR              = ConfigVariables.Bool('editor', True)
 
-ConfigVariables.SetGroupArgs('test', "-device -no_editor -no_statistics -test_result_file test_results.txt -hidden_log_categories CONTROLLER WEB VERSION STATISTICS")
+ConfigVariables.SetGroupArgs('test', "-device -no_editor -no_statistics -no_open_browser_on_startup -test_result_file test_results.txt -hidden_log_categories CONTROLLER WEB VERSION STATISTICS")
 
 class Engine:
 
@@ -166,4 +166,3 @@ class Engine:
 import builtins
 setattr(builtins, "DebugBreak", lambda: Debug.DebugBreak(True))
 # You can call `DebugBreak()` any where without import
-

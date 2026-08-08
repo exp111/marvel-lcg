@@ -15,6 +15,11 @@ intentionally need to migrate a setting. If a build older than `1.0.0.1r` was
 previously opened, clear the browser's site data for
 `127.0.0.1:2345` once if the interface still appears out of date.
 
+Packaged builds open a versioned main-menu URL after the local server starts.
+The version in that URL changes with each application build, preventing an
+older cached HTML document from replacing the current menu. Menu navigation
+uses the same version when opening setup and utility pages.
+
 ## Running the development build on Windows
 
 ### 1. Install the prerequisites
