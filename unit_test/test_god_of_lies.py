@@ -116,6 +116,49 @@ class TestGodOfLies(unittest.TestCase):
                 module = import_module(f"cards.pack.tt.god_of_lies.{card_id}")
                 self.assertIsInstance(module.GetAbilities(), list)
 
+    def test_side_scheme_icons_match_the_printed_cards(self):
+        cards = json.loads(
+            (self.project_root / "data" / "cards.json").read_text(
+                encoding="utf-8"
+            )
+        )["tt"]
+        by_id = {card["card_id"]: card for card in cards}
+
+        self.assertEqual(
+            by_id["55045"]["desc"],
+            {
+                "StartingThreat": "4",
+                "Crisis": "1",
+                "Boost": "1",
+            },
+        )
+        self.assertEqual(
+            by_id["55048"]["desc"],
+            {
+                "StartingThreat": "6",
+                "Acceleration": "1",
+                "Boost": "3",
+            },
+        )
+
+    def test_synergy_environment_bonuses_modify_event_values(self):
+        effect = Mock()
+        attack_message = Mock()
+        thwart_message = Mock()
+
+        attack_ability = import_module(
+            "cards.pack.tt.god_of_lies.55052"
+        ).GetAbilities()[0]
+        thwart_ability = import_module(
+            "cards.pack.tt.god_of_lies.55054"
+        ).GetAbilities()[0]
+
+        attack_ability.operation(effect, attack_message)
+        thwart_ability.operation(effect, thwart_message)
+
+        attack_message.DealAdditionalDamage.assert_called_once_with(4, effect)
+        thwart_message.RemoveAdditionalThreat.assert_called_once_with(4, effect)
+
     def test_shatter_the_illusion_reference_card_is_complete_and_visible(self):
         cards = json.loads(
             (self.project_root / "data" / "cards.json").read_text(
