@@ -25,6 +25,7 @@ This testing build contains the first feature release after v1.0.0.5. The packag
 - Versioned browser startup and menu navigation prevent an older cached menu or setup page from replacing the interface bundled with the running executable.
 - Fixed crashes reported while starting Enchantress games and while resolving Taskmaster's Sword against attached characters.
 - Two-Gun Kid must now choose a different enemy for the additional attack and cannot apply both attacks to the same target.
+- Forced abilities on player-assigned obligations now resolve through that player, fixing Protect Humanity freezes when redirecting a villain attack to an ally.
 - Corrected Groot and Rocket Raccoon's hero/alter-ego image-side mappings when loading artwork from Cerebro.
 - Improved scenario/save migration behavior for newly completed content and corrected Loki's Shatter-counter damage total.
 

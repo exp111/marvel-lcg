@@ -582,6 +582,11 @@ class EventManager:
                 #     effect.initiator = asked_player
                 if asked_player != None:
                     effect.context.initiator = asked_player
+                elif effect.this.card.area.flags.is_obligations_area:
+                    # Obligations remain encounter-owned after they are given to
+                    # a player. Their forced abilities still belong to the
+                    # player whose obligation area contains the card.
+                    effect.context.initiator = effect.this.GetGaveToPlayer()
                 else:
                     effect.context.initiator = effect.this.GetControlByOrOwner()
 
