@@ -6,7 +6,11 @@ import unittest
 from unittest.mock import Mock, patch
 
 from engine import Engine  # noqa: F401 - establishes the project's import order
-from cards.pack.tt.god_of_lies import AddDefeatShatterCounters
+from cards.pack.tt.god_of_lies import (
+    AddDefeatShatterCounters,
+    SwapAvatarWithRandomSetAside,
+    _set_avatar_health_after_swap,
+)
 from engine.file.cache import Cache
 from game.object.manager import ObjectManager
 from game.message.sender.sender_round import SenderRound
@@ -223,6 +227,56 @@ class TestGodOfLies(unittest.TestCase):
         place_counters.assert_called_once()
         self.assertEqual(total, 7)
         fading.SetCounters.assert_called_once_with(7, "shatter", effect)
+
+    def test_stories_and_lies_captures_current_hp_before_the_temporary_flip(self):
+        active = Mock()
+        active.health = 12
+        active.HasTrait.return_value = False
+        fading = Mock()
+        fading.CastTo.return_value = fading
+        active.card.face = fading
+        next_avatar = Mock()
+        effect = Mock()
+        swapped_avatar = Mock()
+
+        with patch(
+            "cards.pack.tt.god_of_lies.Worlds.FindVillain",
+            return_value=active,
+        ), patch(
+            "cards.pack.tt.god_of_lies.GetRandomSetAsideAvatar",
+            return_value=next_avatar,
+        ), patch(
+            "cards.pack.tt.god_of_lies._swap_physical_avatar",
+            return_value=swapped_avatar,
+        ) as swap_avatar:
+            result = SwapAvatarWithRandomSetAside(effect)
+
+        active.card.Flip.assert_called_once_with(effect, call_reveal=False)
+        swap_avatar.assert_called_once_with(
+            fading,
+            next_avatar,
+            effect,
+            preserved_health=12,
+        )
+        self.assertIs(result, swapped_avatar)
+
+    def test_swap_reapplies_focus_once_then_restores_current_hp(self):
+        avatar = Mock()
+        intense_focus = Mock()
+        intense_focus.IsName.side_effect = lambda name: name == "Intense Focus"
+        avatar.GetAttachedAttachments.return_value = [intense_focus]
+        effect = Mock()
+
+        with patch(
+            "cards.pack.tt.god_of_lies.Worlds.ConvertPerPlayerIconToInt",
+            return_value=2,
+        ) as convert_bonus:
+            _set_avatar_health_after_swap(avatar, effect, preserved_health=12)
+
+        avatar.ResetHealth.assert_called_once_with(effect)
+        convert_bonus.assert_called_once_with("2*", effect)
+        avatar.GainHealthAndMaxHealth.assert_called_once_with(2, effect)
+        avatar.SetHealth.assert_called_once_with(12, effect)
 
     def test_legacy_save_crc_is_migrated_once_for_corrected_shatter_damage(self):
         operation = OperationDescriptor(crc="old-buggy-health-state")
