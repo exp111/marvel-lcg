@@ -215,3 +215,16 @@ class FileManager:
         else:
             Log.Assert(CATEGORY_NAME, f"File {file_names} not found")
             return None
+
+    @staticmethod
+    def FindStarterDeckJsonPathByIdentityCode(identity_code: str) -> str|None:
+        from engine.lib import Json
+
+        for file_path in FileManager.ListFiles(STARTER_DECK_FOLDER.value, ext=".json"):
+            with FileManager.OpenFile(file_path, read=True) as file:
+                deck = Json.Loads(file.Read())
+            for identity_pair in deck.get("hero", []):
+                identity_codes = (code.strip() for code in identity_pair.split(","))
+                if identity_code in identity_codes:
+                    return FileManager.FormatPath(file_path)
+        return None

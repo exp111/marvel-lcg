@@ -106,7 +106,11 @@ class GameServerGet(GameServerBase):
 
     async def get_hero_json(self, request: web.Request) -> web.Response:
         path = request.rel_url.query_string
-        file = FileManager.FindJsonPath("Hero", path)
+        file = FileManager.FindJsonPath("Hero", path, nullable=True)
+        if file is None:
+            file = FileManager.FindStarterDeckJsonPathByIdentityCode(path)
+        if file is None:
+            return web.json_response({"error": f"Hero {path} not found"}, status=404)
         return self.ReadJsonFile(file)
 
     async def get_sets_json(self, request: web.Request) -> web.Response:

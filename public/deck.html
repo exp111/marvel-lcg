@@ -376,7 +376,7 @@ function getDeck(is_private) {
                 const response = this.response
                 const json_data = JSON.parse(response)
 
-                await set_hero(json_data['hero_name'])
+                await set_hero(json_data['hero_name'], json_data['hero_code'])
 
                 hero_data['player_deck'] = []
                 for( let card_id in json_data['slots'] ) {
@@ -521,10 +521,10 @@ function showDeckCards() {
     document.querySelector('#side_deck_images_size').innerHTML = `size: ${hero_data['side_deck'].length.toString()}`
 }
 
-async function set_hero(hero_name) {
+async function set_hero(hero_name, hero_code = "") {
     const name = hero_name.replace(/[^a-z0-9]/gi, '_').toLowerCase()
     document.querySelector(`#hero`).value = name
-    hero_data = await getHeroJson(name); // Now it's correct
+    hero_data = await getHeroJson(hero_code || name);
 }
 
 function isEmptyString(str) {
