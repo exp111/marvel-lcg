@@ -10,7 +10,9 @@ class TestMarvelCDBIdentityImport(unittest.TestCase):
     def test_duplicate_black_panther_names_resolve_by_identity_code(self):
         project_root = Path(__file__).resolve().parents[1]
         expected_decks = {
+            "01001a": "spider_man.json",
             "01040a": "black_panther.json",
+            "27030a": "spider_man_miles_morales.json",
             "51001a": "black_panther_shuri.json",
         }
 
