@@ -210,7 +210,7 @@ class CardRender {
                 return [...areaCards].sort((a, b) => {
                     const aLegal = Effect.select_effect_obj.all_legal_targets.includes(a.object_id);
                     const bLegal = Effect.select_effect_obj.all_legal_targets.includes(b.object_id);
-                    if (aLegal && bLegal) return a.object_id - b.object_id;
+                    if (aLegal && bLegal) return 0;
                     if (aLegal) return 1;
                     if (bLegal) return -1;
                     return 0;
