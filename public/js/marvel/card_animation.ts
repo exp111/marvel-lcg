@@ -285,11 +285,15 @@ export class CardAnimation
 
             card_div.classList.add(ClassName.card_moving)
 
+            let should_apply_transform = true
             requestAnimationFrame(() => {
-                card_div.style.transform = `translate3d(${nx}px, ${ny}px, 10px) rotate(${deg}deg)`;
+                if( should_apply_transform ) {
+                    card_div.style.transform = `translate3d(${nx}px, ${ny}px, 10px) rotate(${deg}deg)`;
+                }
             })
 
             CardAnimation.setAnimeTime('attack', () => {
+                should_apply_transform = false
                 card_div.style.transform = ""
             })
 
