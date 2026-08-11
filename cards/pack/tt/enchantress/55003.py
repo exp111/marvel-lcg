@@ -22,5 +22,6 @@ def GetAbilities() -> Sequence['Ability']:
             None,
             enchantress_revealed
         ),
+        AfterEnchantressAttacksYouPlaceCharmCounter(),
     ]
 
