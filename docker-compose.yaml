@@ -1,6 +1,6 @@
 services:
   marvel-lcg:
-    image: marvel-lcg
+    image: ghcr.io/sdolle1775/marvel-lcg
     build: .
     ports:
       - "2345:2345"
