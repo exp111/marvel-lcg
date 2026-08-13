@@ -43,6 +43,7 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         run: gh release create $(cat latest-version.txt)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT required to trigger other workflows
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           REPOSITORY: ${{ github.repository }}
           BRANCH_NAME: ${{ github.ref_name }}
