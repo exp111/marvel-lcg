@@ -1,0 +1,16 @@
+services:
+  marvel-lcg:
+    image: ghcr.io/exp111/marvel-lcg
+    build: .
+    ports:
+      - "2345:2345"
+    volumes:
+      - type: bind
+        source: launch.json
+        target: /app/launch.json
+      - type: bind
+        source: campaign_settings.json
+        target: /app/campaign_settings.json
+      - type: bind
+        source: assets/cache
+        target: /app/assets/cache
