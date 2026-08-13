@@ -18546,6 +18546,7 @@
             "desc": {
                 "Cost": "3",
                 "RES": "Y",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -21870,6 +21871,7 @@
             "desc": {
                 "Cost": "2",
                 "RES": "B",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -35389,6 +35391,7 @@
             "desc": {
                 "Cost": "3",
                 "RES": "B",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -38274,6 +38277,7 @@
             "desc": {
                 "Cost": "2",
                 "RES": "Y",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -49771,6 +49775,7 @@
             "desc": {
                 "Cost": "1",
                 "RES": "Y",
+                "MaxPerUnit": "1",
                 "Class": "Basic"
             },
             "traits": [],
@@ -50184,6 +50189,7 @@
             "desc": {
                 "Cost": "3",
                 "RES": "B",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -54779,6 +54785,7 @@
             "desc": {
                 "Cost": "2",
                 "RES": "R",
+                "MaxPerUnit": "1",
                 "Class": "Leadership"
             },
             "traits": [
@@ -61274,6 +61281,7 @@
             "desc": {
                 "Cost": "3",
                 "RES": "R",
+                "MaxPerUnit": "1",
                 "Class": "Justice"
             },
             "traits": [
@@ -61883,5 +61891,5 @@
             "text": "Each minion attacks the player it is engaged with (even if that player is in alter-ego form). If no minion activates this way, discard cards from the top of the encounter deck until a minion is discarded and reveal that minion."
         }
     ],
-    "checksum": "4ea2af27dabd7ebb8577d8d500fafc76ae22d521ea41d6ca27a453b6202c4f41"
+    "checksum": "c6b0c37004f58c3e66417ab49d982dce4edcb35c953ce3806862de0ff33fa2e3"
 }
