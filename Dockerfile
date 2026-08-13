@@ -1,12 +1,12 @@
 # build frontend
-FROM node:26-alpine3.23
+FROM node:22-alpine3.24
 WORKDIR /tmp
 COPY --parents public/ /tmp/
 RUN npm install --global typescript
 RUN tsc -p /tmp/public/js/tsconfig.json
 
 # actual image
-FROM python:3.14.7-alpine3.24
+FROM python:3.12-alpine3.24
 
 # main working directory
 WORKDIR /app
