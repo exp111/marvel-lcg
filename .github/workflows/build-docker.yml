@@ -2,9 +2,8 @@ name: Build Docker release
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [created]
 
 env:
   REGISTRY: ghcr.io
