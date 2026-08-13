@@ -37,6 +37,20 @@ class TestMarvelCDBIdentityImport(unittest.TestCase):
         )
         self.assertIn("getHeroJson(hero_code || name)", html)
 
+    def test_marvelcdb_import_preserves_selected_aspects(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "deck.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            "hero_data['aspect'] = marvelcdb_meta['aspect'] || \"\"",
+            html,
+        )
+        self.assertIn(
+            "hero_data['aspect2'] = marvelcdb_meta['aspect2'] || \"\"",
+            html,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,8 @@ class HeroDescriptor:
     obligations: List[str]
     nemesis_set: List[str]
     player_deck: List[str] = field(default_factory=lambda: [])
+    aspect: str = ""
+    aspect2: str = ""
 
     def UpdateVersion(self):
         pass
-

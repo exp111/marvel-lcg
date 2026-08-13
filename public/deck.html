@@ -356,6 +356,22 @@ var hero_data = {
     "hero_deck": [],
     "player_deck": [],
     "side_deck": [],
+    "aspect": "",
+    "aspect2": "",
+}
+
+function getMarvelCDBMeta(meta) {
+    if( !meta ) {
+        return {}
+    }
+    if( typeof meta == "string" ) {
+        try {
+            return JSON.parse(meta)
+        } catch( error ) {
+            return {}
+        }
+    }
+    return meta
 }
 
 function getDeck(is_private) {
@@ -377,6 +393,10 @@ function getDeck(is_private) {
                 const json_data = JSON.parse(response)
 
                 await set_hero(json_data['hero_name'], json_data['hero_code'])
+
+                const marvelcdb_meta = getMarvelCDBMeta(json_data['meta'])
+                hero_data['aspect'] = marvelcdb_meta['aspect'] || ""
+                hero_data['aspect2'] = marvelcdb_meta['aspect2'] || ""
 
                 hero_data['player_deck'] = []
                 for( let card_id in json_data['slots'] ) {
@@ -454,6 +474,12 @@ function add_card(e, card_id, allow_update=false) {
 }
 
 function showDeckCards() {
+    if( !('aspect' in hero_data) ) {
+        hero_data['aspect'] = ""
+    }
+    if( !('aspect2' in hero_data) ) {
+        hero_data['aspect2'] = ""
+    }
     document.querySelector(`#hero_deck`).value = hero_data['hero_deck'].join("; ")  //  + "; "
     document.querySelector(`#slots`).value = hero_data['player_deck'].join("; ")    //  + "; "
     document.querySelector(`#set_aside`).value = hero_data['set_aside'].join("; ")  //  + "; "

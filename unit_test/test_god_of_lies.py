@@ -141,6 +141,19 @@ class TestGodOfLies(unittest.TestCase):
             },
         )
 
+    def test_draugr_buddy_has_printed_guard(self):
+        cards = json.loads(
+            (self.project_root / "data" / "cards.json").read_text(
+                encoding="utf-8"
+            )
+        )["tt"]
+        draugr_buddy = next(
+            card for card in cards
+            if card["card_id"] == "55037"
+        )
+
+        self.assertEqual(draugr_buddy["desc"]["Guard"], "1")
+
     def test_synergy_environment_bonuses_modify_event_values(self):
         effect = Mock()
         attack_message = Mock()

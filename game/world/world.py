@@ -25,6 +25,34 @@ from game.world.cheat.cheat_cmd import CheatCommand
 
 GAME_OVER: TypeAlias = Literal[True, False]
 
+
+def IsUsingPoolAspect(hero: 'HeroDescriptor', player: 'Player') -> bool:
+    selected_aspects = [hero.aspect, hero.aspect2]
+    selected_aspects = [
+        aspect.strip().lower().lstrip("'")
+        for aspect in selected_aspects
+        if aspect.strip()
+    ]
+    if selected_aspects:
+        return "pool" in selected_aspects
+
+    # Legacy deck files did not store their selected aspect. Avoid treating a
+    # legal off-aspect inclusion as a selected aspect; only infer 'Pool when it
+    # is the sole aspect represented in the deck.
+    has_pool_cards = player.player_deck.FindCardSize(
+        CardFinder(card_class="'Pool")
+    ) > 0
+    has_other_aspect_cards = player.player_deck.FindCardSize(
+        CardFinder(card_classes=[
+            "Aggression",
+            "Justice",
+            "Leadership",
+            "Protection",
+        ])
+    ) > 0
+    return has_pool_cards and not has_other_aspect_cards
+
+
 class World(WorldAction, WorldFind):
 
     def __init__(self, scene: 'Scene', controllers: List['Controller']) -> None:
@@ -244,11 +272,10 @@ class World(WorldAction, WorldFind):
                     Faces.MoveAllToDeck([x.face for x in player.set_aside_obligations], scenario.encounter_deck, "Top", game_start_effect)
 
             if self.rule.crisis_of_infinite_deadpools:
-                used_pool_aspect = False
-                for player in self.const_players:
-                    if player.player_deck.FindCardSize(CardFinder(card_class="'Pool")):
-                        used_pool_aspect = True
-                        break
+                used_pool_aspect = any(
+                    IsUsingPoolAspect(self.scene.players[index], player)
+                    for index, player in enumerate(self.const_players)
+                )
                 if used_pool_aspect:
                     dreadpool = CardFactory.LoadEncounterSet("dreadpool")
                     CardFactory.GenerateCards(dreadpool, self.aside_deck, self)
