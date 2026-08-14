@@ -8,22 +8,21 @@ def GetAbilities() -> Sequence['Ability']:
         this = effect.this.CastTo(EncounterSideScheme)
         Unused(this)
 
-        player = message.killer.GetControlBy()
-        if Player.IsType(player):
-            player.MayChooseOneAbility(
-                effect,
-                AbilityFactory.ForChoiceAbility(
-                    "Draw 2 cards",
-                    lambda targets:
-                        player.DrawUp(2, effect)
-                ).SetTarget("YourIdentity")
-            )
+        player = message.GetDefeatingPlayer()
+        player.MayChooseOneAbility(
+            effect,
+            AbilityFactory.ForChoiceAbility(
+                "Draw 2 cards",
+                lambda targets:
+                    player.DrawUp(2, effect)
+            ).SetTarget("YourIdentity")
+        )
 
     return [
         AbilityFactory.WhenSchemeBeDefeated(
             AbilityType.WhenDefeated,
             "This",
             philosophers_stone,
+            has_defeating_player=True,
         ),
     ]
-

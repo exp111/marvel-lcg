@@ -610,6 +610,33 @@ class PlayerAction:
             # self.ChooseEffects([effect], )
         return False
 
+    def _RegisterLikeInTurnCostModifiers(
+        self,
+        face: 'HasCost',
+        effects: Sequence['Effect'],
+        *,
+        ignore_resources_cost: bool,
+        update_resources_cost: int,
+    ) -> List['Effect']:
+        temp_effects: List[Effect] = []
+        if ignore_resources_cost:
+            for check_effect in effects:
+                temp_effects += face.effect.Registers(
+                    AbilityFactory.IgnoreThisCostIf(
+                        AbilityType.Temp0,
+                    )
+                )
+        elif update_resources_cost != 0:
+            for check_effect in effects:
+                temp_effects += face.effect.RegisterTemp(
+                    AbilityFactory.ReduceCostToPlayThis(
+                        lambda effect: -1 * update_resources_cost,
+                        which_effect=check_effect
+                    ),
+                    unregister_after_exec=False
+                )
+        return temp_effects
+
     def PlayOneCardLikeInTurn(self, faces: List['CardFace'],
                             by_effect: 'Effect',
                             *,
@@ -617,9 +644,26 @@ class PlayerAction:
                             update_resources_cost: int=0,
                             forced: bool=False):
         from game.card.face.attribute.has_cost import HasCost
+        from game.operate.effects import Effects
         from game.operate.faces import Faces
         player = self.GetPlayer()
-        faces = [x for x in faces if x.CanPlayBy(player)]
+
+        def can_play_with_cost_modifiers(face: 'CardFace') -> bool:
+            if not HasCost.IsType(face):
+                return face.CanPlayBy(player)
+
+            temp_effects = self._RegisterLikeInTurnCostModifiers(
+                face,
+                face.GetTurnPlayEffects(),
+                ignore_resources_cost=ignore_resources_cost,
+                update_resources_cost=update_resources_cost,
+            )
+            try:
+                return face.CanPlayBy(player)
+            finally:
+                Effects.UnRegister(temp_effects)
+
+        faces = [x for x in faces if can_play_with_cost_modifiers(x)]
         face = player.AskChooseFace(
             faces,
             by_effect,
@@ -701,23 +745,12 @@ class PlayerAction:
 
             # Fix "30004"
             # assert len(effects) == 1, f"{effects=}"
-            temp_effects: List[Effect] = []
-            if ignore_resources_cost:
-                for check_effect in effects:
-                    temp_effects += face.effect.Registers(
-                        AbilityFactory.IgnoreThisCostIf(
-                            AbilityType.Temp0,
-                        )
-                    )
-            elif update_resources_cost != 0:
-                for check_effect in effects:
-                    temp_effects += face.effect.RegisterTemp(
-                        AbilityFactory.ReduceCostToPlayThis(
-                            lambda effect: -1 * update_resources_cost,
-                            which_effect=check_effect
-                        ),
-                        unregister_after_exec=False
-                    )
+            temp_effects = self._RegisterLikeInTurnCostModifiers(
+                face,
+                effects,
+                ignore_resources_cost=ignore_resources_cost,
+                update_resources_cost=update_resources_cost,
+            )
 
             if give_piercing:
                 for check_effect in effects:
@@ -951,4 +984,3 @@ class PlayerAction:
                 break
             if effect.world.is_game_over:
                 break
-

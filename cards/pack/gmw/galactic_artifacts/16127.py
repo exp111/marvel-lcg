@@ -8,16 +8,15 @@ def GetAbilities() -> Sequence['Ability']:
         this = effect.this.CastTo(EncounterSideScheme)
         Unused(this)
 
-        player = message.killer.GetControlBy()
-        if Player.IsType(player):
-            player.MayChooseOneAbility(
-                effect,
-                AbilityFactory.ForChoiceAbility(
-                    "Ready your identity",
-                    lambda targets:
-                        Faces.ReadyAll(targets, effect)
-                ).SetTarget("YourIdentity", canbe_ready=True)
-            )
+        player = message.GetDefeatingPlayer()
+        player.MayChooseOneAbility(
+            effect,
+            AbilityFactory.ForChoiceAbility(
+                "Ready your identity",
+                lambda targets:
+                    Faces.ReadyAll(targets, effect)
+            ).SetTarget("YourIdentity", canbe_ready=True)
+        )
 
 
     return [
@@ -25,6 +24,6 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityType.WhenDefeated,
             "This",
             hujahdarian_monarch_egg,
+            has_defeating_player=True,
         ),
     ]
-
