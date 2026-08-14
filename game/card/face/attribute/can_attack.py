@@ -32,6 +32,22 @@ class AttackProperty(PowerProperty):
                 value = this.attack
         return self.additional_value + value
 
+
+def _divide_damage_for_attacked_player(atk_target: 'Unit2', damage: int, by_effect: 'Effect') -> Tuple[List['Unit2'], int, List['Unit2']]:
+    attacked_player = atk_target.GetControlByPlayer()
+    player_units = attacked_player.GetControlCharacters()
+    divide_damage, divide_remainder = Math.DivideEvenly(damage, player_units)
+    if divide_remainder:
+        remainder_units = attacked_player.AskChooseFaces(
+            player_units,
+            (divide_remainder, divide_remainder),
+            by_effect,
+        )
+    else:
+        remainder_units = []
+    return player_units, divide_damage, remainder_units
+
+
 ################################################################################
 #
 class HasAttack(HasAttribute):
@@ -361,13 +377,11 @@ class CanAttack(CardFace):
                     took_damage_targets.append(damage_message.who_took_damage)
             elif property.divide_damage_among_each_character_attacked_player_control and \
                 atk_target.GetControlByOrOwner().IsPlayer():
-                assert property.against_player
-                player_units = atk_target.GetControlByPlayer().GetControlCharacters()
-                divide_damage, divide_remainder = Math.DivideEvenly(calculated_damage, player_units)
-                if divide_remainder:
-                    remainder_units = property.against_player.AskChooseFaces(player_units, (divide_remainder, divide_remainder), by_effect)
-                else:
-                    remainder_units = []
+                player_units, divide_damage, remainder_units = _divide_damage_for_attacked_player(
+                    atk_target,
+                    calculated_damage,
+                    by_effect,
+                )
 
                 divide_damage_messages: List['Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage|None'] = []
                 for divide_target in player_units:
@@ -549,4 +563,3 @@ class CanAttack(CardFace):
         check_message = Message.CheckIfUnitCanAttack(self, by_effect)
         check_message.Send()
         return check_message.can_attack
-

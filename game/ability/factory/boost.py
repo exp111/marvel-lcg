@@ -217,12 +217,8 @@ class AbilityFactoryBoost:
             if not activate_target:
                 return True
             rule = Condition.GetYouRule(activate_target, identity=True)
-            if isinstance(message.would_message, AttackerMessageInternal):
-                targets = message.would_message.attacked_targets
-            else:
-                assert False
-                # targets = message.would_message.targets
-            return Condition.CheckWhichCard(rule, targets, effect)
+            identity = message.GetToPlayer().GetIdentity()
+            return Condition.CheckWhichCard(rule, identity, effect)
 
         return Ability(
             ability_type,
@@ -266,12 +262,8 @@ class AbilityFactoryBoost:
         def check_activate_target(effect: 'Effect', message: 'Message.WhenBoostCardTurnedFaceUp') -> bool:
             if not activate_target:
                 return True
-            if isinstance(message.would_message, AttackerMessageInternal):
-                targets = message.would_message.attacked_targets
-            else:
-                assert False
-                # targets = message.would_message.targets
-            return Condition.CheckWhichCard(activate_target, targets, effect)
+            identity = message.GetToPlayer().GetIdentity()
+            return Condition.CheckWhichCard(activate_target, identity, effect)
 
         def check_activate_message(effect: 'Effect', message: 'Message.WhenBoostCardTurnedFaceUp') -> bool:
             if activate_message == None:
@@ -319,4 +311,3 @@ class AbilityFactoryBoost:
             conditions,
             operation,
         )
-

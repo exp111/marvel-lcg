@@ -568,6 +568,17 @@ class SenderDamage:
             return len(self.would_atk_messages) == 1 and self.would_atk_messages[0].IsBasicAttack()
 
         def GetAgainstPlayer(self) -> 'Player|None':
+            attacked_players: List['Player'] = []
+            for atk_message in self.atk_messages:
+                attacked_player = getattr(atk_message, 'attacked_you', None)
+                if attacked_player is not None and all(attacked_player is not player for player in attacked_players):
+                    attacked_players.append(attacked_player)
+
+            if len(attacked_players) == 1:
+                return attacked_players[0]
+            if attacked_players:
+                return None
+
             if len(self.would_atk_messages) == 1:
                 return self.would_atk_messages[0].property.against_player
             return None
@@ -963,4 +974,3 @@ class SenderDamage:
 
         def IsFromAttack(self) -> bool:
             return self.would_atk_message != None
-

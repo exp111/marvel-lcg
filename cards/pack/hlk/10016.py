@@ -19,10 +19,9 @@ def GetAbilities() -> Sequence['Ability']:
             you_will_pay_for_that,
             conditions=[
                 lambda effect, message:
-                    message.to_player != None and \
-                    message.attacked == message.to_player.GetIdentity()
+                    message.attacked_you != None and \
+                    message.attacked == message.attacked_you.GetIdentity()
             ],
         ).SetPlay().SetLabel('thwart')
         .SetTarget(Scheme2)
     ]
-

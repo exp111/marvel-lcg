@@ -1,6 +1,16 @@
 from . import *
 from typing import Final
 
+
+def _get_activation_target_player(being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> 'Player':
+    defender = getattr(being_message, "defender", None)
+    if defender:
+        return defender.GetControlByPlayer()
+    player = being_message.would_message.property.against_player
+    assert player
+    return player
+
+
 class SenderCard:
 
     class LookAt_Text(TextMessage):
@@ -620,7 +630,7 @@ class SenderCard:
     class WhenBoostCardWouldTurnedFaceUp(TriggerFaceMessage, TriggerNonePlayerMessage, AttackerNoneMessage, CanBeInstead):
         def __init__(self, face: 'CardFace', being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> None:
             from game.message import Message
-            player = being_message.would_message.property.against_player
+            player = _get_activation_target_player(being_message)
             self.being_message: Final = being_message
             self.would_message: Final = being_message.would_message
             self.would_atk_message: Final = being_message.would_message if isinstance(being_message.would_message, Message.WhenUnitWouldAttack) else None
@@ -637,7 +647,7 @@ class SenderCard:
         def __init__(self, face: 'CardFace', being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> None:
             from game.card.face.base import EncounterNonVillainCard
             from game.message import Message
-            player = being_message.would_message.property.against_player
+            player = _get_activation_target_player(being_message)
             
             self.being_message: Final = being_message
             self.would_message: Final = being_message.would_message
@@ -673,15 +683,13 @@ class SenderCard:
             self.is_cancel_boost_ability: Final = flip_message.cancel_boost_ability
             self.being_message: Final = flip_message.being_message
             self.would_message = self.being_message.would_message
-            self.against_player = self.would_message.property.against_player
-            player = self.against_player
+            player = _get_activation_target_player(self.being_message)
+            self.against_player = player
 
             if isinstance(self.being_message, Message.WhenSchemeBeingScheme):
                 self.would_sch_message: Final = self.being_message.would_sch_message
             if isinstance(self.being_message, Message.WhenUnitBeingAttack):
                 self.would_atk_message: Final = self.being_message.would_atk_message
-                if self.being_message.defender:
-                    player = self.being_message.defender.GetControlByPlayer()
 
             self.activating_enemy: Final = self.would_message.trigger.CastTo(Enemy)
 
@@ -692,7 +700,7 @@ class SenderCard:
             # self.Present(text, "reveal", face)
 
         def GetAgainstPlayer(self) -> 'Player|None':
-            return self.against_player
+            return self.GetToPlayer()
 
         # for this activation.
         def GainBoostIcon(self, value: int, by_effect: 'Effect'):
@@ -757,7 +765,7 @@ class SenderCard:
             super().__init__(trigger=face, pre_message=message)
 
         def GetAgainstPlayer(self) -> 'Player|None':
-            return self.boost_message.would_message.property.against_player
+            return self.boost_message.GetToPlayer()
 
     ################################################################################
     # Those message only for UI
@@ -1077,4 +1085,3 @@ class SenderCard:
         def __init__(self, face: 'CardFace', to_face: 'CardFace') -> None:
             self.to_face: Final = to_face
             super().__init__(trigger=face)
-
