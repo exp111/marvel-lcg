@@ -692,15 +692,26 @@ class CostFunc:
             from game.operate.faces import Faces
             from game.deck import Deck
             from game.card.face.card_face import CardFace
+            from game.card.face.attribute.can_place_counter import CanPlaceCounter
             from game.card.card_finder import CardFinder
             self.return_original_area: Dict[CardFace, Deck] = {}
             self.return_discarded_cards: List['CardFace'] = []
+            self.return_discarded_counters: Dict[
+                CardFace,
+                Dict['CardFace.COUNTER', int],
+            ] = {}
 
             def on_call(targets: Sequence['CardFace'], effect: 'Effect', player: 'Player|None') -> bool:
                 # We need to do this before discard them
                 self.return_original_area = {}
+                self.return_discarded_counters = {}
                 for target in targets:
                     self.return_original_area[target] = target.card.area
+                    if isinstance(target, CanPlaceCounter):
+                        self.return_discarded_counters[target] = {
+                            name: target.GetCounters(name)
+                            for name in target.components.counter.GetCounterNames()
+                        }
 
                 if Faces.DiscardAll(targets, effect) == targets:
                     self.return_discarded_cards = list(targets)
