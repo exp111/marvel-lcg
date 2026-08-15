@@ -613,7 +613,7 @@ class AbilityFactoryResources:
 
     @staticmethod
     def IncreaseResourceCostToPlay(which_card: CardType,
-                                    value: int,
+                                    value: Callable[['Effect'], int]|int,
                                     which_player: 'Player|Literal["Attached", "You", "EachPlayer", "AnyPlayer"]',
                                     *,
                                     conditions: ConditionsType[Message.WhenCalculateEffectCost]=[],

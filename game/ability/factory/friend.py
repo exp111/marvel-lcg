@@ -417,7 +417,9 @@ class AbilityFactoryFriend:
                                              *,
                                             after_attacking_minion: bool|None=None,
                                             after_thwart_side_scheme: bool|None=None,
-                                            update_damage: Callable[['Effect'], int]|int=0) -> 'Ability':
+                                            update_damage: Callable[['Effect'], int]|int=0,
+                                            conditions: ConditionsType[Message.WhenAllyWouldTakeConsequentialDamage]=[],
+                                            ) -> 'Ability':
         from game.card.face.card_type import Minion
         from game.card.face.base import SchemeSide2
 
@@ -458,7 +460,8 @@ class AbilityFactoryFriend:
             [
                 check_who,
                 check_after_after_attacking_minion,
-                check_after_thwart_side_scheme
+                check_after_thwart_side_scheme,
+                *conditions,
             ],
             update_damage_action,
             is_local=which_unit == "This"

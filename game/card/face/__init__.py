@@ -67,6 +67,7 @@ from game.card.face.attribute.can_thwart import HasThwart
 from game.card.face.attribute.can_thwart import CanThwart
 from game.card.face.attribute.has_victory import HasVictory
 from game.card.face.attribute.has_setup import HasSetup
+from game.card.face.attribute.has_starting import HasStarting
 from game.card.face.attribute.has_uses import HasUses
 Unused(CanAttacked)
 Unused(HasAccelerationIcon)
@@ -93,6 +94,7 @@ Unused(HasThwart)
 Unused(CanThwart)
 Unused(HasVictory)
 Unused(HasSetup)
+Unused(HasStarting)
 Unused(HasUses)
 
 from game.card.face.attribute.has_hand_size import HasHandSize
@@ -236,4 +238,3 @@ Unused(Obligation)
 Unused(Treachery)
 Unused(Resource)
 Unused(Evidence)
-

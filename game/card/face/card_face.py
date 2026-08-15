@@ -48,7 +48,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         "MaxPerUnit", "MaxPerDeck", "TeamUp",
         "Class", "Permanent", "Steady", "Incite", "Villainous", "Patrol", "Hinder", "Stalwart",
         "Requirement", "Victory", "Alliance",
-        "Setup", "Peril", "Stage",
+        "Setup", "Starting", "Peril", "Stage",
         "Linked", "Form", "CorrespondingCard",
         "Temporary", "Teamwork", "Vulnerable",
         "Subtype", "CannotChooseDiscard",
@@ -89,7 +89,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         "THUNDERBOLT", "BOARD MEMBER", "UNMASKED", "INHERITOR", "BIRD", "SERPENT SOCIETY", 
         "ENHANCED", 
         "ENCHANTMENT", "SHAPESHIFT", "ENTHRALLED", "DEFIANT", "UNREGISTERED", "ATLANTIS", 
-        "DEFENDER", 
+        "DEFENDER", "MARTIAL ARTIST", "MIDNIGHT SUN", "ATTORNEY", "POLICE", "DANCE",
     ]
 
     TRAITS_LIST: List[TRAITS] = Types.LiteralToList(TRAITS)

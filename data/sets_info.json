@@ -412,6 +412,13 @@
         "encounters": [],
         "max_id": "59040"
     },
+    "60. Fear No Evil": {
+        "name": "fne",
+        "scenarios": [],
+        "heroes": [],
+        "encounters": [],
+        "max_id": "60059"
+    },
     "90. Ronan Modular Set": {
         "name": "ron",
         "scenarios": [],
@@ -451,5 +458,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "eddf0e593c90a4c97ed6e36db1c6e29915a116b41d0b921ea7f400b4d50c48df"
+    "checksum": "62585f597c42dac6cd0e4280b0ea0f59244b8c68af2ad436fc3e7a97b843e692"
 }

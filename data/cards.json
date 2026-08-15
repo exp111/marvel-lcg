@@ -61892,5 +61892,260 @@
             "text": "Each minion attacks the player it is engaged with (even if that player is in alter-ego form). If no minion activates this way, discard cards from the top of the encounter deck until a minion is discarded and reveal that minion."
         }
     ],
-    "checksum": "ee56dfdb9d4c1c4f1eab150b1582b543d4a020c9e8ace8ef89bb60328ed91242"
+    "fne": [
+        {
+            "card_id": "60019",
+            "type": "Ally",
+            "name": "* Blindspot",
+            "subtitle": "",
+            "desc": {"Cost": "4", "HP": "3", "ATK": "2*", "THW": "2*", "RES": "Y", "Class": "Justice"},
+            "traits": ["GENIUS", "MARTIAL ARTIST"],
+            "set_name": "",
+            "text": "[star] <b>Response</b>: After Blindspot thwarts, confuse an enemy with an upgrade attached."
+        },
+        {
+            "card_id": "60020",
+            "type": "Ally",
+            "name": "* Cloak",
+            "subtitle": "",
+            "desc": {"Cost": "3", "HP": "2", "ATK": "1", "THW": "2", "RES": "B", "Acceleration": "1", "Class": "Justice"},
+            "traits": ["DEFENDER"],
+            "set_name": "",
+            "text": "<b>Action</b>: Exhaust Cloak and spend [energy] [energy] resources → find Dagger and put her into play."
+        },
+        {
+            "card_id": "60021",
+            "type": "Ally",
+            "name": "* Dagger",
+            "subtitle": "",
+            "desc": {"Cost": "3", "HP": "3", "ATK": "2**", "THW": "1**", "RES": "Y", "Class": "Justice"},
+            "traits": ["DEFENDER"],
+            "set_name": "",
+            "text": "Cloak loses each [acceleration] icon.\n[star] If Cloak is in play, Dagger takes -1 consequential damage after she uses a basic power."
+        },
+        {
+            "card_id": "60022",
+            "type": "Ally",
+            "name": "* Ghost Rider",
+            "subtitle": "",
+            "desc": {"Cost": "3", "HP": "3", "ATK": "2*", "THW": "1*", "RES": "Y", "Class": "Justice"},
+            "traits": ["MIDNIGHT SUN"],
+            "set_name": "",
+            "text": "[star] <b>Interrupt</b>: When Ghost Rider attacks an enemy, spend a [energy] resource ([energy] [energy] resources instead if that enemy is the villain) → confuse that enemy."
+        },
+        {
+            "card_id": "60023",
+            "type": "Event",
+            "name": "Know Your Enemy",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "B", "Class": "Justice"},
+            "traits": ["THWART"],
+            "set_name": "",
+            "text": "[star] Discount 1 ([[MARTIAL ARTIST]]).\n<b>Hero Action</b> <i>(thwart)</i>: Remove 1 threat from a scheme. Remove 1 threat from a scheme."
+        },
+        {
+            "card_id": "60024",
+            "type": "PlayerSideScheme",
+            "name": "* De-escalation",
+            "subtitle": "",
+            "desc": {"Cost": "0", "RES": "R", "StartingThreat": "4", "Victory": "0", "MaxPerDeck": "1", "Class": "Justice"},
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: Remove an acceleration token from play."
+        },
+        {"card_id": "60025", "full_link": "26034"},
+        {
+            "card_id": "60026",
+            "type": "Upgrade",
+            "name": "Legal Trouble",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "B", "MaxPerUnit": "1", "Class": "Justice"},
+            "traits": ["CONDITION"],
+            "set_name": "",
+            "text": "[star] Discount 1 ([[ATTORNEY]] or [[POLICE]]).\nAttach to a minion. Max 1 per minion.\nAttached minion gets -2 SCH."
+        },
+        {
+            "card_id": "60027",
+            "type": "Upgrade",
+            "name": "Move in Shadow",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "Y", "Temporary": "1", "MaxPerUnit": "1", "Class": "Justice"},
+            "traits": ["SKILL"],
+            "set_name": "",
+            "text": "[star] Discount 1 ([[MARTIAL ARTIST]] or [[SPY]]).\nTemporary. Max 1 per player.\n<b>Response</b> <i>(thwart)</i>: After you play a card (including this one), remove 1 threat from a scheme."
+        },
+        {
+            "card_id": "60028",
+            "type": "Upgrade",
+            "name": "Stealth Training",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "R", "MaxPerUnit": "1", "Class": "Justice"},
+            "traits": ["SKILL"],
+            "set_name": "",
+            "text": "Play under any player's control. Max 1 per player.\n<b>Response</b>: After you thwart and exactly defeat a side scheme, exhaust Stealth Training → stun an enemy."
+        },
+        {
+            "card_id": "60029",
+            "type": "Support",
+            "name": "* Stick",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "R", "Class": "Basic"},
+            "traits": ["MARTIAL ARTIST", "PERSONA"],
+            "set_name": "",
+            "text": "<b>Interrupt</b>: When a friendly [[MARTIAL ARTIST]] character uses a basic power, choose:\n• Exhaust Stick → that character gets +1 to that basic power for this use.\n• That character gets -1 to that basic power for this use. Ready Stick."
+        },
+        {
+            "card_id": "60030",
+            "type": "Upgrade",
+            "name": "Contingency Planning",
+            "subtitle": "",
+            "desc": {"Cost": "0", "RES": "R", "MaxPerUnit": "1", "Class": "Basic"},
+            "traits": ["SKILL"],
+            "set_name": "",
+            "text": "Max 1 per player.\nYou may play the upgrade tucked here as if it were in your hand.\n<b>Action</b>: Choose 1 upgrade in your hand that can attach to a minion or side scheme. Tuck that upgrade under here (to a maximum of 1)."
+        },
+        {
+            "card_id": "60031",
+            "type": "Upgrade",
+            "name": "Dance with the Devil",
+            "subtitle": "",
+            "desc": {"Cost": "0", "RES": "G", "Amplify": "1", "MaxPerDeck": "1", "TeamUp": "Daredevil;Elektra", "Class": "Basic"},
+            "traits": ["DANCE"],
+            "set_name": "",
+            "text": "Team-Up (Daredevil and Elektra). Max 1 per deck.\nAttach to an enemy.\n<b>Hero Action</b> <i>(attack)</i>: Discard this card → deal 3 damage to attached enemy."
+        },
+        {
+            "card_id": "60038",
+            "type": "Upgrade",
+            "name": "Innate Reflexes",
+            "subtitle": "",
+            "desc": {"Cost": "1", "Starting": "1", "MaxPerDeck": "1", "Class": "Protection"},
+            "traits": ["CONDITION"],
+            "set_name": "",
+            "text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nYour hero gets +1 DEF."
+        },
+        {
+            "card_id": "60048",
+            "type": "Event",
+            "name": "Army of One",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "Y", "Class": "Protection"},
+            "traits": [],
+            "set_name": "",
+            "text": "[star] Increase the cost to play this card by 1 for each ally you control.\n<b>Hero Action</b>: Ready your hero."
+        },
+        {
+            "card_id": "60049",
+            "type": "Event",
+            "name": "Get Their Attention",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "B", "Class": "Protection"},
+            "traits": ["DEFENSE", "THWART"],
+            "set_name": "",
+            "text": "<b>Hero Interrupt</b> <i>(defense/thwart)</i>: When an enemy initiates an attack, remove 3 threat from a scheme."
+        },
+        {
+            "card_id": "60050",
+            "type": "Event",
+            "name": "In Harm's Way",
+            "subtitle": "",
+            "desc": {"Cost": "3", "RES": "R", "Class": "Protection"},
+            "traits": ["ATTACK", "THWART"],
+            "set_name": "",
+            "text": "[star] Increase the cost to play this card by 1 for each ally you control.\n<b>Hero Action</b> <i>(attack/thwart)</i>: Deal X damage to an enemy and remove X threat from a scheme, where X is your DEF."
+        },
+        {
+            "card_id": "60051",
+            "type": "Event",
+            "name": "Powerful Punch",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "R", "Class": "Protection"},
+            "traits": ["ATTACK", "DEFENSE"],
+            "set_name": "",
+            "text": "<b>Hero Interrupt</b> <i>(attack/defense)</i>: When an enemy initiates an attack, deal 4 damage to that enemy.",
+            "ability_link": "32014"
+        },
+        {
+            "card_id": "60052",
+            "type": "Upgrade",
+            "name": "The Best Offense...",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "B", "Temporary": "1", "Class": "Protection"},
+            "traits": ["CONDITION"],
+            "set_name": "",
+            "text": "Temporary.\nYour hero gets +1 DEF.\nUse your DEF in place of your THW and ATK. <i>(Ignore any modifiers to your THW and ATK.)</i>"
+        },
+        {
+            "card_id": "60053",
+            "type": "Upgrade",
+            "name": "* Ronin",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "B", "Class": "Protection"},
+            "traits": ["TITLE"],
+            "set_name": "",
+            "text": "While you do not control any allies, your hero gets +1 DEF and gains retaliate 1."
+        },
+        {
+            "card_id": "60054",
+            "type": "Upgrade",
+            "name": "Stand Alone",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "Y", "MaxPerUnit": "1", "Class": "Protection"},
+            "traits": ["CONDITION"],
+            "set_name": "",
+            "text": "Max 1 per player.\n<b>Hero Interrupt</b>: When an enemy attacks you (before any defender is declared), if you do not control any allies, exhaust Stand Alone → ready your hero."
+        },
+        {
+            "card_id": "60055",
+            "type": "Event",
+            "name": "See No Evil, Hear No Evil",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "G", "MaxPerDeck": "1", "TeamUp": "Daredevil;Echo", "Class": "Basic"},
+            "traits": ["ATTACK", "THWART"],
+            "set_name": "",
+            "text": "Team-Up (Daredevil and Echo). Max 1 per deck.\n<b>Hero Action</b> <i>(attack/thwart)</i>: Choose 2 of the following (you may choose the same option twice):\n• Deal 3 damage to an enemy.\n• Remove 3 threat from a scheme."
+        },
+        {
+            "card_id": "60056",
+            "type": "PlayerSideScheme",
+            "name": "* Superpower Training",
+            "subtitle": "",
+            "desc": {"Cost": "1", "RES": "Y", "StartingThreat": "3*", "Victory": "0", "MaxPerDeck": "1", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: Each player may search their deck and discard pile for an identity-specific upgrade and put it into play. <i>(Shuffle.)</i>",
+            "ability_link": "40059"
+        },
+        {
+            "card_id": "60057",
+            "type": "Resource",
+            "name": "Energy",
+            "subtitle": "",
+            "desc": {"RES": "YY", "MaxPerDeck": "1", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        },
+        {
+            "card_id": "60058",
+            "type": "Resource",
+            "name": "Genius",
+            "subtitle": "",
+            "desc": {"RES": "BB", "MaxPerDeck": "1", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        },
+        {
+            "card_id": "60059",
+            "type": "Resource",
+            "name": "Strength",
+            "subtitle": "",
+            "desc": {"RES": "RR", "MaxPerDeck": "1", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        }
+    ],
+    "checksum": "07396e8d0605b07c54d9b43565c467676fa3e9a9ec72bf6c180a63e4e010141b"
 }

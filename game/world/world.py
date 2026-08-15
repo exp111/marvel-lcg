@@ -426,6 +426,8 @@ class World(WorldAction, WorldFind):
             team_up_ally_removal_candidates,
         )
 
+        self.ResolveStartingCardChoices(game_start_effect)
+
         # [x] 14. Draw Cards
         Message.TextRender("\n--- Draw Cards ---", self)
         if not self.rule.disable_setup_draw_cards:
@@ -491,6 +493,32 @@ class World(WorldAction, WorldFind):
                         [ally],
                         GameRule(player.GetIdentity()),
                     )
+
+    def ResolveStartingCardChoices(self, game_start_effect: 'Effect') -> None:
+        """Offer Starting cards after setup and before the opening draw."""
+        from game.operate.faces import Faces
+
+        for player in self.const_players:
+            starting_cards = [
+                face for face in player.player_deck.GetAll()
+                if HasStarting.IsType(face) and face.printed_starting > 0
+            ]
+            for face in starting_cards:
+                # A setup instruction can move the card before this point.
+                if face.card.area != player.player_deck:
+                    continue
+                should_add = player.AskChooseOneText(
+                    [True, False],
+                    [
+                        f"Add {face.name} to your hand (Starting)",
+                        f"Leave {face.name} in your deck",
+                    ],
+                )
+                if should_add:
+                    Faces.MoveAllTo([face], player.hand_cards, game_start_effect)
+                    # The Starting rules allow at most one Starting card per
+                    # player deck; stop after resolving the selected card.
+                    break
 
     ################################################################################
     # Phase

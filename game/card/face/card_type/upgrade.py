@@ -7,7 +7,7 @@ from game.player import *
 from game.element.damage_property import DamageProperty
 
 @final
-class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, CanCrisis, HasPermanent, HasTemporary, HasSetup, HasVictory, ClassCard, FinalType):
+class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, HasAmplify, CanCrisis, HasPermanent, HasTemporary, HasSetup, HasStarting, HasTeamUp, HasVictory, ClassCard, FinalType):
     @override
     def GetAbilities(self) -> List['Ability']:
         abilities: List['Ability'] = []
@@ -19,7 +19,16 @@ class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, Can
             play_abilities = self.ability.Find(func_name="Play")
             if play_abilities:
                 play_ability = play_abilities[0]
-        if play_ability and play_ability.selectors and play_ability.selectors[0]:
+        attach_selector = None
+        if play_ability:
+            attach_selector = next(
+                (
+                    selector for selector in play_ability.selectors
+                    if selector and selector.target_text != "TeamUp"
+                ),
+                None,
+            )
+        if attach_selector:
             def check_condition(effect: 'Effect', message: 'Message2') -> bool:
                 for condition in play_ability.const_condition:
                     if not condition(effect, message):
@@ -28,7 +37,7 @@ class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, Can
 
             abilities.append(
                 AbilityFactory.AttachToFaceWhenPutIntoPlayInternal(
-                    play_ability.selectors[0],
+                    attach_selector,
                     conditions=[check_condition]
                 )
             )
@@ -87,13 +96,19 @@ class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, Can
         play_abilities = self.ability.Find(func_name="Play")
         for ability in play_abilities:
             assert ability.selectors
-            if ability.selectors[0] and \
-                ability.selectors[0].target_text and \
-                ability.selectors[0].target_text != "TeamUp" and \
-                not isinstance(face, CardFinderHelper.GetTargetType(ability.selectors[0].target_text)):
+            selector = next(
+                (
+                    selector for selector in ability.selectors
+                    if selector and selector.target_text != "TeamUp"
+                ),
+                None,
+            )
+            if selector and \
+                selector.target_text and \
+                not isinstance(face, CardFinderHelper.GetTargetType(selector.target_text)):
                 return False
-            if ability.selectors[0]:
-                return ability.selectors[0].selector_filter.CheckFinder(face, None)
+            if selector:
+                return selector.selector_filter.CheckFinder(face, None)
             else:
                 return True
         return False
@@ -102,4 +117,3 @@ class Upgrade(Asset2, HasModify, HasForm, HasRestricted, HasUses, HasHazard, Can
         #     if ability.selector and ability.selector.FilterLegalTargets([ally], effect):
         #         return True
         # return False
-
