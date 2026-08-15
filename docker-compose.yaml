@@ -15,5 +15,5 @@ services:
         source: assets/cache
         target: /app/assets/cache
       - type: bind
-        source: deck
-        target: /app/deck
+        source: decks
+        target: /app/deck/custom
