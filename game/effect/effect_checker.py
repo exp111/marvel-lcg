@@ -42,18 +42,6 @@ class EffectChecker:
         if not ability.selectors:
             return True
 
-        if effect.world.rule.v16_confuse_stun:
-            # A stunned character can attempt to attack or use an attack ability even if it has no valid target for an attack.
-            # Only for play cards, we cannot use `is_like_xxx` here
-            if ability.is_label_attack and effect.initiator.GetRoleCharacter().IsStunned() and not for_second_target:
-                effect.context.target_range = (0, 0)
-                return True
-
-            # A confused character can attempt to thwart or use a thwart ability even if it has no valid target for a thwart
-            if ability.is_label_thwart and effect.initiator.GetRoleCharacter().IsConfused() and not for_second_target:
-                effect.context.target_range = (0, 0)
-                return True
-
         def get_all_legal_targets(selector: 'Selector', index: int, dont_update_target: bool) -> bool:
             all_legal_targets = list(selector.GetAllLegalTargets(effect, referential_effect))
 
@@ -90,6 +78,36 @@ class EffectChecker:
                 effect.context.all_legal_targets = []
                 effect.context.target_range = (0, 0)
             return True
+
+        if effect.world.rule.v16_confuse_stun:
+            # A stunned character can attempt to attack or use an attack ability even if it has no valid target for an attack.
+            # Only for play cards, we cannot use `is_like_xxx` here
+            status_cancels_ability = (
+                ability.is_label_attack and effect.initiator.GetRoleCharacter().IsStunned()
+            ) or (
+                # A confused character can attempt to thwart or use a thwart ability even if it has no valid target for a thwart
+                ability.is_label_thwart and effect.initiator.GetRoleCharacter().IsConfused()
+            )
+            if status_cancels_ability and not for_second_target:
+                # A status card can waive the labeled ability's target requirement,
+                # but it cannot waive a Team-Up play restriction.
+                for index, selector in enumerate(ability.selectors):
+                    if selector and selector.target_text == "TeamUp" and \
+                    (
+                        selector.condition == None or \
+                        selector.condition(effect)
+                    ):
+                        try:
+                            if not get_all_legal_targets(selector, index, True):
+                                return False
+                        except Exception as exc:
+                            info = Log.OnCrash(CATEGORY_NAME, exc, effect.GetDisplayName(), None)
+                            effect.world.render.ErrorOccurred(info)
+                            return False
+
+                effect.context.all_legal_targets = []
+                effect.context.target_range = (0, 0)
+                return True
 
         has_target = False
         is_teamup = False

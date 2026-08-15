@@ -10,10 +10,29 @@ from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
 from game.card.factory import CardFactory
+from game.card.face.attribute.has_teamup import HasTeamUp
+from game.effect.effect_checker import EffectChecker
+from game.operate.worlds import Worlds
 from game.world.world import World
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _make_status_effect(ability, status):
+    role = MagicMock()
+    role.IsStunned.return_value = status == "stunned"
+    role.IsConfused.return_value = status == "confused"
+    effect = MagicMock()
+    effect.ability = ability
+    effect.bind_message = None
+    effect.context = SimpleNamespace(
+        all_legal_targets=[],
+        target_range=None,
+    )
+    effect.initiator.GetRoleCharacter.return_value = role
+    effect.world.rule.v16_confuse_stun = True
+    return effect
 
 
 class TestFearNoEvilContent(unittest.TestCase):
@@ -97,6 +116,76 @@ class TestFearNoEvilContent(unittest.TestCase):
                     play_ability.selectors[0].target_text,
                     "TeamUp",
                 )
+
+    def test_team_up_matches_an_identity_and_an_ally(self):
+        daredevil_identity = MagicMock()
+        daredevil_identity.IsName.side_effect = lambda name: name == "Daredevil"
+        daredevil_identity.IsSubName.return_value = False
+        echo_ally = MagicMock()
+        echo_ally.IsName.side_effect = lambda name: name == "Echo"
+        echo_ally.IsSubName.return_value = False
+        team_up_card = SimpleNamespace(
+            team_up=[["Daredevil"], ["Echo"]],
+            card=SimpleNamespace(game_area=MagicMock()),
+        )
+
+        with patch.object(
+            Worlds,
+            "GetOnFieldFriendlyCharacters",
+            return_value=[daredevil_identity, echo_ally],
+        ):
+            targets = HasTeamUp.GetTeamUpUnits(team_up_card)
+
+        self.assertCountEqual(targets, [daredevil_identity, echo_ally])
+
+    def test_status_cards_do_not_bypass_team_up_play_restrictions(self):
+        ability = import_module("cards.pack.fne.60055").GetAbilities()[0]
+        selector = ability.selectors[0]
+
+        for status in ["stunned", "confused"]:
+            for team_up_count in [0, 1]:
+                with self.subTest(status=status, team_up_count=team_up_count):
+                    effect = _make_status_effect(ability, status)
+
+                    with patch.object(
+                        selector,
+                        "GetAllLegalTargets",
+                        return_value=[MagicMock() for _ in range(team_up_count)],
+                    ):
+                        self.assertFalse(
+                            EffectChecker(effect).UpdateLegalTargets()
+                        )
+
+    def test_status_cancelled_team_up_card_is_playable_when_both_are_present(self):
+        ability = import_module("cards.pack.fne.60055").GetAbilities()[0]
+        selector = ability.selectors[0]
+
+        for status in ["stunned", "confused"]:
+            with self.subTest(status=status):
+                effect = _make_status_effect(ability, status)
+
+                with patch.object(
+                    selector,
+                    "GetAllLegalTargets",
+                    return_value=[MagicMock(), MagicMock()],
+                ):
+                    self.assertTrue(EffectChecker(effect).UpdateLegalTargets())
+
+                self.assertEqual(effect.context.all_legal_targets, [])
+                self.assertEqual(effect.context.target_range, (0, 0))
+
+    def test_status_cards_still_waive_ordinary_target_requirements(self):
+        ability = import_module("cards.pack.fne.60023").GetAbilities()[-1]
+        effect = _make_status_effect(ability, "confused")
+
+        with patch.object(
+            ability.selectors[0],
+            "GetAllLegalTargets",
+        ) as get_targets:
+            self.assertTrue(EffectChecker(effect).UpdateLegalTargets())
+
+        get_targets.assert_not_called()
+        self.assertEqual(effect.context.target_range, (0, 0))
 
     def test_innate_reflexes_attaches_to_its_owners_identity(self):
         play_ability = import_module(
