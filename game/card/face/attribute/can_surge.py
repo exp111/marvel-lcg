@@ -34,8 +34,6 @@ class CanSurge(HasSurge):
 
         from game.message import Message
         from game.effect.rule import Surge
-        from game.operate.run_at import RunAt
-        from game.operate.worlds import Worlds
         surge_message = Message.WhenSurgeWouldBeResolved(self, player)
         surge_message.Send()
         if not surge_message.is_be_instead:
@@ -43,12 +41,13 @@ class CanSurge(HasSurge):
 
             world = self.card.world
             if world.rule.fix_surge:
-                def action():
-                    face = Worlds.PopEncounterCard(effect)
-                    face.Reveal(player, effect)
-                RunAt.AfterRevealed(self.CastTo(CardFace), action)
+                # Rules Reference v1.8 defines surge as a When Revealed
+                # ability that deals a facedown encounter card. A normal deal
+                # puts that card at the end of the player's encounter-card
+                # queue, so it waits for step four of the villain phase when
+                # surge resolves outside that step.
+                player.DealEncounterCards(1, effect, to_end_of_queue=True)
             else:
                 player.DealEncounterCards(1, effect, by_surge=True)
             return effect
         return None
-

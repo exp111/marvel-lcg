@@ -25,7 +25,9 @@ class PlayerAction:
 
     ################################################################################
     # Encounter
-    def DealEncounterCard(self, face: 'CardFace', by_effect: 'Effect', *, by_surge: bool=False):
+    def DealEncounterCard(self, face: 'CardFace', by_effect: 'Effect', *,
+                          by_surge: bool=False,
+                          to_end_of_queue: bool=False):
         from game.message import Message
         # from game.ability.rule import GameRule
         from game.operate.faces import Faces
@@ -39,7 +41,7 @@ class PlayerAction:
             return
 
         pos = None
-        if world.rule.v16_reveal:
+        if world.rule.v16_reveal or to_end_of_queue:
             pos = "Bottom"
             if by_surge:
                 pos = "Top"
@@ -51,7 +53,9 @@ class PlayerAction:
         message.Send()
 
     # facedown
-    def DealEncounterCards(self, size: int, by_effect: 'Effect', *, by_surge: bool=False) -> None:
+    def DealEncounterCards(self, size: int, by_effect: 'Effect', *,
+                           by_surge: bool=False,
+                           to_end_of_queue: bool=False) -> None:
         world = self.GetPlayer().world
         if world.is_game_over:
             return
@@ -60,7 +64,12 @@ class PlayerAction:
         def process(face: 'CardFace'):
             nonlocal faces
             faces.append(face)
-            self.DealEncounterCard(face, by_effect, by_surge=by_surge)
+            self.DealEncounterCard(
+                face,
+                by_effect,
+                by_surge=by_surge,
+                to_end_of_queue=to_end_of_queue,
+            )
         from game.operate.worlds import Worlds
         Worlds.PopEncounterCards(size, process, True, by_effect)
 
