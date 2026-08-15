@@ -212,8 +212,8 @@ class CardRender {
             } else {
                 if (Effect.select_effect_obj.display_in_target_order) {
                     // Ordered selectors provide targets in the order they will be
-                    // drawn or placed. Keep that order instead of reverting to the
-                    // deck's normal bottom-to-top rendering order.
+                    // drawn or placed. Display that sequence from right to left so
+                    // it runs back toward the decks on the left side of the table.
                     const targetOrder = new Map<number, number>();
                     Effect.select_effect_obj.all_legal_targets.forEach((objectId, index) => {
                         if (!targetOrder.has(objectId)) targetOrder.set(objectId, index);
@@ -222,7 +222,7 @@ class CardRender {
                     return [...areaCards].sort((a, b) => {
                         const aOrder = targetOrder.get(a.object_id);
                         const bOrder = targetOrder.get(b.object_id);
-                        if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder;
+                        if (aOrder !== undefined && bOrder !== undefined) return bOrder - aOrder;
                         if (aOrder !== undefined) return 1;
                         if (bOrder !== undefined) return -1;
                         return 0;

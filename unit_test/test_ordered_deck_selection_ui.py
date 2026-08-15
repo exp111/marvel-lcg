@@ -7,7 +7,7 @@ from game.selector.factory import Select
 
 class TestOrderedDeckSelectionUI(unittest.TestCase):
 
-    def test_selectable_deck_cards_follow_selector_draw_order(self):
+    def test_selectable_deck_cards_show_draw_order_from_right_to_left(self):
         project_root = Path(__file__).resolve().parents[1]
         source = (project_root / "public" / "js" / "marvel" / "cards.ts").read_text(
             encoding="utf-8"
@@ -19,7 +19,7 @@ class TestOrderedDeckSelectionUI(unittest.TestCase):
             source,
         )
         self.assertIn(
-            "if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder",
+            "if (aOrder !== undefined && bOrder !== undefined) return bOrder - aOrder",
             source,
         )
 
@@ -36,7 +36,7 @@ class TestOrderedDeckSelectionUI(unittest.TestCase):
 
         self.assertTrue(selector.selector_end.display_in_target_order)
 
-    def test_selection_marks_the_leftmost_card_as_the_deck_top(self):
+    def test_selection_marks_the_rightmost_card_as_the_deck_top(self):
         project_root = Path(__file__).resolve().parents[1]
         source = (project_root / "public" / "js" / "marvel" / "cards.ts").read_text(
             encoding="utf-8"
@@ -51,7 +51,8 @@ class TestOrderedDeckSelectionUI(unittest.TestCase):
             source,
         )
         self.assertIn(".deck.clicked.selection-order-top-first::after", css)
-        self.assertIn('content: "(" attr(data-total_cards) ") Top \\f061"', css)
+        self.assertIn('content: "(" attr(data-total_cards) ") \\f060 Top"', css)
+        self.assertIn("justify-content: flex-end", css)
 
     def test_madame_web_reorders_after_declining_the_optional_discard(self):
         project_root = Path(__file__).resolve().parents[1]

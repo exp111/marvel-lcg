@@ -109,10 +109,10 @@
 }
 
 .deck.clicked.selection-order-top-first::after {
-    content: "(" attr(data-total_cards) ") Top \f061";
-    right: unset;
-    left: 10px;
-    justify-content: flex-start;
+    content: "(" attr(data-total_cards) ") \f060 Top";
+    right: 10px;
+    left: unset;
+    justify-content: flex-end;
 }
 
 .deck.deck-change-size.clicked::after {
