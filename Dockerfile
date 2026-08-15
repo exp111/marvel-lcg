@@ -18,11 +18,12 @@ COPY --from=0 /tmp/public/ /app/public/
 # edit launch.json
 # replace localhost with 0.0.0.0 so one can access server from outside the container
 # add custom deck folder to launch json
-RUN python -c "import json; f=open('launch.json'); j=json.load(f); f.close(); j['server_addresses']=['0.0.0.0:2345']; j['deck_folders']=['./deck/','./deck/custom/']; f=open('launch.json','w'); json.dump(j,f,indent=2); f.close()"
+RUN python -c "import json; f=open('launch.json'); j=json.load(f); f.close(); j['server_addresses']=['0.0.0.0:2345']; j['open_browser_on_startup'] = False; j['deck_folders']=['./deck/','./deck/custom/']; f=open('launch.json','w'); json.dump(j,f,indent=2); f.close()"
 
-# create volume for assets cache + custom decks
+# create volume for assets cache + custom decks + replays
 VOLUME /app/assets/cache
 VOLUME /app/deck/custom
+VOLUME /app/replays
 
 # install requirements
 RUN pip install -r requirements.txt

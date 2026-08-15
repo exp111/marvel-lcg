@@ -17,3 +17,6 @@ services:
       - type: bind
         source: decks
         target: /app/deck/custom
+      - type: bind
+        source: replays
+        target: /app/replays
