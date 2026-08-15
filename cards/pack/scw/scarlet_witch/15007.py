@@ -10,7 +10,12 @@ def GetAbilities() -> Sequence['Ability']:
 
         initiator = effect.GetInitiator()
         faces = initiator.LookAtDeck(initiator.player_deck, 3, effect)
-        face = initiator.AskChooseFace(faces, effect)
+        face = initiator.AskChooseFace(
+            faces,
+            effect,
+            peek=True,
+            display_in_target_order=True,
+        )
         if face:
             faces.remove(face)
             initiator.GainCard(face, effect)
@@ -24,4 +29,3 @@ def GetAbilities() -> Sequence['Ability']:
             agatha_harkness
         ).SetCostFunc(CostFunc.Exhaust("This")),
     ]
-

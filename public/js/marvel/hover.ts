@@ -41,10 +41,20 @@ export class HoverCard{
 
     static center_preview = class CenterPreview {
         static has_image = false
+        static preview_container = document.querySelector('#image-preview-div-center') as HTMLElement
         static preview_center = document.querySelector('#image-preview-div-center .image-preview') as HTMLElement
 
         static {
-            CenterPreview.preview_center.onclick = () => {
+            // Own the click at the overlay boundary.  The inner preview can sit in
+            // a negative stacking layer, so binding only to it can allow a card
+            // underneath the enlarged image to receive the interaction instead.
+            CenterPreview.preview_container.onclick = (event) => {
+                event.stopImmediatePropagation()
+                event.preventDefault()
+
+                if( !CenterPreview.has_image ) {
+                    return
+                }
                 Button.disablePause(true)
             }
         }
@@ -58,7 +68,7 @@ export class HoverCard{
 
         static hide() {
             CenterPreview.has_image = false
-            CenterPreview.preview_center.parentElement!.classList.add('hide')
+            CenterPreview.preview_container.classList.add('hide')
         }
     }
 

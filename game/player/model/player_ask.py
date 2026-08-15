@@ -238,6 +238,7 @@ class PlayerAsk:
                         peek: bool=False,
                         not_move: bool=False,
                         not_shuffle: bool=False,
+                        display_in_target_order: bool=False,
                         repeat_rules: List['SELECT.REPEAT_RULE']|'SELECT.REPEAT_RULE'=[],
                         ) -> List['TC']:
         player = self.GetPlayer()
@@ -247,6 +248,7 @@ class PlayerAsk:
                             by_search=peek,
                             not_move=not_move,
                             not_shuffle=not_shuffle,
+                            display_in_target_order=display_in_target_order,
                             repeat_rules=repeat_rules)
 
         return_faces = player.AskChooseSelect(selector, by_effect, prompt=prompt, forced=forced)
@@ -260,6 +262,7 @@ class PlayerAsk:
                       forced: bool=True,
                       peek: bool=False,
                       not_move: bool=True,
+                      display_in_target_order: bool=False,
                       ) -> 'TC|None':
         targets = self.AskChooseFaces(
             faces,
@@ -269,6 +272,7 @@ class PlayerAsk:
             forced=forced,
             peek=peek,
             not_move=not_move,
+            display_in_target_order=display_in_target_order,
         )
         if targets:
             return targets[0] # type: ignore
@@ -279,8 +283,17 @@ class PlayerAsk:
                          by_effect: 'Effect',
                          *,
                          not_move: bool=False,
+                         peek: bool=False,
+                         display_in_target_order: bool=False,
                          ) -> 'TC|None':
-        return self.AskChooseFace(faces, by_effect, forced=False, not_move=not_move,)
+        return self.AskChooseFace(
+            faces,
+            by_effect,
+            forced=False,
+            not_move=not_move,
+            peek=peek,
+            display_in_target_order=display_in_target_order,
+        )
 
     ################################################################################
     # Discard
@@ -288,7 +301,8 @@ class PlayerAsk:
                       range: 'SELECT.RANGE_TYPE|Literal["Any"]',
                       by_effect: 'Effect',
                       *,
-                      not_shuffle: bool=False
+                      not_shuffle: bool=False,
+                      display_in_target_order: bool=False,
                       ) -> List['CardFace']:
         from game.operate.faces import Faces
         from game.card.card_finder import CardFinder
@@ -302,7 +316,8 @@ class PlayerAsk:
             range=range,
             not_shuffle=not_shuffle,
             by_search=True,
-            not_move=True
+            not_move=True,
+            display_in_target_order=display_in_target_order,
         )
 
         player = self.GetPlayer()
@@ -321,11 +336,18 @@ class PlayerAsk:
     def AskDiscardFace(self, faces: Sequence['CardFace'],
                         by_effect: 'Effect',
                         *,
-                        not_shuffle: bool=False
+                        not_shuffle: bool=False,
+                        display_in_target_order: bool=False,
                         ) -> 'CardFace|None':
         player = self.GetPlayer()
 
-        faces = player.AskDiscardFaces(faces, (1, 1), by_effect, not_shuffle=not_shuffle)
+        faces = player.AskDiscardFaces(
+            faces,
+            (1, 1),
+            by_effect,
+            not_shuffle=not_shuffle,
+            display_in_target_order=display_in_target_order,
+        )
         assert len(faces) <= 1
 
         if faces:
@@ -413,4 +435,3 @@ class PlayerAsk:
             return faces[0]
         else:
             return None
-

@@ -10,7 +10,12 @@ def GetAbilities() -> Sequence['Ability']:
 
         initiator = effect.GetInitiator()
         faces = initiator.LookAtDeck("EncounterDeck", 3, effect)
-        face = initiator.AskDiscardFace(faces, effect, not_shuffle=True)
+        face = initiator.AskDiscardFace(
+            faces,
+            effect,
+            not_shuffle=True,
+            display_in_target_order=True,
+        )
         if face:
             faces.remove(face)
         initiator.PlaceOnTopInAnyOrder(faces, effect)
@@ -23,4 +28,3 @@ def GetAbilities() -> Sequence['Ability']:
             heimdall
         ),
     ]
-

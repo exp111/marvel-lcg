@@ -25,7 +25,14 @@ def GetAbilities() -> Sequence['Ability']:
                     AbilityFactory.ForChoiceAbility(
                         "Deal 1 damage to Atlas Bear to add that card to its owner's hand",
                         action
-                    ).SetTarget([face], range="All", not_shuffle=True, not_move=True)
+                    ).SetTarget(
+                        [face],
+                        range="All",
+                        by_search=True,
+                        not_shuffle=True,
+                        not_move=True,
+                        display_in_target_order=True,
+                    )
                 )
 
 
@@ -35,4 +42,3 @@ def GetAbilities() -> Sequence['Ability']:
             atlas_bear
         ).SetCostFunc(CostFunc.Exhaust("This")),
     ]
-

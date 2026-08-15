@@ -11,7 +11,13 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
         value = Worlds.VictoryDisplay(effect).FindCardSize(CardFinder(card_type=SchemeSide2))
         faces = initiator.LookAtDeck("EncounterDeck", value, effect)
-        face = initiator.MayChooseFace(faces, effect, not_move=True)
+        face = initiator.MayChooseFace(
+            faces,
+            effect,
+            not_move=True,
+            peek=True,
+            display_in_target_order=True,
+        )
         if face:
             faces.remove(face)
             Faces.DiscardAll([face], effect)
@@ -24,4 +30,3 @@ def GetAbilities() -> Sequence['Ability']:
             precognition
         ).SetPlay().SetLabel(),
     ]
-

@@ -11,7 +11,12 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
         faces = initiator.LookAtDeck("EncounterDeck", "2*", effect)
 
-        discards = initiator.AskDiscardFaces(faces, "Any", effect)
+        discards = initiator.AskDiscardFaces(
+            faces,
+            "Any",
+            effect,
+            display_in_target_order=True,
+        )
         rest = Faces.GetRest(faces, discards)
         initiator.PlaceOnTopAndOrBottomInAnyOrder(rest, effect)
 
@@ -25,4 +30,3 @@ def GetAbilities() -> Sequence['Ability']:
         ).SetPlay().SetLabel()
         .SetHasNoTargetEffect(),
     ]
-

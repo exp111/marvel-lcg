@@ -161,7 +161,13 @@ class CostFunc:
                 self.return_look_at_cards = list(faces)
 
                 if discard:
-                    self.return_discard_cards = player.AskDiscardFaces(faces, (discard, discard), effect, not_shuffle=True)
+                    self.return_discard_cards = player.AskDiscardFaces(
+                        faces,
+                        (discard, discard),
+                        effect,
+                        not_shuffle=True,
+                        display_in_target_order=True,
+                    )
                 return True
 
             # This condition doesn't use `face`, should we still put it here?

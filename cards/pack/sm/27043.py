@@ -11,7 +11,12 @@ def GetAbilities() -> Sequence['Ability']:
         deck = effect.targets[0].card.area
         initiator = effect.GetInitiator()
         faces = initiator.LookAtDeck(deck, 4, effect)
-        discards = initiator.AskDiscardFaces(faces, "Any", effect)
+        discards = initiator.AskDiscardFaces(
+            faces,
+            "Any",
+            effect,
+            display_in_target_order=True,
+        )
         rest = Faces.GetRest(faces, discards)
         initiator.PlaceOnTopAndOrBottomInAnyOrder(rest, effect)
 
@@ -24,4 +29,3 @@ def GetAbilities() -> Sequence['Ability']:
         .SetCostFunc(CostFunc.Exhaust(trait="S.H.I.E.L.D", from_where=["YouControlCards"]))
         .SetTarget(from_where=["PlayersDeckTop", "EncounterDeckTop"])
     ]
-

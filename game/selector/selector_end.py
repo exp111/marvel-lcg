@@ -10,10 +10,12 @@ class SelectorEnd:
                 peek: bool=False,
                 not_move: bool=False,
                 not_shuffle: bool=False,
+                display_in_target_order: bool=False,
                 ):
         self.peek       = peek
         self.not_move   = not_move
         self.not_shuffle: Final = not_shuffle
+        self.display_in_target_order: Final = display_in_target_order
 
     def Process(self, effect: 'Effect', targets: Sequence['CardFace']) -> bool:
         # Shuffle
@@ -69,4 +71,3 @@ class SelectorEnd:
                     pass
                 else:
                     deck.Shuffle(effect)
-

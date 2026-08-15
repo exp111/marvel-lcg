@@ -11,7 +11,11 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
 
         faces = initiator.LookAtDeck("EncounterDeck", 2, effect)
-        face = initiator.AskDiscardFace(faces, effect)
+        face = initiator.AskDiscardFace(
+            faces,
+            effect,
+            display_in_target_order=True,
+        )
 
         if face:
             value = FacesCounter.CountTotalBoostStarAndBoost([face])
@@ -25,4 +29,3 @@ def GetAbilities() -> Sequence['Ability']:
             misty_knight
         ),
     ]
-

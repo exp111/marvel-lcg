@@ -16,6 +16,7 @@ export class EffectDescriptor {
     resources: number[];
     selected_targets: number[];
     is_search: boolean;
+    display_in_target_order: boolean;
     start_x: boolean; // can select one target more than once
 
     /**
@@ -48,6 +49,7 @@ export class EffectDescriptor {
         this.resources = [];
         this.selected_targets = [];
         this.is_search = obj?.['is_search'];
+        this.display_in_target_order = obj?.['display_in_target_order'] ?? false;
 
         let start_x = false;
         if( this.all_legal_targets ) {
@@ -79,6 +81,7 @@ export class EffectDescriptor {
         this.resources = [];
         this.selected_targets = [];
         this.is_search = false;
+        this.display_in_target_order = false;
         this.start_x = false;
     }
 

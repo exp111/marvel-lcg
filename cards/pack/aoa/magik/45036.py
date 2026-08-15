@@ -13,13 +13,27 @@ def GetAbilities() -> Sequence['Ability']:
 
         # you can play Scrying even if you have less than 3 cards left in your deck, and you can choose what to do with the remaining cards.
         left = len(faces)
-        face = initiator.AskChooseFace(faces, effect, forced = left==3, prompt="Draw one")
+        face = initiator.AskChooseFace(
+            faces,
+            effect,
+            forced=left == 3,
+            prompt="Draw one",
+            peek=True,
+            display_in_target_order=True,
+        )
         if face:
             left -= 1
             initiator.GainCard(face, effect)
             faces.remove(face)
 
-        face = initiator.AskChooseFace(faces, effect, forced = left==2, prompt="Discard one")
+        face = initiator.AskChooseFace(
+            faces,
+            effect,
+            forced=left == 2,
+            prompt="Discard one",
+            peek=True,
+            display_in_target_order=True,
+        )
         if face:
             left -= 1
             Faces.DiscardAll([face], effect)
@@ -31,4 +45,3 @@ def GetAbilities() -> Sequence['Ability']:
             scrying
         ).SetPlay().SetLabel(),
     ]
-

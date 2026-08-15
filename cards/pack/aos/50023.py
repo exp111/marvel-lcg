@@ -11,7 +11,7 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
 
         faces = initiator.LookAtDeck("EncounterDeck", 1, effect)
-        initiator.AskDiscardFaces(faces, "Any", effect)
+        initiator.AskDiscardFaces(faces, "Any", effect, display_in_target_order=True)
 
 
     return [
@@ -21,4 +21,3 @@ def GetAbilities() -> Sequence['Ability']:
             melinda_may
         ),
     ]
-
