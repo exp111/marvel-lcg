@@ -26,6 +26,32 @@ class GameServerNewGame(GameServerBase):
         self.game.NewGame(new_game)
         return web.json_response({'result': "New game created"})
 
+    async def save_campaign_settings(self, request: web.Request) -> web.Response:
+        try:
+            data = await request.json()
+        except Exception:
+            return web.json_response({'error': "Invalid JSON data"}, status=400)
+
+        campaign_id = data.get('campaign_id', "") if isinstance(data, dict) else ""
+        campaign_log = data.get('campaign_log', {}) if isinstance(data, dict) else {}
+        if not isinstance(campaign_id, str) or not campaign_id:
+            return web.json_response({'error': "No campaign selected"}, status=400)
+        if not isinstance(campaign_log, dict):
+            return web.json_response({'error': "Invalid campaign log"}, status=400)
+
+        try:
+            settings = CampaignSettings.Update(campaign_id, campaign_log)
+        except Exception as exc:
+            Log.Warn("CAMPAIGN_SETTINGS", f"Could not save campaign settings: {exc}")
+            return web.json_response(
+                {'error': "Could not save campaign settings"},
+                status=500,
+            )
+        return web.json_response({
+            'result': "Campaign settings saved",
+            'settings': settings,
+        })
+
     async def load_replay(self, request: web.Request) -> web.Response:
         self.game.LoadReplay(request.rel_url.query_string)
         return web.json_response({'result': "New game created"})
@@ -160,6 +186,7 @@ class GameServerNewGame(GameServerBase):
     def __init__(self) -> None:
         super().__init__()
         self.AddAwaitGetSecurity('/new', self.new_game)
+        self.AddPostSecurity('/save_campaign_settings', self.save_campaign_settings)
         self.AddAwaitGetSecurity('/new_debug', self.new_debug)
         self.AddAwaitGetSecurity('/load_replay', self.load_replay)
         self.AddPostSecurity('/load_replay_data', self.load_replay_data)

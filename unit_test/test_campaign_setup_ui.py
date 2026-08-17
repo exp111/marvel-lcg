@@ -34,6 +34,37 @@ class TestCampaignSetupUI(unittest.TestCase):
         self.assertIn('description: "Evidence Seed"', html)
         self.assertIn('label: "Evidence Seed (Do Not Change During a Campaign)"', html)
 
+    def test_campaign_log_can_be_saved_without_starting_a_game(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('id="save_campaign_log_button"', html)
+        self.assertIn("async function saveCampaignSettings(button)", html)
+        self.assertIn("fetch('save_campaign_settings'", html)
+        self.assertIn("campaign_log: readCampaignLog(campaign_id)", html)
+        self.assertIn("new_game.campaign_log = readCampaignLog(selected_campaign_id)", html)
+
+    def test_mutant_genesis_defeated_schemes_can_be_deselected(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        for description in (
+            "Frightened Police Defeated",
+            "Enemy of My Enemy Defeated",
+            "Find the Prisoners Defeated",
+            "Surprise Attack Defeated",
+        ):
+            self.assertIn(
+                f'{{ description: "{description}", type: "checkbox", options: ["Yes"] }}',
+                html,
+            )
+            self.assertNotIn(
+                f'{{ description: "{description}", type: "select", options: ["Yes"] }}',
+                html,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
