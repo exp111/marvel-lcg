@@ -146,7 +146,10 @@ class Resources:
 
     def CanPayThisCost(self, cost: 'Cost') -> bool:
         if cost.rule.or_res:
-            return True
+            return (
+                self.rbyg.CanPayThisCost(cost.rbyga) or
+                self.CanPayThisCost(cost.rule.or_res)
+            )
         if self.reduce > 0:
             return True
         if self.val == 0:

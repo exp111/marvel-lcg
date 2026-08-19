@@ -15,7 +15,7 @@ def GetAbilities() -> Sequence['Ability']:
         )
 
         if face:
-            this.PlaceThreatOnSchemes([face], "3*", effect)
+            this.PlaceThreatOnSchemes([face], "4*", effect)
 
     return [
         AbilityFactory.WhenThisRevealed(

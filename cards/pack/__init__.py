@@ -73,11 +73,13 @@ Unused(Utility)
 from game.operate.run_at import RunAt
 from game.operate.setup_cards import SetupCards
 from game.operate.worlds import Worlds
+from game.operate.modular_difficulty import ModularDifficulty
 from game.operate.modular_set import AsideModularSet
 from game.operate.store import Stores
 Unused(RunAt)
 Unused(SetupCards)
 Unused(Worlds)
+Unused(ModularDifficulty)
 Unused(AsideModularSet)
 Unused(Stores)
 

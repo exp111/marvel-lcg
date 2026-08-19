@@ -529,7 +529,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         return total_damage
 
     @final
-    def PlaceThreatOnSchemes(self, schemes: Sequence['TC']|Literal["MainScheme", "EachMainScheme", "EachSideScheme", "EachScheme"], value: int|Literal["1*", "2*", "3*"], by_effect: 'Effect', *, if_not_trigger_forced_response: Callable[..., None]|None=None) -> int|None:
+    def PlaceThreatOnSchemes(self, schemes: Sequence['TC']|Literal["MainScheme", "EachMainScheme", "EachSideScheme", "EachScheme"], value: INT_TYPE, by_effect: 'Effect', *, if_not_trigger_forced_response: Callable[..., None]|None=None) -> int|None:
         from game.card.face.base import Scheme2
         from game.operate.faces import Faces
         from game.operate.filter import Filter

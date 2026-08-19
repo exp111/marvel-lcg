@@ -206,6 +206,25 @@ class Worlds:
         return [x for x in villains if x.card.GetGameArea() == game_area]
 
     @staticmethod
+    def ChooseVillain(by_effect: 'Effect', finder: 'CardFinder|None'=None, *, prompt: str="Choose a villain") -> 'Villain|None':
+        if by_effect.world.GetScenario().name == "The Wrecking Crew":
+            villain = Worlds.FindVillain(by_effect)
+            if villain and (finder is None or finder.Check(villain)):
+                return villain
+            return None
+
+        villains = Worlds.GetVillains(by_effect, finder)
+        if not villains:
+            return None
+        if len(villains) == 1:
+            return villains[0]
+        return by_effect.GetInitiator().AskChooseFace(
+            villains,
+            by_effect,
+            prompt=prompt,
+        )
+
+    @staticmethod
     def GetOnFieldLeaders(game_area_effect: 'GameArea|Effect') -> List['Leader']:
         game_area = Worlds.CastGameArea(game_area_effect)
         world = game_area.world

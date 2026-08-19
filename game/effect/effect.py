@@ -520,10 +520,7 @@ class Effect(Object):
                     return ("*", [])
                 if effect.checker.cost_for_different_target.HasTarget(target):
                     cost = effect.checker.cost_for_different_target.GetCost(target)
-                    if cost.rule.or_res != None:
-                        return ("1", [])
-                    else:
-                        return (cost.text_legacy, cost.GetRuleText())
+                    return (cost.GetPaymentText(), cost.GetRuleText())
                 # if target in effect.for_select_target_dict:
                 #     # return effect.this_effect_cost.text_legacy
                 #     return effect.for_select_target_dict[target].cost.text_legacy

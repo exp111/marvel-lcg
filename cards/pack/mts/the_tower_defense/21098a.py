@@ -28,6 +28,8 @@ def GetAbilities() -> Sequence['Ability']:
         assert scheme
         scheme.Reveal(first_player, effect)
 
+        SetupTowerDefenseModularDifficulty(effect)
+
     return [
         AbilityFactory.WhenGameBeginSetup(
             under_siege_game_start

@@ -1295,7 +1295,7 @@ class CardRender {
                         let found = false
                         let card_div_bind_image_info = card_div.querySelector('.bind-image-info') as HTMLElement
                         if( x.bind_id == object_id ) {
-                            let cost = x.getCost()
+                            let cost = x.getCost().replaceAll("|", "/")
                             if( cost != "" ) {
                                 card_div_bind_image_info.setAttribute('data-cost', cost)
                             }
