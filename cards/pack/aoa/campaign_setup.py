@@ -19,20 +19,17 @@ def _log_list(key: str, effect: 'Effect') -> List[str]:
 def _log_choice(key: str, allowed: Sequence[str], effect: 'Effect') -> str:
     from game.operate.campaign_logs import CampaignLog
 
-    selected = CampaignLog.GetStrInternal(key, effect)
-    return selected if selected in allowed else ""
+    for selected in CampaignLog.GetListInternal(key, effect):
+        if selected in allowed:
+            return selected
+    return ""
 
 
-def _selected_or_random(
-    key: str,
+def _random_available(
     all_ids: Sequence[str],
     unavailable: Sequence[str],
     effect: 'Effect',
 ) -> str:
-    selected = _log_choice(key, all_ids, effect)
-    if selected and selected not in unavailable:
-        return selected
-
     available = [card_id for card_id in all_ids if card_id not in unavailable]
     return Rand.RandomChoice(available, effect) if available else ""
 
@@ -77,8 +74,10 @@ def AddPreviousMissionRewardsAndPenalties(level: int) -> 'Ability':
             return
 
         removed = set(_log_list("Mission Side Schemes Removed from campaign", effect))
-        defeated = set(_log_list("Mission Side Schemes Defeated", effect))
-        removed |= defeated
+        defeated = removed.intersection(
+            _log_list("Mission Side Schemes Defeated", effect)
+        )
+        not_defeated = removed - defeated
 
         for player in Worlds.GetPlayers(effect):
             player_id = player.player_id
@@ -93,18 +92,17 @@ def AddPreviousMissionRewardsAndPenalties(level: int) -> 'Ability':
                     ),
                 )
 
-            if "45167a" in removed:
-                if "45167a" in defeated:
-                    from game.operate.campaign_logs import CampaignLog
-                    upgrade_id = CampaignLog.GetStrInternal(
-                        f"Player {player_id + 1} Campaign Aspect Upgrade",
-                        effect,
-                    )
-                    _generate_into_player_deck(upgrade_id, player, effect)
-                else:
-                    _generate_into_player_deck("45178", player, effect)
+            if "45167a" in defeated:
+                from game.operate.campaign_logs import CampaignLog
+                upgrade_id = CampaignLog.GetStrInternal(
+                    f"Player {player_id + 1} Campaign Aspect Upgrade",
+                    effect,
+                )
+                _generate_into_player_deck(upgrade_id, player, effect)
+            elif "45167a" in not_defeated:
+                _generate_into_player_deck("45178", player, effect)
 
-            if "45168a" in removed and "45168a" in defeated:
+            if "45168a" in defeated:
                 from game.operate.campaign_logs import CampaignLog
                 support_id = CampaignLog.GetStrInternal(
                     f"Player {player_id + 1} Campaign Aspect Support",
@@ -120,7 +118,7 @@ def AddPreviousMissionRewardsAndPenalties(level: int) -> 'Ability':
                 )
                 _generate_into_player_deck(ally_id, player, effect)
 
-        if "45168a" in removed and "45168a" not in defeated:
+        if "45168a" in not_defeated:
             sea_wall = CardFactory.GenerateCard("45177", None, effect.world).face
             Faces.ShuffleAllTo([sea_wall], "EncounterDeck", effect)
 
@@ -145,13 +143,13 @@ def SetupMission(level: int) -> 'Ability':
         first_player = Worlds.GetFirstPlayer(effect)
         CampaignLog.SetStr("Age of Apocalypse Scenario", str(level), effect.world)
 
-        removed_missions = set(_log_list("Mission Side Schemes Removed from campaign", effect))
-        removed_missions |= set(_log_list("Mission Side Schemes Defeated", effect))
+        removed_missions = set(
+            _log_list("Mission Side Schemes Removed from campaign", effect)
+        )
         if level == 5:
             mission_id = PROTECT_THE_PROFESSOR
         else:
-            mission_id = _selected_or_random(
-                f"Scenario {level} Mission Side Scheme",
+            mission_id = _random_available(
                 MISSION_SIDE_SCHEMES,
                 list(removed_missions),
                 effect,
@@ -166,8 +164,7 @@ def SetupMission(level: int) -> 'Ability':
             prelate_overseer_id = _printed_overseer_id(prelate)
             if prelate_overseer_id:
                 unavailable_overseers.add(prelate_overseer_id)
-        overseer_id = _selected_or_random(
-            f"Scenario {level} Overseer",
+        overseer_id = _random_available(
             OVERSEERS,
             list(unavailable_overseers),
             effect,

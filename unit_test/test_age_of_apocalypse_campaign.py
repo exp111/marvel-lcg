@@ -307,7 +307,10 @@ class TestAgeOfApocalypseCampaign(unittest.TestCase):
         effect = SimpleNamespace()
 
         def log_list(key, check_effect):
-            if key == "Mission Side Schemes Defeated":
+            if key in (
+                "Mission Side Schemes Removed from campaign",
+                "Mission Side Schemes Defeated",
+            ):
                 return ["45166a"]
             return []
 
@@ -333,15 +336,15 @@ class TestAgeOfApocalypseCampaign(unittest.TestCase):
         effect = SimpleNamespace(world=MagicMock())
         selections = []
 
-        def select(key, all_ids, unavailable, check_effect):
-            selections.append((key, list(unavailable)))
+        def select(all_ids, unavailable, check_effect):
+            selections.append((list(all_ids), list(unavailable)))
             return ""
 
         with patch(
             "cards.pack.aoa.campaign_setup._log_list",
             return_value=[],
         ), patch(
-            "cards.pack.aoa.campaign_setup._selected_or_random",
+            "cards.pack.aoa.campaign_setup._random_available",
             side_effect=select,
         ), patch(
             "cards.pack.aoa.campaign_setup._printed_overseer_id",
