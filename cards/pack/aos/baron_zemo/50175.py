@@ -20,7 +20,7 @@ def GetAbilities() -> Sequence['Ability']:
             def action(place_effect: 'Effect', place_message: 'Message.WhenSchemeWouldPlaceThreat'):
 
                 def prevent(targets: Sequence['CardFace'], res: 'Resources'):
-                    size = res.val
+                    size = min(place_message.value, res.val)
                     place_message.PreventThreat(size, effect)
                     RemoveSecretCountersFromAmongBoardMemberEnvironments(size, effect)
 

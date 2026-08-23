@@ -8,6 +8,7 @@ from unittest.mock import Mock, patch
 from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.pack.tt.god_of_lies import (
     AddDefeatShatterCounters,
+    ResolveStageTwoFocus,
     SwapAvatarWithRandomSetAside,
     _set_avatar_health_after_swap,
 )
@@ -315,6 +316,53 @@ class TestGodOfLies(unittest.TestCase):
             preserved_health=12,
         )
         self.assertIs(result, swapped_avatar)
+
+    def test_expert_stage_two_reveals_total_focus_after_flipping(self):
+        avatar = Mock()
+        intense_focus = Mock()
+        intense_focus.IsName.side_effect = lambda name: name == "Intense Focus"
+        avatar.GetAttachedAttachments.return_value = [intense_focus]
+        effect = Mock()
+        player = Mock()
+
+        with patch(
+            "cards.pack.tt.god_of_lies.FindAvatarOfLoki",
+            return_value=avatar,
+        ), patch(
+            "cards.pack.tt.god_of_lies.Worlds.IsExpert",
+            return_value=True,
+        ):
+            resolved = ResolveStageTwoFocus(effect, player)
+
+        self.assertTrue(resolved)
+        intense_focus.card.Flip.assert_called_once_with(
+            effect,
+            call_reveal=True,
+        )
+
+    def test_lethal_damage_advances_loki_stage_two_at_full_health(self):
+        module = import_module("cards.pack.tt.god_of_lies.55027a")
+        lethal_transition = module.GetAbilities()[1]
+        effect = Mock()
+        loki = Mock()
+        first_player = Mock()
+        rule_effect = Mock()
+        message = Mock()
+        effect.this.CastTo.return_value = loki
+        effect.world.GetFirstPlayer.return_value = first_player
+
+        with patch.object(
+            module,
+            "GameRule",
+            return_value=rule_effect,
+        ) as game_rule:
+            lethal_transition.operation(effect, message)
+
+        message.SetBeInstead.assert_called_once_with(effect)
+        loki.ResetHealth.assert_called_once_with(effect)
+        loki.SetHealth.assert_not_called()
+        game_rule.assert_called_once_with(loki, initiator=first_player)
+        loki.card.Flip.assert_called_once_with(rule_effect)
 
     def test_swap_reapplies_focus_once_then_restores_current_hp(self):
         avatar = Mock()

@@ -21301,7 +21301,7 @@
                 "ARTIFACT"
             ],
             "set_name": "The Mad Titan's Shadow Campaign",
-            "text": "Permanent.\n<b>Alter-Ego Action:</b> Exhaust Norn Stone \u2192 heal 1 damage from your identity."
+            "text": "Permanent.\nYour hero gets +1 THW, +1 ATK, and +1 DEF.\n<b>Alter-Ego Action:</b> Exhaust Norn Stone \u2192 heal 1 damage from your identity."
         },
         {
             "card_id": "21188",
@@ -46869,7 +46869,7 @@
             "type": "SideScheme",
             "name": "Liberate the Seattle Core",
             "subtitle": "",
-            "desc": {"StartingThreat": "5"},
+            "desc": {"StartingThreat": "5*"},
             "traits": ["MISSION"],
             "set_name": "Campaign",
             "text": "<b>Forced Response</b>: After you resolve a mission attempt, place 1 attempt counter here and deal 1 damage to each ally at the mission. If there are 4 attempt counters here, remove Mission Team from the game and flip this card over.\n<b>When Defeated</b>: Shuffle each player card at the mission into its owner's deck. Flip Mission Team and this card over."
@@ -46889,7 +46889,7 @@
             "type": "SideScheme",
             "name": "Evacuate Survivors",
             "subtitle": "",
-            "desc": {"StartingThreat": "5"},
+            "desc": {"StartingThreat": "5*"},
             "traits": ["MISSION"],
             "set_name": "Campaign",
             "text": "<b>Forced Response</b>: After you resolve a mission attempt, place 1 attempt counter here and deal 1 damage to each ally at the mission. If there are 4 attempt counters here, remove Mission Team from the game and flip this card over.\n<b>When Defeated</b>: Shuffle each player card at the mission into its owner's deck. Flip Mission Team and this card over."
@@ -46909,7 +46909,7 @@
             "type": "SideScheme",
             "name": "Sabotage the Sea Wall",
             "subtitle": "",
-            "desc": {"StartingThreat": "5"},
+            "desc": {"StartingThreat": "5*"},
             "traits": ["MISSION"],
             "set_name": "Campaign",
             "text": "<b>Forced Response</b>: After you resolve a mission attempt, place 1 attempt counter here and deal 1 damage to each ally at the mission. If there are 4 attempt counters here, remove Mission Team from the game and flip this card over.\n<b>When Defeated</b>: Shuffle each player card at the mission into its owner's deck. Flip Mission Team and this card over."
@@ -46929,7 +46929,7 @@
             "type": "SideScheme",
             "name": "Find Lost Mutants",
             "subtitle": "",
-            "desc": {"StartingThreat": "5"},
+            "desc": {"StartingThreat": "5*"},
             "traits": ["MISSION"],
             "set_name": "Campaign",
             "text": "<b>Forced Response</b>: After you resolve a mission attempt, place 1 attempt counter here and deal 1 damage to each ally at the mission. If there are 4 attempt counters here, remove Mission Team from the game and flip this card over.\n<b>When Defeated</b>: Shuffle each player card at the mission into its owner's deck. Flip Mission Team and this card over."
@@ -46949,7 +46949,7 @@
             "type": "SideScheme",
             "name": "Protect the Professor",
             "subtitle": "",
-            "desc": {"StartingThreat": "5"},
+            "desc": {"StartingThreat": "5*"},
             "traits": ["MISSION"],
             "set_name": "Campaign",
             "text": "<b>Forced Response</b>: After you resolve a mission attempt, place 1 attempt counter here and deal 1 damage to each ally at the mission. If there are 4 attempt counters here, remove Mission Team from the game and flip this card over.\n<b>When Defeated</b>: Shuffle each player card at the mission into its owner's deck. Flip Mission Team and this card over."
@@ -47109,7 +47109,7 @@
             "type": "Minion",
             "name": "* Mister Sinister",
             "subtitle": "",
-            "desc": {"HP": "5", "ATK": "0", "SCH": "0", "Victory": "5"},
+            "desc": {"HP": "5*", "ATK": "0", "SCH": "0", "Victory": "5"},
             "traits": ["ELITE", "OVERSEER"],
             "set_name": "Prelates",
             "text": "Victory 5. Cannot take damage while another minion is at the mission. Players cannot assign cards with the same resource icon to more than one ally each mission attempt."
@@ -47141,7 +47141,7 @@
             "type": "Minion",
             "name": "* The Shadow King",
             "subtitle": "",
-            "desc": {"HP": "5", "ATK": "0", "SCH": "0", "Victory": "5"},
+            "desc": {"HP": "5*", "ATK": "0", "SCH": "0", "Victory": "5"},
             "traits": ["ELITE", "OVERSEER"],
             "set_name": "Prelates",
             "text": "Victory 5. Cannot take damage while another minion is at the mission. <b>Mission Response</b>: After you discard cards, place 2 threat on the Mission side scheme for each mental resource discarded."
@@ -47171,7 +47171,7 @@
             "type": "Minion",
             "name": "* Abyss",
             "subtitle": "",
-            "desc": {"HP": "5", "ATK": "0", "SCH": "0", "Victory": "5"},
+            "desc": {"HP": "5*", "ATK": "0", "SCH": "0", "Victory": "5"},
             "traits": ["ELITE", "OVERSEER"],
             "set_name": "Prelates",
             "text": "Victory 5. Cannot take damage while another minion is at the mission. <b>Mission Response</b>: After you discard cards, attach each card with a wild resource discarded to Abyss facedown. They cannot be used for the mission attempt."
@@ -47201,7 +47201,7 @@
             "type": "Minion",
             "name": "* Sugar Man",
             "subtitle": "",
-            "desc": {"HP": "5", "ATK": "0", "SCH": "0", "Victory": "5"},
+            "desc": {"HP": "5*", "ATK": "0", "SCH": "0", "Victory": "5"},
             "traits": ["ELITE", "OVERSEER"],
             "set_name": "Prelates",
             "text": "Victory 5. Cannot take damage while another minion is at the mission. <b>Mission Response</b>: After you discard cards, heal 3 damage from Sugar Man for each physical resource discarded."
@@ -47231,7 +47231,7 @@
             "type": "Minion",
             "name": "* Mikhail Rasputin",
             "subtitle": "",
-            "desc": {"HP": "5", "ATK": "0", "SCH": "0", "Victory": "5"},
+            "desc": {"HP": "5*", "ATK": "0", "SCH": "0", "Victory": "5"},
             "traits": ["ELITE", "OVERSEER"],
             "set_name": "Prelates",
             "text": "Victory 5. Cannot take damage while another minion is at the mission. <b>Mission Response</b>: After you discard cards, deal 1 damage to an ally at the mission for each energy resource discarded."
@@ -62147,5 +62147,5 @@
             "text": "Max 1 per deck."
         }
     ],
-    "checksum": "07396e8d0605b07c54d9b43565c467676fa3e9a9ec72bf6c180a63e4e010141b"
+    "checksum": "9cc9aa140d5ae52a2720eabc49c934aa81591dd280528e7b9c4bada5b2943f37"
 }

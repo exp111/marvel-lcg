@@ -39,8 +39,9 @@ def ResolveStageTwoFocus(effect: 'Effect', player: 'Player') -> bool:
     )
     if Worlds.IsExpert(effect):
         if focus and focus.IsName("Intense Focus"):
-            # Loki II flips the attachment; Total Focus is not revealed.
-            focus.card.Flip(effect, call_reveal=False)
+            # Revealing the newly faceup side resolves Total Focus's
+            # "When Revealed" ability.
+            focus.card.Flip(effect, call_reveal=True)
     elif not focus:
         set_aside_focus = Worlds.GetSetAsideAreaCards(
             effect,

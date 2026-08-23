@@ -4,6 +4,22 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
+    def select_random_modular_set(
+        effect: 'Effect',
+        message: 'Message.WhenGameBeginSetup',
+    ) -> None:
+        modular_sets = [
+            encounter_set
+            for encounter_set in message.encounter_set_names
+            if not encounter_set.startswith("standard")
+            and not encounter_set.startswith("expert")
+        ]
+        message.encounter_set_names = [
+            encounter_set
+            for encounter_set in message.encounter_set_names
+            if encounter_set not in modular_sets
+        ] + Rand.RandomChoice2(modular_sets, 1, effect)
+
     def melee_in_the_mojo_seum_revealed(effect: 'Effect', message: 'Message.WhenCardSetup') -> None:
         this = effect.this.CastTo(MainScheme)
         Unused(this)
@@ -20,6 +36,9 @@ def GetAbilities() -> Sequence['Ability']:
         )
 
     return [
+        AbilityFactory.WhenGameBeginSetup(
+            select_random_modular_set
+        ),
         AbilityFactory.WhenCardSetup(
             "This",
             melee_in_the_mojo_seum_revealed

@@ -1,4 +1,5 @@
 from . import *
+from cards.pack.aoa.campaign import GetMissionScheme
 
 
 CAMPAIGN_ID = "age_of_apocalypse"
@@ -197,12 +198,7 @@ def EachPlayerSearchForAnAlly(level: int) -> 'Ability':
 def ExpertCampaignEachPlayerMayHealAtMissionThreatCost() -> 'Ability':
     def action(effect: 'Effect', message: 'Message.WhenCampaignSetup') -> None:
         from game.operate.campaign_logs import CampaignLog
-
-        mission = Worlds.FindCardOnField(
-            effect,
-            card_type=EncounterSideScheme,
-            trait="MISSION",
-        )
+        mission = GetMissionScheme(effect)
         if not mission:
             return
 

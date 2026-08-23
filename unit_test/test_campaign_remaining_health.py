@@ -63,7 +63,7 @@ class TestCampaignRemainingHealth(unittest.TestCase):
         effect = SimpleNamespace()
 
         with patch(
-            "game.operate.worlds.Worlds.FindCardOnField",
+            "cards.pack.aoa.campaign_setup.GetMissionScheme",
             return_value=MagicMock(),
         ), patch(
             "game.operate.worlds.Worlds.GetPlayers",
@@ -89,7 +89,7 @@ class TestCampaignRemainingHealth(unittest.TestCase):
         effect = SimpleNamespace()
 
         with patch(
-            "game.operate.worlds.Worlds.FindCardOnField",
+            "cards.pack.aoa.campaign_setup.GetMissionScheme",
             return_value=MagicMock(),
         ), patch(
             "game.operate.worlds.Worlds.GetPlayers",

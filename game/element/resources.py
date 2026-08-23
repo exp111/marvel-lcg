@@ -96,7 +96,9 @@ class Resources:
             cost -= self.reduce
         if cost.rule.up_to:
             assert cost.GetTypeKinds() <= 1
-            return self.val <= cost.val
+            # A resource card may generate more than the chosen maximum.
+            # The excess is overpayment and does not invalidate the cost.
+            return True
         elif self.val >= cost.val:
             green = self.rbyg.g - cost.rbyga.g
 

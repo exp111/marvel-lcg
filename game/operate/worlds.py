@@ -144,10 +144,19 @@ class Worlds:
         return faces
 
     @staticmethod
-    def GetSideSchemes(game_area_effect: 'GameArea|Effect') -> List['EncounterSideScheme|PlayerSideScheme']:
+    def IsMissionSideScheme(face: 'CardFace') -> bool:
+        return EncounterSideScheme.IsType(face) and face.HasTrait("MISSION")
+
+    @staticmethod
+    def GetSideSchemes(game_area_effect: 'GameArea|Effect', *, include_missions: bool=False) -> List['EncounterSideScheme|PlayerSideScheme']:
         world = game_area_effect.world
         game_area = Worlds.CastGameArea(game_area_effect)
-        return [x for x in world.area_schemes_side.Get() if x.card.GetGameArea() == game_area and (EncounterSideScheme.IsType(x) or PlayerSideScheme.IsType(x))]
+        return [
+            x for x in world.area_schemes_side.Get()
+            if x.card.GetGameArea() == game_area and
+            (EncounterSideScheme.IsType(x) or PlayerSideScheme.IsType(x)) and
+            (include_missions or not Worlds.IsMissionSideScheme(x))
+        ]
 
     @staticmethod
     def FilterSideScheme(by_effect: 'Effect',
@@ -403,7 +412,7 @@ class Worlds:
 
     @staticmethod
     # No include status card
-    def GetOnFieldCards(game_area_effect: 'GameArea|Effect') -> List['CardFace']:
+    def GetOnFieldCards(game_area_effect: 'GameArea|Effect', *, include_missions: bool=False) -> List['CardFace']:
         # from game.card.face.card_type import Identity
         world = game_area_effect.world
         game_area = Worlds.CastGameArea(game_area_effect)
@@ -427,7 +436,13 @@ class Worlds:
                     found = get_faces(face)
                     faces.extend(found)
 
-        faces = [x for x in faces if x.IsFaceUp()]
+        faces = [
+            x for x in faces
+            if x.IsFaceUp() and (
+                include_missions or
+                not Worlds.IsMissionSideScheme(x)
+            )
+        ]
         return faces
 
     ################################################################################
@@ -438,9 +453,12 @@ class Worlds:
         return world.area_schemes_main.Get()
 
     @staticmethod
-    def GetAllSideSchemes(by_effect: 'Effect|World') -> List['SchemeSide2']:
+    def GetAllSideSchemes(by_effect: 'Effect|World', *, include_missions: bool=False) -> List['SchemeSide2']:
         world = Worlds.CastWorld(by_effect)
-        return world.area_schemes_side.Get()
+        return [
+            x for x in world.area_schemes_side.Get()
+            if include_missions or not Worlds.IsMissionSideScheme(x)
+        ]
 
     @staticmethod
     def GetOnAllFieldScheme(by_effect: 'Effect|World') -> List['MainScheme|SchemeSide2']:
