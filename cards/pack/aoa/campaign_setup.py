@@ -37,6 +37,33 @@ def _selected_or_random(
     return Rand.RandomChoice(available, effect) if available else ""
 
 
+def _printed_overseer_id(face: 'CardFace') -> str:
+    for printed_face in [face] + face.card.back_faces:
+        card_id = printed_face.paper.card_id
+        if card_id in OVERSEERS:
+            return card_id
+    return ""
+
+
+def _take_set_aside_overseer(
+    overseer_id: str,
+    effect: 'Effect',
+) -> 'Minion|None':
+    for face in effect.world.aside_deck.Get():
+        target = next((
+            printed_face
+            for printed_face in [face] + face.card.back_faces
+            if printed_face.paper.card_id == overseer_id
+        ), None)
+        if not target:
+            continue
+        if face != target:
+            face.card.Flip(effect, call_reveal=False)
+        return face.card.face.CastTo(Minion)
+
+    return None
+
+
 def _generate_into_player_deck(card_id: str, player: 'Player', effect: 'Effect') -> None:
     if not card_id:
         return
@@ -57,7 +84,14 @@ def AddPreviousMissionRewardsAndPenalties(level: int) -> 'Ability':
             player_id = player.player_id
 
             if "45166a" in defeated:
-                _generate_into_player_deck("45176", player, effect)
+                player.MayChooseOneAbility(
+                    effect,
+                    AbilityFactory.ForChoiceAbility(
+                        "Shuffle Desperate Measures into your deck",
+                        lambda targets, player=player:
+                            _generate_into_player_deck("45176", player, effect),
+                    ),
+                )
 
             if "45167a" in removed:
                 if "45167a" in defeated:
@@ -123,11 +157,19 @@ def SetupMission(level: int) -> 'Ability':
                 effect,
             )
 
-        defeated_overseers = _log_list("Overseers Defeated", effect)
+        unavailable_overseers = set(
+            _log_list("Overseers Defeated", effect)
+        )
+        for prelate in Worlds.FindCardsOnField(
+            effect, trait="PRELATE", card_type=Minion
+        ):
+            prelate_overseer_id = _printed_overseer_id(prelate)
+            if prelate_overseer_id:
+                unavailable_overseers.add(prelate_overseer_id)
         overseer_id = _selected_or_random(
             f"Scenario {level} Overseer",
             OVERSEERS,
-            defeated_overseers,
+            list(unavailable_overseers),
             effect,
         )
 
@@ -140,13 +182,17 @@ def SetupMission(level: int) -> 'Ability':
             mission.PutIntoPlay(first_player, effect)
 
         if overseer_id:
-            overseer = CardFactory.GenerateCard(
-                f"{overseer_id},{overseer_id[:-1]}b",
-                None,
-                effect.world,
-            ).face
+            overseer = _take_set_aside_overseer(overseer_id, effect)
+            if overseer is None:
+                overseer = CardFactory.GenerateCard(
+                    f"{overseer_id},{overseer_id[:-1]}b",
+                    None,
+                    effect.world,
+                ).face.CastTo(Minion)
             overseer.card.bind_discard_pile = Worlds.GetEncounterDiscardPile(effect)
-            Faces.MoveAllTo([overseer], Worlds.ScenarioArea(effect, "MissionArea"), effect)
+            Faces.MoveAllTo(
+                [overseer], Worlds.ScenarioArea(effect, "MissionArea"), effect
+            )
 
         mission_team = CardFactory.GenerateCard("45171a,45171b", None, effect.world).face
         mission_team.PutIntoPlay(first_player, effect, under_control=True)
@@ -195,43 +241,109 @@ def EachPlayerSearchForAnAlly(level: int) -> 'Ability':
     return AbilityFactoryCampaign.WhenCampaignSetup(action, campaign_id=CAMPAIGN_ID)
 
 
+def _remaining_hit_points_value(player: 'Player', effect: 'Effect') -> str:
+    from game.operate.campaign_logs import CampaignLog
+
+    for key in [
+        f"Player {player.player_id + 1} Remaining hit points",
+        f"Remaining hit points P{player.player_id + 1}",
+    ]:
+        value = CampaignLog.GetStrInternal(key, effect)
+        if value != "":
+            return value
+    return ""
+
+
+def ExpertCampaignSetPlayersHPToTheirRemainingHP() -> 'Ability':
+    def action(effect: 'Effect', message: 'Message.WhenCampaignSetup') -> None:
+        if not Worlds.IsExpert(effect):
+            return
+
+        for player in Worlds.GetPlayers(effect):
+            value_text = _remaining_hit_points_value(player, effect)
+            if value_text == "":
+                continue
+            try:
+                value = int(value_text)
+            except ValueError:
+                continue
+            if value <= 0:
+                continue
+            identity = player.GetIdentity()
+            identity.SetHealth(
+                min(value, identity.max_health),
+                effect,
+            )
+
+    return AbilityFactoryCampaign.WhenCampaignSetupExpertOnly(
+        action,
+        campaign_id=CAMPAIGN_ID,
+    )
+
+
 def ExpertCampaignEachPlayerMayHealAtMissionThreatCost() -> 'Ability':
     def action(effect: 'Effect', message: 'Message.WhenCampaignSetup') -> None:
-        from game.operate.campaign_logs import CampaignLog
+        if not Worlds.IsExpert(effect):
+            return
+
         mission = GetMissionScheme(effect)
         if not mission:
             return
 
         for player in Worlds.GetPlayers(effect):
-            # Expert campaigns always receive this choice. Standard campaigns
-            # receive it only when the optional remaining-HP campaign field is
-            # being used, so that feature retains its matching recovery rule.
-            if (
-                not Worlds.IsExpert(effect)
-                and not CampaignLog.GetIntByPlayer(
-                    "Remaining hit points",
-                    player.player_id,
-                    effect,
-                )
-            ):
+            value_text = _remaining_hit_points_value(player, effect)
+            if value_text == "":
+                continue
+            try:
+                value = int(value_text)
+            except ValueError:
+                continue
+            if value < 0:
                 continue
 
-            def heal_identity(targets: Sequence['CardFace'], player=player) -> None:
+            identity = player.GetIdentity()
+            if value == 0:
+                effect.this.PlaceThreatOnSchemes([mission], 3, effect)
+                identity.SetHealth(
+                    identity.max_health,
+                    effect,
+                )
+                continue
+
+            def heal_identity(targets: Sequence['CardFace']) -> None:
                 effect.this.PlaceThreatOnSchemes([mission], 3, effect)
                 effect.this.HealthUnits(targets, "All", effect)
 
             player.MayChooseOneAbility(
                 effect,
                 AbilityFactory.ForChoiceAbility(
-                    "Place 3 threat on the MISSION side scheme to heal their identity to its full hit point value",
+                    "Place 3 threat on the MISSION side scheme to heal "
+                    "their identity to its full hit point value",
                     heal_identity,
-                ).SetTarget([player.GetIdentity()], canbe_heal=True),
+                ).SetTarget([identity], canbe_heal=True),
             )
 
-    return AbilityFactoryCampaign.WhenCampaignSetup(
+    return AbilityFactoryCampaign.WhenCampaignSetupExpertOnly(
         action,
         campaign_id=CAMPAIGN_ID,
     )
+
+
+def ResolveCampaignVictory(level: int) -> 'Ability':
+    def action(effect: 'Effect', message: 'Message.WhenGameOver') -> None:
+        if level == 5 and GetMissionScheme(effect):
+            message.SetPlayerLost(effect)
+
+    return Ability(
+        AbilityType.ForcedResponse,
+        Message.WhenGameOver,
+        [
+            lambda effect, message: message.players_won,
+            lambda effect, message:
+                Worlds.IsCampaignSelected(effect, CAMPAIGN_ID),
+        ],
+        action,
+    ).NoOutOfPlayLimit()
 
 
 def CampaignSetup(level: int) -> List['Ability']:
@@ -243,11 +355,12 @@ def CampaignSetup(level: int) -> List['Ability']:
 
     if level >= 2:
         abilities.extend([
-            AbilityFactoryCampaign.CampaignSetPlayersHPToTheirRemainingHP(
-                campaign_id=CAMPAIGN_ID,
-            ),
+            ExpertCampaignSetPlayersHPToTheirRemainingHP(),
             ExpertCampaignEachPlayerMayHealAtMissionThreatCost(),
         ])
+
+    if level == 5:
+        abilities.append(ResolveCampaignVictory(level))
 
     abilities.append(EachPlayerSearchForAnAlly(level))
     return abilities
