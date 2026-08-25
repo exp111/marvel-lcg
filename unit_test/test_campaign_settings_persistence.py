@@ -71,6 +71,23 @@ class TestCampaignSettingsPersistence(unittest.TestCase):
                 {"rise_of_red_skull": {"A": "B"}},
             )
 
+    def test_clear_removes_only_selected_campaign(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = str(Path(folder) / "campaign_settings.json")
+            CampaignSettings.Update("mutant_genesis", {"Role": "Brawler"}, path)
+            CampaignSettings.Update(
+                "agents_of_shield",
+                {"Evidence Seed": "123"},
+                path,
+            )
+
+            result = CampaignSettings.Clear("mutant_genesis", path)
+
+            self.assertEqual(result, {
+                "agents_of_shield": {"Evidence Seed": "123"},
+            })
+            self.assertEqual(CampaignSettings.Load(path), result)
+
 
 if __name__ == "__main__":
     unittest.main()

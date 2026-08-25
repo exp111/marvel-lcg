@@ -52,6 +52,30 @@ class GameServerNewGame(GameServerBase):
             'settings': settings,
         })
 
+    async def clear_campaign_settings(self, request: web.Request) -> web.Response:
+        try:
+            data = await request.json()
+        except Exception:
+            return web.json_response({'error': "Invalid JSON data"}, status=400)
+
+        campaign_id = data.get('campaign_id', "") if isinstance(data, dict) else ""
+        if not isinstance(campaign_id, str) or not campaign_id:
+            return web.json_response({'error': "No campaign selected"}, status=400)
+
+        try:
+            settings = CampaignSettings.Clear(campaign_id)
+        except Exception as exc:
+            Log.Warn("CAMPAIGN_SETTINGS", f"Could not clear campaign settings: {exc}")
+            return web.json_response(
+                {'error': "Could not clear campaign settings"},
+                status=500,
+            )
+
+        return web.json_response({
+            'result': "Campaign settings cleared",
+            'settings': settings,
+        })
+
     async def load_replay(self, request: web.Request) -> web.Response:
         self.game.LoadReplay(request.rel_url.query_string)
         return web.json_response({'result': "New game created"})
@@ -187,6 +211,7 @@ class GameServerNewGame(GameServerBase):
         super().__init__()
         self.AddAwaitGetSecurity('/new', self.new_game)
         self.AddPostSecurity('/save_campaign_settings', self.save_campaign_settings)
+        self.AddPostSecurity('/clear_campaign_settings', self.clear_campaign_settings)
         self.AddAwaitGetSecurity('/new_debug', self.new_debug)
         self.AddAwaitGetSecurity('/load_replay', self.load_replay)
         self.AddPostSecurity('/load_replay_data', self.load_replay_data)

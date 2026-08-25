@@ -62,6 +62,38 @@ class TestCampaignSettingsEndpoint(unittest.IsolatedAsyncioTestCase):
             {"error": "Invalid campaign log"},
         )
 
+    async def test_clear_campaign_settings_removes_selected_campaign_only(self):
+        request = SimpleNamespace(json=AsyncMock(return_value={
+            "campaign_id": "mutant_genesis",
+        }))
+        settings = {"agents_of_shield": {"Evidence Seed": "123"}}
+
+        with patch(
+            "engine.device.web.server.server_new_game.CampaignSettings.Clear",
+            return_value=settings,
+        ) as clear:
+            response = await GameServerNewGame.clear_campaign_settings(None, request)
+
+        self.assertEqual(response.status, 200)
+        self.assertEqual(json.loads(response.text), {
+            "result": "Campaign settings cleared",
+            "settings": settings,
+        })
+        clear.assert_called_once_with("mutant_genesis")
+
+    async def test_clear_campaign_settings_rejects_missing_campaign(self):
+        request = SimpleNamespace(json=AsyncMock(return_value={
+            "campaign_id": "",
+        }))
+
+        response = await GameServerNewGame.clear_campaign_settings(None, request)
+
+        self.assertEqual(response.status, 400)
+        self.assertEqual(
+            json.loads(response.text),
+            {"error": "No campaign selected"},
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

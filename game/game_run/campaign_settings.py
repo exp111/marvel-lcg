@@ -94,3 +94,17 @@ class CampaignSettings:
             new_game.campaign_log,
             file_path,
         )
+
+    @staticmethod
+    def Clear(
+        campaign_id: str,
+        file_path: str|None=None,
+    ) -> Dict[str, Dict[str, str]]:
+        if not campaign_id:
+            return CampaignSettings.Load(file_path)
+
+        with CampaignSettings._lock:
+            settings = CampaignSettings.Load(file_path)
+            settings.pop(campaign_id, None)
+            CampaignSettings._save(settings, file_path)
+            return settings

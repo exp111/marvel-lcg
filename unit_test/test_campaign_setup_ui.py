@@ -45,6 +45,27 @@ class TestCampaignSetupUI(unittest.TestCase):
         self.assertIn("campaign_log: readCampaignLog(campaign_id)", html)
         self.assertIn("new_game.campaign_log = readCampaignLog(selected_campaign_id)", html)
 
+    def test_selected_campaign_can_be_cleared_with_confirmation(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('id="clear_campaign_log_button"', html)
+        self.assertIn("async function clearCampaignSettings(button)", html)
+        self.assertIn("window.confirm(", html)
+        self.assertIn("fetch('clear_campaign_settings'", html)
+        self.assertIn("body: JSON.stringify({ campaign_id })", html)
+        self.assertIn('generateInputs("")', html)
+        self.assertIn("Campaign log cleared.", html)
+
+    def test_next_evolution_damage_destination_is_chosen_during_setup(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("Scenario 4 Hope Damage Placement", html)
+        self.assertNotIn("Scenario 5 Hope Damage Placement", html)
+
     def test_mutant_genesis_defeated_schemes_can_be_deselected(self):
         html = (
             Path(__file__).resolve().parents[1] / "public" / "scene.html"

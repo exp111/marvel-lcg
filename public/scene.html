@@ -1044,6 +1044,7 @@ p:has(#timeout_text) {
             </table>
             <div id="campaign_log_actions">
                 <button type="button" id="save_campaign_log_button" onclick="saveCampaignSettings(this)">Save Campaign Log</button>
+                <button type="button" id="clear_campaign_log_button" onclick="clearCampaignSettings(this)">Clear Campaign</button>
                 <span id="campaign_log_save_status" role="status" aria-live="polite"></span>
             </div>
 
@@ -1209,6 +1210,43 @@ p:has(#timeout_text) {
                     } catch(error) {
                         console.error('Unable to save campaign settings:', error)
                         status.textContent = 'Unable to save campaign log.'
+                    } finally {
+                        button.disabled = false
+                    }
+                }
+
+                async function clearCampaignSettings(button) {
+                    const campaign_id = document.querySelector('#campaign_selector').value
+                    const status = document.querySelector('#campaign_log_save_status')
+                    if( !campaign_id ) {
+                        status.textContent = 'Select a campaign first.'
+                        return
+                    }
+
+                    const campaignName = campaignDefinitions[campaign_id]?.name ?? campaign_id
+                    if( !window.confirm('Clear all saved settings for ' + campaignName + '? This cannot be undone.') ) {
+                        return
+                    }
+
+                    button.disabled = true
+                    status.textContent = 'Clearing...'
+                    try {
+                        const response = await fetch('clear_campaign_settings', {
+                            method: 'POST',
+                            cache: 'no-store',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ campaign_id }),
+                        })
+                        const result = await response.json()
+                        if( !response.ok ) {
+                            throw new Error(result.error || ('HTTP ' + response.status))
+                        }
+                        savedCampaignSettings = result.settings
+                        generateInputs("")
+                        status.textContent = 'Campaign log cleared.'
+                    } catch(error) {
+                        console.error('Unable to clear campaign settings:', error)
+                        status.textContent = 'Unable to clear campaign log.'
                     } finally {
                         button.disabled = false
                     }
@@ -1419,9 +1457,7 @@ p:has(#timeout_text) {
                             { description: "Campaign Environments Earned", type: "checkbox", options: ["40190b", "40191b", "40192b", "40193b", "40194b", "40195b"] },
 
                             { description: "Scenario 3 Hope Summers Damage", type: "number" },
-                            { description: "Scenario 4 Hope Damage Placement", type: "select", options: ["Hope Summers", "Teleported Away"] },
                             { description: "Scenario 4 Hope Summers Damage", type: "number" },
-                            { description: "Scenario 5 Hope Damage Placement", type: "select", options: ["Hope Summers", "Stryfe's Grasp"] },
                         ],
                         age_of_apocalypse:
                         [
