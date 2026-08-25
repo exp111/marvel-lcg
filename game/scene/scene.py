@@ -11,6 +11,7 @@ CATEGORY_NAME = "SCENE"
 
 # These rules will be added for testing file, use when change some new rules as default
 TEST_RULES = ConfigVariables.ListStr('test_rules', [])
+ATTACHED_HEALTH_FLIP_RULE = "fix_attached_health_flip"
 GOD_OF_LIES_SHATTER_TOTAL_RULE = "fix_god_of_lies_shatter_total"
 
 METADATA_KEY_LIST = Literal[
@@ -179,6 +180,7 @@ class Scene:
     # Call follow `Json.LoadAs` 
     def UpdateVersion(self):
         self.campaign.UpdateVersion()
+        self.MigrateAttachedHealthFlip()
         self.MigrateGodOfLiesShatterTotal()
         if "mode_skirmish" in self.metadata: # type: ignore
             self.rules.append("mode_skirmish")
@@ -219,6 +221,17 @@ class Scene:
 
         del self.campaign.modular_sets
         self.rules = list(sorted(set(self.rules)))
+
+    def MigrateAttachedHealthFlip(self) -> None:
+        if ATTACHED_HEALTH_FLIP_RULE in self.rules:
+            return
+
+        # Attached +HP effects used to be applied again whenever an identity
+        # changed form. Rebuild legacy saves from their original choices with
+        # the corrected maximum-health state.
+        for operation in self.inputs:
+            operation.crc = ""
+        self.rules.append(ATTACHED_HEALTH_FLIP_RULE)
 
     def MigrateGodOfLiesShatterTotal(self) -> None:
         if self.campaign.name != "Loki: God of Lies":

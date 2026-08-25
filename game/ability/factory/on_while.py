@@ -51,6 +51,8 @@ class AbilityFactoryWhile:
                     condition_fn: ConditionType[TM],
                     check_fn: Callable[['Effect', int], int|Tuple[int, bool]],
                     process_fn: Callable[['Effect', int, int], None],
+                    *,
+                    preserve_value_on_same_card_flip: bool=False,
                     ) -> 'Ability':
         from game.ability.factory import AbilityFactory
         from game.operate.effects import Effects
@@ -95,9 +97,14 @@ class AbilityFactoryWhile:
                 nonlocal last_value
 
                 # Fix "31001a"
-                if effect.this.bind_face:
-                    if last_bind_face != effect.this.bind_face:
-                        last_bind_face = effect.this.bind_face
+                bind_face = effect.this.bind_face
+                if bind_face and last_bind_face != bind_face:
+                    same_card_flip = \
+                        preserve_value_on_same_card_flip and \
+                        last_bind_face is not None and \
+                        last_bind_face.card is bind_face.card
+                    last_bind_face = bind_face
+                    if not same_card_flip:
                         last_value = 0
 
                 effect.context.bind_message = message
