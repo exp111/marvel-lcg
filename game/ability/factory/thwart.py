@@ -257,7 +257,9 @@ class AbilityFactoryThwart:
                     ],
                     lambda effect, message:
                         message.SetCannotBeThwart(effect),
-                    is_local=who_thwart == "This" or cannot_thwart == "This" or can_only_thwart == "This"
+                    # A can-only restriction must observe checks against every
+                    # other scheme so it can reject those targets.
+                    is_local=who_thwart == "This" or cannot_thwart == "This"
                 )
             ]
 
