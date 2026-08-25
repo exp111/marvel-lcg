@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 
 from engine import Engine  # noqa: F401 - establishes the project's import order
 from game.card.face.base import Unit2
+from game.message import Message
 
 
 def find_condition(ability, name):
@@ -87,6 +88,65 @@ class TestSentry(unittest.TestCase):
         self.sentry.PlaceThreatOnSchemes.assert_called_once_with(
             "MainScheme", 6, self.effect
         )
+
+
+class TestCameo(unittest.TestCase):
+
+    def setUp(self):
+        self.module = import_module("cards.pack.wonder_man.58031")
+        self.ability = self.module.GetAbilities()[0]
+
+    def test_setup_resolves_after_opening_hands_and_mulligans(self):
+        self.assertIs(self.ability.when, Message.WhenGameWouldBegin)
+
+    def test_collection_search_translates_identity_specific_class(self):
+        face = MagicMock()
+        player = SimpleNamespace(
+            AskChoosePaper=MagicMock(return_value="signature-ally"),
+            discard_pile=MagicMock(),
+        )
+        effect = SimpleNamespace(world=MagicMock())
+
+        with patch(
+            "cards.database.CardsDB.GetPapers",
+            return_value=["signature-ally"],
+        ) as get_papers, patch(
+            "game.card.factory.CardFactory.GenerateCard",
+            return_value=SimpleNamespace(face=face),
+        ):
+            result = self.module.Search.Collection(
+                effect,
+                player,
+                card_type=self.module.Ally,
+                card_class="IdentitySpecific",
+            )
+
+        self.assertIs(result, face)
+        self.assertEqual(get_papers.call_args.kwargs["card_class"], "Hero")
+
+    def test_collection_search_returns_none_when_no_cards_are_eligible(self):
+        player = SimpleNamespace(
+            AskChoosePaper=MagicMock(),
+            discard_pile=MagicMock(),
+        )
+        effect = SimpleNamespace(world=MagicMock())
+
+        with patch(
+            "cards.database.CardsDB.GetPapers",
+            return_value=[],
+        ), patch(
+            "game.card.factory.CardFactory.GenerateCard",
+        ) as generate_card:
+            result = self.module.Search.Collection(
+                effect,
+                player,
+                card_type=self.module.Ally,
+                card_class="IdentitySpecific",
+            )
+
+        self.assertIsNone(result)
+        player.AskChoosePaper.assert_not_called()
+        generate_card.assert_not_called()
 
 
 class TestStrongerTogether(unittest.TestCase):

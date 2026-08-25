@@ -157,7 +157,7 @@ def RevealTeleportedAwayWithCampaignThreat() -> 'Ability':
             card_type=EncounterSideScheme,
         )
         if scheme:
-            extra_threat = len(_earned_environment_ids(effect)) * len(Worlds.GetPlayers(effect))
+            extra_threat = len(_earned_environment_ids(effect))
             effect.this.PlaceThreatOnSchemes([scheme], extra_threat, effect)
 
     return AbilityFactoryCampaign.WhenCampaignSetup(action, campaign_id=CAMPAIGN_ID)
