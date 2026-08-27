@@ -15,6 +15,7 @@ solid = import_module("cards.pack.mut_gen.shadowcat.32031a")
 phased = import_module("cards.pack.mut_gen.shadowcat.32031b")
 powerful_punch = import_module("cards.pack.mut_gen.32014")
 toe_to_toe = import_module("cards.pack.hlk.10015")
+defiance = import_module("cards.pack.vision.26018")
 
 
 class TestShadowcatFormTiming(unittest.TestCase):
@@ -183,6 +184,50 @@ class TestShadowcatFormTiming(unittest.TestCase):
             order,
             ["establish defense", "resolve Powerful Punch attack"],
         )
+
+    def test_defiance_preserves_an_existing_ally_defender(self):
+        class FakePlayer:
+            def __init__(self, identity):
+                self.identity = identity
+
+            def GetIdentity(self):
+                return self.identity
+
+        identity = MagicMock()
+        ally = MagicMock()
+        player = FakePlayer(identity)
+        effect = MagicMock()
+        effect.ability = defiance.GetAbilities()[0]
+        effect.initiator = player
+        effect.world = MagicMock()
+        effect.this = MagicMock()
+        effect.this.GetControlBy.return_value = player
+        effect.GetInitiator.return_value = player
+        effect.ProcessSelfCost.return_value = True
+        effect.is_unregister_after_exec = False
+        effect.cost_func.GetAll.return_value = []
+
+        attack_message = SimpleNamespace(defender=ally)
+        message = object.__new__(Message.WhenBoostCardWouldTurnedFaceUp)
+        message.would_atk_messages = [attack_message]
+        message.send_resolve_message = False
+
+        with patch("game.player.Player", FakePlayer), \
+            patch.object(CanDefense, "IsType", return_value=True), \
+            patch("game.effect.effect_invoke.Build.release", True), \
+            patch.object(Engine, "game", MagicMock(), create=True), \
+            patch.object(EffectInvoker, "InvokeOperation") as invoke_operation:
+            resolved = EffectInvoker.ResolveSelfInternal(
+                effect,
+                message,
+                None,
+                effect,
+            )
+
+        self.assertTrue(resolved)
+        identity.SpecialDefense.assert_not_called()
+        invoke_operation.assert_called_once_with(effect, message)
+        self.assertIs(attack_message.defender, ally)
 
     def test_toe_to_toe_finishes_enemy_attack_before_its_attack_damage(self):
         order = []
