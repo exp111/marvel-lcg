@@ -1077,6 +1077,8 @@ class CostFunc:
                 if not player:
                     return False
 
+                encounter_deck_reset = False
+
                 if isinstance(size, int):
                     max_size = size
                     min_size = size
@@ -1094,9 +1096,14 @@ class CostFunc:
                 if which_deck == "YourDeck":
                     discarded_cards = player.DiscardDeckTopCards(select_size, effect)
                 else:
+                    encounter_deck = Worlds.GetEncounterDeck(effect)
+                    reset_count = encounter_deck.shuffle_with_discard_count
                     discarded_cards = Worlds.DiscardEncounterCards(select_size, effect)
+                    # Emptying the encounter deck fulfills a specified discard,
+                    # even when fewer cards than requested were available.
+                    encounter_deck_reset = encounter_deck.shuffle_with_discard_count != reset_count
                 self.return_discarded_cards = discarded_cards
-                return len(self.return_discarded_cards) == select_size
+                return len(self.return_discarded_cards) == select_size or encounter_deck_reset
 
             super().__init__(Select.From("This"), on_call)
 
