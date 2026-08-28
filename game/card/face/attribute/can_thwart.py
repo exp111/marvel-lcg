@@ -50,6 +50,12 @@ class HasThwart(HasAttribute):
     @final
     @property
     def thwart(self) -> int:
+        from game.buff import BuffUseDefenseForAttackAndThwart
+        if self.GetBuff(BuffUseDefenseForAttackAndThwart):
+            from game.card.face.attribute.can_defense import HasDefense
+            if HasDefense.IsType(self):
+                return self.CastTo(HasDefense).defense
+            return 0
         return max(0, self.GetKeyword('THW'))
 
 ################################################################################

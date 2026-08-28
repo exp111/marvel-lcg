@@ -3,25 +3,24 @@ from . import *
 # The Best Offense...
 
 
+def apply_the_best_offense(
+    effect: 'Effect',
+    face: 'CardFace',
+    diff: int,
+) -> None:
+    buff = face.GetBuff(BuffUseDefenseForAttackAndThwart)
+    if diff > 0:
+        buff.OnGain(effect)
+    elif diff < 0:
+        buff.OnLost(effect)
+
+
 def GetAbilities() -> Sequence['Ability']:
-
-    def the_best_offense(effect: 'Effect', message: 'Message.WhenUnitUseBasicPower') -> None:
-        hero = message.trigger.CastTo(Hero)
-        if message.power == "ATK":
-            message.GainValue(hero.defense - hero.attack, effect)
-        elif message.power == "THW":
-            message.GainValue(hero.defense - hero.thwart, effect)
-
     return [
         AbilityFactory.CanPlayThisUpgradeCard(),
         *AbilityFactory.GiveKeywordToAttached(
             Hero,
             defense=1,
-        ),
-        AbilityFactory.WhenUnitUseBasicPower(
-            AbilityType.NonKeyword,
-            "You",
-            the_best_offense,
-            powers=["ATK", "THW"],
+            apply=apply_the_best_offense,
         ),
     ]

@@ -24,15 +24,18 @@ The empty `assets/cache` and `assets/pics` paths are created at staging time. Em
 
 ## Local preparation
 
-From the repository root, create the virtual environment and install the runtime and release dependencies:
+Release packages are frozen to Python 3.12.13 and the fully pinned dependency graph in `requirements-release.txt`. From the repository root, create the virtual environment with that exact interpreter and install the release dependencies:
 
 ```powershell
-py -3.12 -m venv .venv-release
+$releasePython = "C:\path\to\python-3.12.13\python.exe"
+& $releasePython -m venv .venv-release
 & ".\.venv-release\Scripts\python.exe" -m pip install -r requirements-release.txt
 npm install --global typescript
 ```
 
 The release build intentionally uses PyInstaller's one-folder mode with UPX disabled. The ZIP contains `marvel-lcg.exe` beside an `_internal` dependency directory, avoiding the temporary self-extraction behavior of one-file executables.
+
+The v1.2.0 `-CustomBootloader` comparison build also requires the hash-verified v1.1.1 bootloader at PyInstaller's `Windows-64bit-intel\run.exe` path. Preflight verifies its SHA-256 before packaging and refuses a drifted runtime or bootloader.
 
 Run the non-mutating preflight first:
 

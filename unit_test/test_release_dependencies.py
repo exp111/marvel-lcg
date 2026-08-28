@@ -14,14 +14,14 @@ class TestReleaseDependencies(unittest.TestCase):
 
         for version_part in (
             "    MAJOR = 1",
-            "    MINOR = 1",
-            "    PATCH = 1",
+            "    MINOR = 2",
+            "    PATCH = 0",
             "    BUILD = 0",
         ):
             self.assertIn(version_part, build.splitlines())
-        self.assertIn("Application version: **1.1.1r**", patch_notes)
+        self.assertIn("Application version: **1.2.0r**", patch_notes)
         self.assertNotIn("1.0.0.5r", marvel_html)
-        self.assertGreaterEqual(marvel_html.count("?v=1.1.1r"), 2)
+        self.assertGreaterEqual(marvel_html.count("?v=1.2.0r"), 2)
 
     def test_main_menu_identifies_the_community_build_with_the_live_version(self):
         project_root = Path(__file__).resolve().parents[1]
@@ -95,8 +95,35 @@ class TestReleaseDependencies(unittest.TestCase):
         self.assertEqual(release_spec.count("upx=False"), 2)
         self.assertIn('contents_directory="_internal"', release_spec)
         self.assertIn('Join-Path $projectRoot ".venv-release"', release_script)
-        self.assertIn('$pythonVersion -ne "3.12"', release_script)
-        self.assertIn('python-version: "3.12"', workflow)
+        self.assertIn('$pythonVersion -ne "3.12.13"', release_script)
+        self.assertIn('python-version: "3.12.13"', workflow)
+
+    def test_release_environment_is_fully_pinned(self):
+        project_root = Path(__file__).resolve().parents[1]
+        release_requirements = (
+            project_root / "requirements-release.txt"
+        ).read_text(encoding="utf-8").splitlines()
+        release_script = (
+            project_root / "packaging" / "build_release.ps1"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("-r requirements.txt", release_requirements)
+        for requirement in (
+            "aiohttp==3.14.3",
+            "charset-normalizer==3.4.9",
+            "idna==3.18",
+            "numpy==2.5.1",
+            "packaging==26.3",
+            "Pillow==12.3.0",
+            "pyinstaller==6.21.0",
+            "requests==2.34.2",
+            "yarl==1.24.5",
+        ):
+            self.assertIn(requirement, release_requirements)
+        self.assertIn(
+            "1ab6b9e06ed50d4fb489b017af71520a3d22566ee4372bcd2b12902264a4f32d",
+            release_script,
+        )
 
     def test_release_executable_has_community_version_metadata(self):
         project_root = Path(__file__).resolve().parents[1]

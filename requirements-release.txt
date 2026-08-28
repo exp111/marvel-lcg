@@ -1,2 +1,26 @@
--r requirements.txt
+# Reproducible Windows release environment. Keep direct and transitive runtime
+# dependencies pinned so rebuilding a tag cannot silently change the executable.
+aiohappyeyeballs==2.7.1
+aiohttp==3.14.3
+aiosignal==1.4.0
+altgraph==0.17.5
+attrs==26.1.0
+certifi==2026.7.22
+charset-normalizer==3.4.9
+colorama==0.4.6
+frozenlist==1.8.0
+idna==3.18
+multidict==6.7.1
+numpy==2.5.1
+packaging==26.3
+pefile==2024.8.26
+Pillow==12.3.0
+propcache==0.5.2
 pyinstaller==6.21.0
+pyinstaller-hooks-contrib==2026.6
+pywin32-ctypes==0.2.3
+requests==2.34.2
+setuptools==84.0.0
+typing_extensions==4.16.0
+urllib3==2.7.0
+yarl==1.24.5

@@ -72,6 +72,12 @@ class HasAttack(HasAttribute):
     @final
     @property
     def attack(self) -> int:
+        from game.buff import BuffUseDefenseForAttackAndThwart
+        if self.GetBuff(BuffUseDefenseForAttackAndThwart):
+            from game.card.face.attribute.can_defense import HasDefense
+            if HasDefense.IsType(self):
+                return self.CastTo(HasDefense).defense
+            return 0
         # After all active modifiers have been taken into account, if a value is below zero, it is treated as zero: a card cannot have “negative” icons, attributes, traits, cost, or keywords.
         return max(0, self.GetKeyword('ATK'))
 

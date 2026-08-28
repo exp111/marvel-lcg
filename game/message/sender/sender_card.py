@@ -258,10 +258,11 @@ class SenderCard:
     # We don't extend `CanBeInstead` because when game is over, all `CanBeInstead` will be instead
     # Some cards may trigger the assert
     class WhenCardWouldMoveToArea(TriggerFaceMessage):
-        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', ui_group: bool) -> None:
+        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', ui_group: bool, index: int=-1) -> None:
             # from game.message import Message
             self.from_area: Final = from_area
             self.into_area = into_area
+            self.index = index
             self.cannot = False
             self.by_effect = by_effect
 
@@ -276,14 +277,18 @@ class SenderCard:
                     text = TransText("{face} is moving to {into_area}", face=face, into_area=into_area)
                     self.Present(text, "", face)
 
-        def ChangeToArea(self, into_area: 'Deck|None', by_effect: 'Effect'):
+        def ChangeToArea(self, into_area: 'Deck|None', by_effect: 'Effect', *, index: int=-1):
             if into_area != None:
                 self.into_area = into_area
+                self.index = index
                 text = TransText("{this} changes the area to {into_area}", this=by_effect.this, into_area=into_area)
             else:
                 self.into_area = self.from_area
                 text = TransText("{this} cancels this move", this=by_effect.this)
             self.Present_Activate(text, by_effect)
+
+        def ChangeToBottomOfDeck(self, into_area: 'Deck', by_effect: 'Effect'):
+            self.ChangeToArea(into_area, by_effect, index=0)
 
         def SetCannot(self, by_effect: 'Effect'):
             self.cannot = True
@@ -297,12 +302,13 @@ class SenderCard:
             super().__init__(trigger=face, player=into_area.GetOwnerPlayer())
 
     class WhenCardWouldLeavePlay(TriggerFaceMessage, CanBeInstead, HasEndEventMessage):
-        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', by_swapping: bool) -> None:
+        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', by_swapping: bool, index: int=-1) -> None:
             from game.message import Message
             self.into_area: Final = into_area
             self.by_effect: Final = by_effect
             self.by_swapping: Final = by_swapping
             self.from_area: Final = from_area
+            self.index: Final = index
             super().__init__(trigger=face, end_event=Message.WhenCardLeavePlay)
 
     class WhenCardLeavePlay(TriggerFaceMessage, HasPreEventMessage, HasEndEventMessage):
@@ -316,6 +322,7 @@ class SenderCard:
             self.by_effect: Final = pre_message.by_effect
             self.by_swapping: Final = pre_message.by_swapping
             self.from_area: Final = pre_message.from_area
+            self.index: Final = pre_message.index
             super().__init__(trigger=face, pre_message=pre_message, end_event=Message.AfterCardLeavePlay)
             # self.TriggerOnEvent(OnEvent.LeavePlayWhen)
 

@@ -366,12 +366,13 @@ class Card(Object):
                                     by_effect,
                                     up_face=up_face,
                                     ui_group=ui_group,
-                                    callback=callback1)
+                                    callback=callback1,
+                                    index=index)
         if message != None and message != False and message != True:
             return self.MoveToAreaInternal(message,
                                     callback=callback2,
                                     target_game_area=target_game_area,
-                                    index=index)
+                                    index=message.index)
         return False
 
     def CheckIfCanMove(self, into_area: 'Deck', by_effect: 'Effect',
@@ -379,6 +380,7 @@ class Card(Object):
                         up_face: 'CardFace|None'=None,
                         ui_group: bool=False,
                         callback: Callable[[], None]|None=None,
+                        index: int=-1,
                         ) -> 'Message.WhenCardLeavePlay|Message.WhenCardWouldMoveToArea|None|bool':
         from game.message import Message
         from game.effect.rule import GameRule
@@ -400,7 +402,7 @@ class Card(Object):
             elif not from_area.flags.is_in_hand and into_area.flags.is_face_up and not self.IsFaceUp() and not ui_group:
                 self.Flip(GameRule(up_face))
 
-        message = Message.WhenCardWouldMoveToArea(up_face, from_area, into_area, by_effect, ui_group)
+        message = Message.WhenCardWouldMoveToArea(up_face, from_area, into_area, by_effect, ui_group, index)
         if not up_face.OnWhenCardWouldMoveToArea(message):
             return False
 
@@ -417,7 +419,14 @@ class Card(Object):
         if not into_area.flags.is_in_play and from_area.flags.is_in_play:
             self.state.is_leaving_play = True
 
-            would_leave_play_message = Message.WhenCardWouldLeavePlay(up_face, from_area, into_area, by_effect, False)
+            would_leave_play_message = Message.WhenCardWouldLeavePlay(
+                up_face,
+                from_area,
+                into_area,
+                by_effect,
+                False,
+                message.index,
+            )
             if not up_face.OnWhenCardWouldLeavePlay(would_leave_play_message):
                 early_exit()
                 return False

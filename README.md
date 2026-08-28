@@ -4,20 +4,17 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest testing release: v1.1.1
+## Latest testing release: v1.2.0
 
-[Download Community Build v1.1.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.1.1)
+[Download Community Build v1.2.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.2.0)
 
-This prerelease includes the complete Trickster Takeover and Civil War content from v1.1.0 together with the latest gameplay, importing, and interface corrections:
+This prerelease adds the complete **Fear No Evil** player-card set, completes the **Age of Apocalypse** campaign rules and tracking, and updates core behavior for Rules Reference v1.8. Major changes include:
 
-- Loki Avatar swaps preserve remaining hit points and apply attached Focus bonuses once; Synergy environments now modify the resolving event, and the affected side-scheme icons are corrected.
-- Enchantress I now places her charm counter after attacking.
-- MarvelCDB imports distinguish heroes who share a name, including T'Challa and Shuri as Black Panther and Peter Parker and Miles Morales as Spider-Man.
-- Blindfold and other ordered encounter-card selections preserve the displayed order when cards are returned.
-- Player-assigned forced obligations resolve through the correct player, fixing the Protect Humanity ally-redirection freeze, and attack-animation cleanup no longer reapplies a completed transform.
-- The card-data checksum and identity lookup path are synchronized with the final content, eliminating the reported checksum mismatch and false identity warning.
-
-It also includes all campaigns, heroes, scenarios, modular sets, interface improvements, and accumulated corrections from the v1.0 and v1.1.0 community releases.
+- Complete Fear No Evil player cards, including Starting abilities and Team-Up ally replacement.
+- Complete Age of Apocalypse campaign setup, missions, Prelates and Overseers, rewards, outcomes, persistent health, and campaign-log tracking.
+- Rules Reference v1.8 surge timing and Team-Up validation, plus improved multi-villain targeting and alternate-cost support.
+- Campaign-log save controls and modular-difficulty setup for Tower Defense, Project Wideawake, and Infinites.
+- Correct ordered-deck presentation, card-preview click handling, max-one-per-player limits, obligation choices, attack targeting, and numerous card and scenario interactions.
 
 Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
 
@@ -25,21 +22,19 @@ See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/ins
 
 ## Antivirus scan and Windows packaging
 
-v1.1.1 uses a Python 3.12 PyInstaller one-folder package with UPX disabled and a locally compiled PyInstaller bootloader. This avoids the previous one-file executable's self-extraction into a temporary directory and reduces generic heuristic antivirus detections.
+v1.2.0 uses the byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, UPX-disabled configuration, and hash-verified locally compiled bootloader from v1.1.1. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
 
-The [VirusTotal report for the exact v1.1.1 executable](https://www.virustotal.com/gui/file/a650db6b493869fc993206b66e2161f38ea2d19210fe40324c07e16688b29c96?nocache=1) reports **1/70**, with only SecureAge's generic detection; Microsoft is undetected. A local Microsoft Defender custom scan also completed with no detections. The build remains unsigned, so Microsoft SmartScreen or individual antivirus products may still display a warning.
-
-- v1.1.1 executable SHA-256: `a650db6b493869fc993206b66e2161f38ea2d19210fe40324c07e16688b29c96`
-- v1.1.1 release ZIP SHA-256: `672985f0c691f51eb719bef58d1c3b75f652730a9d0f63803630957dd1f979dd`
+The package remains unsigned, so Microsoft SmartScreen or individual antivirus products may still display a warning. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
 
 ## Community build highlights
 
 - Complete standard and expert **Loki: God of Lies** content from Trickster Takeover, including the Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic.
 - Complete expert variants for the **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman** Civil War scenarios.
 - Complete campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
+- Complete **Fear No Evil** player-card set with Rules Reference v1.8 Team-Up support.
 - New **Synthezoid Smackdown** cooperative scenarios and encounter sets.
 - New playable **Wonder Man** and **Hercules** hero expansions with starter decks.
-- Campaign setup choices persist locally across launches for every campaign.
+- Campaign setup choices and campaign logs persist locally, with in-game controls for saving campaign-log updates.
 - Agents of S.H.I.E.L.D. evidence rewards, Setup abilities, Evidence Seed handling, and persistent Executive Board attachments follow the campaign rules.
 - Wonder Man and Hercules include their complete registered nemesis content, with corrected obligation, attack, activation, and fallback-search behavior.
 - The latest Trickster Takeover corrections cover Enchantress charms, Loki Avatar health swaps, attached Focus bonuses, Synergy event modifiers, side-scheme icons, and Shatter-counter resolution.

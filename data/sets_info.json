@@ -415,9 +415,9 @@
     "60. Fear No Evil": {
         "name": "fne",
         "scenarios": [],
-        "heroes": [],
+        "heroes": ["daredevil", "echo"],
         "encounters": [],
-        "max_id": "60059"
+        "max_id": "60064"
     },
     "90. Ronan Modular Set": {
         "name": "ron",
@@ -458,5 +458,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "62585f597c42dac6cd0e4280b0ea0f59244b8c68af2ad436fc3e7a97b843e692"
+    "checksum": "6837f889c2e95e5adca2cff74566d3b4b3a4e92ccaa294fa8c0a4d49803cd07e"
 }

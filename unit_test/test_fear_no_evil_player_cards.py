@@ -47,9 +47,14 @@ class TestFearNoEvilContent(unittest.TestCase):
             *[f"600{i:02d}" for i in range(48, 60)],
         }
 
-        self.assertEqual({card["card_id"] for card in cards}, expected_ids)
-        self.assertNotIn("Hero", {card.get("type") for card in cards})
-        self.assertNotIn("AlterEgo", {card.get("type") for card in cards})
+        papers = {
+            card["card_id"]: card
+            for card in cards
+            if card["card_id"] in expected_ids
+        }
+        self.assertEqual(set(papers), expected_ids)
+        self.assertNotIn("Hero", {card.get("type") for card in papers.values()})
+        self.assertNotIn("AlterEgo", {card.get("type") for card in papers.values()})
 
     def test_reprints_reuse_rules_without_hiding_available_fne_scans(self):
         cards = {
@@ -631,19 +636,50 @@ class TestFearNoEvilMechanics(unittest.TestCase):
             exact_condition(effect, SimpleNamespace(exact_defeat=False))
         )
 
-    def test_best_offense_replaces_modified_attack_with_defense(self):
-        ability = import_module("cards.pack.fne.60052").GetAbilities()[-1]
+    def test_best_offense_replaces_attack_and_thwart_everywhere(self):
+        module = import_module("cards.pack.fne.60052")
+        buff = module.BuffUseDefenseForAttackAndThwart()
         hero = MagicMock()
-        hero.defense = 4
-        hero.attack = 2
-        trigger = MagicMock()
-        trigger.CastTo.return_value = hero
-        message = MagicMock(power="ATK", trigger=trigger)
+        hero.GetBuff.return_value = buff
+        hero.GetKeyword.side_effect = lambda keyword: {
+            "ATK": 2,
+            "THW": 1,
+            "DEF": 4,
+        }[keyword]
+        hero.CastTo.return_value = SimpleNamespace(defense=4)
         effect = MagicMock()
 
-        ability.operation(effect, message)
+        attack = module.HasAttack.attack.fget
+        thwart = module.HasThwart.thwart.fget
+        self.assertIsNotNone(attack)
+        self.assertIsNotNone(thwart)
 
-        message.GainValue.assert_called_once_with(2, effect)
+        with patch.object(module.HasDefense, "IsType", return_value=True):
+            self.assertEqual(attack(hero), 2)
+            self.assertEqual(thwart(hero), 1)
+
+            module.apply_the_best_offense(effect, hero, 1)
+            self.assertEqual(attack(hero), 4)
+            self.assertEqual(thwart(hero), 4)
+
+            module.apply_the_best_offense(effect, hero, -1)
+            self.assertEqual(attack(hero), 2)
+            self.assertEqual(thwart(hero), 1)
+
+        marker = MagicMock()
+        with patch.object(
+            module.AbilityFactory,
+            "GiveKeywordToAttached",
+            return_value=[marker],
+        ) as give_keyword:
+            abilities = module.GetAbilities()
+
+        self.assertIn(marker, abilities)
+        self.assertEqual(give_keyword.call_args.kwargs["defense"], 1)
+        self.assertIs(
+            give_keyword.call_args.kwargs["apply"],
+            module.apply_the_best_offense,
+        )
 
     def test_ronin_grants_defense_and_retaliate_only_without_allies(self):
         module = import_module("cards.pack.fne.60053")

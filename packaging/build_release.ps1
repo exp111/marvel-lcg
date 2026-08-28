@@ -62,7 +62,7 @@ if ($NoArchive -and $CustomBootloader) {
 
 $variantSuffix = if ($CustomBootloader) { "-customboot" } elseif ($NoArchive) { "-noarchive" } else { "" }
 $packagingVariant = if ($CustomBootloader) {
-    "PyInstaller onedir with locally compiled bootloader"
+    "PyInstaller onedir with the verified v1.1.1 locally compiled bootloader"
 }
 elseif ($NoArchive) {
     "PyInstaller onedir with individual Python modules"
@@ -117,9 +117,22 @@ if (-not (Test-Path -LiteralPath $python)) {
 if (-not (Test-Path -LiteralPath $pyinstaller)) {
     throw "PyInstaller was not found at $pyinstaller. Install requirements-release.txt into .venv-release."
 }
-$pythonVersion = (& $python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')").Trim()
-if ($LASTEXITCODE -ne 0 -or $pythonVersion -ne "3.12") {
-    throw "Release builds require Python 3.12; $python reports '$pythonVersion'."
+$pythonVersion = (& $python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')").Trim()
+if ($LASTEXITCODE -ne 0 -or $pythonVersion -ne "3.12.13") {
+    throw "Release builds require Python 3.12.13; $python reports '$pythonVersion'."
+}
+
+if ($CustomBootloader) {
+    $bootloader = (& $python -c "from pathlib import Path; import PyInstaller; print(Path(PyInstaller.__file__).parent / 'bootloader' / 'Windows-64bit-intel' / 'run.exe')").Trim()
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $bootloader)) {
+        throw "Could not locate the PyInstaller Windows x64 bootloader in $pythonEnvironmentRoot."
+    }
+
+    $expectedBootloaderSha256 = "1ab6b9e06ed50d4fb489b017af71520a3d22566ee4372bcd2b12902264a4f32d"
+    $actualBootloaderSha256 = (Get-FileHash -LiteralPath $bootloader -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($actualBootloaderSha256 -ne $expectedBootloaderSha256) {
+        throw "The custom-bootloader build requires the verified v1.1.1 bootloader. Expected SHA-256 $expectedBootloaderSha256, got $actualBootloaderSha256 at $bootloader."
+    }
 }
 $typescript = Get-Command "tsc.cmd" -ErrorAction SilentlyContinue
 if (-not $typescript) {
