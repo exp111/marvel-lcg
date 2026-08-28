@@ -247,46 +247,50 @@ class TestSenseDeck(unittest.TestCase):
             if_not_play_discard_it=False,
         )
 
-    def test_scheme_senses_trigger_when_you_remove_the_last_threat(self):
+    def test_scheme_senses_require_your_identity_to_remove_last_threat(self):
         player = MagicMock()
+        hero = self.controlled_face(Hero, player)
+        ally = self.controlled_face(Ally, player)
         scheme = MagicMock()
         scheme.CastTo.return_value = SimpleNamespace(threat=0)
-        message = MagicMock(trigger=scheme)
-        message.GetByPlayer.return_value = player
+        message = SimpleNamespace(
+            trigger=scheme,
+            would_remove_message=SimpleNamespace(by_face=hero),
+        )
+        effect = SimpleNamespace(
+            this=SimpleNamespace(
+                card=SimpleNamespace(
+                    area=SimpleNamespace(
+                        flags=SimpleNamespace(is_obligations_area=False),
+                    ),
+                ),
+            ),
+            initiator=MagicMock(),
+        )
+        effect.initiator.IsScenario.return_value = False
 
-        for card_id in ("60002", "60003"):
-            with self.subTest(card_id=card_id):
-                module = import_module(f"cards.pack.fne.sense_deck.{card_id}")
-                ability = module.GetAbilities()[2]
-                effect = MagicMock()
-                effect.GetInitiator.return_value = player
+        with patch("game.selector.Select.GetYou", return_value=player):
+            for card_id in ("60002", "60003"):
+                with self.subTest(card_id=card_id):
+                    module = import_module(f"cards.pack.fne.sense_deck.{card_id}")
+                    ability = module.GetAbilities()[2]
+                    by_who = ability.conditions[1]
+                    last_threat = ability.conditions[3]
 
-                self.assertIs(ability.when, module.Message.AfterSchemeRemoveThreat)
-                with patch.object(
-                    module.Condition,
-                    "CheckWhichCard",
-                    return_value=True,
-                ):
-                    self.assertTrue(
-                        all(
-                            condition(effect, message)
-                            for condition in ability.conditions
-                        )
+                    self.assertIs(
+                        ability.when,
+                        module.Message.AfterSchemeRemoveThreat,
                     )
+                    self.assertTrue(by_who(effect, message))
+                    self.assertTrue(last_threat(effect, message))
 
-                message.GetByPlayer.return_value = MagicMock()
-                with patch.object(
-                    module.Condition,
-                    "CheckWhichCard",
-                    return_value=True,
-                ):
-                    self.assertFalse(
-                        all(
-                            condition(effect, message)
-                            for condition in ability.conditions
-                        )
-                    )
-                message.GetByPlayer.return_value = player
+                    message.would_remove_message.by_face = ally
+                    self.assertFalse(by_who(effect, message))
+                    message.would_remove_message.by_face = hero
+
+                    scheme.CastTo.return_value = SimpleNamespace(threat=1)
+                    self.assertFalse(last_threat(effect, message))
+                    scheme.CastTo.return_value = SimpleNamespace(threat=0)
 
     def test_enhanced_olfaction_applies_its_next_card_discount(self):
         module = import_module("cards.pack.fne.sense_deck.60003")

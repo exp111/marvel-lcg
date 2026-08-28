@@ -17,12 +17,6 @@ def GetAbilities() -> Sequence['Ability']:
             and Condition.CheckWhichCard("YourIdentity", message.killer, effect)
         )
 
-    def removed_by_you(
-        effect: 'Effect',
-        message: 'Message.AfterSchemeRemoveThreat',
-    ) -> bool:
-        return message.GetByPlayer() == effect.GetInitiator()
-
     return [
         AbilityFactory.CanPlayThisUpgradeCard(
             CardFinder(card_type=Enemy|Scheme2),
@@ -38,7 +32,7 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityType.Interrupt,
             "AttachedScheme",
             enhanced_olfaction,
+            by_who="YourIdentity",
             last_threat=True,
-            conditions=[removed_by_you],
         ).SetCostFunc(CostFunc.Discard("This")),
     ]
