@@ -1,3 +1,23 @@
+# Marvel Champions Digital v1.2.0.1
+
+Application version: **1.2.0.1r**
+Windows file version: **1.2.0.1**
+
+This hotfix contains corrections made after v1.2.0.
+
+## Hotfix fixes
+
+- Corrected Nebula's encounter Techniques so only the first Technique attachment revealed each round gains surge, rather than the first one revealed to every player.
+- Corrected **Brainstorm** so Patrol or another effect that prevents threat removal does not prevent the event from being played or resolving its remaining instructions.
+- Corrected **In Harm's Way** so it can be played when either its damage portion has a legal enemy or its threat-removal portion has a legal scheme. Because the event is both an attack and a thwart, Confused cancels its entire effect under Rules Reference v1.8.
+- Corrected Daredevil's printed THW from 1 to 2. Sense responses and interrupts that say “you” now require Daredevil's identity to make the attack, thwart, threat removal, or defeat, so ally attacks and thwarts cannot trigger cards such as **Radar Sense**.
+- Corrected Sense cards leaving play so replacement effects preserve their requested deck position and return those cards to the bottom of the Sense deck instead of its top.
+- Corrected Echo's **Photographic Reflexes** flow. A playable event tucked under Echo is selected directly in hero form, the player chooses and discards a viable copy of Photographic Reflexes before payment, that discarded copy cannot pay for the event, and any remaining copies retain their printed resources for normal payment.
+
+The packaged executable passed a local Microsoft Defender custom scan, and its [VirusTotal analysis](https://www.virustotal.com/gui/file/9f526791102675fbdf201d1f039f0e2f4eb84ab1e747b0c7a3f9f7d4cf5eb24c) reported no detections at release time.
+
+---
+
 # Marvel Champions Digital v1.2.0
 
 Application version: **1.2.0r**
@@ -60,7 +80,6 @@ This description contains only changes made after v1.1.1.
 - Pins the complete release dependency graph so later package-index changes cannot silently alter a rebuild.
 - UPX is disabled, developer-only command modules are excluded, and card-image cache contents are not bundled.
 - A SHA-256 checksum file is generated alongside the archive.
-- The released executable passed a local Microsoft Defender custom scan, but Microsoft's VirusTotal engine subsequently flagged the same unsigned file; the exact report is linked from the README and should be treated as an unresolved antivirus warning.
 
 ## Testing and installation
 

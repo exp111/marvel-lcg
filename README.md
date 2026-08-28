@@ -4,29 +4,27 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest testing release: v1.2.0
+## Latest testing release: v1.2.0.1
 
-[Download Community Build v1.2.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.2.0)
+[Download Community Build v1.2.0.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.2.0.1)
 
-This prerelease's featured content is **Daredevil** and **Echo**, now fully playable as the two **Fear No Evil** heroes. Both include starter decks, complete identity-specific cards, obligations, and registered nemesis sets; Daredevil also uses the separate Sense deck, while Echo can tuck and replay events through Watch and Learn and Photographic Reflexes. The release also completes the **Age of Apocalypse** campaign rules and tracking and updates core behavior for Rules Reference v1.8. Major changes include:
+This hotfix corrects gameplay issues found after v1.2.0 while retaining that release's **Daredevil**, **Echo**, **Fear No Evil**, and **Age of Apocalypse** content. Major corrections include:
 
-- Fully playable Daredevil and Echo hero expansions, starter decks, signature cards, obligations, and nemesis sets.
-- Daredevil's Sense deck and Echo's tucked-event mechanics, together with the remaining Fear No Evil player cards and Starting abilities.
-- Corrected Daredevil and Echo interactions: Improvisation resolves every matching event trait without exhausting, and Enhanced Olfaction triggers when another effect removes the last threat from the main scheme.
-- Team-Up ally replacement and restriction validation now support non-event Team-Up cards such as Dance with the Devil.
-- Complete Age of Apocalypse campaign setup, missions, Prelates and Overseers, rewards, outcomes, persistent health, and campaign-log tracking.
-- Rules Reference v1.8 surge timing, improved multi-villain targeting, alternate-cost support, campaign-log save controls, and reusable modular-difficulty setup.
-- Corrected ordered-deck presentation, card-preview click handling, max-one-per-player limits, obligation choices, attack targeting, and numerous card and scenario interactions.
+- Nebula's first Technique attachment each round—not one per player—gains surge.
+- Brainstorm remains playable under Patrol, and In Harm's Way is playable when either half has a legal target.
+- Daredevil has 2 printed THW, and Sense cards that say “you” no longer trigger from ally attacks or thwarts.
+- Discarded Sense cards return to the bottom of the Sense deck.
+- Echo can select a playable tucked event directly in hero form, choose the Photographic Reflexes copy to discard before payment, and use remaining copies for their printed resources.
 
 Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
 
 See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/install_guide.md) for details.
 
-## Antivirus scan and Windows packaging
+## Windows packaging and verification
 
-v1.2.0 uses the byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, UPX-disabled configuration, and hash-verified locally compiled bootloader from v1.1.1. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
+v1.2.0.1 uses the same byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, UPX-disabled configuration, and hash-verified locally compiled bootloader used for v1.2.0. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
 
-The package remains unsigned. During release testing, the v1.2.0 executable passed a local Microsoft Defender custom scan, but Microsoft's engine on VirusTotal subsequently flagged the same file; the [VirusTotal report for the released executable](https://www.virustotal.com/gui/file/b434e1c5fe1d916fe2fa9af4b90289b3a72058a078e3f531d732083def559ad4/detection) is public. Detection results can change over time, so this remains an unresolved antivirus warning rather than a guarantee that every scanner will accept the build. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
+The v1.2.0.1 executable passed a local Microsoft Defender custom scan, and its [VirusTotal analysis](https://www.virustotal.com/gui/file/9f526791102675fbdf201d1f039f0e2f4eb84ab1e747b0c7a3f9f7d4cf5eb24c) reported no detections at release time. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
 
 ## Community build highlights
 
