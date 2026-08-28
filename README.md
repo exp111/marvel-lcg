@@ -24,7 +24,7 @@ See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/ins
 
 v1.2.0 uses the byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, UPX-disabled configuration, and hash-verified locally compiled bootloader from v1.1.1. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
 
-The package remains unsigned, so Microsoft SmartScreen or individual antivirus products may still display a warning. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
+The package remains unsigned. During release testing, the v1.2.0 executable passed a local Microsoft Defender custom scan, but Microsoft's engine on VirusTotal subsequently flagged the same file; the [VirusTotal report for the released executable](https://www.virustotal.com/gui/file/b434e1c5fe1d916fe2fa9af4b90289b3a72058a078e3f531d732083def559ad4/detection) is public. Detection results can change over time, so this remains an unresolved antivirus warning rather than a guarantee that every scanner will accept the build. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
 
 ## Community build highlights
 
