@@ -214,6 +214,22 @@ class TestSenseDeck(unittest.TestCase):
             index=0,
         )
 
+    def test_card_discard_uses_a_replacement_effects_requested_index(self):
+        card = MagicMock()
+        replacement_message = MagicMock(index=0)
+        card.CheckIfCanDiscard.return_value = (
+            replacement_message,
+            MagicMock(),
+        )
+        effect = MagicMock()
+
+        Card.Discard(card, effect)
+
+        move_call = card.MoveToAreaInternal.call_args
+        self.assertIs(move_call.args[0], replacement_message)
+        self.assertTrue(callable(move_call.kwargs["callback"]))
+        self.assertEqual(move_call.kwargs["index"], 0)
+
     def test_free_sense_search_keeps_the_deck_order(self):
         module = import_module("cards.pack.fne")
         player = MagicMock()

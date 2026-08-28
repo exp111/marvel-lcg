@@ -617,7 +617,11 @@ class Card(Object):
                 after_discard_message = Message.AfterCardDiscard(message.trigger, message.from_area, by_effect, discard_message)
                 after_messages.append(after_discard_message)
 
-            return_value = self.MoveToAreaInternal(message, callback=action)
+            return_value = self.MoveToAreaInternal(
+                message,
+                callback=action,
+                index=message.index,
+            )
             for after_message in after_messages:
                 after_message.Send()
             return return_value
