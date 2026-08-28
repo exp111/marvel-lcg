@@ -199,6 +199,40 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
             effect,
         )
 
+    def test_reflexes_reserves_one_copy_from_tucked_event_payment(self):
+        module = import_module("cards.pack.fne.echo.60040a")
+        ability = module.GetAbilities()[0]
+        can_spend = ability.conditions[-1]
+        reserved = MagicMock(name="reserved_reflexes")
+        extra = MagicMock(name="extra_reflexes")
+        tuck_area = MagicMock(name="echo_tuck_area")
+        identity = SimpleNamespace(
+            GetPlacedCardArea=MagicMock(return_value=tuck_area),
+        )
+        player = SimpleNamespace(
+            IsHero=MagicMock(return_value=True),
+            GetIdentity=MagicMock(return_value=identity),
+        )
+        paying_face = SimpleNamespace(card=SimpleNamespace(area=tuck_area))
+        message = SimpleNamespace(
+            GetToPlayer=MagicMock(return_value=player),
+            paying_for_effect=SimpleNamespace(this=paying_face),
+        )
+        effect = SimpleNamespace(this=reserved)
+
+        with patch.object(
+            module,
+            "GetPhotographicReflexesInHand",
+            return_value=[reserved, extra],
+        ):
+            self.assertFalse(can_spend(effect, message))
+            effect.this = extra
+            self.assertTrue(can_spend(effect, message))
+
+            effect.this = reserved
+            paying_face.card.area = MagicMock(name="other_area")
+            self.assertTrue(can_spend(effect, message))
+
 
 class TestEchoIdentityAndCards(unittest.TestCase):
 
