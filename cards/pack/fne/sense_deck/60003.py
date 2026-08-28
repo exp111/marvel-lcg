@@ -12,7 +12,10 @@ def GetAbilities() -> Sequence['Ability']:
         )
 
     def defeated_by_you(effect: 'Effect', message: 'Message2') -> bool:
-        return message.defeating_player == effect.GetInitiator()
+        return (
+            message.defeating_player == effect.GetInitiator()
+            and Condition.CheckWhichCard("YourIdentity", message.killer, effect)
+        )
 
     def removed_by_you(
         effect: 'Effect',

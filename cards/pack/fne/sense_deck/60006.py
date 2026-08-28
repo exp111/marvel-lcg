@@ -14,7 +14,7 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.CanPlayThisUpgradeCard(Scheme2),
         AbilityFactory.AfterUnitThwartScheme(
             AbilityType.Response,
-            "You",
+            "YourIdentity",
             "AttachedScheme",
             superior_taste,
         ).SetCostFunc(CostFunc.Discard("This")).SetLabel("thwart"),

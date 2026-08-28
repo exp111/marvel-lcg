@@ -15,7 +15,7 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.CanPlayThisUpgradeCard(Enemy),
         AbilityFactory.AfterUnitAttackUnit(
             AbilityType.Response,
-            "You",
+            "YourIdentity",
             "AttachedEnemy",
             radar_sense,
         ).SetCostFunc(CostFunc.Discard("This")).SetLabel("attack"),

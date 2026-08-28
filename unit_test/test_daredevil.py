@@ -9,6 +9,7 @@ from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
 from game.card.card import Card
+from game.card.face.card_type import Ally, Hero
 from game.card.factory import CardFactory
 
 
@@ -16,6 +17,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TestDaredevilRegistration(unittest.TestCase):
+
+    def test_hero_has_two_printed_thwart(self):
+        Ver.Initialize()
+        CardsDB.Initialize()
+        world = MagicMock()
+        world.GetPlayerNumIcon.return_value = 1
+
+        hero = CardFactory.CreateFace(
+            CardsDB.FindCardPaper("60001a"),
+            world,
+        )
+
+        self.assertEqual(hero.printed_thwart, 2)
 
     def test_starter_contains_the_complete_identity_and_nemesis_sets(self):
         starter = json.loads(
@@ -57,6 +71,57 @@ class TestDaredevilRegistration(unittest.TestCase):
 
 
 class TestSenseDeck(unittest.TestCase):
+
+    @staticmethod
+    def controlled_face(face_type, player):
+        face = object.__new__(face_type)
+        face.card = MagicMock()
+        face.card.state.is_swapping_end = False
+        face.card.GetController.return_value = player
+        face.consider_as = SimpleNamespace(card_types=[])
+        return face
+
+    def test_attack_and_thwart_senses_require_daredevils_identity(self):
+        player = MagicMock()
+        hero = self.controlled_face(Hero, player)
+        ally = self.controlled_face(Ally, player)
+        effect = SimpleNamespace(
+            this=SimpleNamespace(
+                card=SimpleNamespace(
+                    area=SimpleNamespace(
+                        flags=SimpleNamespace(is_obligations_area=False),
+                    ),
+                ),
+            ),
+            initiator=MagicMock(),
+        )
+        effect.initiator.IsScenario.return_value = False
+
+        cases = (
+            ("60005", 1),
+            ("60006", 0),
+        )
+        with patch("game.selector.Select.GetYou", return_value=player):
+            for card_id, actor_condition_index in cases:
+                with self.subTest(card_id=card_id):
+                    module = import_module(
+                        f"cards.pack.fne.sense_deck.{card_id}"
+                    )
+                    ability = module.GetAbilities()[1]
+                    actor_condition = ability.conditions[actor_condition_index]
+
+                    self.assertTrue(
+                        actor_condition(
+                            effect,
+                            SimpleNamespace(trigger=hero),
+                        )
+                    )
+                    self.assertFalse(
+                        actor_condition(
+                            effect,
+                            SimpleNamespace(trigger=ally),
+                        )
+                    )
 
     def test_setup_creates_one_shuffled_faceup_deck(self):
         module = import_module("cards.pack.fne")
@@ -239,6 +304,46 @@ class TestSenseDeck(unittest.TestCase):
             effect,
             in_this="Phase",
         )
+
+    def test_enemy_senses_require_your_identity_to_defeat_the_enemy(self):
+        player = MagicMock()
+        hero = self.controlled_face(Hero, player)
+        ally = self.controlled_face(Ally, player)
+        effect = MagicMock()
+        effect.GetInitiator.return_value = player
+        effect.this = SimpleNamespace(
+            card=SimpleNamespace(
+                area=SimpleNamespace(
+                    flags=SimpleNamespace(is_obligations_area=False),
+                ),
+            ),
+        )
+        effect.initiator.IsScenario.return_value = False
+        message = SimpleNamespace(
+            defeating_player=player,
+            killer=hero,
+        )
+
+        with patch("game.selector.Select.GetYou", return_value=player):
+            for card_id in ("60002", "60003"):
+                with self.subTest(card_id=card_id):
+                    module = import_module(f"cards.pack.fne.sense_deck.{card_id}")
+                    with patch.object(
+                        module.AbilityFactory,
+                        "WhenUnitBeDefeated",
+                    ) as factory:
+                        module.GetAbilities()
+                    defeated_by_you = factory.call_args.kwargs["conditions"][0]
+
+                    self.assertTrue(defeated_by_you(effect, message))
+
+                    message.killer = ally
+                    self.assertFalse(defeated_by_you(effect, message))
+                    message.killer = hero
+
+                    message.defeating_player = MagicMock()
+                    self.assertFalse(defeated_by_you(effect, message))
+                    message.defeating_player = player
 
 
 class TestDaredevilCards(unittest.TestCase):

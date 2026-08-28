@@ -61898,7 +61898,7 @@
             "type": "Hero",
             "name": "* Daredevil",
             "subtitle": "",
-            "desc": {"HP": "10", "ATK": "2", "THW": "1", "DEF": "2", "HS": "5"},
+            "desc": {"HP": "10", "ATK": "2", "THW": "2", "DEF": "2", "HS": "5"},
             "traits": ["DEFENDER", "MARTIAL ARTIST"],
             "set_name": "Daredevil",
             "text": "<i>Superhuman Senses</i> — <b>Action</b>: Play the top card of the [[Sense]] deck as if it were in your hand <i>(paying its cost)</i>."
@@ -62569,5 +62569,5 @@
             "text": "<b>When Revealed (Alter-Ego)</b>: If Kingpin is in play, he schemes. Otherwise, this card gains surge.\n<b>When Revealed (Hero)</b>: Deal damage to a hero equal to your hero's ATK."
         }
     ],
-    "checksum": "ab4ed3bd20b6a1a3a48fa2fcb37ed97a171fd4c494eae272525fc5e6c3d28d2b"
+    "checksum": "301affdce8a8b9701dcf3f730f96cf0c07be5ebea0f091341fd572772cc6894d"
 }
