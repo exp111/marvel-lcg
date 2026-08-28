@@ -59,16 +59,22 @@ export class Effect {
 
     static updateHighLight() {
         let new_added_highlight_target: number[] = []
+        let changed_search_target: number[] = []
+        const search_display_targets = new Set([
+            ...Effect.select_effect_obj.all_legal_targets,
+            ...Effect.select_effect_obj.full_search_display_targets,
+        ])
         for( const card_div of document.querySelectorAll<HTMLElement>('.card') ) {
             const object_id = Number(card_div.dataset.id!)
             const pay_effect_id = Number(card_div.dataset.pay_effect_id!)
+            const was_being_searched = card_div.classList.contains(ClassName.being_searching)
             card_div.classList.remove(ClassName.select_card)
             card_div.classList.remove(ClassName.select_pay_card)
 
             let should_peek = SelectStep.isCost() && Effect.select_effect_obj.getResources().includes(pay_effect_id)
 
             if( Effect.select_effect_obj.is_search || should_peek ) {
-                if( Effect.select_effect_obj.all_legal_targets.includes(object_id) || should_peek) {
+                if( search_display_targets.has(object_id) || should_peek) {
                     card_div.classList.add(ClassName.being_searching)
                 } else {
                     card_div.classList.remove(ClassName.being_searching)
@@ -172,12 +178,18 @@ export class Effect {
                     card_div.classList.remove('show-cost')
                 }
             }
+
+            if( was_being_searched != card_div.classList.contains(ClassName.being_searching) ) {
+                changed_search_target.push(object_id)
+            }
         }
 
-        if( Effect.select_effect_obj.is_search ) {
-            if( new_added_highlight_target.length > 0 && !SelectStep.isCost() ) {
-                Cards.render.printDeckWhenHighlightTarget(new_added_highlight_target)
-            }
+        const changed_deck_targets = [...new Set([
+            ...new_added_highlight_target,
+            ...changed_search_target,
+        ])]
+        if( changed_deck_targets.length > 0 && !SelectStep.isCost() ) {
+            Cards.render.printDeckWhenHighlightTarget(changed_deck_targets)
         }
     }
 
@@ -727,7 +739,8 @@ export class Effect {
                         can_select_all_as_target = false
                     }
 
-                    if( (can_select_all_as_target || ButtonSetting.auto_target_forced) && 
+                    if( Effect.select_effect_obj.full_search_display_targets.length == 0 &&
+                        (can_select_all_as_target || ButtonSetting.auto_target_forced) &&
                         !ButtonSetting.is_replay &&
                         ButtonSetting.auto_target )
                     {

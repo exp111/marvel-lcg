@@ -1592,6 +1592,7 @@ p:has(#timeout_text) {
         <summary>Other</summary>
         <label><input type="checkbox" id="hide_bug_report">Hide Error Message</label>
         <label><input type="checkbox" id="show_achievement">Show Achievements</label>
+        <label><input type="checkbox" id="show_deck_during_full_search">Show Deck During Full Search</label>
         <div style="display: flex;">
             <p>Statistics Notification: </p>
             <select id="statistics_notification">
@@ -2030,6 +2031,10 @@ p:has(#timeout_text) {
                 }
             })
 
+            if( document.querySelector('#show_deck_during_full_search').checked ) {
+                new_game.rules.push('show_deck_during_full_search')
+            }
+
             if( !new_game.rules.includes('crisis_of_infinite_deadpools') ) {
                 new_game.rules.push('no_crisis_of_infinite_deadpools')
             }
@@ -2136,7 +2141,7 @@ p:has(#timeout_text) {
     // Define the key for caching the form data object
     const CACHE_KEY = 'form_cache_data';
     cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
-        'hide_bug_report', 'show_achievement', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
+        'hide_bug_report', 'show_achievement', 'show_deck_during_full_search', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
         'mode', 'rules', 'challenge', 'settings_other',
         'timeout_slider',
     ]

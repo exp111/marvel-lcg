@@ -119,9 +119,11 @@ class CardRender {
         // -- 2. Sort cards according to area and settings --
         const cardArea = CardRender.getCardArea(areaName);
         const sortedCards = CardRender.getSortedCards(areaCards, cardArea, areaName, isSelecting, isTempSort);
+        const displaysTargetOrder = isSelecting && cardArea === 'deck' && Effect.select_effect_obj.display_in_target_order;
+        const displaysFullSearch = isSelecting && cardArea === 'deck' && Effect.select_effect_obj.full_search_display_targets.length > 0;
         parent.classList.toggle(
             'selection-order-top-first',
-            isSelecting && cardArea === 'deck' && Effect.select_effect_obj.display_in_target_order
+            displaysTargetOrder || displaysFullSearch
         );
     
         // -- 3. Filter visible/rendered cards based on hide rules --
@@ -210,6 +212,12 @@ class CardRender {
                 }
                 return [...areaCards];
             } else {
+                if (Effect.select_effect_obj.full_search_display_targets.length > 0) {
+                    // Preserve the deck's live bottom-to-top array order. The
+                    // top card remains the rightmost card in the open deck.
+                    return [...areaCards];
+                }
+
                 if (Effect.select_effect_obj.display_in_target_order) {
                     // Ordered selectors provide targets in the order they will be
                     // drawn or placed. Display that sequence from right to left so

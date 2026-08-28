@@ -23,12 +23,12 @@ def GetAbilities() -> Sequence['Ability']:
 
         initiator = effect.GetInitiator()
 
-        faces = initiator.player_deck.Get() + initiator.discard_pile.Get()
-        all_allies = Filter.ByType(faces, Ally)
-        all_upgrades = Filter.ByType(faces, Upgrade)
-        faces = all_allies + all_upgrades
+        search_faces = initiator.player_deck.Get() + initiator.discard_pile.Get()
+        all_allies = Filter.ByType(search_faces, Ally)
+        all_upgrades = Filter.ByType(search_faces, Upgrade)
+        selectable_faces = all_allies + all_upgrades
 
-        Faces.LookAt(faces, initiator, effect)
+        Faces.LookAt(selectable_faces, initiator, effect)
 
         def can_attach_to_ally(effect: 'Effect', upgrade: 'CardFace') -> bool:
             if Upgrade.IsType(upgrade):
@@ -46,7 +46,7 @@ def GetAbilities() -> Sequence['Ability']:
                 "",
                 lambda targets:
                     initiator.GainCard(targets, effect)
-            ).SetTarget(faces,
+            ).SetTarget(search_faces,
                 finder=CardFinder(
                     card_type=Upgrade|Ally,
                     check_effect_fn=can_attach_to_ally

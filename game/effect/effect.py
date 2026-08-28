@@ -569,9 +569,14 @@ class Effect(Object):
         if selector:
             is_search = selector.is_search
             display_in_target_order = selector.selector_end.display_in_target_order
+            full_search_display_targets = [
+                face.card.object_id
+                for face in selector.selector_end.full_search_display_faces
+            ]
         else:
             is_search = False
             display_in_target_order = False
+            full_search_display_targets = []
 
         # Fix "07042"
         failure_reason = self.failures.GetText(bind_player_id)
@@ -592,4 +597,5 @@ class Effect(Object):
             failure_reason=failure_reason,
             is_search=is_search,
             display_in_target_order=display_in_target_order,
+            full_search_display_targets=full_search_display_targets,
         )

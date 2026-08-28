@@ -293,6 +293,14 @@ class PlayerAction:
                 not filtered_effects[0].this.card.area.flags.is_processing:
                 need_choose = True
 
+            # Full-deck searches are intentionally interactive even when a
+            # forced choice has zero or one legal target. The player may need
+            # to inspect the rest of the deck before resolving the search.
+            if fallthrough_effect and fallthrough_effect.ability.selectors:
+                selector = fallthrough_effect.ability.selectors[0]
+                if selector and selector.force_choose:
+                    need_choose = True
+
             if fallthrough_effect == None:
                 for find_effect in filtered_effects:
                     if find_effect.must_choose:
