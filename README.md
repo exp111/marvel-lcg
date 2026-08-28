@@ -8,13 +8,15 @@ The upstream developers have given permission for modified builds to be publishe
 
 [Download Community Build v1.2.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.2.0)
 
-This prerelease adds the complete **Fear No Evil** player-card set, completes the **Age of Apocalypse** campaign rules and tracking, and updates core behavior for Rules Reference v1.8. Major changes include:
+This prerelease's featured content is **Daredevil** and **Echo**, now fully playable as the two **Fear No Evil** heroes. Both include starter decks, complete identity-specific cards, obligations, and registered nemesis sets; Daredevil also uses the separate Sense deck, while Echo can tuck and replay events through Watch and Learn and Photographic Reflexes. The release also completes the **Age of Apocalypse** campaign rules and tracking and updates core behavior for Rules Reference v1.8. Major changes include:
 
-- Complete Fear No Evil player cards, including Starting abilities and Team-Up ally replacement.
+- Fully playable Daredevil and Echo hero expansions, starter decks, signature cards, obligations, and nemesis sets.
+- Daredevil's Sense deck and Echo's tucked-event mechanics, together with the remaining Fear No Evil player cards and Starting abilities.
+- Corrected Daredevil and Echo interactions: Improvisation resolves every matching event trait without exhausting, and Enhanced Olfaction triggers when another effect removes the last threat from the main scheme.
+- Team-Up ally replacement and restriction validation now support non-event Team-Up cards such as Dance with the Devil.
 - Complete Age of Apocalypse campaign setup, missions, Prelates and Overseers, rewards, outcomes, persistent health, and campaign-log tracking.
-- Rules Reference v1.8 surge timing and Team-Up validation, plus improved multi-villain targeting and alternate-cost support.
-- Campaign-log save controls and modular-difficulty setup for Tower Defense, Project Wideawake, and Infinites.
-- Correct ordered-deck presentation, card-preview click handling, max-one-per-player limits, obligation choices, attack targeting, and numerous card and scenario interactions.
+- Rules Reference v1.8 surge timing, improved multi-villain targeting, alternate-cost support, campaign-log save controls, and reusable modular-difficulty setup.
+- Corrected ordered-deck presentation, card-preview click handling, max-one-per-player limits, obligation choices, attack targeting, and numerous card and scenario interactions.
 
 Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
 
@@ -31,7 +33,7 @@ The package remains unsigned. During release testing, the v1.2.0 executable pass
 - Complete standard and expert **Loki: God of Lies** content from Trickster Takeover, including the Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic.
 - Complete expert variants for the **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman** Civil War scenarios.
 - Complete campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
-- Complete **Fear No Evil** player-card set with Rules Reference v1.8 Team-Up support.
+- Fully playable **Daredevil** and **Echo** Fear No Evil hero expansions with starter decks, signature cards, obligations, nemesis sets, Daredevil's Sense deck, Echo's tucked-event mechanics, and Rules Reference v1.8 Team-Up support.
 - New **Synthezoid Smackdown** cooperative scenarios and encounter sets.
 - New playable **Wonder Man** and **Hercules** hero expansions with starter decks.
 - Campaign setup choices and campaign logs persist locally, with in-game controls for saving campaign-log updates.
