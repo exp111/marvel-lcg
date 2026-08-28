@@ -22,5 +22,5 @@ def GetAbilities() -> Sequence['Ability']:
             in_harms_way,
         ).SetPlay().SetLabel("attack", "thwart")
         .SetTarget(Enemy)
-        .SetTarget2(Scheme2, is_optional=False),
+        .SetTarget2(Scheme2),
     ]

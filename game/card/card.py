@@ -235,12 +235,13 @@ class Card(Object):
     def IsInHand(self) -> bool:
         return self.area.flags.is_in_hand
     def IsLikeInHand(self) -> bool:
-        if self.can_state.is_like_in_hand == None:
-            from game.message import Message
-            message = Message.CheckIfFaceIsLikeInHand(self.face)
-            message.Send()
-            self.can_state.is_like_in_hand = message.is_like_in_hand
-        return self.can_state.is_like_in_hand
+        if self.can_state.is_like_in_hand != None:
+            return self.can_state.is_like_in_hand
+
+        from game.message import Message
+        message = Message.CheckIfFaceIsLikeInHand(self.face)
+        message.Send()
+        return message.is_like_in_hand
     def IsCanReadyBy(self, by_effect: 'Effect') -> bool:
         return not self.IsReady()
         # TODO: Use the follow

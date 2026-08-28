@@ -604,6 +604,62 @@ class TestFearNoEvilMechanics(unittest.TestCase):
             effect,
         )
 
+    def test_in_harms_way_is_playable_when_either_half_has_a_target(self):
+        ability = import_module("cards.pack.fne.60050").GetAbilities()[-1]
+        enemy_selector, scheme_selector = ability.selectors
+
+        self.assertTrue(enemy_selector.is_optional)
+        self.assertTrue(scheme_selector.is_optional)
+
+        for enemy_targets, scheme_targets in [
+            ([MagicMock(name="enemy")], []),
+            ([], [MagicMock(name="scheme")]),
+        ]:
+            with self.subTest(
+                has_enemy=bool(enemy_targets),
+                has_scheme=bool(scheme_targets),
+            ):
+                effect = MagicMock()
+                effect.ability = ability
+                effect.bind_message = None
+                effect.context = SimpleNamespace(
+                    all_legal_targets=[],
+                    target_range=None,
+                )
+                effect.world.rule.v16_confuse_stun = False
+
+                with patch.object(
+                    enemy_selector,
+                    "GetAllLegalTargets",
+                    return_value=enemy_targets,
+                ), patch.object(
+                    scheme_selector,
+                    "GetAllLegalTargets",
+                    return_value=scheme_targets,
+                ):
+                    self.assertTrue(
+                        EffectChecker(effect).UpdateLegalTargets()
+                    )
+
+    def test_confused_cancels_all_of_in_harms_way(self):
+        ability = import_module("cards.pack.fne.60050").GetAbilities()[-1]
+        effect = _make_status_effect(ability, "confused")
+
+        self.assertEqual(ability.labels, ["attack", "thwart"])
+        with patch.object(
+            ability.selectors[0],
+            "GetAllLegalTargets",
+        ) as get_enemies, patch.object(
+            ability.selectors[1],
+            "GetAllLegalTargets",
+        ) as get_schemes:
+            self.assertTrue(EffectChecker(effect).UpdateLegalTargets())
+
+        get_enemies.assert_not_called()
+        get_schemes.assert_not_called()
+        self.assertEqual(effect.context.all_legal_targets, [])
+        self.assertEqual(effect.context.target_range, (0, 0))
+
     def test_dagger_only_reduces_consequential_damage_with_cloak_in_play(self):
         module = import_module("cards.pack.fne.60021")
         ability = module.GetAbilities()[-1]

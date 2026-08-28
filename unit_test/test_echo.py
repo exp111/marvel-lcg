@@ -8,6 +8,7 @@ from unittest.mock import MagicMock, patch
 from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
+from game.card.card import Card
 from game.card.factory import CardFactory
 
 
@@ -138,6 +139,29 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
 
         self.assertEqual(ability.when, module.Message.CheckIfFaceIsLikeInHand)
         self.assertFalse(ability.is_play)
+
+    def test_reflexes_play_permission_is_rechecked_when_hand_state_changes(self):
+        card = SimpleNamespace(
+            can_state=SimpleNamespace(is_like_in_hand=None),
+            face=MagicMock(),
+        )
+        messages = [
+            SimpleNamespace(is_like_in_hand=value, Send=MagicMock())
+            for value in [False, True, False]
+        ]
+
+        with patch(
+            "game.message.Message.CheckIfFaceIsLikeInHand",
+            side_effect=messages,
+        ) as check_like_in_hand:
+            self.assertFalse(Card.IsLikeInHand(card))
+            self.assertTrue(Card.IsLikeInHand(card))
+            self.assertFalse(Card.IsLikeInHand(card))
+
+        self.assertEqual(check_like_in_hand.call_count, 3)
+        self.assertIsNone(card.can_state.is_like_in_hand)
+        for message in messages:
+            message.Send.assert_called_once_with()
 
     def test_reflexes_discount_only_applies_to_event_tucked_under_echo(self):
         module = import_module("cards.pack.fne.echo.60037a")
