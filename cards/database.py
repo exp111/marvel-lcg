@@ -217,7 +217,7 @@ class CardsDB:
             CardsDB.ability_cache[origin_card_id] = ability_module.GetAbilities()
             if not Build.release:
                 paper = CardsDB.FindCardPaper(origin_card_id)
-                if paper.type == "Event" and "TeamUp" in paper.desc:
+                if "TeamUp" in paper.desc:
                     for ability in CardsDB.ability_cache[origin_card_id]:
                         selectors = ability.selectors
                         assert selectors and selectors[0] and selectors[0].target_text == "TeamUp", f"{origin_card_id=}"

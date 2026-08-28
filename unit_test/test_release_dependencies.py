@@ -1,8 +1,28 @@
+import json
 from pathlib import Path
 import unittest
 
 
 class TestReleaseDependencies(unittest.TestCase):
+
+    def test_every_selectable_hero_set_has_box_art(self):
+        project_root = Path(__file__).resolve().parents[1]
+        sets_info = json.loads(
+            (project_root / "data" / "sets_info.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        textures = project_root / "assets" / "textures" / "sets"
+
+        missing = [
+            name
+            for name, info in sets_info.items()
+            if name != "checksum"
+            and info["heroes"]
+            and not (textures / f"{name.replace('/', '')}.webp").is_file()
+        ]
+
+        self.assertEqual(missing, [])
 
     def test_release_version_matches_patch_notes(self):
         project_root = Path(__file__).resolve().parents[1]

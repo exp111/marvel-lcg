@@ -122,6 +122,29 @@ class TestFearNoEvilContent(unittest.TestCase):
                     "TeamUp",
                 )
 
+    def test_team_up_selector_accepts_dance_with_the_devil_upgrade(self):
+        helper = import_module("game.selector.selector_target_helper")
+        Ver.Initialize()
+        CardsDB.Initialize()
+        world = MagicMock()
+        world.GetPlayerNumIcon.return_value = 1
+        upgrade = CardFactory.CreateFace(
+            CardsDB.FindCardPaper("60031"),
+            world,
+        )
+        team_up_units = [MagicMock(), MagicMock()]
+        effect = SimpleNamespace(this=upgrade)
+
+        with patch.object(
+            upgrade,
+            "GetTeamUpUnits",
+            return_value=team_up_units,
+        ):
+            targets = helper.get_TeamUp(effect)
+
+        self.assertEqual(targets, team_up_units)
+        self.assertTrue(helper.HasTeamUp.IsType(upgrade))
+
     def test_team_up_matches_an_identity_and_an_ally(self):
         daredevil_identity = MagicMock()
         daredevil_identity.IsName.side_effect = lambda name: name == "Daredevil"
