@@ -30,21 +30,15 @@ The package remains unsigned. During release testing, the v1.2.0 executable pass
 
 ## Community build highlights
 
-- Complete standard and expert **Loki: God of Lies** content from Trickster Takeover, including the Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic.
-- Complete expert variants for the **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman** Civil War scenarios.
-- Complete campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
-- Fully playable **Daredevil** and **Echo** Fear No Evil hero expansions with starter decks, signature cards, obligations, nemesis sets, Daredevil's Sense deck, Echo's tucked-event mechanics, and Rules Reference v1.8 Team-Up support.
-- New **Synthezoid Smackdown** cooperative scenarios and encounter sets.
-- New playable **Wonder Man** and **Hercules** hero expansions with starter decks.
-- Campaign setup choices and campaign logs persist locally, with in-game controls for saving campaign-log updates.
-- Agents of S.H.I.E.L.D. evidence rewards, Setup abilities, Evidence Seed handling, and persistent Executive Board attachments follow the campaign rules.
-- Wonder Man and Hercules include their complete registered nemesis content, with corrected obligation, attack, activation, and fallback-search behavior.
-- The latest Trickster Takeover corrections cover Enchantress charms, Loki Avatar health swaps, attached Focus bonuses, Synergy event modifiers, side-scheme icons, and Shatter-counter resolution.
-- MarvelCDB imports distinguish same-name identities such as the two Black Panthers and Spider-Men, and identity-code imports no longer produce a false missing-file warning.
-- Ordered encounter-card selections preserve their displayed order, and forced player obligations resolve through the player who holds them.
-- An adjustable card-interaction speed setting changes presentation timing without affecting gameplay resolution.
-- Improved hotseat prompt ownership, card-image loading, browser cache handling, attack-animation cleanup, and card interaction reliability.
-- Rules corrections cover fixed-total threat and damage distribution, attached-identity restrictions, obligation targeting, and cards present in the original release.
+- **Campaigns:** Complete playable campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
+- **Playable heroes:** Full **Wonder Man**, **Hercules**, **Daredevil**, and **Echo** hero expansions, each with a starter deck, identity-specific cards, an obligation, and a registered nemesis set. Daredevil includes his separate Sense deck, while Echo includes her tucked-event mechanics.
+- **Player cards:** The complete **Fear No Evil** player-card set, including Starting and Team-Up cards, together with the aspect and basic player cards released alongside Wonder Man and Hercules.
+- **Synthezoid Smackdown:** Standard and expert cooperative scenarios against **She-Hulk** and **Vision**, supported by the S.H.I.E.L.D. Ops, Thunderbolts, Taskmaster, Deadly Duo, Young Avengers, Scarlet Twins, Moon Knight, and Royal Guard encounter sets.
+- **Trickster Takeover:** Complete standard and expert **Loki: God of Lies** scenarios, including the Loki Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic content.
+- **Civil War:** Expert scenario variants for **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman**.
+- Campaign implementations cover setup, progression, campaign logs, persistent health and cards, player assignments, missions, evidence, rewards, and campaign-specific scenario changes.
+- Rules and card-engine implementations support the added content's Starting abilities, Rules Reference v1.8 Team-Up ally replacement, multi-villain targeting, alternate resource costs, and reusable modular-difficulty setup.
+- The community content is registered throughout the card database, starter-deck library, scenario loader, encounter-set system, and campaign framework for play alongside the original Irefrixs content.
 
 ## Release and distribution
 
