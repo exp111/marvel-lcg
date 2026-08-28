@@ -646,6 +646,80 @@ class PlayerAction:
                 )
         return temp_effects
 
+    def CanPlayEffectLikeInHand(
+        self,
+        play_effect: 'Effect',
+        message: 'Message2',
+        *,
+        ignore_resources_cost: bool=False,
+        update_resources_cost: int=0,
+        excluded_payment_faces: Sequence['CardFace']|None=None,
+    ) -> bool:
+        from game.card.face.attribute.has_cost import HasCost
+        from game.event.manager import EventManager
+        from game.operate.effects import Effects
+
+        player = self.GetPlayer()
+        face = play_effect.this.CastTo(HasCost)
+        previous_like_in_hand = face.card.can_state.is_like_in_hand
+        previous_excluded = play_effect.context.excluded_payment_faces
+        temp_effects = self._RegisterLikeInTurnCostModifiers(
+            face,
+            [play_effect],
+            ignore_resources_cost=ignore_resources_cost,
+            update_resources_cost=update_resources_cost,
+        )
+
+        face.card.can_state.is_like_in_hand = True
+        play_effect.context.excluded_payment_faces = list(
+            excluded_payment_faces or []
+        )
+        try:
+            return bool(EventManager.FilterAvailableEffects(
+                message,
+                [play_effect],
+                player,
+                player.world,
+                None,
+            ))
+        finally:
+            play_effect.context.excluded_payment_faces = previous_excluded
+            face.card.can_state.is_like_in_hand = previous_like_in_hand
+            Effects.UnRegister(temp_effects)
+
+    def PlayEffectLikeInHand(
+        self,
+        play_effect: 'Effect',
+        message: 'Message2',
+        *,
+        ignore_resources_cost: bool=False,
+        update_resources_cost: int=0,
+    ) -> 'Effect|None':
+        from game.card.face.attribute.has_cost import HasCost
+        from game.operate.effects import Effects
+
+        player = self.GetPlayer()
+        face = play_effect.this.CastTo(HasCost)
+        previous_like_in_hand = face.card.can_state.is_like_in_hand
+        temp_effects = self._RegisterLikeInTurnCostModifiers(
+            face,
+            [play_effect],
+            ignore_resources_cost=ignore_resources_cost,
+            update_resources_cost=update_resources_cost,
+        )
+
+        face.card.can_state.is_like_in_hand = True
+        try:
+            return player.ChooseEffects(
+                [play_effect],
+                message,
+                forced=False,
+                priority=play_effect.ability.priority,
+            )
+        finally:
+            face.card.can_state.is_like_in_hand = previous_like_in_hand
+            Effects.UnRegister(temp_effects)
+
     def PlayOneCardLikeInTurn(self, faces: List['CardFace'],
                             by_effect: 'Effect',
                             *,

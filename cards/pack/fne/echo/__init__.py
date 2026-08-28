@@ -30,14 +30,80 @@ class BuffDaredevilEventDiscount(Buff):
         return self.discount > 0
 
 
-def GetPhotographicReflexesInHand(player: 'Player') -> List['CardFace']:
-    return CardFinder(card_ids=PHOTOGRAPHIC_REFLEXES_IDS).Checks(
-        player.hand_cards.GetAll()
-    )
+def RegisterPhotographicReflexesPlayAbilities(face: 'CardFace') -> None:
+    if not ASPECT_OR_BASIC_EVENT.Check(face):
+        return
 
+    play_effects = [
+        effect for effect in face.effect.GetAll()
+        if effect.ability.is_play
+    ]
 
-def HasPhotographicReflexesInHand(effect: 'Effect') -> bool:
-    return bool(GetPhotographicReflexesInHand(effect.GetInitiator()))
+    for play_effect in play_effects:
+        already_registered = any(
+            getattr(
+                effect.ability,
+                "photographic_reflexes_play_effect",
+                None,
+            ) is play_effect
+            for effect in face.effect.given_effects
+        )
+        if already_registered:
+            continue
+
+        def is_tucked_under_echo_in_hero_form(
+            effect: 'Effect',
+            message: 'Message2',
+        ) -> bool:
+            player = effect.GetInitiator()
+            return (
+                player.IsHero() and
+                effect.this.card.area ==
+                player.GetIdentity().GetPlacedCardArea()
+            )
+
+        def can_discard_for_this_play(
+            effect: 'Effect',
+            reflexes: 'CardFace',
+            play_effect: 'Effect'=play_effect,
+        ) -> bool:
+            if not effect.bind_message:
+                return False
+            return effect.GetInitiator().CanPlayEffectLikeInHand(
+                play_effect,
+                effect.bind_message,
+                update_resources_cost=-2,
+                excluded_payment_faces=[reflexes],
+            )
+
+        def play_with_photographic_reflexes(
+            effect: 'Effect',
+            message: 'Message2',
+            play_effect: 'Effect'=play_effect,
+        ) -> None:
+            effect.GetInitiator().PlayEffectLikeInHand(
+                play_effect,
+                message,
+                update_resources_cost=-2,
+            )
+
+        proxy = Ability(
+            play_effect.ability.type,
+            play_effect.ability.when,
+            [is_tucked_under_echo_in_hero_form],
+            play_with_photographic_reflexes,
+        ).SetName(play_effect.ability.name)
+        proxy.SetCostFunc(CostFunc.Discard(
+            Select.From(
+                "YourHandCards",
+                finder=CardFinder(
+                    card_ids=PHOTOGRAPHIC_REFLEXES_IDS,
+                    check_effect_fn=can_discard_for_this_play,
+                ),
+            )
+        )).NoOutOfPlayLimit()
+        proxy.photographic_reflexes_play_effect = play_effect
+        face.effect.RegisterGiven(proxy)
 
 
 def DaredevilEventDiscountAbilities() -> List['Ability']:

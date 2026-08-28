@@ -9,6 +9,7 @@ from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
 from game.card.factory import CardFactory
+from game.player.action.player_action import PlayerAction
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -100,9 +101,14 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
             GetInitiator=MagicMock(return_value=player),
         )
 
-        ability.operation(effect, played_message(event))
+        with patch.object(
+            module,
+            "RegisterPhotographicReflexesPlayAbilities",
+        ) as register:
+            ability.operation(effect, played_message(event))
 
         hero.TuckCardUnderHere.assert_called_once_with(event, effect)
+        register.assert_called_once_with(event)
         player.AskDiscardFaces.assert_called_once_with(tucked, (1, 1), effect)
 
     def test_watch_and_learn_rejects_event_played_from_echo_tuck_area(self):
@@ -132,23 +138,54 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
         event.card.area = MagicMock()
         self.assertFalse(ability.conditions[-1](MagicMock(), message))
 
-    def test_reflexes_discards_a_chosen_copy_before_starting_tucked_play(self):
-        module = import_module("cards.pack.fne.echo.60037a")
-        ability = module.GetAbilities()[1]
-        cost = ability.cost_funcs[0]
-        tucked_event = MagicMock()
-        tucked_area = SimpleNamespace(GetAll=MagicMock(return_value=[tucked_event]))
-        identity = SimpleNamespace(
-            GetPlacedCardArea=MagicMock(return_value=tucked_area),
-        )
-        player = SimpleNamespace(
-            GetIdentity=MagicMock(return_value=identity),
-            PlayOneCardLikeInTurn=MagicMock(),
-        )
-        effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
+    def test_reflexes_proxy_uses_the_tucked_events_normal_timing(self):
+        module = import_module("cards.pack.fne.echo")
+        original = module.AbilityFactory.WhenInYourPlayTurn(
+            module.AbilityType.Action,
+            lambda effect, message: None,
+        ).SetPlay()
+        play_effect = SimpleNamespace(ability=original)
+        event = MagicMock()
+        event.effect.GetAll.return_value = [play_effect]
+        event.effect.given_effects = []
 
-        self.assertEqual(ability.when, module.Message.WhenPlayerInTurn)
-        self.assertEqual(ability.name, "Photographic Reflexes")
+        with patch.object(
+            module.ASPECT_OR_BASIC_EVENT,
+            "Check",
+            return_value=True,
+        ):
+            module.RegisterPhotographicReflexesPlayAbilities(event)
+
+        proxy = event.effect.RegisterGiven.call_args.args[0]
+        self.assertEqual(proxy.when, original.when)
+        self.assertEqual(proxy.type, original.type)
+        self.assertFalse(proxy.is_play)
+        self.assertTrue(proxy.ignore.out_of_play)
+        self.assertIs(
+            proxy.photographic_reflexes_play_effect,
+            play_effect,
+        )
+
+    def test_reflexes_proxy_discards_before_playing_that_same_event(self):
+        module = import_module("cards.pack.fne.echo")
+        original = module.AbilityFactory.WhenInYourPlayTurn(
+            module.AbilityType.Action,
+            lambda effect, message: None,
+        ).SetPlay()
+        play_effect = SimpleNamespace(ability=original)
+        event = MagicMock()
+        event.effect.GetAll.return_value = [play_effect]
+        event.effect.given_effects = []
+
+        with patch.object(
+            module.ASPECT_OR_BASIC_EVENT,
+            "Check",
+            return_value=True,
+        ):
+            module.RegisterPhotographicReflexesPlayAbilities(event)
+
+        proxy = event.effect.RegisterGiven.call_args.args[0]
+        cost = proxy.cost_funcs[0]
         self.assertIsInstance(cost, module.CostFunc.Discard)
         self.assertEqual(
             cost.selector.selector_filter.finder.card_ids,
@@ -158,24 +195,100 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
             cost.selector.selector_target.raw_target,
             "YourHandCards",
         )
-        with patch.object(
-            module.ASPECT_OR_BASIC_EVENT,
-            "Checks",
-            return_value=[tucked_event],
-        ):
-            ability.operation(effect, MagicMock())
 
-        player.PlayOneCardLikeInTurn.assert_called_once_with(
-            [tucked_event],
-            effect,
+        player = SimpleNamespace(PlayEffectLikeInHand=MagicMock())
+        effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
+        message = MagicMock()
+        proxy.operation(effect, message)
+        player.PlayEffectLikeInHand.assert_called_once_with(
+            play_effect,
+            message,
             update_resources_cost=-2,
-            forced=True,
         )
 
-    def test_reflexes_action_requires_an_aspect_or_basic_event_under_echo(self):
+    def test_reflexes_proxy_requires_hero_form_and_echo_tuck_area(self):
+        module = import_module("cards.pack.fne.echo")
+        original = module.AbilityFactory.WhenInYourPlayTurn(
+            module.AbilityType.Action,
+            lambda effect, message: None,
+        ).SetPlay()
+        play_effect = SimpleNamespace(ability=original)
+        event = MagicMock()
+        event.effect.GetAll.return_value = [play_effect]
+        event.effect.given_effects = []
+
+        with patch.object(
+            module.ASPECT_OR_BASIC_EVENT,
+            "Check",
+            return_value=True,
+        ):
+            module.RegisterPhotographicReflexesPlayAbilities(event)
+
+        proxy = event.effect.RegisterGiven.call_args.args[0]
+        tuck_area = MagicMock()
+        player = SimpleNamespace(
+            IsHero=MagicMock(return_value=True),
+            GetIdentity=MagicMock(
+                return_value=SimpleNamespace(
+                    GetPlacedCardArea=MagicMock(return_value=tuck_area)
+                )
+            ),
+        )
+        effect = SimpleNamespace(
+            this=SimpleNamespace(card=SimpleNamespace(area=tuck_area)),
+            GetInitiator=MagicMock(return_value=player),
+        )
+
+        self.assertTrue(proxy.conditions[0](effect, MagicMock()))
+        player.IsHero.return_value = False
+        self.assertFalse(proxy.conditions[0](effect, MagicMock()))
+        player.IsHero.return_value = True
+        effect.this.card.area = MagicMock()
+        self.assertFalse(proxy.conditions[0](effect, MagicMock()))
+
+    def test_reflexes_prompt_only_offers_a_copy_that_leaves_event_playable(self):
+        module = import_module("cards.pack.fne.echo")
+        original = module.AbilityFactory.WhenInYourPlayTurn(
+            module.AbilityType.Action,
+            lambda effect, message: None,
+        ).SetPlay()
+        play_effect = SimpleNamespace(ability=original)
+        event = MagicMock()
+        event.effect.GetAll.return_value = [play_effect]
+        event.effect.given_effects = []
+
+        with patch.object(
+            module.ASPECT_OR_BASIC_EVENT,
+            "Check",
+            return_value=True,
+        ):
+            module.RegisterPhotographicReflexesPlayAbilities(event)
+
+        proxy = event.effect.RegisterGiven.call_args.args[0]
+        can_discard = proxy.cost_funcs[0].selector.selector_filter.finder \
+            .check_effect_fns[0]
+        reflexes = MagicMock()
+        bind_message = MagicMock()
+        player = SimpleNamespace(CanPlayEffectLikeInHand=MagicMock(
+            return_value=True
+        ))
+        effect = SimpleNamespace(
+            bind_message=bind_message,
+            GetInitiator=MagicMock(return_value=player),
+        )
+
+        self.assertTrue(can_discard(effect, reflexes))
+        player.CanPlayEffectLikeInHand.assert_called_once_with(
+            play_effect,
+            bind_message,
+            update_resources_cost=-2,
+            excluded_payment_faces=[reflexes],
+        )
+
+    def test_reflexes_sync_is_constant_and_registers_each_tucked_event(self):
         module = import_module("cards.pack.fne.echo.60037a")
         ability = module.GetAbilities()[1]
-        tucked = [MagicMock()]
+        tucked = [MagicMock(), MagicMock()]
         effect = SimpleNamespace(
             this=SimpleNamespace(
                 GetPlacedCardArea=MagicMock(
@@ -184,13 +297,73 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
             )
         )
 
+        self.assertEqual(ability.type, module.AbilityType.NonKeyword)
+        self.assertEqual(ability.cost_funcs, [])
         with patch.object(
-            module.ASPECT_OR_BASIC_EVENT,
-            "Checks",
-            side_effect=[[tucked[0]], []],
+            module,
+            "RegisterPhotographicReflexesPlayAbilities",
+        ) as register:
+            ability.operation(effect, MagicMock())
+        self.assertEqual(
+            register.call_args_list,
+            [unittest.mock.call(tucked[0]), unittest.mock.call(tucked[1])],
+        )
+
+    def test_reflexes_playability_check_excludes_the_copy_to_discard(self):
+        player_action = MagicMock(spec=PlayerAction)
+        player = MagicMock()
+        player_action.GetPlayer.return_value = player
+        modifier = MagicMock()
+        player_action._RegisterLikeInTurnCostModifiers.return_value = [modifier]
+        face = MagicMock()
+        face.CastTo.return_value = face
+        face.card.can_state.is_like_in_hand = None
+        play_effect = SimpleNamespace(
+            this=face,
+            context=SimpleNamespace(excluded_payment_faces=[]),
+        )
+        reflexes = MagicMock()
+        message = MagicMock()
+
+        def check_filter(*args):
+            self.assertTrue(face.card.can_state.is_like_in_hand)
+            self.assertEqual(
+                play_effect.context.excluded_payment_faces,
+                [reflexes],
+            )
+            return [play_effect]
+
+        with patch(
+            "game.event.manager.EventManager.FilterAvailableEffects",
+            side_effect=check_filter,
         ):
-            self.assertTrue(ability.conditions[-1](effect, MagicMock()))
-            self.assertFalse(ability.conditions[-1](effect, MagicMock()))
+            self.assertTrue(PlayerAction.CanPlayEffectLikeInHand(
+                player_action,
+                play_effect,
+                message,
+                update_resources_cost=-2,
+                excluded_payment_faces=[reflexes],
+            ))
+
+        self.assertIsNone(face.card.can_state.is_like_in_hand)
+        self.assertEqual(play_effect.context.excluded_payment_faces, [])
+        modifier.UnRegisterSelf.assert_called_once_with()
+
+    def test_reflexes_excluded_copy_is_not_counted_as_a_resource(self):
+        module = import_module("cards.pack.fne.echo")
+        ability = module.AbilityFactory.CheckThisCanDropPay()
+        reflexes = MagicMock()
+        effect = SimpleNamespace(this=reflexes)
+        message = SimpleNamespace(
+            paying_for_effect=SimpleNamespace(
+                context=SimpleNamespace(
+                    excluded_payment_faces=[reflexes]
+                )
+            )
+        )
+
+        self.assertFalse(ability.conditions[-1](effect, message))
+        reflexes.IsLikeInHand.assert_not_called()
 
     def test_reflexes_cards_have_no_resource_payment_lockout(self):
         module = import_module("cards.pack.fne.echo.60040a")

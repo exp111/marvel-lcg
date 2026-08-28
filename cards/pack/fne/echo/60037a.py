@@ -10,6 +10,7 @@ def GetAbilities() -> Sequence['Ability']:
         if not this.TuckCardUnderHere(message.played_face, effect):
             return
 
+        RegisterPhotographicReflexesPlayAbilities(message.played_face)
         tucked = this.GetPlacedCardArea().GetAll()
         overflow = len(tucked) - 3
         if overflow > 0:
@@ -19,29 +20,12 @@ def GetAbilities() -> Sequence['Ability']:
                 effect,
             )
 
-    def play_tucked_event_with_photographic_reflexes(
+    def sync_photographic_reflexes_play_abilities(
         effect: 'Effect',
         message: 'Message.WhenPlayerInTurn',
     ) -> None:
-        player = effect.GetInitiator()
-        player.PlayOneCardLikeInTurn(
-            ASPECT_OR_BASIC_EVENT.Checks(
-                player.GetIdentity().GetPlacedCardArea().GetAll()
-            ),
-            effect,
-            update_resources_cost=-2,
-            forced=True,
-        )
-
-    def has_tucked_event(
-        effect: 'Effect',
-        message: 'Message.WhenPlayerInTurn',
-    ) -> bool:
-        return bool(
-            ASPECT_OR_BASIC_EVENT.Checks(
-                effect.this.GetPlacedCardArea().GetAll()
-            )
-        )
+        for face in effect.this.GetPlacedCardArea().GetAll():
+            RegisterPhotographicReflexesPlayAbilities(face)
 
     return [
         AbilityFactory.AfterPlayerPlayedCard(
@@ -58,17 +42,8 @@ def GetAbilities() -> Sequence['Ability']:
             ],
         ),
         AbilityFactory.WhenInYourPlayTurn(
-            AbilityType.HeroAction,
-            play_tucked_event_with_photographic_reflexes,
-            conditions=[
-                has_tucked_event,
-            ],
-        ).SetName("Photographic Reflexes")
-        .SetCostFunc(CostFunc.Discard(
-            Select.From(
-                "YourHandCards",
-                finder=CardFinder(card_ids=PHOTOGRAPHIC_REFLEXES_IDS),
-            )
-        )),
+            AbilityType.NonKeyword,
+            sync_photographic_reflexes_play_abilities,
+        ),
         *DaredevilEventDiscountAbilities(),
     ]
