@@ -46,6 +46,7 @@ class SetupCards:
                 trait: "CardFace.TRAITS|None"=None,
                 card_type: Type['TC']|CardFace=CardFace,
                 only_set_aside: bool=False,
+                include_in_play: bool=True,
                 **kwargs: Unpack['CardFinder.KWArgs'],
                 ) -> 'CardFace|None':
         from game.operate.worlds import Worlds
@@ -66,6 +67,7 @@ class SetupCards:
                 name=name,
                 trait=trait,
                 card_type=card_type,
+                include_in_play=include_in_play,
                 **kwargs)
         for face in faces:
             if isinstance(reveal, Player):
@@ -107,6 +109,7 @@ class SetupCards:
                  card_type: Type['TC']|CardFace=CardFace,
                  choose: Literal["First", "Random", "Ask"]="First",
                  include_in_play: bool=True,
+                 shuffle_others_into_encounter_deck: bool=False,
                  **kwargs: Unpack['CardFinder.KWArgs'],
                  ):
         range = (1,1) if choose == "First" else "All"
@@ -131,6 +134,13 @@ class SetupCards:
             if flip_to_trait or flip_to_name:
                 face.FlipTo(by_effect, trait=flip_to_trait, name=flip_to_name)
             face.AttachTo2(attach_to, by_effect)
+
+        if shuffle_others_into_encounter_deck:
+            Faces.ShuffleAllTo(
+                [other_face for other_face in faces if other_face is not face],
+                "EncounterDeck",
+                by_effect,
+            )
 
     @staticmethod
     def DealAsFacedownEncounterCard(by_effect: 'Effect',

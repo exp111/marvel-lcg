@@ -148,11 +148,15 @@ class AbilityFactoryCardMove:
         def check_which_card(effect: 'Effect', message: 'Message.AfterCardAttachTo') -> bool:
             return Condition.CheckWhichCard(which_card, message.trigger, effect)
 
+        def check_to_which_card(effect: 'Effect', message: 'Message.AfterCardAttachTo') -> bool:
+            return Condition.CheckWhichCard(to_which_card, message.to_face, effect)
+
         return Ability(
             ability_type,
             Message.AfterCardAttachTo,
             [
                 check_which_card,
+                check_to_which_card,
                 *conditions
             ],
             operation,

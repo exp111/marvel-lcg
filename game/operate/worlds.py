@@ -93,13 +93,14 @@ class Worlds:
     ################################################################################
     # Scheme
     @staticmethod
-    def FindMainScheme(face: 'CardFace|Effect') -> 'MainScheme|None':
+    def FindMainScheme(face: 'CardFace|Effect', *, against_player: 'Player|None'=None) -> 'MainScheme|None':
         from game.message import Message
         from game.card.face.card_type import MainScheme
         from game.effect.rule import Ties
 
-        if isinstance(face, Effect):
-            face = face.this
+        source_effect = face if isinstance(face, Effect) else None
+        if source_effect:
+            face = source_effect.this
 
         # face = effect.this
         game_area = face.card.game_area
@@ -117,10 +118,26 @@ class Worlds:
             if main_scheme:
                 ret_main_scheme = main_scheme
         if not ret_main_scheme:
+            if against_player is None and source_effect is not None:
+                initiator = source_effect.GetInitiator()
+                if isinstance(initiator, Player):
+                    against_player = initiator
+            if against_player is not None:
+                for scheme in schemes:
+                    if scheme.card.GetOwner() == against_player:
+                        ret_main_scheme = scheme
+                        break
+        if not ret_main_scheme:
             player = face.GetOwner()
             if isinstance(player, Player):
-                schemes = Worlds.GetMainSchemes(game_area)
-                ret_main_scheme = player.AskChooseFace(schemes, Ties("Select Main Scheme", world=face.card.world))
+                owned_schemes = [
+                    scheme for scheme in schemes
+                    if scheme.card.GetOwner() == player
+                ]
+                if len(owned_schemes) == 1:
+                    ret_main_scheme = owned_schemes[0]
+                else:
+                    ret_main_scheme = player.AskChooseFace(schemes, Ties("Select Main Scheme", world=face.card.world))
         if not ret_main_scheme:
             for scheme in Worlds.GetMainSchemes(game_area):
                 ret_main_scheme = scheme
@@ -324,6 +341,71 @@ class Worlds:
     def GetCrisisFaces(game_area_effect: 'GameArea|Effect') -> List['CanCrisis']:
         faces = Worlds.GetOnFieldCards(game_area_effect)
         return CardFinder(crisis=True).Checks2(faces, CanCrisis)
+
+    @staticmethod
+    def GetPlayAreaPlayer(face: 'CardFace') -> 'Player|None':
+        """Return the player whose play area contains ``face``, if any."""
+        area = face.card.area
+        if isinstance(area.play_area, Player):
+            return area.play_area
+
+        # Upgrades and attachments live in a deck bound to the card they are
+        # attached to. Follow that card so attachments on identities/minions
+        # remain local while attachments on villains/schemes remain global.
+        if area.bind_card is not None:
+            return Worlds.GetPlayAreaPlayer(area.bind_card.face)
+
+        if SchemeSide2.IsType(face):
+            return None
+        if Minion.IsType(face):
+            return face.CastTo(Minion).engaged_player
+
+        controller = face.GetControlBy()
+        return controller if isinstance(controller, Player) else None
+
+    @staticmethod
+    def GetCrisisFacesAffectingMainScheme(scheme: 'MainScheme') -> List['CanCrisis']:
+        """Find the crisis icons that prevent threat removal from ``scheme``."""
+        if scheme.paper.set_name != "Protection Racket":
+            return Worlds.GetCrisisFaces(scheme.card.GetGameArea())
+
+        # Protection Racket gives each player their own main scheme. Its rules
+        # make scenario-area crisis icons affect every one of those schemes,
+        # while a crisis icon in a player's play area affects only that
+        # player's scheme.
+        owner = scheme.card.GetOwner()
+        crisis_faces: List['CanCrisis'] = []
+        for game_area in scheme.card.world.game_areas:
+            for face in Worlds.GetCrisisFaces(game_area):
+                play_area_player = Worlds.GetPlayAreaPlayer(face)
+                if play_area_player is None or play_area_player == owner:
+                    if face not in crisis_faces:
+                        crisis_faces.append(face)
+        return crisis_faces
+
+    @staticmethod
+    def GetMainSchemesAffectedByCrisis(face: 'CanCrisis') -> List['MainScheme']:
+        """Find main schemes whose UI should show ``face`` as an effect."""
+        world = face.card.world
+        same_area_schemes = Worlds.GetMainSchemes(face.card.GetGameArea())
+        protection_racket_schemes = [
+            scheme for scheme in Worlds.GetAllMainSchemes(world)
+            if scheme.paper.set_name == "Protection Racket"
+        ]
+        if not protection_racket_schemes:
+            return same_area_schemes
+
+        play_area_player = Worlds.GetPlayAreaPlayer(face)
+        affected = [
+            scheme for scheme in same_area_schemes
+            if scheme.paper.set_name != "Protection Racket"
+        ]
+        affected.extend(
+            scheme for scheme in protection_racket_schemes
+            if play_area_player is None or scheme.card.GetOwner() == play_area_player
+        )
+        return list(dict.fromkeys(affected))
+
     @staticmethod
     def GetCrisisIcons(game_area_effect: 'GameArea|Effect') -> int:
         return len(Worlds.GetCrisisFaces(game_area_effect))

@@ -8,7 +8,7 @@ from game.player import *
 from cards.paper import Paper
 
 @final
-class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasAccelerationIcon, HasAmplify, HasHazard, HasSetup, HasVictory, ClassCard, CanPlaceCounter, CanAttach, FinalType):
+class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasVillainous, HasAccelerationIcon, HasAmplify, HasHazard, HasSetup, HasVictory, ClassCard, CanPlaceCounter, CanAttach, FinalType):
     @override
     def __init__(self, paper: 'Paper') -> None:
         self.attack_consequential_damage = 0

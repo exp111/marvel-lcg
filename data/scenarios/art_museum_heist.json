@@ -1,0 +1,26 @@
+{
+    "version": "0.5.8",
+    "name": "Art Museum Heist",
+    "kind": "main-scenario",
+    "villain": [],
+    "expert": false,
+    "schemes": [
+        "60121a,60121b"
+    ],
+    "set_aside": [],
+    "encounters": [
+        "60122",
+        "60123",
+        "60124",
+        "60125",
+        "60126",
+        "60126",
+        "60127",
+        "60127"
+    ],
+    "encounter_sets": [],
+    "modular_sets": [
+        "cops",
+        "the_owl"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "version": "0.5.8",
+    "name": "Hammerhead",
+    "kind": "underling",
+    "villain": ["60086", "60087"],
+    "expert": false,
+    "schemes": [],
+    "set_aside": [],
+    "encounters": [
+        "60089", "60090", "60091", "60092", "60092", "60093",
+        "60093", "60094", "60095", "60096", "60096"
+    ],
+    "encounter_sets": ["standard"],
+    "modular_sets": []
+}

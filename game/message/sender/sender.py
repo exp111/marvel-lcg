@@ -355,6 +355,9 @@ class Message(SenderRound, SenderPlayer, SenderCard, SenderTokenCounter, SenderD
                 self.property.ranged = True
                 message = Message.WhenAttackGainKeyword('ranged', by_effect, self)
                 message.Send()
+        def SetLostRanged(self, by_effect: 'Effect'):
+            if not self.property.lost_ranged:
+                self.property.lost_ranged = True
         def GainOverKill(self, by_effect: 'Effect'):
             if not self.property.overkill:
                 from game.message import Message

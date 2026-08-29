@@ -1,0 +1,12 @@
+{
+    "version": "0.5.8",
+    "name": "Stop the Presses!",
+    "kind": "main-scenario",
+    "villain": [],
+    "expert": false,
+    "schemes": ["60151a,60151b"],
+    "set_aside": ["60152", "60153", "60154", "60155", "60156"],
+    "encounters": ["60157", "60158", "60158"],
+    "encounter_sets": [],
+    "modular_sets": ["tombstone", "tracksuit_mafia"]
+}

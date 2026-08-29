@@ -7,6 +7,7 @@ class AttackProperty(PowerProperty):
 
     overkill: bool = field(default=False)
     ranged: bool = field(default=False) # ignore retaliate
+    lost_ranged: bool = field(default=False)
     piercing: bool = field(default=False) # discard tough
     other_characters_cannot_defend: bool = field(default=False)
     must_defend_with_ally: bool = field(default=False)

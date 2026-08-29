@@ -92,7 +92,10 @@ class CanScheme(CardFace):
             boost_size = this.GetBoostCardNum(would_sch_message) + property.give_additional_boost
             this.GiveFacedownBoostCardsInternal(boost_size, GameRule(this), would_sch_message)
 
-        main_scheme = Worlds.FindMainScheme(self)
+        main_scheme = Worlds.FindMainScheme(
+            self,
+            against_player=property.against_player,
+        )
         if not main_scheme:
             return None
 
@@ -121,7 +124,10 @@ class CanScheme(CardFace):
         value = property.GetScheme(this)
 
         if not target_scheme:
-            target_scheme = Worlds.FindMainScheme(self)
+            target_scheme = Worlds.FindMainScheme(
+                self,
+                against_player=property.against_player,
+            )
         if not target_scheme:
             return None
 

@@ -146,7 +146,7 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
         ignored_crisis = False
         ignored_patrol = False
 
-        crisis_faces = Worlds.GetCrisisFaces(self.card.GetGameArea())
+        crisis_faces = Worlds.GetCrisisFacesAffectingMainScheme(self)
         if crisis_faces:
             if not by_effect.IsIgnoreKeyword('Crisis', by_effect):
                 message = Message.IconsActivate_Text(self, crisis_faces, 'Crisis')

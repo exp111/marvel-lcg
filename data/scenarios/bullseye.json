@@ -1,0 +1,30 @@
+{
+    "version": "0.5.8",
+    "name": "Bullseye",
+    "kind": "underling",
+    "villain": [
+        "60065",
+        "60066"
+    ],
+    "expert": false,
+    "schemes": [],
+    "set_aside": [
+        "60068a,60068b"
+    ],
+    "encounters": [
+        "60069",
+        "60070",
+        "60071",
+        "60071",
+        "60071",
+        "60072",
+        "60073",
+        "60074",
+        "60075",
+        "60075"
+    ],
+    "encounter_sets": [
+        "standard"
+    ],
+    "modular_sets": []
+}

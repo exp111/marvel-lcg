@@ -89,7 +89,8 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         "THUNDERBOLT", "BOARD MEMBER", "UNMASKED", "INHERITOR", "BIRD", "SERPENT SOCIETY", 
         "ENHANCED", 
         "ENCHANTMENT", "SHAPESHIFT", "ENTHRALLED", "DEFIANT", "UNREGISTERED", "ATLANTIS", 
-        "DEFENDER", "MARTIAL ARTIST", "MIDNIGHT SUN", "ATTORNEY", "POLICE", "DANCE", "SENSE",
+        "DEFENDER", "MARTIAL ARTIST", "MIDNIGHT SUN", "ATTORNEY", "POLICE", "DANCE", "SENSE", "UNDERLING", "HAND", "ART", "MAGGIA",
+        "DISASTER", "TRACKSUIT", "DAILY BUGLE", "PRISONER", "DECEIVED", "BADOON",
     ]
 
     TRAITS_LIST: List[TRAITS] = Types.LiteralToList(TRAITS)
@@ -107,7 +108,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         'snoop', 'medical', 'pym', 'size', 'mystic', 'psionic', 'warrior',
         'time', 'test', 'active', 'energy', 'glider', 'bomb', 'mental',
         'vengeance', 'physical', 'ammo', 'charge', 'toon', 'training', 'chime',
-        'rage', 'delay',
+        'rage', 'delay', 'drain',
         'steel', 'reflection', 'command', 'growth', 'poison', 'barrage', 'evasion',
         'fury', 'sand',
 
@@ -128,7 +129,8 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         'charm', 'crash',
         'fuel', 'stronghold', 'skill',
 
-        'rebirth', 'labor',
+        'rebirth', 'labor', 'civilian', 'stamina',
+        'support', 'grip', 'spot', 'stilt', 'threat',
     ]
 
     COUNTER_LIST: List[COUNTER] = Types.LiteralToList(COUNTER)
@@ -150,7 +152,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         "Cyclops", "Flight", "Super Strength", "Telepathy", "Four Horsemen", 
         "Blue Moon", "Genosha", "Savage Land", "Magneto", "Shadow King", "Dreadpool", "Kree Fanatic", 
         "Thunderbolts", "Executive Board Evidence", "Frostbite", "Iceman", "Spider-Man - Miles Morales",
-        "Daredevil", "Sense Deck", "Daredevil Nemesis",
+        "Daredevil", "Sense Deck", "Daredevil Nemesis", "Echo", "Echo Nemesis", "Bullseye", "Art Museum Heist", "The Getaway", "Protection Racket", "The Raft Breakout", "Stop the Presses!", "Kingpin", "Disasters", "Cops", "Drive", "The Owl", "Tombstone", "Tracksuit Mafia",
     ]
 
     BASIC_POWER = Literal["ATK", "THW", "REC", "SCH", "DEF"]

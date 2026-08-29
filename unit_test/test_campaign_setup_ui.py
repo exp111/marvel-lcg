@@ -22,6 +22,20 @@ class TestCampaignSetupUI(unittest.TestCase):
 
         self.assertIn("if( div.classList.contains('lock') )", html)
 
+    def test_set_aside_villain_can_supply_the_scenario_selector_image(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            'const image_card = villain || scheme || data["set_aside"]?.[0]',
+            html,
+        )
+        self.assertIn(
+            'image_name = image_card ? get_name(image_card) : "no_image"',
+            html,
+        )
+
     def test_campaign_settings_are_loaded_and_evidence_seed_can_be_randomized(self):
         html = (
             Path(__file__).resolve().parents[1] / "public" / "scene.html"

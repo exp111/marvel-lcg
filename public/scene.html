@@ -56,14 +56,20 @@
         display: none;
     }
 
+    #split-scenario-selector[hidden] {
+        display: none;
+    }
+
     div:has(#modular-sets),
-    div:has(#encounter-sets) {
+    div:has(#encounter-sets),
+    div:has(#split-scenarios) {
         flex: 0 0 100%;
         width: 0px; /* hack */
         max-width: 100%;
         flex: 0 0 100%;
     }
     #set-content .details,
+    #split-scenarios,
     #modular-sets,
     #encounter-sets {
         flex: 0 0 100%;
@@ -121,7 +127,8 @@
     }
 
     #modular-sets div img,
-    #encounter-sets div img {
+    #encounter-sets div img,
+    #split-scenarios div img {
         padding: 0;
         margin: 0;
     }
@@ -139,12 +146,24 @@
 
     #modular-sets button,
     #encounter-sets button,
+    #split-scenarios button,
     #set-content button {
         position: relative;
         margin: 2px;
         padding: 0;
         display: inline-flex;
         border-radius: .25em;
+    }
+
+    #split-scenarios button:disabled,
+    #encounter-sets button:disabled {
+        cursor: not-allowed;
+        filter: grayscale(1) brightness(.38);
+        opacity: .72;
+    }
+
+    #split-scenario-selector.disabled-choice > legend {
+        color: #777;
     }
 
     .debug-only-option {
@@ -316,7 +335,7 @@
 </head>
 <body>
     <fieldset style="flex-direction: column;">
-        <legend>Scenario</legend>
+        <legend id="scenario-selector-title">Scenario</legend>
 
         <div id="set-images"></div>
 
@@ -346,6 +365,10 @@ class SetInfo{
             /** @type {string[]} */
             this.scenarios = obj['scenarios'];
             /** @type {string[]} */
+            this.underlings = obj['underlings'] || [];
+            /** @type {string[]} */
+            this.fixed_scenarios = obj['fixed_scenarios'] || [];
+            /** @type {string[]} */
             this.heroes = obj['heroes'];
             /** @type {string[]} */
             this.encounters = obj['encounters'];
@@ -355,6 +378,58 @@ class SetInfo{
 
 /** @type{Object.<string, SetInfo>} */
 let sets_json = {}
+
+let selected_underling = null
+let selected_main_scenario = null
+
+function mergeInterchangeableScenario() {
+    if( !selected_underling || !selected_main_scenario ) {
+        scenario = ""
+        return
+    }
+
+    const combine = (first, second) => [...(first || []), ...(second || [])]
+    const combineUnique = (first, second) => [...new Set(combine(first, second))]
+    const merged = {
+        ...selected_underling,
+        ...selected_main_scenario,
+        name: `${selected_underling.name} / ${selected_main_scenario.name}`,
+        villain: [...selected_underling.villain],
+        expert: selected_underling.expert,
+        schemes: [...selected_main_scenario.schemes],
+        set_aside: combine(selected_underling.set_aside, selected_main_scenario.set_aside),
+        encounters: combine(selected_underling.encounters, selected_main_scenario.encounters),
+        encounter_sets: combineUnique(selected_underling.encounter_sets, selected_main_scenario.encounter_sets),
+        modular_sets: combineUnique(selected_underling.modular_sets, selected_main_scenario.modular_sets),
+    }
+    delete merged.kind
+    SetScenario(merged)
+}
+
+function resetInterchangeableScenario() {
+    selected_underling = null
+    selected_main_scenario = null
+    scenario = ""
+}
+
+function setInterchangeableScenarioSelectionEnabled(enabled) {
+    const splitSelector = document.querySelector("#split-scenario-selector")
+    splitSelector.classList.toggle('disabled-choice', !enabled)
+    document.querySelectorAll("#split-scenarios button").forEach(button => {
+        button.disabled = !enabled
+    })
+}
+
+function setStandardEncounterSetSelectionEnabled(enabled) {
+    document.querySelectorAll('#encounter-sets button[data-family="standard"]').forEach(button => {
+        button.disabled = !enabled
+        if( !enabled ) {
+            button.classList.remove('click')
+            button.classList.remove('lock')
+            button.classList.remove('required-family')
+        }
+    })
+}
 
 var last_current_package = ""
 
@@ -418,7 +493,8 @@ async function createScenarios() {
 
     var select = document.querySelector("#set-images");
     for( let key in sets_json ) {
-        if( sets_json[key].scenarios.length == 0 ) {
+        const hasInterchangeableParts = sets_json[key].underlings.length > 0
+        if( sets_json[key].scenarios.length == 0 && !hasInterchangeableParts ) {
             continue
         }
 
@@ -427,7 +503,10 @@ async function createScenarios() {
             const img = document.createElement("img");
             img.style.pointerEvents = "none"
             img.src = "/sets/" + key
-            summary.dataset.total = sets_json[key].scenarios.length * 2
+            const primaryChoices = hasInterchangeableParts
+                ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+                : sets_json[key].scenarios
+            summary.dataset.total = primaryChoices.length * 2
             // summary.innerHTML = key
             summary.appendChild(img)
             summary.classList.add("set")
@@ -437,8 +516,10 @@ async function createScenarios() {
             const match = key.match(/^([\w\d]+)\./);
             summary.setAttribute('data-title', match ? match[1] : key);
             details.classList.add("details")
+            details.classList.add("primary-details")
             details.style.display = "none"
             summary.dataset.package = key
+            summary.dataset.interchangeable = hasInterchangeableParts
             if( key == "Weekly Challenges" ) {
                 summary.dataset.total = sets_json[key].scenarios.length
                 for( let text of sets_json[key].scenarios ) {
@@ -455,9 +536,10 @@ async function createScenarios() {
 
         const [summary, details] = createDetailsButton()
 
-        async function createButtons(text) {
+        async function createButtons(text, choiceType="combined") {
             var option = document.createElement("button");
             option.value = text;
+            option.dataset.choiceType = choiceType
             if( !file_names.includes(text) ) {
                 option.disabled = true
                 option.textContent = getFileName(text);
@@ -466,17 +548,21 @@ async function createScenarios() {
             else {
                 let img = document.createElement("img");
                 let data = await getScenario(option.value)
-                let scheme = data["villain"][0]
+                let villain = data["villain"]?.[0]
+                let scheme = data["schemes"]?.[0]
                 let image_name = ""
                 if( 'challenges' in data ) {
                     image_name = `${data['challenges'][0]}`
                     img.classList.add('challenge')
-                } else if( scheme ) {
-                    image_name = get_name(scheme)
                 } else {
-                    image_name = get_name(data["schemes"][0])
+                    // Some villains (such as Typhoid Mary) begin set aside and
+                    // enter play through setup, so their preset has no villain
+                    // or scheme available to use as the selector image.
+                    const image_card = villain || scheme || data["set_aside"]?.[0]
+                    image_name = image_card ? get_name(image_card) : "no_image"
                 }
-                option.setAttribute('data-text', data['encounters'].length)
+                option.setAttribute('data-text', (data['encounters'] || []).length)
+                option.dataset.scenario = JSON.stringify(data)
 
                 img.src = image_name
                 option.appendChild(img)
@@ -485,15 +571,42 @@ async function createScenarios() {
             return option
         }
 
-        for( let text of sets_json[key].scenarios ) {
-            details.appendChild(await createButtons(text))
+        const primaryChoices = hasInterchangeableParts
+            ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+            : sets_json[key].scenarios
+        for( let text of primaryChoices ) {
+            const choiceType = hasInterchangeableParts && !sets_json[key].fixed_scenarios.includes(text)
+                ? "underling"
+                : "combined"
+            details.appendChild(await createButtons(text, choiceType))
             if( key != "Weekly Challenges" && key != 'Custom' ) {
-                details.appendChild(await createButtons(`${text}_expert`))
+                details.appendChild(await createButtons(`${text}_expert`, choiceType))
             }
         }
 
+        const scenarioDetails = document.createElement("div")
+        scenarioDetails.classList.add("details")
+        scenarioDetails.classList.add("scenario-details")
+        scenarioDetails.style.display = "none"
+        if( hasInterchangeableParts ) {
+            for( let text of sets_json[key].scenarios ) {
+                if( sets_json[key].fixed_scenarios.includes(text) ) {
+                    continue
+                }
+                scenarioDetails.appendChild(await createButtons(text, "main-scenario"))
+            }
+            if( sets_json[key].scenarios.length == 0 ) {
+                const message = document.createElement("p")
+                message.textContent = "No scenarios from this set have been implemented yet."
+                scenarioDetails.appendChild(message)
+            }
+            summary.appendChild(scenarioDetails)
+        }
+
         summary.onclick = (e0) =>{
-            let details = e0.target.querySelector(".details")
+            const selectedSet = e0.currentTarget
+            const interchangeable = selectedSet.dataset.interchangeable == "true"
+            let details = selectedSet.querySelector(".primary-details")
             let details2 = details.cloneNode(true)
             details2.style.display = "flex"
             details2.querySelectorAll("button").forEach(e => {
@@ -501,15 +614,53 @@ async function createScenarios() {
                     e.parentNode.querySelectorAll("button").forEach(e2 => {
                         e2.classList.remove('click')
                     })
-                    loadScenario(e.value)
-                    generateInputs(e0.target.dataset.package)
+                    if( e.dataset.choiceType == "underling" ) {
+                        setInterchangeableScenarioSelectionEnabled(true)
+                        setStandardEncounterSetSelectionEnabled(true)
+                        selected_underling = JSON.parse(e.dataset.scenario)
+                        mergeInterchangeableScenario()
+                    } else {
+                        resetInterchangeableScenario()
+                        setInterchangeableScenarioSelectionEnabled(false)
+                        loadScenario(e.value)
+                    }
+                    generateInputs(selectedSet.dataset.package)
                     e.classList.add('click')
                 }
             })
             document.querySelectorAll('#set-images>div').forEach(e => {
                 e.classList.remove('click')
             })
-            e0.target.classList.add('click')
+            selectedSet.classList.add('click')
+
+            const scenarioTitle = document.querySelector("#scenario-selector-title")
+            const splitSelector = document.querySelector("#split-scenario-selector")
+            const splitScenarios = document.querySelector("#split-scenarios")
+            resetInterchangeableScenario()
+            if( interchangeable ) {
+                scenarioTitle.textContent = "Villains"
+                splitSelector.hidden = false
+                const scenarioDetails = selectedSet.querySelector(".scenario-details").cloneNode(true)
+                scenarioDetails.style.display = "flex"
+                scenarioDetails.querySelectorAll("button").forEach(e => {
+                    e.onclick = () => {
+                        e.parentNode.querySelectorAll("button").forEach(e2 => {
+                            e2.classList.remove('click')
+                        })
+                        selected_main_scenario = JSON.parse(e.dataset.scenario)
+                        mergeInterchangeableScenario()
+                        generateInputs(selectedSet.dataset.package)
+                        e.classList.add('click')
+                    }
+                })
+                splitScenarios.replaceChildren(scenarioDetails)
+                setInterchangeableScenarioSelectionEnabled(true)
+            } else {
+                scenarioTitle.textContent = "Scenario"
+                splitSelector.hidden = true
+                splitScenarios.replaceChildren()
+                setInterchangeableScenarioSelectionEnabled(true)
+            }
 
             document.querySelector("#set-content").replaceChildren()
             document.querySelector("#set-content").appendChild(details2)
@@ -520,7 +671,7 @@ async function createScenarios() {
 
     document.querySelectorAll("#set-images>div.set").forEach(
         e => {
-            let length = Array.from(e.querySelectorAll('div button:not(:disabled)')).length
+            let length = Array.from(e.querySelectorAll('.primary-details button:not(:disabled)')).length
             let total = e.dataset.total
             let text = ` (${length}/${total})`
             if( length == total ) {
@@ -538,6 +689,16 @@ async function createScenarios() {
 }
 
 </script>
+
+<fieldset id="split-scenario-selector" hidden style="flex-direction: column; position: relative;">
+    <legend>Scenarios</legend>
+
+    <fieldset style="gap: 0; padding: 0; border: none">
+        <div>
+            <div id="split-scenarios"></div>
+        </div>
+    </fieldset>
+</fieldset>
 
 <fieldset style="flex-direction: column; position: relative;">
     <legend>Standard Sets</legend>
@@ -1788,6 +1949,8 @@ p:has(#timeout_text) {
 
                 document.querySelectorAll("#encounter-sets button").forEach(click_encounter_set)
                 document.querySelectorAll("#modular-sets button").forEach(click_encounter_set)
+                const allowStandardSets = j['standard_sets'] !== false
+                setStandardEncounterSetSelectionEnabled(allowStandardSets)
                 document.querySelector("#modular-sets").classList.add('hide-not-click')
                 document.querySelectorAll(`#modular-sets .nemesis`).forEach(e=>e.classList.remove('hide'))
 

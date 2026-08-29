@@ -1,6 +1,6 @@
 from . import *
 
-def TreatAsMinion(face: 'CardFace', as_card_name: str, engage_player: 'Player', effect: 'Effect', *, process: Callable[['Minion', 'Any', 'Effect'], Any]|None=None) -> bool:
+def TreatAsMinion(face: 'CardFace', as_card_name: str, engage_player: 'Player', effect: 'Effect', *, process: Callable[['Minion', 'Any', 'Effect'], Any]|None=None, while_counter: 'CardFace.COUNTER|None'=None) -> bool:
     from game.ability.factory import AbilityFactory
     from game.card.factory import CardFactory
     from game.operate.effects import Effects
@@ -19,6 +19,8 @@ def TreatAsMinion(face: 'CardFace', as_card_name: str, engage_player: 'Player', 
     if (Ally.IsType(face) or Hero.IsType(face)) and Minion.IsType(minion):
 
         minion.pic_id = face.paper.card_id
+        minion.SetName(face.printed_name)
+        minion.SetSubtitle(face.printed_subtitle)
 
         # Hack, for "50171"
         minion.ability.Add(*CardsDB.FindAbilities(paper.card_id, paper.pack, paper.set_name))
@@ -80,6 +82,19 @@ def TreatAsMinion(face: 'CardFace', as_card_name: str, engage_player: 'Player', 
                 unregister_after_exec=False
             )
         ]
+        if while_counter is not None:
+            effects.extend(
+                minion.effect.RegisterTemp(
+                    AbilityFactory.AfterCardRemovedCounter(
+                        AbilityType.Temp2,
+                        "This",
+                        while_counter,
+                        action,
+                        is_last_counter=True,
+                    ),
+                    unregister_after_exec=False,
+                )
+            )
         return True
     return False
 

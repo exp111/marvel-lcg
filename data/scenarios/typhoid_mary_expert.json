@@ -1,0 +1,16 @@
+{
+    "version": "0.5.8",
+    "name": "Typhoid Mary",
+    "kind": "underling",
+    "villain": [],
+    "expert": true,
+    "schemes": [],
+    "set_aside": ["60111a,60111b"],
+    "encounters": [
+        "60112", "60113a,60113b", "60114", "60115", "60115",
+        "60116", "60117", "60118", "60118", "60119",
+        "60120", "60120", "60120"
+    ],
+    "encounter_sets": ["standard", "expert"],
+    "modular_sets": []
+}

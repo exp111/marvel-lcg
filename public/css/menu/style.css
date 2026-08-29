@@ -82,6 +82,7 @@ input[type="button"] {
 
 #set-images div:hover,
 #set-content button:hover,
+#split-scenarios button:hover,
 #modular-sets button:hover,
 #encounter-sets button:hover {
     filter: drop-shadow(1px 2px 3px white);
@@ -89,6 +90,7 @@ input[type="button"] {
 
 #set-images div,
 #set-content button,
+#split-scenarios button,
 #modular-sets button,
 #encounter-sets button {
     filter: drop-shadow(2px 4px 6px black);
@@ -96,6 +98,7 @@ input[type="button"] {
 
 #set-images div:hover img,
 #set-content button:hover img,
+#split-scenarios button:hover img,
 #modular-sets button:hover img,
 #encounter-sets button:hover img {
     /* outline-color: white; */
@@ -104,6 +107,7 @@ input[type="button"] {
 
 #set-images .click img,
 #set-content .click img,
+#split-scenarios .click img,
 #modular-sets .click img,
 #encounter-sets .click img {
     outline-color: red;
@@ -126,6 +130,7 @@ input[type="button"] {
 
 #set-images div.click:hover img,
 #set-content button.click:hover img,
+#split-scenarios button.click:hover img,
 #modular-sets button.click:hover img,
 #encounter-sets button.click:hover img {
     border: 1px black solid;
@@ -134,6 +139,7 @@ input[type="button"] {
 img[id^="img-heroes"],
 #set-images img,
 #set-content img,
+#split-scenarios img,
 #modular-sets img,
 #encounter-sets img {
     width: var(--card--width);
@@ -160,11 +166,13 @@ img[id^="img-heroes"],
 #modular-sets > button > img,
 #encounter-sets > button > img,
 #set-content > div.details > button > img,
+#split-scenarios > div.details > button > img,
 #set-images > div:has(>.details) {
     cursor: pointer;
 }
 
 #set-content button::after,
+#split-scenarios button::after,
 #modular-sets button::after,
 #encounter-sets button::after{
     content: attr(data-text);
@@ -215,6 +223,7 @@ img[id^="img-heroes"],
 }
 
 #set-content div button.click::after,
+#split-scenarios div button.click::after,
 #modular-sets button.click::after,
 #encounter-sets button.click::after{
     color: red;
@@ -225,6 +234,7 @@ img[id^="img-heroes"],
 }
 
 #set-content div button::after,
+#split-scenarios div button::after,
 #modular-sets button::after,
 #encounter-sets button::after{
     color:gray;
@@ -232,6 +242,7 @@ img[id^="img-heroes"],
 }
 
 #set-content div button:hover::after,
+#split-scenarios div button:hover::after,
 #modular-sets button:hover::after,
 #encounter-sets button:hover::after{
     content: "";
@@ -240,6 +251,7 @@ img[id^="img-heroes"],
 
 .text-border,
 #set-content button,
+#split-scenarios button,
 #modular-sets button,
 #encounter-sets button,
 label::after,
