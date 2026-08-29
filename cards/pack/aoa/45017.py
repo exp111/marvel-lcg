@@ -2,6 +2,44 @@ from . import *
 
 # Suit Up
 
+def _CanAttachToAnAlly(upgrade: 'Upgrade') -> bool:
+    from typing import get_args
+
+    play_abilities = upgrade.ability.Find(func_name="Play")
+    for ability in play_abilities:
+        selector = next(
+            (
+                selector for selector in ability.selectors
+                if selector and selector.target_text != "TeamUp"
+            ),
+            None,
+        )
+        if not selector:
+            continue
+
+        card_type = selector.selector_filter.finder.card_type
+        if card_type == None and selector.target_text and \
+            CardFinderHelper.IsFinderTarget(selector.target_text):
+            card_type = CardFinderHelper.GetTargetType(selector.target_text)
+
+        target_types = get_args(card_type) or (card_type,)
+        if any(
+            isinstance(target_type, type) and issubclass(Ally, target_type)
+            for target_type in target_types
+        ):
+            return True
+    return False
+
+
+def _GetRequiredTargetCount(effect: 'Effect') -> int:
+    legal_targets = effect.context.all_legal_targets
+    available_types = int(bool(Filter.ByType(legal_targets, Ally))) + \
+        int(bool(Filter.ByType(legal_targets, Upgrade)))
+
+    # Keep the normal search invalid when no result exists. The full-search
+    # viewer explicitly overrides this to (0, 0) when the setup option is on.
+    return max(1, available_types)
+
 def GetAbilities() -> Sequence['Ability']:
 
     # def can_be_attached_to(upgrade: 'Upgrade', ally: 'Ally') -> bool:
@@ -32,10 +70,7 @@ def GetAbilities() -> Sequence['Ability']:
 
         def can_attach_to_ally(effect: 'Effect', upgrade: 'CardFace') -> bool:
             if Upgrade.IsType(upgrade):
-                for ally in all_allies:
-                    if upgrade.CanAttachTo(ally):
-                        return True
-                return False
+                return _CanAttachToAnAlly(upgrade)
             else:
                 assert Ally.IsType(upgrade)
                 return True
@@ -52,8 +87,7 @@ def GetAbilities() -> Sequence['Ability']:
                     check_effect_fn=can_attach_to_ally
                 ),
                 select_rule="DifferentType",
-                range=(2, 2), by_search=True,
-                check_again_fn=has_one_ally_and_one_attachable_upgrade
+                range=(_GetRequiredTargetCount, 2), by_search=True,
             ),
         )
 
@@ -69,15 +103,6 @@ def GetAbilities() -> Sequence['Ability']:
     #                 return True
     #         return False
     #     return [x for x in deck_cards if Ally.IsType(x) and has_upgrade(x)]
-
-    def has_one_ally_and_one_attachable_upgrade(effect: 'Effect', targets: Sequence['CardFace']) -> bool:
-        allies = Filter.ByType(targets, Ally)
-        upgrades = Filter.ByType(targets, Upgrade)
-        if allies and upgrades:
-            ally = allies[0]
-            upgrade = upgrades[0]
-            return upgrade.CanAttachTo(ally)
-        return False
 
     return [
         AbilityFactory.WhenInYourPlayTurn(

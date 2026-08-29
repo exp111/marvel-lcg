@@ -1,5 +1,6 @@
 from pathlib import Path
 from types import SimpleNamespace
+import importlib
 import unittest
 from unittest.mock import MagicMock, patch
 
@@ -362,6 +363,54 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         )
         self.assertIn("Faces.LookAt(selectable_faces, initiator, effect)", source)
         self.assertIn(").SetTarget(search_faces,", source)
+        self.assertIn("range=(_GetRequiredTargetCount, 2)", source)
+        self.assertNotIn("check_again_fn=has_one_ally", source)
+
+    def test_suit_up_requires_only_the_available_result_types(self):
+        suit_up = importlib.import_module("cards.pack.aoa.45017")
+        ally = SimpleNamespace(kind="ally")
+        upgrade = SimpleNamespace(kind="upgrade")
+
+        def required_count(targets):
+            effect = SimpleNamespace(
+                context=SimpleNamespace(all_legal_targets=targets)
+            )
+            with patch.object(
+                suit_up.Ally,
+                "IsType",
+                side_effect=lambda target: target is ally,
+            ), patch.object(
+                suit_up.Upgrade,
+                "IsType",
+                side_effect=lambda target: target is upgrade,
+            ):
+                return suit_up._GetRequiredTargetCount(effect)
+
+        self.assertEqual(required_count([]), 1)
+        self.assertEqual(required_count([ally]), 1)
+        self.assertEqual(required_count([upgrade]), 1)
+        self.assertEqual(required_count([ally, upgrade]), 2)
+
+    def test_suit_up_upgrade_is_independently_legal_if_it_targets_allies(self):
+        suit_up = importlib.import_module("cards.pack.aoa.45017")
+
+        def make_upgrade(target_type):
+            selector = SimpleNamespace(
+                target_text=None,
+                selector_filter=SimpleNamespace(
+                    finder=SimpleNamespace(card_type=target_type)
+                ),
+            )
+            play_ability = SimpleNamespace(selectors=[selector])
+            return SimpleNamespace(
+                ability=SimpleNamespace(
+                    Find=MagicMock(return_value=[play_ability])
+                )
+            )
+
+        self.assertTrue(suit_up._CanAttachToAnAlly(make_upgrade(suit_up.Ally)))
+        self.assertTrue(suit_up._CanAttachToAnAlly(make_upgrade(suit_up.Friend)))
+        self.assertFalse(suit_up._CanAttachToAnAlly(make_upgrade(suit_up.Identity)))
 
     def test_no_match_viewer_still_shuffles_every_full_search_deck(self):
         first = make_deck()
