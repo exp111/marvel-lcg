@@ -82,3 +82,36 @@ automatically. Close any older running copy of the game first because port
 The repository includes the small sounds and interface textures required to run the game. Standard card artwork is downloaded on demand from the image servers configured in `launch.json` and stored in `assets/cache`.
 
 For offline play, an optional image package can be placed in `assets/pics` or referenced through `image_folders` in `launch.json`.
+
+## Updating the development build
+
+The development build does not update automatically when changes are added to
+GitHub. Close the game before updating, then follow the instructions that match
+how you originally downloaded it.
+
+### If you used `git clone`
+
+Open PowerShell in your existing `marvel-lcg` folder and run:
+
+```powershell
+git pull origin master
+& ".\.venv\Scripts\python.exe" -m pip install -r requirements.txt
+cmd /c tsc -p public\js\tsconfig.json
+& ".\.venv\Scripts\python.exe" ".\main.py"
+```
+
+The first command downloads the newest game files. The next two commands make
+sure any updated Python requirements and browser files are ready, and the last
+command starts the updated game. You normally do not need to clone the
+repository again or recreate `.venv`.
+
+If Git reports local changes, a merge conflict, or files that would be
+overwritten, stop and ask for help rather than deleting or resetting files.
+
+### If you used **Download ZIP** on GitHub
+
+A downloaded ZIP cannot use `git pull`. Download the newest repository ZIP,
+extract it into a new empty folder, and repeat steps 3 through 5 above. Do not
+extract it over the old source folder. Copy personal saves, replays, custom
+decks, and `campaign_settings.json` from the old folder if you want to keep
+them.
