@@ -1,8 +1,28 @@
+import json
 from pathlib import Path
 import unittest
 
 
 class TestReleaseDependencies(unittest.TestCase):
+
+    def test_every_selectable_hero_set_has_box_art(self):
+        project_root = Path(__file__).resolve().parents[1]
+        sets_info = json.loads(
+            (project_root / "data" / "sets_info.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        textures = project_root / "assets" / "textures" / "sets"
+
+        missing = [
+            name
+            for name, info in sets_info.items()
+            if name != "checksum"
+            and info["heroes"]
+            and not (textures / f"{name.replace('/', '')}.webp").is_file()
+        ]
+
+        self.assertEqual(missing, [])
 
     def test_release_version_matches_patch_notes(self):
         project_root = Path(__file__).resolve().parents[1]
@@ -14,14 +34,14 @@ class TestReleaseDependencies(unittest.TestCase):
 
         for version_part in (
             "    MAJOR = 1",
-            "    MINOR = 1",
-            "    PATCH = 1",
-            "    BUILD = 0",
+            "    MINOR = 2",
+            "    PATCH = 0",
+            "    BUILD = 1",
         ):
             self.assertIn(version_part, build.splitlines())
-        self.assertIn("Application version: **1.1.1r**", patch_notes)
+        self.assertIn("Application version: **1.2.0.1r**", patch_notes)
         self.assertNotIn("1.0.0.5r", marvel_html)
-        self.assertGreaterEqual(marvel_html.count("?v=1.1.1r"), 2)
+        self.assertGreaterEqual(marvel_html.count("?v=1.2.0.1r"), 2)
 
     def test_main_menu_identifies_the_community_build_with_the_live_version(self):
         project_root = Path(__file__).resolve().parents[1]
@@ -95,8 +115,35 @@ class TestReleaseDependencies(unittest.TestCase):
         self.assertEqual(release_spec.count("upx=False"), 2)
         self.assertIn('contents_directory="_internal"', release_spec)
         self.assertIn('Join-Path $projectRoot ".venv-release"', release_script)
-        self.assertIn('$pythonVersion -ne "3.12"', release_script)
-        self.assertIn('python-version: "3.12"', workflow)
+        self.assertIn('$pythonVersion -ne "3.12.13"', release_script)
+        self.assertIn('python-version: "3.12.13"', workflow)
+
+    def test_release_environment_is_fully_pinned(self):
+        project_root = Path(__file__).resolve().parents[1]
+        release_requirements = (
+            project_root / "requirements-release.txt"
+        ).read_text(encoding="utf-8").splitlines()
+        release_script = (
+            project_root / "packaging" / "build_release.ps1"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("-r requirements.txt", release_requirements)
+        for requirement in (
+            "aiohttp==3.14.3",
+            "charset-normalizer==3.4.9",
+            "idna==3.18",
+            "numpy==2.5.1",
+            "packaging==26.3",
+            "Pillow==12.3.0",
+            "pyinstaller==6.21.0",
+            "requests==2.34.2",
+            "yarl==1.24.5",
+        ):
+            self.assertIn(requirement, release_requirements)
+        self.assertIn(
+            "1ab6b9e06ed50d4fb489b017af71520a3d22566ee4372bcd2b12902264a4f32d",
+            release_script,
+        )
 
     def test_release_executable_has_community_version_metadata(self):
         project_root = Path(__file__).resolve().parents[1]

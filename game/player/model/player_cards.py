@@ -18,6 +18,7 @@ class PlayerCards:
             by_effect,
             peek=True,
             not_move=True,
+            display_in_target_order=True,
             prompt="Place on top")
         for top in reversed(tops):
             top.card.MoveToTop(top.card.area, by_effect)
@@ -34,6 +35,7 @@ class PlayerCards:
             by_effect,
             peek=True,
             not_move=True,
+            display_in_target_order=True,
             prompt="Place on bottom")
         for face in faces:
             face.card.MoveToBottom(face.card.area, by_effect)
@@ -48,7 +50,7 @@ class PlayerCards:
             by_effect,
             peek=True,
             not_move=True,
+            display_in_target_order=True,
             prompt="Place on top")
         for face in reversed(faces):
             face.card.MoveToTop(face.card.area, by_effect)
-

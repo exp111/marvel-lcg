@@ -14,7 +14,9 @@ def GetAbilities() -> Sequence['Ability']:
     def flip_instead_of_defeat(effect: 'Effect', message: 'Message.WhenUnitWouldBeDefeated') -> None:
         loki = effect.this.CastTo(Villain)
         message.SetBeInstead(effect)
-        loki.SetHealth(1, effect)
+        # A lethal hit defeats stage I, so stage II begins at full health just
+        # like a normal villain-stage advance.
+        loki.ResetHealth(effect)
         loki.card.Flip(
             GameRule(loki, initiator=effect.world.GetFirstPlayer()),
         )

@@ -1,5 +1,17 @@
 from cards.pack import *
 
+
+def SetupTowerDefenseModularDifficulty(effect: 'Effect') -> 'Effect|None':
+    return ModularDifficulty.MayApply(
+        effect,
+        description=lambda damage:
+            f"Place {damage} damage on Avengers Tower (modular difficulty)",
+        operation=lambda damage:
+            DealDamageToAvengersTower(damage, effect),
+        per_player=True,
+    )
+
+
 def AbilityDealDamageToAvengersTower(damage: int, by_effect: 'Effect') -> 'Ability':
     this = by_effect.this
     Unused(this)

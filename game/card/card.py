@@ -235,12 +235,13 @@ class Card(Object):
     def IsInHand(self) -> bool:
         return self.area.flags.is_in_hand
     def IsLikeInHand(self) -> bool:
-        if self.can_state.is_like_in_hand == None:
-            from game.message import Message
-            message = Message.CheckIfFaceIsLikeInHand(self.face)
-            message.Send()
-            self.can_state.is_like_in_hand = message.is_like_in_hand
-        return self.can_state.is_like_in_hand
+        if self.can_state.is_like_in_hand != None:
+            return self.can_state.is_like_in_hand
+
+        from game.message import Message
+        message = Message.CheckIfFaceIsLikeInHand(self.face)
+        message.Send()
+        return message.is_like_in_hand
     def IsCanReadyBy(self, by_effect: 'Effect') -> bool:
         return not self.IsReady()
         # TODO: Use the follow
@@ -366,12 +367,13 @@ class Card(Object):
                                     by_effect,
                                     up_face=up_face,
                                     ui_group=ui_group,
-                                    callback=callback1)
+                                    callback=callback1,
+                                    index=index)
         if message != None and message != False and message != True:
             return self.MoveToAreaInternal(message,
                                     callback=callback2,
                                     target_game_area=target_game_area,
-                                    index=index)
+                                    index=message.index)
         return False
 
     def CheckIfCanMove(self, into_area: 'Deck', by_effect: 'Effect',
@@ -379,6 +381,7 @@ class Card(Object):
                         up_face: 'CardFace|None'=None,
                         ui_group: bool=False,
                         callback: Callable[[], None]|None=None,
+                        index: int=-1,
                         ) -> 'Message.WhenCardLeavePlay|Message.WhenCardWouldMoveToArea|None|bool':
         from game.message import Message
         from game.effect.rule import GameRule
@@ -400,7 +403,7 @@ class Card(Object):
             elif not from_area.flags.is_in_hand and into_area.flags.is_face_up and not self.IsFaceUp() and not ui_group:
                 self.Flip(GameRule(up_face))
 
-        message = Message.WhenCardWouldMoveToArea(up_face, from_area, into_area, by_effect, ui_group)
+        message = Message.WhenCardWouldMoveToArea(up_face, from_area, into_area, by_effect, ui_group, index)
         if not up_face.OnWhenCardWouldMoveToArea(message):
             return False
 
@@ -417,7 +420,14 @@ class Card(Object):
         if not into_area.flags.is_in_play and from_area.flags.is_in_play:
             self.state.is_leaving_play = True
 
-            would_leave_play_message = Message.WhenCardWouldLeavePlay(up_face, from_area, into_area, by_effect, False)
+            would_leave_play_message = Message.WhenCardWouldLeavePlay(
+                up_face,
+                from_area,
+                into_area,
+                by_effect,
+                False,
+                message.index,
+            )
             if not up_face.OnWhenCardWouldLeavePlay(would_leave_play_message):
                 early_exit()
                 return False
@@ -608,7 +618,11 @@ class Card(Object):
                 after_discard_message = Message.AfterCardDiscard(message.trigger, message.from_area, by_effect, discard_message)
                 after_messages.append(after_discard_message)
 
-            return_value = self.MoveToAreaInternal(message, callback=action)
+            return_value = self.MoveToAreaInternal(
+                message,
+                callback=action,
+                index=message.index,
+            )
             for after_message in after_messages:
                 after_message.Send()
             return return_value

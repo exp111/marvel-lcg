@@ -825,6 +825,7 @@ p:has(#timeout_text) {
             <script>
                 document.querySelector("#campaign_selector").onchange = () => {
                     const campaign_log = document.querySelector("#campaign_log")
+                    document.querySelector('#campaign_log_save_status').textContent = ''
                     if( document.querySelector("#campaign_selector").value ) {
                         campaign_log.classList.remove('hide')
                         generateInputs("")
@@ -1030,11 +1031,22 @@ p:has(#timeout_text) {
                 #campaign_log_container th {
                     background-color: #f2f2f2;
                 }
+                #campaign_log_actions {
+                    align-items: center;
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 10px;
+                }
             </style>
 
             <table>
                 <tbody id="campaign_log_container"></tbody>
             </table>
+            <div id="campaign_log_actions">
+                <button type="button" id="save_campaign_log_button" onclick="saveCampaignSettings(this)">Save Campaign Log</button>
+                <button type="button" id="clear_campaign_log_button" onclick="clearCampaignSettings(this)">Clear Campaign</button>
+                <span id="campaign_log_save_status" role="status" aria-live="polite"></span>
+            </div>
 
             <script>
                 const campaignDefinitions = {
@@ -1137,6 +1149,108 @@ p:has(#timeout_text) {
                 }
 
                 document.addEventListener('DOMContentLoaded', loadCampaignSettings)
+
+                function readCampaignLog(campaign_id) {
+                    if( !campaign_id ) {
+                        return {}
+                    }
+
+                    const jsonData = {}
+                    const container = document.querySelector('#campaign_log_container')
+                    const inputs = container.querySelectorAll('input[type="text"], input[type="number"], select')
+                    inputs.forEach(input => {
+                        const inputValue = input.value.trim()
+                        const key = input.getAttribute('data-key')
+                        if( inputValue ) {
+                            jsonData[key] = inputValue
+                        }
+                    })
+
+                    const inputHidden = container.querySelectorAll('input[type="hidden"]')
+                    inputHidden.forEach(input => {
+                        const checkedList = []
+                        input.parentElement.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(option => {
+                            if( option.checked ) {
+                                checkedList.push(option.getAttribute('data-key'))
+                            }
+                        })
+                        if( checkedList.length > 0 ) {
+                            jsonData[input.getAttribute('data-key')] = checkedList.join(';')
+                        }
+                    })
+                    return jsonData
+                }
+
+                async function saveCampaignSettings(button) {
+                    const campaign_id = document.querySelector('#campaign_selector').value
+                    const status = document.querySelector('#campaign_log_save_status')
+                    if( !campaign_id ) {
+                        status.textContent = 'Select a campaign first.'
+                        return
+                    }
+
+                    button.disabled = true
+                    status.textContent = 'Saving...'
+                    try {
+                        const response = await fetch('save_campaign_settings', {
+                            method: 'POST',
+                            cache: 'no-store',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                campaign_id,
+                                campaign_log: readCampaignLog(campaign_id),
+                            }),
+                        })
+                        const result = await response.json()
+                        if( !response.ok ) {
+                            throw new Error(result.error || `HTTP ${response.status}`)
+                        }
+                        savedCampaignSettings = result.settings
+                        status.textContent = 'Campaign log saved.'
+                    } catch(error) {
+                        console.error('Unable to save campaign settings:', error)
+                        status.textContent = 'Unable to save campaign log.'
+                    } finally {
+                        button.disabled = false
+                    }
+                }
+
+                async function clearCampaignSettings(button) {
+                    const campaign_id = document.querySelector('#campaign_selector').value
+                    const status = document.querySelector('#campaign_log_save_status')
+                    if( !campaign_id ) {
+                        status.textContent = 'Select a campaign first.'
+                        return
+                    }
+
+                    const campaignName = campaignDefinitions[campaign_id]?.name ?? campaign_id
+                    if( !window.confirm('Clear all saved settings for ' + campaignName + '? This cannot be undone.') ) {
+                        return
+                    }
+
+                    button.disabled = true
+                    status.textContent = 'Clearing...'
+                    try {
+                        const response = await fetch('clear_campaign_settings', {
+                            method: 'POST',
+                            cache: 'no-store',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ campaign_id }),
+                        })
+                        const result = await response.json()
+                        if( !response.ok ) {
+                            throw new Error(result.error || ('HTTP ' + response.status))
+                        }
+                        savedCampaignSettings = result.settings
+                        generateInputs("")
+                        status.textContent = 'Campaign log cleared.'
+                    } catch(error) {
+                        console.error('Unable to clear campaign settings:', error)
+                        status.textContent = 'Unable to clear campaign log.'
+                    } finally {
+                        button.disabled = false
+                    }
+                }
 
                 function campaignPlayerNumber(description) {
                     const playerMatch = description.match(/^Player (\d+)/)
@@ -1308,10 +1422,10 @@ p:has(#timeout_text) {
                             { description: "Player 3 Remaining hit points", type: "number" },
                             { description: "Player 4 Remaining hit points", type: "number" },
 
-                            { description: "Frightened Police Defeated", type: "select", options: ["Yes"] },
-                            { description: "Enemy of My Enemy Defeated", type: "select", options: ["Yes"] },
-                            { description: "Find the Prisoners Defeated", type: "select", options: ["Yes"] },
-                            { description: "Surprise Attack Defeated", type: "select", options: ["Yes"] },
+                            { description: "Frightened Police Defeated", type: "checkbox", options: ["Yes"] },
+                            { description: "Enemy of My Enemy Defeated", type: "checkbox", options: ["Yes"] },
+                            { description: "Find the Prisoners Defeated", type: "checkbox", options: ["Yes"] },
+                            { description: "Surprise Attack Defeated", type: "checkbox", options: ["Yes"] },
 
                             { description: "Future Past Cards in Encounter Deck", type: "checkbox", options: ["32166", "32167", "32168", "32169", "32170"] },
                             { description: "Future Past Cards removed from campaign", type: "checkbox", options: ["32166", "32167", "32168", "32169", "32170"] },
@@ -1343,9 +1457,7 @@ p:has(#timeout_text) {
                             { description: "Campaign Environments Earned", type: "checkbox", options: ["40190b", "40191b", "40192b", "40193b", "40194b", "40195b"] },
 
                             { description: "Scenario 3 Hope Summers Damage", type: "number" },
-                            { description: "Scenario 4 Hope Damage Placement", type: "select", options: ["Hope Summers", "Teleported Away"] },
                             { description: "Scenario 4 Hope Summers Damage", type: "number" },
-                            { description: "Scenario 5 Hope Damage Placement", type: "select", options: ["Hope Summers", "Stryfe's Grasp"] },
                         ],
                         age_of_apocalypse:
                         [
@@ -1354,25 +1466,14 @@ p:has(#timeout_text) {
                             { description: "Player 3 Remaining hit points", type: "number" },
                             { description: "Player 4 Remaining hit points", type: "number" },
 
-                            { description: "Scenario 1 Mission Side Scheme", type: "select", options: ["45166a", "45167a", "45168a", "45169a"] },
-                            { description: "Scenario 2 Mission Side Scheme", type: "select", options: ["45166a", "45167a", "45168a", "45169a"] },
-                            { description: "Scenario 3 Mission Side Scheme", type: "select", options: ["45166a", "45167a", "45168a", "45169a"] },
-                            { description: "Scenario 4 Mission Side Scheme", type: "select", options: ["45166a", "45167a", "45168a", "45169a"] },
-
-                            { description: "Scenario 1 Overseer", type: "select", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
-                            { description: "Scenario 2 Overseer", type: "select", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
-                            { description: "Scenario 3 Overseer", type: "select", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
-                            { description: "Scenario 4 Overseer", type: "select", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
-                            { description: "Scenario 5 Overseer", type: "select", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
-
                             { description: "Mission Side Schemes Removed from campaign", type: "checkbox", options: ["45166a", "45167a", "45168a", "45169a"] },
                             { description: "Mission Side Schemes Defeated", type: "checkbox", options: ["45166a", "45167a", "45168a", "45169a"] },
                             { description: "Overseers Defeated", type: "checkbox", options: ["45179a", "45180a", "45181a", "45182a", "45183a"] },
 
-                            { description: "Player 1 Campaign Ally", type: "select", options: ["45172", "45173", "45174", "45175"] },
-                            { description: "Player 2 Campaign Ally", type: "select", options: ["45172", "45173", "45174", "45175"] },
-                            { description: "Player 3 Campaign Ally", type: "select", options: ["45172", "45173", "45174", "45175"] },
-                            { description: "Player 4 Campaign Ally", type: "select", options: ["45172", "45173", "45174", "45175"] },
+                            { description: "Player 1 Campaign Ally", type: "checkbox", options: ["45172", "45173", "45174", "45175"] },
+                            { description: "Player 2 Campaign Ally", type: "checkbox", options: ["45172", "45173", "45174", "45175"] },
+                            { description: "Player 3 Campaign Ally", type: "checkbox", options: ["45172", "45173", "45174", "45175"] },
+                            { description: "Player 4 Campaign Ally", type: "checkbox", options: ["45172", "45173", "45174", "45175"] },
 
                             { description: "Player 1 Campaign Aspect Upgrade", type: "card" },
                             { description: "Player 2 Campaign Aspect Upgrade", type: "card" },
@@ -1491,6 +1592,7 @@ p:has(#timeout_text) {
         <summary>Other</summary>
         <label><input type="checkbox" id="hide_bug_report">Hide Error Message</label>
         <label><input type="checkbox" id="show_achievement">Show Achievements</label>
+        <label><input type="checkbox" id="show_deck_during_full_search">Show Deck During Full Search</label>
         <div style="display: flex;">
             <p>Statistics Notification: </p>
             <select id="statistics_notification">
@@ -1862,38 +1964,7 @@ p:has(#timeout_text) {
             new_game.campaign_json = JSON.stringify(scenario)
             new_game.encounter_set_names = encounter_sets_names
             new_game.hero_json = []
-
-            function read_campaign_log() {
-                if( !selected_campaign_id ) {
-                    return {}
-                }
-                const jsonData = {};
-                const inputs = document.querySelector('#campaign_log_container').querySelectorAll('input[type="text"], input[type="number"], select');
-                inputs.forEach(input => {
-                    const inputValue = input.value.trim();
-                    const key = input.getAttribute('data-key');
-                    if (inputValue) {
-                        jsonData[key] = inputValue;
-                    }
-                });
-
-                const input_hidden = document.querySelector('#campaign_log_container').querySelectorAll('input[type="hidden"]');
-                input_hidden.forEach(input => {
-                    const input_checkboxes = input.parentElement.querySelectorAll('input[type="checkbox"], input[type="radio"]')
-                    let checked_list = []
-                    input_checkboxes.forEach(i => {
-                        if( i.checked ) {
-                            checked_list.push(i.getAttribute('data-key'))
-                        }
-                    })
-                    const key = input.getAttribute('data-key');
-                    if (checked_list.length > 0) {
-                        jsonData[key] = checked_list.join(";");
-                    }
-                })
-                return jsonData
-            }
-            new_game.campaign_log = read_campaign_log()
+            new_game.campaign_log = readCampaignLog(selected_campaign_id)
 
             for(let heroes_json of heroes_jsons ) {
                 new_game.hero_json.push(JSON.stringify(heroes_json))
@@ -1959,6 +2030,10 @@ p:has(#timeout_text) {
                     new_game.rules.push(e.id)
                 }
             })
+
+            if( document.querySelector('#show_deck_during_full_search').checked ) {
+                new_game.rules.push('show_deck_during_full_search')
+            }
 
             if( !new_game.rules.includes('crisis_of_infinite_deadpools') ) {
                 new_game.rules.push('no_crisis_of_infinite_deadpools')
@@ -2066,7 +2141,7 @@ p:has(#timeout_text) {
     // Define the key for caching the form data object
     const CACHE_KEY = 'form_cache_data';
     cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
-        'hide_bug_report', 'show_achievement', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
+        'hide_bug_report', 'show_achievement', 'show_deck_during_full_search', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
         'mode', 'rules', 'challenge', 'settings_other',
         'timeout_slider',
     ]

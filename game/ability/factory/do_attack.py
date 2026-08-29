@@ -640,10 +640,12 @@ class AbilityFactoryDoAttack:
                 return True
             if against_who == "You":
                 against_player = message.GetAgainstPlayer()
-                if against_who:
-                    return against_player != None
-                else:
-                    return against_player == None
+                if against_player == None:
+                    return False
+                from game.card.face.base import ClassCard
+                if ClassCard.IsType(effect.this) or not ability_type.flags.is_forced:
+                    return Condition.ThisIsYou(effect, against_player)
+                return True
             return Condition.CheckWhichCard(against_who, message.attacked_targets, effect)
 
         def check_damage_who(effect: 'Effect', message: 'Message.AfterUnitAttackEnd') -> bool:

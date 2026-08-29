@@ -161,7 +161,13 @@ class CostFunc:
                 self.return_look_at_cards = list(faces)
 
                 if discard:
-                    self.return_discard_cards = player.AskDiscardFaces(faces, (discard, discard), effect, not_shuffle=True)
+                    self.return_discard_cards = player.AskDiscardFaces(
+                        faces,
+                        (discard, discard),
+                        effect,
+                        not_shuffle=True,
+                        display_in_target_order=True,
+                    )
                 return True
 
             # This condition doesn't use `face`, should we still put it here?
@@ -692,15 +698,26 @@ class CostFunc:
             from game.operate.faces import Faces
             from game.deck import Deck
             from game.card.face.card_face import CardFace
+            from game.card.face.attribute.can_place_counter import CanPlaceCounter
             from game.card.card_finder import CardFinder
             self.return_original_area: Dict[CardFace, Deck] = {}
             self.return_discarded_cards: List['CardFace'] = []
+            self.return_discarded_counters: Dict[
+                CardFace,
+                Dict['CardFace.COUNTER', int],
+            ] = {}
 
             def on_call(targets: Sequence['CardFace'], effect: 'Effect', player: 'Player|None') -> bool:
                 # We need to do this before discard them
                 self.return_original_area = {}
+                self.return_discarded_counters = {}
                 for target in targets:
                     self.return_original_area[target] = target.card.area
+                    if isinstance(target, CanPlaceCounter):
+                        self.return_discarded_counters[target] = {
+                            name: target.GetCounters(name)
+                            for name in target.components.counter.GetCounterNames()
+                        }
 
                 if Faces.DiscardAll(targets, effect) == targets:
                     self.return_discarded_cards = list(targets)
@@ -1060,6 +1077,8 @@ class CostFunc:
                 if not player:
                     return False
 
+                encounter_deck_reset = False
+
                 if isinstance(size, int):
                     max_size = size
                     min_size = size
@@ -1077,9 +1096,14 @@ class CostFunc:
                 if which_deck == "YourDeck":
                     discarded_cards = player.DiscardDeckTopCards(select_size, effect)
                 else:
+                    encounter_deck = Worlds.GetEncounterDeck(effect)
+                    reset_count = encounter_deck.shuffle_with_discard_count
                     discarded_cards = Worlds.DiscardEncounterCards(select_size, effect)
+                    # Emptying the encounter deck fulfills a specified discard,
+                    # even when fewer cards than requested were available.
+                    encounter_deck_reset = encounter_deck.shuffle_with_discard_count != reset_count
                 self.return_discarded_cards = discarded_cards
-                return len(self.return_discarded_cards) == select_size
+                return len(self.return_discarded_cards) == select_size or encounter_deck_reset
 
             super().__init__(Select.From("This"), on_call)
 

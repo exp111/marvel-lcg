@@ -199,10 +199,10 @@ class SenderScheme:
 
     # TODO: Pre message
     class AfterUnitDefeatedScheme(TriggerFaceMessage, ThwarterMessage):
-        def __init__(self, killer: 'CardFace', scheme: 'Scheme2', by_effect: 'Effect') -> None:
+        def __init__(self, killer: 'CardFace', scheme: 'Scheme2', by_effect: 'Effect', *, exact_defeat: bool=False) -> None:
             self.killer: Final = killer
             self.scheme: Final = scheme
             self.by_effect: Final = by_effect
+            self.exact_defeat: Final = exact_defeat
             super().__init__(trigger=killer, thwarter=killer, thwarted=[scheme])
             self.AddRelatedFace(killer, scheme, by_effect)
-

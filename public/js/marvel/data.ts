@@ -16,6 +16,8 @@ export class EffectDescriptor {
     resources: number[];
     selected_targets: number[];
     is_search: boolean;
+    display_in_target_order: boolean;
+    full_search_display_targets: number[];
     start_x: boolean; // can select one target more than once
 
     /**
@@ -32,7 +34,7 @@ export class EffectDescriptor {
         }
         this.bind_id = obj?.['bind_id'] ?? "";
         this.bind_player_id = obj?.['bind_player_id'] ?? 0;
-        this.all_legal_targets = structuredClone(obj?.['all_legal_targets']);
+        this.all_legal_targets = structuredClone(obj?.['all_legal_targets'] ?? []);
         this.target_num_range = structuredClone(obj?.['target_num_range']);
         if( this.target_num_range && this.target_num_range[1] == 0 ) {
             this.all_legal_targets = []
@@ -48,6 +50,8 @@ export class EffectDescriptor {
         this.resources = [];
         this.selected_targets = [];
         this.is_search = obj?.['is_search'];
+        this.display_in_target_order = obj?.['display_in_target_order'] ?? false;
+        this.full_search_display_targets = structuredClone(obj?.['full_search_display_targets'] ?? []);
 
         let start_x = false;
         if( this.all_legal_targets ) {
@@ -79,6 +83,8 @@ export class EffectDescriptor {
         this.resources = [];
         this.selected_targets = [];
         this.is_search = false;
+        this.display_in_target_order = false;
+        this.full_search_display_targets = [];
         this.start_x = false;
     }
 

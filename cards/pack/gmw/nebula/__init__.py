@@ -9,8 +9,7 @@ def FindNebulaShip(effect: 'Effect'):
     )
     return face
 
-def TheFirstTechniqueAttachmentEachPlayerRevealedEachRoundGainsSurge() -> 'Ability':
-    # See also "17026"
+def TheFirstTechniqueAttachmentRevealedEachRoundGainsSurge() -> 'Ability':
     return AbilityFactory.WhenCardRevealed(
         AbilityType.NonKeyword,
         None,
@@ -21,7 +20,7 @@ def TheFirstTechniqueAttachmentEachPlayerRevealedEachRoundGainsSurge() -> 'Abili
                 Attachment.IsType(message.trigger) and \
                 message.trigger.HasTrait("TECHNIQUE")
         ],
-    ).LimitOncePerRoundPerPlayer()
+    ).LimitOncePerRound()
 
 def GetInPlayTechniqueAttachment(effect: 'Effect'):
     return Worlds.FindCardsOnField(

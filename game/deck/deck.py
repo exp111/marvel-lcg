@@ -27,6 +27,9 @@ class Deck2(Generic[TC], Object):
         self.bind_discard_pile: 'Deck|None' = None
         self.process_after_shuffle: Callable[['Deck', 'Effect'], Any] = lambda deck, effect: None
         self.play_area: 'Player|None'
+        # Some hero-specific auxiliary decks are permanently faceup even
+        # though the shared AdditionalDeck type is normally facedown.
+        self.face_up_override: bool|None = None
 
         self.shuffle_with_discard_count = 0
 
@@ -123,8 +126,9 @@ class Deck2(Generic[TC], Object):
             game_area.AddCard(card)
         if not self.flags.is_removed and not self.flags.is_place_card_area:
             # card.FlipTo(self.IsFaceUp(), group)
-            if card.state.is_face_up != self.flags.is_face_up and card.back_faces == []:
-                card.state.is_face_up = self.flags.is_face_up
+            face_up = self.flags.is_face_up if self.face_up_override is None else self.face_up_override
+            if card.state.is_face_up != face_up and card.back_faces == []:
+                card.state.is_face_up = face_up
     def GetSize(self) -> int:
         return len(self.cards)
     def Sort(self) -> None:

@@ -6,13 +6,12 @@ from game.message import *
 
 from game.operate.worlds import Worlds
 from game.card.face.base import Asset2
-from game.card.face.card_type import Event
 from game.message.message_type import TargetsMessage
 from game.selector import Select
 
 def get_TeamUp(effect: 'Effect') -> Sequence['CardFace']:
-    assert Event.IsType(effect.this)
-    return effect.this.GetTeamUpUnits()
+    assert HasTeamUp.IsType(effect.this)
+    return effect.this.CastTo(HasTeamUp).GetTeamUpUnits()
 
 def get_VillainAndEngagedSamePlayerMinion(effect: 'Effect') -> Sequence['CardFace']:
     faces: List['CardFace'] = []

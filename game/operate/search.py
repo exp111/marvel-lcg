@@ -353,6 +353,26 @@ class Search:
             **kwargs
         ) & finder
 
+        # A caller can pass any specialized deck through `faces`, so detect a
+        # true full-deck search from the gathered cards rather than limiting
+        # this option to the standard player and encounter deck parameters.
+        full_search_decks: List[Deck] = []
+        full_search_display_faces: List[CardFace] = []
+        if bool(by_effect.world.rule.show_deck_during_full_search) and \
+            most_top == None and \
+            not not_move:
+            candidate_decks = Types.RemoveDuplicates([
+                face.card.area
+                for face in faces
+                if face.card.area.flags.is_deck
+            ])
+            for deck in candidate_decks:
+                deck_faces = deck.Get(True)
+                if deck_faces and all(face in faces for face in deck_faces):
+                    full_search_display_faces.extend(deck_faces)
+                    if not deck.flags.is_discards:
+                        full_search_decks.append(deck)
+
         from game.operate.search_internal import SearchInternal
 
         return SearchInternal.SearchForCardsInternal(
@@ -365,6 +385,8 @@ class Search:
             may=may,
             not_move=not_move,
             range=range,
+            full_search_display_faces=full_search_display_faces,
+            full_search_decks=full_search_decks,
         )
 
     @staticmethod
@@ -396,12 +418,25 @@ class Search:
                 "'Pool",
             ]
 
+        # Card faces expose the printed "Hero" class as
+        # "IdentitySpecific", while collection searches query raw papers.
+        if card_class == "IdentitySpecific":
+            card_class = "Hero"
+        if card_classes != None:
+            card_classes = [
+                "Hero" if value == "IdentitySpecific" else value
+                for value in card_classes
+            ]
+
         paper_ids = CardsDB.GetPapers(card_type=check_card_type,
                                       trait=trait,
                                       card_class=card_class,
                                       card_classes=card_classes,
                                       set_name=set_name,
                                       check_fn=check_fn)
+
+        if not paper_ids:
+            return None
 
         # name = player.AskChoosePaper(["06019", "16046", "18018", "20015", "44052", "44055"])
         name = player.AskChoosePaper(paper_ids)

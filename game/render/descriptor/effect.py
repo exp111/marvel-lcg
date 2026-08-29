@@ -24,6 +24,7 @@ class EffectDescriptor:
 
     failure_reason: str             # not null if fail
     is_search: bool
+    display_in_target_order: bool
+    full_search_display_targets: List[int]
 
     # is_ex_effect check `AskOption`
-

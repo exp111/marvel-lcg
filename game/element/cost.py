@@ -107,6 +107,15 @@ class Cost:
     def GetRuleText(self) -> List[str]:
         return self.rule.rule_texts
 
+    def GetPaymentOptions(self) -> List['Cost']:
+        options = [self]
+        if self.rule.or_res:
+            options.extend(self.rule.or_res.GetPaymentOptions())
+        return options
+
+    def GetPaymentText(self) -> str:
+        return "|".join(cost.text_legacy for cost in self.GetPaymentOptions())
+
     def GetTypeKinds(self) -> int:
         return self.rbyga.rbyg.types
 

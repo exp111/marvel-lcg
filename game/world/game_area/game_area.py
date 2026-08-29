@@ -14,7 +14,7 @@ class GameArea(Object):
 
         game_area = player.GetIdentity().card.game_area
 
-        for face in Worlds.GetSideSchemes(game_area):
+        for face in Worlds.GetSideSchemes(game_area, include_missions=True):
             self.AddCard(face.card)
         for face in player.GetControlCharacters():
             self.AddCard(face.card)

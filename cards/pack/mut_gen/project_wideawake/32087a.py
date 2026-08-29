@@ -22,6 +22,8 @@ def GetAbilities() -> Sequence['Ability']:
             card_type=SchemeSide2
         )
 
+        SetupProjectWideawakeModularDifficulty(effect)
+
     return [
         *CampaignSetup(2),
         AbilityFactory.WhenCardSetup(

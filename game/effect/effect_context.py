@@ -31,6 +31,7 @@ class EffectContext:
 
         self.this_effect_need_cost: 'Cost|None' = None
         self.paid_this_res_effects: List['Effect'] = []
+        self.excluded_payment_faces: List['CardFace'] = []
 
         # Spell effect
         self.initiator: User = self.effect.this.GetControlByOrOwner()
@@ -73,6 +74,7 @@ class EffectContext:
 
         self.this_effect_need_cost: 'Cost|None' = None
         self.paid_this_res_effects: List['Effect'] = []
+        self.excluded_payment_faces = []
 
         self.initiator: User = self.effect.this.GetControlByOrOwner()
 

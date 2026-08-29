@@ -124,6 +124,10 @@ class Select:
             by_search: bool=False, # will peek
             not_move: bool=False,
             not_shuffle: bool=False,
+            display_in_target_order: bool=False,
+            full_search_display_faces: Sequence['CardFace']=(),
+            full_search_decks: Sequence['Deck']=(),
+            force_choose: bool=False,
 
             check_again_fn: Callable[['Effect', Sequence['CardFace']], bool]|None=None,
         ) -> 'Selector':
@@ -289,7 +293,11 @@ class Select:
         selector_end = SelectorEnd(
             peek=by_search,
             not_move=not_move,
-            not_shuffle=not_shuffle
+            not_shuffle=not_shuffle,
+            display_in_target_order=display_in_target_order,
+            full_search_display_faces=full_search_display_faces,
+            full_search_decks=full_search_decks,
+            force_choose=force_choose,
         )
 
         ################################################################################

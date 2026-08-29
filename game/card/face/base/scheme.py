@@ -70,7 +70,13 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
         after_defeated_message.Send()
         if not killer:
             killer = by_effect.this
-        unit_defeated_message = Message.AfterUnitDefeatedScheme(killer, self, by_effect)
+        exact_defeat = bool(being_message and being_message.exact_defeat)
+        unit_defeated_message = Message.AfterUnitDefeatedScheme(
+            killer,
+            self,
+            by_effect,
+            exact_defeat=exact_defeat,
+        )
         unit_defeated_message.Send()
 
     @override
@@ -141,6 +147,8 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
             remove_message.Send()
             if remove_message.value and not remove_message.is_be_instead and not remove_message.cannot_be_removed:
                 threat = min(self.threat, remove_message.value)
+                if thw_message:
+                    thw_message.exact_defeat = threat == remove_message.value
                 super().RemoveTokensInternal(threat, 'threat', by_effect, forced=True)
                 message = Message.AfterSchemeRemoveThreat(self, threat, by_effect, remove_message)
                 message.Send()
@@ -177,4 +185,3 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
             return villains[0]
         else:
             return None
-

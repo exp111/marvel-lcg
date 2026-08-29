@@ -11,7 +11,7 @@ def GetAbilities() -> Sequence['Ability']:
         Faces.GiveStatus(effect.targets, "Tough", effect)
 
     def get_villain_stage(effect: 'Effect'):
-        villain = Worlds.FindVillain(effect)
+        villain = Worlds.ChooseVillain(effect)
         if villain:
             return villain.printed_stage
         return 0

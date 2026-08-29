@@ -520,10 +520,7 @@ class Effect(Object):
                     return ("*", [])
                 if effect.checker.cost_for_different_target.HasTarget(target):
                     cost = effect.checker.cost_for_different_target.GetCost(target)
-                    if cost.rule.or_res != None:
-                        return ("1", [])
-                    else:
-                        return (cost.text_legacy, cost.GetRuleText())
+                    return (cost.GetPaymentText(), cost.GetRuleText())
                 # if target in effect.for_select_target_dict:
                 #     # return effect.this_effect_cost.text_legacy
                 #     return effect.for_select_target_dict[target].cost.text_legacy
@@ -571,8 +568,15 @@ class Effect(Object):
 
         if selector:
             is_search = selector.is_search
+            display_in_target_order = selector.selector_end.display_in_target_order
+            full_search_display_targets = [
+                face.card.object_id
+                for face in selector.selector_end.full_search_display_faces
+            ]
         else:
             is_search = False
+            display_in_target_order = False
+            full_search_display_targets = []
 
         # Fix "07042"
         failure_reason = self.failures.GetText(bind_player_id)
@@ -591,6 +595,7 @@ class Effect(Object):
             select_rule_param=select_rule_param,
             target_must_include_traits=[f"t_{x}" for x in target_must_include_traits],
             failure_reason=failure_reason,
-            is_search=is_search
+            is_search=is_search,
+            display_in_target_order=display_in_target_order,
+            full_search_display_targets=full_search_display_targets,
         )
-

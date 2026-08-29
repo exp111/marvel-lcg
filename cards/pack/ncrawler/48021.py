@@ -10,7 +10,12 @@ def GetAbilities() -> Sequence['Ability']:
 
         initiator = effect.GetInitiator()
         faces = initiator.LookAtDeck("EncounterDeck", 3, effect)
-        face = initiator.AskChooseFace(faces, effect)
+        face = initiator.AskChooseFace(
+            faces,
+            effect,
+            peek=True,
+            display_in_target_order=True,
+        )
         if face:
             this.TuckCardUnderHere(face, effect)
 
@@ -34,4 +39,3 @@ def GetAbilities() -> Sequence['Ability']:
             gambit
         ),
     ]
-

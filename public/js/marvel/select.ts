@@ -86,7 +86,7 @@ export class SelectStep {
         } else {
             // if( CardEffect.select_effect_obj.cost != "" && CardEffect.select_effect_obj.cost != "0" ) {
             let paid_list = []
-            let cost_list = Effect.select_effect_obj.getCost().split('')
+            let cost_options = Effect.select_effect_obj.getCost().split('|')
             for( let i of Effect.select_effect_obj.resources ) {
                 let index = Effect.select_effect_obj.getResources().indexOf(i)
                 let c = Effect.select_effect_obj.getResText()[index]
@@ -109,11 +109,7 @@ export class SelectStep {
                 return r
             }
 
-            let need_cost = to_array(Effect.select_effect_obj.getCost())
             let has_cost = to_array(paid_list.toString().replaceAll(",", ""))
-            let same_type = true
-            let different_type = 0
-            let last_type = ""
 
             function get_appear_count(str: string, char: string) {
                 let m = str.match(new RegExp(char, "g"))
@@ -123,54 +119,64 @@ export class SelectStep {
                 return 0
             }
 
-            let has_g = get_appear_count(has_cost, "G")
-            let has_a = get_appear_count(has_cost, "A")
-            console.log(`(${has_cost}) VS (${need_cost})`)
-            let need_g = get_appear_count(need_cost, 'G')
-            for(let c of ['R', 'B', 'Y']) {
-                let has_type = get_appear_count(has_cost, c)
-                let diff = has_type - get_appear_count(need_cost, c)
-                if( has_type ) {
-                    different_type += 1
-                    if( same_type ) {
-                        if( last_type ) {
-                            same_type = false
-                        } else {
-                            last_type = c
+            function checkCost(cost: string) {
+                let need_cost = to_array(cost)
+                let same_type = true
+                let different_type = 0
+                let last_type = ""
+                let has_g = get_appear_count(has_cost, "G")
+                let has_a = get_appear_count(has_cost, "A")
+                let need_g = get_appear_count(need_cost, 'G')
+                for(let c of ['R', 'B', 'Y']) {
+                    let has_type = get_appear_count(has_cost, c)
+                    let diff = has_type - get_appear_count(need_cost, c)
+                    if( has_type ) {
+                        different_type += 1
+                        if( same_type ) {
+                            if( last_type ) {
+                                same_type = false
+                            } else {
+                                last_type = c
+                            }
                         }
                     }
+                    if( diff >= 0 ) {
+                        has_a += diff
+                    } else {
+                        need_g += -diff
+                    }
                 }
-                if( diff >= 0 ) {
-                    has_a += diff
-                } else {
-                    need_g += -diff
+                if( has_g ) {
+                    different_type += has_g
+                    different_type = Math.min(3, different_type)
+                }
+                has_g -= need_g
+                let need_a = get_appear_count(need_cost, 'A')
+                if( need_a ) {
+                    has_a -= need_a
+                    if( has_a < 0 ) {
+                        has_g += has_a
+                        has_a = 0
+                    }
+                }
+                let cost_ok = has_g >= 0 && has_a >= 0
+                if( Effect.select_effect_obj.isCostRuleSameType() && !same_type ) {
+                    cost_ok = false
+                }
+                if( Effect.select_effect_obj.isCostRuleDifferentType() ) {
+                    cost_ok = different_type >= need_a
+                }
+                return {
+                    ok: cost_ok,
+                    overPay: has_a > 0 || has_g > 0
                 }
             }
-            if( has_g ) {
-                different_type += has_g
-                different_type = Math.min(3, different_type)
-            }
-            has_g -= need_g
-            let need_a = get_appear_count(need_cost, 'A')
-            if( need_a ) {
-                has_a -= need_a
-                if( has_a < 0 ) {
-                    has_g += has_a
-                    has_a = 0
-                }
-            }
-            ok = has_g >= 0 && has_a >= 0
-            if( Effect.select_effect_obj.isCostRuleSameType() ) {
-                if( !same_type ) {
-                    ok = false
-                }
-            }
-            if( Effect.select_effect_obj.isCostRuleDifferentType() ) {
-                ok = different_type >= need_a
-            }
-            if( has_a > 0 || has_g > 0 ) {
-                over_pay = true
-            }
+
+            let matches = cost_options.map(checkCost)
+            let matched = matches.find(match => match.ok && !match.overPay)
+                ?? matches.find(match => match.ok)
+            ok = matched !== undefined
+            over_pay = matched?.overPay ?? false
 
             let paid_list_copy = paid_list.slice()
             const object_id = Effect.select_effect_obj.bind_id
@@ -195,7 +201,7 @@ export class SelectStep {
                 return text
             }
 
-            let cost_text = cover_res(cost_list)
+            let cost_text = cost_options.map(cost => cover_res(cost.split(''))).join(" or ")
             let paid_text = cover_res(paid_list_copy)
             UI.prompt.setTempPromptText(`<span class='cost-text'>Cost</span> [${Cards.getSpanText(object_id)}]<br/>(${paid_text}) / (${cost_text})`)
             // console.log(text)

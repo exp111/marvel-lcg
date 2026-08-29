@@ -14,7 +14,9 @@ def GetAbilities() -> Sequence['Ability']:
         if faces:
             face = faces[0]
             if card_type.IsType(face):
-                this.RemoveThreatFromSchemes(effect.targets2, 3, effect)
+                scheme = Worlds.FindMainScheme(effect)
+                if scheme and scheme.CanBeThwartBy(effect):
+                    this.RemoveThreatFromSchemes([scheme], 3, effect)
 
             initiator.PlaceOnTopAndOrBottomInAnyOrder(faces, effect)
             initiator.DrawUp(1, effect)
@@ -23,7 +25,6 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.HeroAction,
             brainstorm
-        ).SetPlay().SetLabel('thwart')
-        .SetTarget2(MainScheme),
+        ).SetPlay().SetLabel('thwart'),
     ]
 

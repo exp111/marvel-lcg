@@ -11,20 +11,28 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
         value = len(initiator.GetControlCards2(CardFinder2("WEB-WARRIOR")))
         faces = initiator.LookAtDeck("EncounterDeck", value, effect)
+        discarded: List[CardFace] = []
 
         def action(targets: Sequence[CardFace]):
             Faces.DiscardAll(targets, effect)
-
-            rest = [x for x in faces if x not in targets]
-            initiator.PlaceOnTopInAnyOrder(rest, effect)
+            discarded.extend(targets)
 
         initiator.MayChooseOneAbility(
             effect,
             AbilityFactory.ForChoiceAbility(
                 "Discard 1 card looked at this way and put the rest back in any order",
                 action,
-            ).SetTarget(faces, canbe_discard=True, not_move=True)
+            ).SetTarget(
+                faces,
+                canbe_discard=True,
+                by_search=True,
+                not_move=True,
+                display_in_target_order=True,
+            )
         )
+
+        rest = [x for x in faces if x not in discarded]
+        initiator.PlaceOnTopInAnyOrder(rest, effect)
 
 
     return [
@@ -34,4 +42,3 @@ def GetAbilities() -> Sequence['Ability']:
             madame_web
         ),
     ]
-

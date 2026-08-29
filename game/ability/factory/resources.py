@@ -47,6 +47,12 @@ class AbilityFactoryResources:
 
         def check_can_pay(effect: 'Effect', message: 'Message.CheckPlayerCanPayCost') -> bool:
             this = effect.this
+            if this in getattr(
+                message.paying_for_effect.context,
+                "excluded_payment_faces",
+                [],
+            ):
+                return False
             if not this.IsLikeInHand():
                 return False
             if Event.IsType(message.paying_for_effect.this):
@@ -613,7 +619,7 @@ class AbilityFactoryResources:
 
     @staticmethod
     def IncreaseResourceCostToPlay(which_card: CardType,
-                                    value: int,
+                                    value: Callable[['Effect'], int]|int,
                                     which_player: 'Player|Literal["Attached", "You", "EachPlayer", "AnyPlayer"]',
                                     *,
                                     conditions: ConditionsType[Message.WhenCalculateEffectCost]=[],

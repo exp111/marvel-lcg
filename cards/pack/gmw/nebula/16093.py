@@ -8,7 +8,7 @@ def GetAbilities() -> Sequence['Ability']:
         this = effect.this.CastTo(Environment)
         Unused(this)
 
-        value = effect.GetPaidResources().val
+        value = min(2, effect.GetPaidResources().val)
         Faces.RemoveCountersOn([this], value, 'evasion', effect)
 
     def place_evasion(effect: 'Effect', message: 'Message.WhenPhaseBegin') -> None:

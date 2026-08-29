@@ -13,6 +13,8 @@ class SearchInternal:
                                 may: bool,
                                 not_move: bool=False, # will not shuffle
                                 range: 'SELECT.RANGE_TYPE'=(1,1),
+                                full_search_display_faces: Sequence['CardFace']=(),
+                                full_search_decks: Sequence['Deck']=(),
                                 ) -> List[TC]:
 
         from game.card.face.card_face import CardFace
@@ -43,6 +45,17 @@ class SearchInternal:
                         skip_choose = False
                         break
 
+        if not full_search_display_faces:
+            full_search_display_faces = [
+                face
+                for deck in full_search_decks
+                for face in deck.Get(True)
+            ]
+
+        show_full_deck_search = bool(full_search_display_faces)
+        if show_full_deck_search:
+            skip_choose = False
+
         if skip_choose and legal_faces != []:
             select_face = legal_faces
         else:
@@ -57,13 +70,17 @@ class SearchInternal:
             assert not isinstance(x, str)
             range = (0, x)
 
-        # We use this to do shuffle
-        selector = Select.From(faces=select_face,
-                                finder=finder,
-                                not_move=not_move,
-                                not_shuffle=False,
-                                by_search=True,
-                                range=range)
+        selector = Select.From(
+            faces=select_face,
+            finder=finder,
+            not_move=not_move,
+            not_shuffle=False,
+            by_search=True,
+            range=range,
+            full_search_display_faces=full_search_display_faces,
+            full_search_decks=full_search_decks,
+            force_choose=show_full_deck_search,
+        )
         if skip_choose and not may:
             faces = selector.GetAllLegalTargets(by_effect)
             min = selector.selector_range.GetTargetMin(by_effect, faces)

@@ -11,7 +11,7 @@ def GetAbilities() -> Sequence['Ability']:
         # A: Is Machine Man missing some text on his ability? And if not, how long do the stat boost last for?
         # Q: “Machine Man’s boost is only supposed to last for that activation. “
 
-        value = effect.GetPaidResources().val
+        value = min(3, effect.GetPaidResources().val)
         this.GainForThisActive(
             effect,
             message,

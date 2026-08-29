@@ -46,15 +46,48 @@ class Selector(metaclass=Tracker.Meta):
     def is_search(self) -> bool:
         return self.selector_end.peek
 
+    @property
+    def force_choose(self) -> bool:
+        return self.selector_end.force_choose
+
     def GetRandomTarget(self, legal_faces: Sequence['CardFace'], effect: 'Effect') -> Sequence['CardFace']:
         from game.operate.rand import Rand
         return Rand.RandomChoice2(legal_faces, self.selector_range.GetTargetMax(effect, legal_faces), effect)
+
+    def EnableFullSearchDisplay(self, effect: 'Effect', faces: Sequence['CardFace']) -> None:
+        selector_end = self.selector_end
+        if selector_end.full_search_display_faces or \
+            not self.is_search or \
+            selector_end.not_move or \
+            selector_end.not_shuffle or \
+            selector_end.display_in_target_order:
+            return
+
+        world = getattr(effect, "world", None)
+        rule = getattr(world, "rule", None)
+        if not bool(getattr(rule, "show_deck_during_full_search", False)):
+            return
+
+        candidate_decks = Types.RemoveDuplicates([
+            face.card.area
+            for face in faces
+            if face.card.area.flags.is_deck
+        ])
+        full_search_display_decks = []
+        for deck in candidate_decks:
+            deck_faces = deck.Get(True)
+            if deck_faces and all(face in faces for face in deck_faces):
+                full_search_display_decks.append(deck)
+
+        if full_search_display_decks:
+            selector_end.EnableFullSearchDisplay(full_search_display_decks)
 
     def GetAllLegalTargets(self, effect: 'Effect', referential_effect: 'Effect|None'=None, *, just_check: bool=False) -> Sequence['CardFace']:
         from game.operate.referential import Referential
 
         legal_faces = self.selector_target.GetAllTarget(effect, self.selector_range)
         self.peeked_faces = legal_faces
+        self.EnableFullSearchDisplay(effect, legal_faces)
 
         if referential_effect == None:
             referential_effect = effect
@@ -74,6 +107,12 @@ class Selector(metaclass=Tracker.Meta):
 
     def GetTargetRange(self, effect: 'Effect', faces: Sequence['CardFace']) -> Tuple[int, int]|None:
         from game.effect.effect import EffectFailure
+
+        # A full-search viewer must still open when the search has no valid
+        # targets. It remains a successful zero-target choice so the searched
+        # deck can be inspected and shuffled normally.
+        if self.force_choose and faces == []:
+            return (0, 0)
 
         target_range = [
             self.selector_range.GetTargetMin(effect, faces),

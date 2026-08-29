@@ -23,7 +23,12 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityFactory.ForChoiceAbility(
                 "Add 1 non-scenario-specific card from among those to the victory display",
                 action
-            ).SetTarget(non_scenario_specific_faces, not_move=True)
+            ).SetTarget(
+                non_scenario_specific_faces,
+                by_search=True,
+                not_move=True,
+                display_in_target_order=True,
+            )
         )
 
         rest = [x for x in faces if x not in selected]

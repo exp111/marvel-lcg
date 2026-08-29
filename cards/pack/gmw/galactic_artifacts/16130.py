@@ -8,9 +8,8 @@ def GetAbilities() -> Sequence['Ability']:
         this = effect.this.CastTo(EncounterSideScheme)
         Unused(this)
 
-        player = message.killer.GetControlBy()
-        if Player.IsType(player):
-            player.PlayOneCardLikeInTurn(player.hand_cards.Get(), effect, update_resources_cost=-3)
+        player = message.GetDefeatingPlayer()
+        player.PlayOneCardLikeInTurn(player.hand_cards.Get(), effect, update_resources_cost=-3)
 
 
     return [
@@ -18,6 +17,6 @@ def GetAbilities() -> Sequence['Ability']:
             AbilityType.WhenDefeated,
             "This",
             crystal_ball,
+            has_defeating_player=True,
         ),
     ]
-

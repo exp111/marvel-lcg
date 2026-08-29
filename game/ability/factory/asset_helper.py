@@ -161,7 +161,8 @@ def GiveKeywordToAttachWhenApplyThisInternal(
             ex_change_on_event,
             condition,
             check_fn,
-            process_fn
+            process_fn,
+            preserve_value_on_same_card_flip=ignore_flip,
         )
 
     from game.card.face.base import Unit2

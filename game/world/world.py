@@ -53,6 +53,82 @@ def IsUsingPoolAspect(hero: 'HeroDescriptor', player: 'Player') -> bool:
     return has_pool_cards and not has_other_aspect_cards
 
 
+def IsTeamUpForPlayers(
+    team_up_card: 'HasTeamUp',
+    player: 'Player',
+    other_player: 'Player',
+) -> bool:
+    """Return whether the Team-Up card names these two identities."""
+    first_character, second_character = team_up_card.team_up
+    return (
+        player.IsName(*first_character) and
+        other_player.IsName(*second_character)
+    ) or (
+        player.IsName(*second_character) and
+        other_player.IsName(*first_character)
+    )
+
+
+def DoesIdentitySpecificAllyMatchPlayer(
+    ally: 'Ally',
+    player: 'Player',
+) -> bool:
+    """Match an ally to an identity using its hero/alter-ego names."""
+    identity = player.GetIdentity()
+    if not ally.CanCoexistWith(identity):
+        return True
+
+    # Some signature allies use the other identity's alter-ego as their
+    # title (for example, Shuri and T'Challa), so the normal in-play unique
+    # check alone does not identify every v1.8 deck-construction match.
+    ally_names = [ally.name]
+    if ally.printed_subtitle:
+        ally_names.append(ally.printed_subtitle)
+    return player.IsName(*ally_names)
+
+
+def FindTeamUpAllyRemovalCandidates(
+    players: Sequence['Player'],
+) -> Dict['Player', List['Ally']]:
+    """Find loaded signature allies eligible for the v1.8 Team-Up swap."""
+    candidates: Dict['Player', List['Ally']] = {}
+
+    for player in players:
+        loaded_deck = player.player_deck.GetAll()
+        team_up_cards = [
+            face for face in loaded_deck
+            if HasTeamUp.IsType(face)
+        ]
+        identity_specific_allies = [
+            face for face in loaded_deck
+            if Ally.IsType(face) and
+            ClassCard.IsType(face) and
+            face.IsClass("IdentitySpecific")
+        ]
+
+        matching_allies: Set['Ally'] = set()
+        for other_player in players:
+            if other_player == player:
+                continue
+            if not any(
+                IsTeamUpForPlayers(team_up_card, player, other_player)
+                for team_up_card in team_up_cards
+            ):
+                continue
+            matching_allies.update(
+                ally for ally in identity_specific_allies
+                if DoesIdentitySpecificAllyMatchPlayer(ally, other_player)
+            )
+
+        if matching_allies:
+            candidates[player] = sorted(
+                matching_allies,
+                key=lambda ally: (ally.name, ally.paper.card_id),
+            )
+
+    return candidates
+
+
 class World(WorldAction, WorldFind):
 
     def __init__(self, scene: 'Scene', controllers: List['Controller']) -> None:
@@ -224,6 +300,12 @@ class World(WorldAction, WorldFind):
         if self.is_game_over:
             return
 
+        # Preserve the eligible cards from the originally loaded deck. Setup
+        # may move the ally before the choice that precedes the opening draw.
+        team_up_ally_removal_candidates = FindTeamUpAllyRemovalCandidates(
+            self.const_players,
+        )
+
         identity = self.const_players[0].GetIdentity()
         identity.SetActive(GameRule(identity))
 
@@ -340,6 +422,12 @@ class World(WorldAction, WorldFind):
         campaign_message = Message.WhenCampaignSetup(self)
         campaign_message.Send()
 
+        self.ResolveTeamUpAllyRemovalChoices(
+            team_up_ally_removal_candidates,
+        )
+
+        self.ResolveStartingCardChoices(game_start_effect)
+
         # [x] 14. Draw Cards
         Message.TextRender("\n--- Draw Cards ---", self)
         if not self.rule.disable_setup_draw_cards:
@@ -377,6 +465,60 @@ class World(WorldAction, WorldFind):
         begin_message.Send()
 
         return
+
+    def ResolveTeamUpAllyRemovalChoices(
+        self,
+        candidates: Dict['Player', List['Ally']],
+    ) -> None:
+        """Offer the v1.8 Team-Up replacement before opening hands are drawn."""
+        from game.effect.rule import GameRule
+        from game.operate.faces import Faces
+
+        for player in self.const_players:
+            for ally in candidates.get(player, []):
+                # Setup instructions take precedence. The ally is eligible
+                # only while it remains in the player deck.
+                if ally.card.area != player.player_deck:
+                    continue
+
+                should_remove = player.AskChooseOneText(
+                    [True, False],
+                    [
+                        f"Remove {ally.name} from the game (v1.8 Team-Up rule)",
+                        f"Keep {ally.name}",
+                    ],
+                )
+                if should_remove:
+                    Faces.RemoveAllFromGame(
+                        [ally],
+                        GameRule(player.GetIdentity()),
+                    )
+
+    def ResolveStartingCardChoices(self, game_start_effect: 'Effect') -> None:
+        """Offer Starting cards after setup and before the opening draw."""
+        from game.operate.faces import Faces
+
+        for player in self.const_players:
+            starting_cards = [
+                face for face in player.player_deck.GetAll()
+                if HasStarting.IsType(face) and face.printed_starting > 0
+            ]
+            for face in starting_cards:
+                # A setup instruction can move the card before this point.
+                if face.card.area != player.player_deck:
+                    continue
+                should_add = player.AskChooseOneText(
+                    [True, False],
+                    [
+                        f"Add {face.name} to your hand (Starting)",
+                        f"Leave {face.name} in your deck",
+                    ],
+                )
+                if should_add:
+                    Faces.MoveAllTo([face], player.hand_cards, game_start_effect)
+                    # The Starting rules allow at most one Starting card per
+                    # player deck; stop after resolving the selected card.
+                    break
 
     ################################################################################
     # Phase

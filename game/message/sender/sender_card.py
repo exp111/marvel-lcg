@@ -1,6 +1,16 @@
 from . import *
 from typing import Final
 
+
+def _get_activation_target_player(being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> 'Player':
+    defender = getattr(being_message, "defender", None)
+    if defender:
+        return defender.GetControlByPlayer()
+    player = being_message.would_message.property.against_player
+    assert player
+    return player
+
+
 class SenderCard:
 
     class LookAt_Text(TextMessage):
@@ -248,10 +258,11 @@ class SenderCard:
     # We don't extend `CanBeInstead` because when game is over, all `CanBeInstead` will be instead
     # Some cards may trigger the assert
     class WhenCardWouldMoveToArea(TriggerFaceMessage):
-        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', ui_group: bool) -> None:
+        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', ui_group: bool, index: int=-1) -> None:
             # from game.message import Message
             self.from_area: Final = from_area
             self.into_area = into_area
+            self.index = index
             self.cannot = False
             self.by_effect = by_effect
 
@@ -266,14 +277,18 @@ class SenderCard:
                     text = TransText("{face} is moving to {into_area}", face=face, into_area=into_area)
                     self.Present(text, "", face)
 
-        def ChangeToArea(self, into_area: 'Deck|None', by_effect: 'Effect'):
+        def ChangeToArea(self, into_area: 'Deck|None', by_effect: 'Effect', *, index: int=-1):
             if into_area != None:
                 self.into_area = into_area
+                self.index = index
                 text = TransText("{this} changes the area to {into_area}", this=by_effect.this, into_area=into_area)
             else:
                 self.into_area = self.from_area
                 text = TransText("{this} cancels this move", this=by_effect.this)
             self.Present_Activate(text, by_effect)
+
+        def ChangeToBottomOfDeck(self, into_area: 'Deck', by_effect: 'Effect'):
+            self.ChangeToArea(into_area, by_effect, index=0)
 
         def SetCannot(self, by_effect: 'Effect'):
             self.cannot = True
@@ -287,12 +302,13 @@ class SenderCard:
             super().__init__(trigger=face, player=into_area.GetOwnerPlayer())
 
     class WhenCardWouldLeavePlay(TriggerFaceMessage, CanBeInstead, HasEndEventMessage):
-        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', by_swapping: bool) -> None:
+        def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect', by_swapping: bool, index: int=-1) -> None:
             from game.message import Message
             self.into_area: Final = into_area
             self.by_effect: Final = by_effect
             self.by_swapping: Final = by_swapping
             self.from_area: Final = from_area
+            self.index: Final = index
             super().__init__(trigger=face, end_event=Message.WhenCardLeavePlay)
 
     class WhenCardLeavePlay(TriggerFaceMessage, HasPreEventMessage, HasEndEventMessage):
@@ -306,6 +322,7 @@ class SenderCard:
             self.by_effect: Final = pre_message.by_effect
             self.by_swapping: Final = pre_message.by_swapping
             self.from_area: Final = pre_message.from_area
+            self.index: Final = pre_message.index
             super().__init__(trigger=face, pre_message=pre_message, end_event=Message.AfterCardLeavePlay)
             # self.TriggerOnEvent(OnEvent.LeavePlayWhen)
 
@@ -620,7 +637,7 @@ class SenderCard:
     class WhenBoostCardWouldTurnedFaceUp(TriggerFaceMessage, TriggerNonePlayerMessage, AttackerNoneMessage, CanBeInstead):
         def __init__(self, face: 'CardFace', being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> None:
             from game.message import Message
-            player = being_message.would_message.property.against_player
+            player = _get_activation_target_player(being_message)
             self.being_message: Final = being_message
             self.would_message: Final = being_message.would_message
             self.would_atk_message: Final = being_message.would_message if isinstance(being_message.would_message, Message.WhenUnitWouldAttack) else None
@@ -637,7 +654,7 @@ class SenderCard:
         def __init__(self, face: 'CardFace', being_message: 'Message.WhenUnitBeingAttack|Message.WhenSchemeBeingScheme') -> None:
             from game.card.face.base import EncounterNonVillainCard
             from game.message import Message
-            player = being_message.would_message.property.against_player
+            player = _get_activation_target_player(being_message)
             
             self.being_message: Final = being_message
             self.would_message: Final = being_message.would_message
@@ -673,15 +690,13 @@ class SenderCard:
             self.is_cancel_boost_ability: Final = flip_message.cancel_boost_ability
             self.being_message: Final = flip_message.being_message
             self.would_message = self.being_message.would_message
-            self.against_player = self.would_message.property.against_player
-            player = self.against_player
+            player = _get_activation_target_player(self.being_message)
+            self.against_player = player
 
             if isinstance(self.being_message, Message.WhenSchemeBeingScheme):
                 self.would_sch_message: Final = self.being_message.would_sch_message
             if isinstance(self.being_message, Message.WhenUnitBeingAttack):
                 self.would_atk_message: Final = self.being_message.would_atk_message
-                if self.being_message.defender:
-                    player = self.being_message.defender.GetControlByPlayer()
 
             self.activating_enemy: Final = self.would_message.trigger.CastTo(Enemy)
 
@@ -692,7 +707,7 @@ class SenderCard:
             # self.Present(text, "reveal", face)
 
         def GetAgainstPlayer(self) -> 'Player|None':
-            return self.against_player
+            return self.GetToPlayer()
 
         # for this activation.
         def GainBoostIcon(self, value: int, by_effect: 'Effect'):
@@ -757,7 +772,7 @@ class SenderCard:
             super().__init__(trigger=face, pre_message=message)
 
         def GetAgainstPlayer(self) -> 'Player|None':
-            return self.boost_message.would_message.property.against_player
+            return self.boost_message.GetToPlayer()
 
     ################################################################################
     # Those message only for UI
@@ -1077,4 +1092,3 @@ class SenderCard:
         def __init__(self, face: 'CardFace', to_face: 'CardFace') -> None:
             self.to_face: Final = to_face
             super().__init__(trigger=face)
-

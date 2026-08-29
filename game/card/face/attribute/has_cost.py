@@ -12,6 +12,13 @@ class HasCost(HasAttribute):
         super().__init__(paper)
 
         def parse(value: str):
+            if value == "-":
+                # Some cards (for example Photographic Reflexes) have no
+                # playable resource cost. Keep the printed dash in card data
+                # while representing its numeric value as zero internally.
+                self.has_printed_cost = False
+                self.printed_cost = Cost("0")
+                return
             self.has_printed_cost = True
             if "*" in value:
                 self.printed_cost = Cost.FromText(str(self.FormatPlayerNumValue(value)))

@@ -24,7 +24,12 @@ def GetAbilities() -> Sequence['Ability']:
                     "Tucks 1 of those cards",
                     lambda targets:
                         player.GetIdentity().TuckCardUnderHere(targets, effect)
-                ).SetTarget(faces, not_move=True)
+                ).SetTarget(
+                    faces,
+                    by_search=True,
+                    not_move=True,
+                    display_in_target_order=True,
+                )
             )
 
     return [
@@ -39,4 +44,3 @@ def GetAbilities() -> Sequence['Ability']:
             get_the_scoop_defeated,
         ),
     ]
-

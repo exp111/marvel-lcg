@@ -6,6 +6,6 @@ class Build:
 
     # Version
     MAJOR = 1
-    MINOR = 1
-    PATCH = 1
-    BUILD = 0
+    MINOR = 2
+    PATCH = 0
+    BUILD = 1

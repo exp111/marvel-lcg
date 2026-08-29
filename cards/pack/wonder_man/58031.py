@@ -4,7 +4,7 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
-    def cameo(effect: 'Effect', message: 'Message.WhenCardSetup') -> None:
+    def cameo(effect: 'Effect', message: 'Message.WhenGameWouldBegin') -> None:
         this = effect.this.CastTo(Support)
         Unused(this)
 
@@ -30,8 +30,7 @@ def GetAbilities() -> Sequence['Ability']:
 
 
     return [
-        AbilityFactory.WhenCardSetup(
-            "This",
+        AbilityFactory.AfterGameSetup(
             cameo
         ),
     ]

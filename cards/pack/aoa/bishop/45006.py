@@ -15,9 +15,10 @@ def GetAbilities() -> Sequence['Ability']:
 
     def super_charged_interrupt(effect: 'Effect', message: 'Message.WhenUnitWouldAttack') -> None:
         this = effect.this.CastTo(Upgrade)
-        Unused(this)
 
-        value = min(8, this.GetCounters('charge') * 2)
+        discard_cost = effect.cost_func.Get(CostFunc.Discard)
+        charge_counters = discard_cost.return_discarded_counters.get(this, {}).get('charge', 0)
+        value = min(8, charge_counters * 2)
         message.GainATKForThisAttack(value, effect)
 
 
@@ -40,4 +41,3 @@ def GetAbilities() -> Sequence['Ability']:
             ]
         ).SetCostFunc(CostFunc.Discard("This")),
     ]
-

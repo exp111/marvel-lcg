@@ -25,7 +25,9 @@ class PlayerAction:
 
     ################################################################################
     # Encounter
-    def DealEncounterCard(self, face: 'CardFace', by_effect: 'Effect', *, by_surge: bool=False):
+    def DealEncounterCard(self, face: 'CardFace', by_effect: 'Effect', *,
+                          by_surge: bool=False,
+                          to_end_of_queue: bool=False):
         from game.message import Message
         # from game.ability.rule import GameRule
         from game.operate.faces import Faces
@@ -39,7 +41,7 @@ class PlayerAction:
             return
 
         pos = None
-        if world.rule.v16_reveal:
+        if world.rule.v16_reveal or to_end_of_queue:
             pos = "Bottom"
             if by_surge:
                 pos = "Top"
@@ -51,7 +53,9 @@ class PlayerAction:
         message.Send()
 
     # facedown
-    def DealEncounterCards(self, size: int, by_effect: 'Effect', *, by_surge: bool=False) -> None:
+    def DealEncounterCards(self, size: int, by_effect: 'Effect', *,
+                           by_surge: bool=False,
+                           to_end_of_queue: bool=False) -> None:
         world = self.GetPlayer().world
         if world.is_game_over:
             return
@@ -60,7 +64,12 @@ class PlayerAction:
         def process(face: 'CardFace'):
             nonlocal faces
             faces.append(face)
-            self.DealEncounterCard(face, by_effect, by_surge=by_surge)
+            self.DealEncounterCard(
+                face,
+                by_effect,
+                by_surge=by_surge,
+                to_end_of_queue=to_end_of_queue,
+            )
         from game.operate.worlds import Worlds
         Worlds.PopEncounterCards(size, process, True, by_effect)
 
@@ -283,6 +292,14 @@ class PlayerAction:
                 filtered_effects[0].this.IsLikeInHand() and \
                 not filtered_effects[0].this.card.area.flags.is_processing:
                 need_choose = True
+
+            # Full-deck searches are intentionally interactive even when a
+            # forced choice has zero or one legal target. The player may need
+            # to inspect the rest of the deck before resolving the search.
+            if fallthrough_effect and fallthrough_effect.ability.selectors:
+                selector = fallthrough_effect.ability.selectors[0]
+                if selector and selector.force_choose:
+                    need_choose = True
 
             if fallthrough_effect == None:
                 for find_effect in filtered_effects:
@@ -610,6 +627,107 @@ class PlayerAction:
             # self.ChooseEffects([effect], )
         return False
 
+    def _RegisterLikeInTurnCostModifiers(
+        self,
+        face: 'HasCost',
+        effects: Sequence['Effect'],
+        *,
+        ignore_resources_cost: bool,
+        update_resources_cost: int,
+    ) -> List['Effect']:
+        temp_effects: List[Effect] = []
+        if ignore_resources_cost:
+            for check_effect in effects:
+                temp_effects += face.effect.Registers(
+                    AbilityFactory.IgnoreThisCostIf(
+                        AbilityType.Temp0,
+                    )
+                )
+        elif update_resources_cost != 0:
+            for check_effect in effects:
+                temp_effects += face.effect.RegisterTemp(
+                    AbilityFactory.ReduceCostToPlayThis(
+                        lambda effect: -1 * update_resources_cost,
+                        which_effect=check_effect
+                    ),
+                    unregister_after_exec=False
+                )
+        return temp_effects
+
+    def CanPlayEffectLikeInHand(
+        self,
+        play_effect: 'Effect',
+        message: 'Message2',
+        *,
+        ignore_resources_cost: bool=False,
+        update_resources_cost: int=0,
+        excluded_payment_faces: Sequence['CardFace']|None=None,
+    ) -> bool:
+        from game.card.face.attribute.has_cost import HasCost
+        from game.event.manager import EventManager
+        from game.operate.effects import Effects
+
+        player = self.GetPlayer()
+        face = play_effect.this.CastTo(HasCost)
+        previous_like_in_hand = face.card.can_state.is_like_in_hand
+        previous_excluded = play_effect.context.excluded_payment_faces
+        temp_effects = self._RegisterLikeInTurnCostModifiers(
+            face,
+            [play_effect],
+            ignore_resources_cost=ignore_resources_cost,
+            update_resources_cost=update_resources_cost,
+        )
+
+        face.card.can_state.is_like_in_hand = True
+        play_effect.context.excluded_payment_faces = list(
+            excluded_payment_faces or []
+        )
+        try:
+            return bool(EventManager.FilterAvailableEffects(
+                message,
+                [play_effect],
+                player,
+                player.world,
+                None,
+            ))
+        finally:
+            play_effect.context.excluded_payment_faces = previous_excluded
+            face.card.can_state.is_like_in_hand = previous_like_in_hand
+            Effects.UnRegister(temp_effects)
+
+    def PlayEffectLikeInHand(
+        self,
+        play_effect: 'Effect',
+        message: 'Message2',
+        *,
+        ignore_resources_cost: bool=False,
+        update_resources_cost: int=0,
+    ) -> 'Effect|None':
+        from game.card.face.attribute.has_cost import HasCost
+        from game.operate.effects import Effects
+
+        player = self.GetPlayer()
+        face = play_effect.this.CastTo(HasCost)
+        previous_like_in_hand = face.card.can_state.is_like_in_hand
+        temp_effects = self._RegisterLikeInTurnCostModifiers(
+            face,
+            [play_effect],
+            ignore_resources_cost=ignore_resources_cost,
+            update_resources_cost=update_resources_cost,
+        )
+
+        face.card.can_state.is_like_in_hand = True
+        try:
+            return player.ChooseEffects(
+                [play_effect],
+                message,
+                forced=False,
+                priority=play_effect.ability.priority,
+            )
+        finally:
+            face.card.can_state.is_like_in_hand = previous_like_in_hand
+            Effects.UnRegister(temp_effects)
+
     def PlayOneCardLikeInTurn(self, faces: List['CardFace'],
                             by_effect: 'Effect',
                             *,
@@ -617,9 +735,26 @@ class PlayerAction:
                             update_resources_cost: int=0,
                             forced: bool=False):
         from game.card.face.attribute.has_cost import HasCost
+        from game.operate.effects import Effects
         from game.operate.faces import Faces
         player = self.GetPlayer()
-        faces = [x for x in faces if x.CanPlayBy(player)]
+
+        def can_play_with_cost_modifiers(face: 'CardFace') -> bool:
+            if not HasCost.IsType(face):
+                return face.CanPlayBy(player)
+
+            temp_effects = self._RegisterLikeInTurnCostModifiers(
+                face,
+                face.GetTurnPlayEffects(),
+                ignore_resources_cost=ignore_resources_cost,
+                update_resources_cost=update_resources_cost,
+            )
+            try:
+                return face.CanPlayBy(player)
+            finally:
+                Effects.UnRegister(temp_effects)
+
+        faces = [x for x in faces if can_play_with_cost_modifiers(x)]
         face = player.AskChooseFace(
             faces,
             by_effect,
@@ -701,23 +836,12 @@ class PlayerAction:
 
             # Fix "30004"
             # assert len(effects) == 1, f"{effects=}"
-            temp_effects: List[Effect] = []
-            if ignore_resources_cost:
-                for check_effect in effects:
-                    temp_effects += face.effect.Registers(
-                        AbilityFactory.IgnoreThisCostIf(
-                            AbilityType.Temp0,
-                        )
-                    )
-            elif update_resources_cost != 0:
-                for check_effect in effects:
-                    temp_effects += face.effect.RegisterTemp(
-                        AbilityFactory.ReduceCostToPlayThis(
-                            lambda effect: -1 * update_resources_cost,
-                            which_effect=check_effect
-                        ),
-                        unregister_after_exec=False
-                    )
+            temp_effects = self._RegisterLikeInTurnCostModifiers(
+                face,
+                effects,
+                ignore_resources_cost=ignore_resources_cost,
+                update_resources_cost=update_resources_cost,
+            )
 
             if give_piercing:
                 for check_effect in effects:
@@ -951,4 +1075,3 @@ class PlayerAction:
                 break
             if effect.world.is_game_over:
                 break
-

@@ -16,7 +16,14 @@ def GetAbilities() -> Sequence['Ability']:
                     "Spend up to 3 [R] resources from their hand",
                     lambda targets, res:
                         # ignore tough
-                        this.DealDamage(targets, DamageProperty(res.val * 2, ignore_tough=True), effect)
+                        this.DealDamage(
+                            targets,
+                            DamageProperty(
+                                min(3, res.val) * 2,
+                                ignore_tough=True,
+                            ),
+                            effect,
+                        )
                 ).SetTarget(Villain, name="Thanos")
             )
         Players.ForEachPlayer(effect, action)

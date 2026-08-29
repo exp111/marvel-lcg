@@ -30,6 +30,7 @@ class WorldRule:
         self.additional_resolve_mulligans   = VariableBool(self, False, "additional_resolve_mulligans")
         self.disable_setup_draw_cards       = VariableBool(self, False, "disable_setup_draw_cards")
         self.create_player_deck_first       = VariableBool(self, False, "create_player_deck_first")
+        self.show_deck_during_full_search  = VariableBool(self, False, "show_deck_during_full_search")
 
         self.v15_all                        = VariableBool(self, False, "v15_all")
 

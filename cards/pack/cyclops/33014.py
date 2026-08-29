@@ -11,7 +11,12 @@ def GetAbilities() -> Sequence['Ability']:
         initiator = effect.GetInitiator()
 
         faces = initiator.LookAtDeck("EncounterDeck", 5, effect)
-        initiator.AskDiscardFace(faces, effect, not_shuffle=True)
+        initiator.AskDiscardFace(
+            faces,
+            effect,
+            not_shuffle=True,
+            display_in_target_order=True,
+        )
 
 
     return [
@@ -21,4 +26,3 @@ def GetAbilities() -> Sequence['Ability']:
             blindfold
         ),
     ]
-

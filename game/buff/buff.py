@@ -72,3 +72,6 @@ class BuffCannotBeConfused(Buff):
 
 class BuffCannotBeStunned(Buff):
     pass
+
+class BuffUseDefenseForAttackAndThwart(Buff):
+    pass

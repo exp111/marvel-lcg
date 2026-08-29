@@ -134,6 +134,7 @@ class SenderFriend:
             self.would_thw_message: Final = would_thw_message
             self.would_message: Final = would_thw_message
             self.who_make_thwart: Final = would_thw_message.trigger
+            self.exact_defeat = False
             # Render.Print(f'{unit} thwarted {scheme}, value {value}', unit, scheme)
             super().__init__(trigger=would_thw_message.trigger, end_event=Message.AfterUnitThwartScheme)
             self.AddRelatedFace(scheme)
@@ -209,4 +210,3 @@ class SenderFriend:
         def __init__(self, unit: 'Unit2', rec_message: 'Message.AfterUnitHealHealth|None', would_message: 'Message.WhenUnitWouldRecovery'):
             self.rec_message = rec_message
             super().__init__(trigger=unit, pre_message=would_message)
-

@@ -108,6 +108,13 @@
     position: sticky;
 }
 
+.deck.clicked.selection-order-top-first::after {
+    content: "(" attr(data-total_cards) ") \f060 Top";
+    right: 10px;
+    left: unset;
+    justify-content: flex-end;
+}
+
 .deck.deck-change-size.clicked::after {
     animation: none;
 }
@@ -180,4 +187,3 @@
 /* .deck.clicked:has(.peeking) .card:not(.peeking) {
     display: none;
 } */
-

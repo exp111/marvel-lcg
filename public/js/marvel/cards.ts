@@ -119,6 +119,12 @@ class CardRender {
         // -- 2. Sort cards according to area and settings --
         const cardArea = CardRender.getCardArea(areaName);
         const sortedCards = CardRender.getSortedCards(areaCards, cardArea, areaName, isSelecting, isTempSort);
+        const displaysTargetOrder = isSelecting && cardArea === 'deck' && Effect.select_effect_obj.display_in_target_order;
+        const displaysFullSearch = isSelecting && cardArea === 'deck' && Effect.select_effect_obj.full_search_display_targets.length > 0;
+        parent.classList.toggle(
+            'selection-order-top-first',
+            displaysTargetOrder || displaysFullSearch
+        );
     
         // -- 3. Filter visible/rendered cards based on hide rules --
         const visibleCards = CardRender.getVisibleCards(
@@ -206,7 +212,33 @@ class CardRender {
                 }
                 return [...areaCards];
             } else {
-                // Sorting for selecting
+                if (Effect.select_effect_obj.full_search_display_targets.length > 0) {
+                    // Preserve the deck's live bottom-to-top array order. The
+                    // top card remains the rightmost card in the open deck.
+                    return [...areaCards];
+                }
+
+                if (Effect.select_effect_obj.display_in_target_order) {
+                    // Ordered selectors provide targets in the order they will be
+                    // drawn or placed. Display that sequence from right to left so
+                    // it runs back toward the decks on the left side of the table.
+                    const targetOrder = new Map<number, number>();
+                    Effect.select_effect_obj.all_legal_targets.forEach((objectId, index) => {
+                        if (!targetOrder.has(objectId)) targetOrder.set(objectId, index);
+                    });
+
+                    return [...areaCards].sort((a, b) => {
+                        const aOrder = targetOrder.get(a.object_id);
+                        const bOrder = targetOrder.get(b.object_id);
+                        if (aOrder !== undefined && bOrder !== undefined) return bOrder - aOrder;
+                        if (aOrder !== undefined) return 1;
+                        if (bOrder !== undefined) return -1;
+                        return 0;
+                    });
+                }
+
+                // Swap and ordinary search effects follow the cards' live area
+                // order, which can change between selections.
                 return [...areaCards].sort((a, b) => {
                     const aLegal = Effect.select_effect_obj.all_legal_targets.includes(a.object_id);
                     const bLegal = Effect.select_effect_obj.all_legal_targets.includes(b.object_id);
@@ -1271,7 +1303,7 @@ class CardRender {
                         let found = false
                         let card_div_bind_image_info = card_div.querySelector('.bind-image-info') as HTMLElement
                         if( x.bind_id == object_id ) {
-                            let cost = x.getCost()
+                            let cost = x.getCost().replaceAll("|", "/")
                             if( cost != "" ) {
                                 card_div_bind_image_info.setAttribute('data-cost', cost)
                             }

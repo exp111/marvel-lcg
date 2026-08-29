@@ -144,10 +144,19 @@ class Worlds:
         return faces
 
     @staticmethod
-    def GetSideSchemes(game_area_effect: 'GameArea|Effect') -> List['EncounterSideScheme|PlayerSideScheme']:
+    def IsMissionSideScheme(face: 'CardFace') -> bool:
+        return EncounterSideScheme.IsType(face) and face.HasTrait("MISSION")
+
+    @staticmethod
+    def GetSideSchemes(game_area_effect: 'GameArea|Effect', *, include_missions: bool=False) -> List['EncounterSideScheme|PlayerSideScheme']:
         world = game_area_effect.world
         game_area = Worlds.CastGameArea(game_area_effect)
-        return [x for x in world.area_schemes_side.Get() if x.card.GetGameArea() == game_area and (EncounterSideScheme.IsType(x) or PlayerSideScheme.IsType(x))]
+        return [
+            x for x in world.area_schemes_side.Get()
+            if x.card.GetGameArea() == game_area and
+            (EncounterSideScheme.IsType(x) or PlayerSideScheme.IsType(x)) and
+            (include_missions or not Worlds.IsMissionSideScheme(x))
+        ]
 
     @staticmethod
     def FilterSideScheme(by_effect: 'Effect',
@@ -204,6 +213,25 @@ class Worlds:
             villains = Worlds.GetAllVillains(world)
 
         return [x for x in villains if x.card.GetGameArea() == game_area]
+
+    @staticmethod
+    def ChooseVillain(by_effect: 'Effect', finder: 'CardFinder|None'=None, *, prompt: str="Choose a villain") -> 'Villain|None':
+        if by_effect.world.GetScenario().name == "The Wrecking Crew":
+            villain = Worlds.FindVillain(by_effect)
+            if villain and (finder is None or finder.Check(villain)):
+                return villain
+            return None
+
+        villains = Worlds.GetVillains(by_effect, finder)
+        if not villains:
+            return None
+        if len(villains) == 1:
+            return villains[0]
+        return by_effect.GetInitiator().AskChooseFace(
+            villains,
+            by_effect,
+            prompt=prompt,
+        )
 
     @staticmethod
     def GetOnFieldLeaders(game_area_effect: 'GameArea|Effect') -> List['Leader']:
@@ -384,7 +412,7 @@ class Worlds:
 
     @staticmethod
     # No include status card
-    def GetOnFieldCards(game_area_effect: 'GameArea|Effect') -> List['CardFace']:
+    def GetOnFieldCards(game_area_effect: 'GameArea|Effect', *, include_missions: bool=False) -> List['CardFace']:
         # from game.card.face.card_type import Identity
         world = game_area_effect.world
         game_area = Worlds.CastGameArea(game_area_effect)
@@ -408,7 +436,13 @@ class Worlds:
                     found = get_faces(face)
                     faces.extend(found)
 
-        faces = [x for x in faces if x.IsFaceUp()]
+        faces = [
+            x for x in faces
+            if x.IsFaceUp() and (
+                include_missions or
+                not Worlds.IsMissionSideScheme(x)
+            )
+        ]
         return faces
 
     ################################################################################
@@ -419,9 +453,12 @@ class Worlds:
         return world.area_schemes_main.Get()
 
     @staticmethod
-    def GetAllSideSchemes(by_effect: 'Effect|World') -> List['SchemeSide2']:
+    def GetAllSideSchemes(by_effect: 'Effect|World', *, include_missions: bool=False) -> List['SchemeSide2']:
         world = Worlds.CastWorld(by_effect)
-        return world.area_schemes_side.Get()
+        return [
+            x for x in world.area_schemes_side.Get()
+            if include_missions or not Worlds.IsMissionSideScheme(x)
+        ]
 
     @staticmethod
     def GetOnAllFieldScheme(by_effect: 'Effect|World') -> List['MainScheme|SchemeSide2']:

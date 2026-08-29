@@ -15,7 +15,7 @@ def GetAbilities() -> Sequence['Ability']:
         champion = FindTheChampion(effect)
         challengers = FindTheChallengers(effect)
         if champion and challengers:
-            if challengers.GetCounters('ratings') >= champion.GetCounters('ratings'):
+            if challengers.GetCounters('ratings') > champion.GetCounters('ratings'):
                 num = 4
         scheme = Worlds.FindMainScheme(this)
         if scheme:
