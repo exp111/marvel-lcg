@@ -30,7 +30,10 @@ class FakeDeck:
 def make_deck(card_count=3, **kwargs):
     deck = FakeDeck(**kwargs)
     deck.faces = [
-        SimpleNamespace(card=SimpleNamespace(area=deck, object_id=index + 1))
+        SimpleNamespace(
+            name=f"Card {index + 1}",
+            card=SimpleNamespace(area=deck, object_id=index + 1),
+        )
         for index in range(card_count)
     ]
     return deck
@@ -108,7 +111,7 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         self.assertIn("include_set_aside=True", source)
         self.assertIn('range="All"', source)
 
-    def test_multi_area_search_displays_only_the_actual_deck(self):
+    def test_multi_area_search_displays_discard_but_only_shuffles_actual_deck(self):
         encounter_deck = make_deck()
         encounter_discard = make_deck(is_discards=True)
         set_aside = make_deck(is_deck=False)
@@ -137,6 +140,10 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         self.assertEqual(
             search_internal.call_args.kwargs["full_search_decks"],
             [encounter_deck],
+        )
+        self.assertEqual(
+            search_internal.call_args.kwargs["full_search_display_faces"],
+            encounter_deck.Get(True) + encounter_discard.Get(True),
         )
 
     def test_partial_explicit_deck_is_not_treated_as_full_search(self):
@@ -192,6 +199,71 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         )
         player.AskChooseSelect.assert_called_once()
 
+    def test_discard_only_search_opens_no_match_viewer_without_shuffling_discard(self):
+        discard = make_deck(is_discards=True)
+        player = SimpleNamespace(AskChooseSelect=MagicMock(return_value=[]))
+        finder = SimpleNamespace(Checks=MagicMock(return_value=[]))
+        captured_selector = SimpleNamespace()
+
+        def capture_selector(**kwargs):
+            captured_selector.kwargs = kwargs
+            return SimpleNamespace()
+
+        with patch("game.operate.search_internal.Select.From", side_effect=capture_selector):
+            SearchInternal.SearchForCardsInternal(
+                SimpleNamespace(),
+                player,
+                discard.Get(True),
+                process_choose=None,
+                process_other=None,
+                finder=finder,
+                may=False,
+                full_search_display_faces=discard.Get(True),
+                full_search_decks=[],
+            )
+
+        self.assertTrue(captured_selector.kwargs["force_choose"])
+        self.assertEqual(
+            captured_selector.kwargs["full_search_display_faces"],
+            discard.Get(True),
+        )
+        self.assertEqual(captured_selector.kwargs["full_search_decks"], [])
+        player.AskChooseSelect.assert_called_once()
+
+    def test_full_discard_display_preserves_a_valid_target_selection(self):
+        discard = make_deck(is_discards=True)
+        valid_target = discard.Get(True)[0]
+        player = SimpleNamespace(
+            AskChooseSelect=MagicMock(return_value=[valid_target])
+        )
+        finder = SimpleNamespace(
+            Checks=MagicMock(return_value=[valid_target])
+        )
+        process_choose = MagicMock()
+        captured_selector = SimpleNamespace()
+
+        def capture_selector(**kwargs):
+            captured_selector.kwargs = kwargs
+            return SimpleNamespace()
+
+        with patch("game.operate.search_internal.Select.From", side_effect=capture_selector):
+            selected = SearchInternal.SearchForCardsInternal(
+                SimpleNamespace(),
+                player,
+                discard.Get(True),
+                process_choose=process_choose,
+                process_other=None,
+                finder=finder,
+                may=False,
+                full_search_display_faces=discard.Get(True),
+                full_search_decks=[],
+            )
+
+        self.assertEqual(selected, [valid_target])
+        self.assertIs(captured_selector.kwargs["finder"], finder)
+        self.assertEqual(captured_selector.kwargs["range"], (1, 1))
+        process_choose.assert_called_once_with(valid_target)
+
     def test_force_choose_allows_a_no_match_viewer(self):
         selector = Select.From(faces=[], range=(1, 1), force_choose=True)
 
@@ -223,7 +295,7 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
             deck.Get(True),
         )
 
-    def test_direct_multi_area_search_does_not_treat_discard_as_a_deck(self):
+    def test_direct_multi_area_search_displays_discard_without_shuffling_it(self):
         deck = make_deck()
         discard = make_deck(is_discards=True)
         selector = Select.From(
@@ -244,6 +316,10 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         selector.GetAllLegalTargets(effect)
 
         self.assertEqual(selector.selector_end.full_search_decks, [deck])
+        self.assertEqual(
+            selector.selector_end.full_search_display_faces,
+            deck.Get(True) + discard.Get(True),
+        )
 
     def test_direct_limited_or_non_shuffling_selectors_do_not_show_full_deck(self):
         deck = make_deck()

@@ -13,6 +13,7 @@ class SearchInternal:
                                 may: bool,
                                 not_move: bool=False, # will not shuffle
                                 range: 'SELECT.RANGE_TYPE'=(1,1),
+                                full_search_display_faces: Sequence['CardFace']=(),
                                 full_search_decks: Sequence['Deck']=(),
                                 ) -> List[TC]:
 
@@ -44,7 +45,14 @@ class SearchInternal:
                         skip_choose = False
                         break
 
-        show_full_deck_search = bool(full_search_decks)
+        if not full_search_display_faces:
+            full_search_display_faces = [
+                face
+                for deck in full_search_decks
+                for face in deck.Get(True)
+            ]
+
+        show_full_deck_search = bool(full_search_display_faces)
         if show_full_deck_search:
             skip_choose = False
 
@@ -62,12 +70,6 @@ class SearchInternal:
             assert not isinstance(x, str)
             range = (0, x)
 
-        # We use this to do shuffle
-        full_search_display_faces = [
-            face
-            for deck in full_search_decks
-            for face in deck.Get(True)
-        ]
         selector = Select.From(
             faces=select_face,
             finder=finder,

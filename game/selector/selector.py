@@ -56,7 +56,7 @@ class Selector(metaclass=Tracker.Meta):
 
     def EnableFullSearchDisplay(self, effect: 'Effect', faces: Sequence['CardFace']) -> None:
         selector_end = self.selector_end
-        if selector_end.full_search_decks or \
+        if selector_end.full_search_display_faces or \
             not self.is_search or \
             selector_end.not_move or \
             selector_end.not_shuffle or \
@@ -71,17 +71,16 @@ class Selector(metaclass=Tracker.Meta):
         candidate_decks = Types.RemoveDuplicates([
             face.card.area
             for face in faces
-            if face.card.area.flags.is_deck and \
-                not face.card.area.flags.is_discards
+            if face.card.area.flags.is_deck
         ])
-        full_search_decks = []
+        full_search_display_decks = []
         for deck in candidate_decks:
             deck_faces = deck.Get(True)
             if deck_faces and all(face in faces for face in deck_faces):
-                full_search_decks.append(deck)
+                full_search_display_decks.append(deck)
 
-        if full_search_decks:
-            selector_end.EnableFullSearchDisplay(full_search_decks)
+        if full_search_display_decks:
+            selector_end.EnableFullSearchDisplay(full_search_display_decks)
 
     def GetAllLegalTargets(self, effect: 'Effect', referential_effect: 'Effect|None'=None, *, just_check: bool=False) -> Sequence['CardFace']:
         from game.operate.referential import Referential

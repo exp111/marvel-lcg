@@ -357,19 +357,21 @@ class Search:
         # true full-deck search from the gathered cards rather than limiting
         # this option to the standard player and encounter deck parameters.
         full_search_decks: List[Deck] = []
+        full_search_display_faces: List[CardFace] = []
         if bool(by_effect.world.rule.show_deck_during_full_search) and \
             most_top == None and \
             not not_move:
             candidate_decks = Types.RemoveDuplicates([
                 face.card.area
                 for face in faces
-                if face.card.area.flags.is_deck and \
-                    not face.card.area.flags.is_discards
+                if face.card.area.flags.is_deck
             ])
             for deck in candidate_decks:
                 deck_faces = deck.Get(True)
                 if deck_faces and all(face in faces for face in deck_faces):
-                    full_search_decks.append(deck)
+                    full_search_display_faces.extend(deck_faces)
+                    if not deck.flags.is_discards:
+                        full_search_decks.append(deck)
 
         from game.operate.search_internal import SearchInternal
 
@@ -383,6 +385,7 @@ class Search:
             may=may,
             not_move=not_move,
             range=range,
+            full_search_display_faces=full_search_display_faces,
             full_search_decks=full_search_decks,
         )
 
