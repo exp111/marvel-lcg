@@ -34,10 +34,9 @@ class EffectDescriptor:
     # Exact one-of-one targets are outcomes, not player choices.  The client
     # can submit the selected ability without opening a target-selection step.
     automatic_targets: List[int] = field(default_factory=list)
-    # Most exact one-of-one outcomes can be submitted immediately. Declaring
-    # a basic defender is the exception: keep the sole attacker preselected,
-    # but let the player confirm or cancel the defender before the attack
-    # continues.
+    # Most exact one-of-one outcomes can be submitted immediately. Optional
+    # Responses and basic defense declarations are exceptions: keep the sole
+    # target preselected, but let the player explicitly confirm or cancel.
     automatic_submit: bool = True
 
     # is_ex_effect check `AskOption`

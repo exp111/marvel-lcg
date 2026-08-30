@@ -782,6 +782,49 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         self.assertLess(hero.health, hero.max_health)
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
 
+    def test_optional_enter_play_responses_require_confirmation_for_only_target(self):
+        for card_id, card_name in (("33011", "Beast"), ("40014", "Caliban")):
+            with self.subTest(card_name=card_name):
+                fixture = TimingFixture(
+                    "optional_response_confirmation.json",
+                    f"{card_name} optional response confirmation",
+                    "rhino",
+                    ("echo",),
+                    730000 + int(card_id),
+                    (),
+                    (card_id,),
+                )
+                scene = build_fixture_scene(fixture)
+                put_into_play = False
+
+                def choose(prompt):
+                    nonlocal put_into_play
+                    if prompt.event_name == "WhenPlayerInTurn" and not put_into_play:
+                        put_into_play = True
+                        return self._debug(f'Puzzle.PutIntoPlay("{card_id}")')
+                    if (
+                        prompt.event_name == "AfterCardEnterPlay" and
+                        prompt.ability_type == "Response"
+                    ):
+                        return None
+                    return HeadlessDeviceManager._DefaultChoice(prompt)
+
+                devices = HeadlessDeviceManager(choice_provider=choose)
+                game = run_scene_with_devices(scene, devices)
+                prompt = devices.stopped_prompt
+
+                self.assertIsNotNone(prompt)
+                self.assertTrue(prompt.show_cancel)
+                self.assertEqual(prompt.ability_type, "Response")
+                self.assertEqual(prompt.event_name, "AfterCardEnterPlay")
+                self.assertEqual(len(prompt.options), 1)
+                option = prompt.options[0]
+                card = game.world.FindCardsOnField(name=card_name)[0]
+                self.assertEqual(option.get("all_legal_targets"), [card.card.object_id])
+                self.assertEqual(option.get("automatic_targets"), [card.card.object_id])
+                self.assertFalse(option.get("automatic_submit"))
+                self.assertEqual(game.world.event_manager.timing_occurrences, [])
+
     def test_indirect_damage_keeps_each_target_and_tough_replacement(self):
         path = OUTPUT_DIRECTORY / "12_indirect_divided_damage.json"
         commands = [
@@ -829,10 +872,12 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         ]
         command_index = 0
         thwarted = False
-        automatic_target_submissions = 0
+        automatic_internal_choices = 0
+        confirmed_optional_responses = 0
 
         def choose(prompt):
-            nonlocal command_index, thwarted, automatic_target_submissions
+            nonlocal command_index, thwarted
+            nonlocal automatic_internal_choices, confirmed_optional_responses
             if prompt.event_name == "WhenPlayerInTurn" and command_index < len(commands):
                 command = commands[command_index]
                 command_index += 1
@@ -854,7 +899,7 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
                     option.get("all_legal_targets"),
                 )
                 self.assertTrue(option.get("automatic_submit"))
-                automatic_target_submissions += 1
+                automatic_internal_choices += 1
                 return CommandDescriptor(
                     str(option.get("choice_id") or option["id"]),
                     [],
@@ -866,8 +911,8 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
                     option.get("automatic_targets"),
                     option.get("all_legal_targets"),
                 )
-                self.assertTrue(option.get("automatic_submit"))
-                automatic_target_submissions += 1
+                self.assertFalse(option.get("automatic_submit"))
+                confirmed_optional_responses += 1
                 return CommandDescriptor(
                     str(option.get("choice_id") or option["id"]),
                     [],
@@ -883,7 +928,8 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         self.assertFalse(identity.IsExhaust())
         self.assertTrue(investigator.IsExhaust())
         self.assertEqual(len(game.world.const_players[0].hand_cards.Get()), 1)
-        self.assertEqual(automatic_target_submissions, 2)
+        self.assertEqual(automatic_internal_choices, 1)
+        self.assertEqual(confirmed_optional_responses, 1)
         self.assertEqual(game.world.FindCardsOnField(name="Hujahdarian Monarch Egg"), [])
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
 

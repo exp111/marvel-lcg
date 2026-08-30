@@ -598,9 +598,21 @@ class Effect(Object):
             automatic_targets = [
                 self.context.all_legal_targets[0].card.object_id
             ]
-        automatic_submit = not (
+        # A deterministic target can be preselected without deciding whether
+        # the player wants to use an optional printed Response.  Keep those
+        # targets selected, but wait for an explicit OK/cancel decision.  A
+        # Forced Response is mandatory and retains the streamlined submit.
+        is_optional_response = (
+            self.ability.flags.is_response and
+            not self.ability.flags.is_forced
+        )
+        is_basic_defense = (
             self.ability.type == AbilityType.BasicPower and
             self.ability.IsFunction("DEF")
+        )
+        automatic_submit = not (
+            is_optional_response or
+            is_basic_defense
         )
 
         # Fix "07042"
