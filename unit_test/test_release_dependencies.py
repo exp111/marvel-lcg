@@ -36,12 +36,12 @@ class TestReleaseDependencies(unittest.TestCase):
             "    MAJOR = 1",
             "    MINOR = 3",
             "    PATCH = 0",
-            "    BUILD = 0",
+            "    BUILD = 1",
         ):
             self.assertIn(version_part, build.splitlines())
-        self.assertIn("Application version: **1.3.0r**", patch_notes)
+        self.assertIn("Application version: **1.3.0.1r**", patch_notes)
         self.assertNotIn("1.0.0.5r", marvel_html)
-        self.assertGreaterEqual(marvel_html.count("?v=1.3.0r"), 2)
+        self.assertGreaterEqual(marvel_html.count("?v=1.3.0.1r"), 2)
 
     def test_main_menu_identifies_the_community_build_with_the_live_version(self):
         project_root = Path(__file__).resolve().parents[1]

@@ -4,11 +4,11 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest testing release: v1.3.0
+## Latest testing release: v1.3.0.1
 
-[Download Community Build v1.3.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.0)
+[Download Community Build v1.3.0.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.0.1)
 
-v1.3.0 completes the **Fear No Evil** expansion and introduces the game's default-on **Rules Reference v1.8 timing system**. Release highlights include:
+v1.3.0.1 is a hotfix for conditional Surge, optional response confirmation, Colossus setup, and Goblin's printed damage restriction. It includes all v1.3.0 content, including:
 
 - The complete **Fear No Evil** box: Daredevil and Echo, all player cards, five interchangeable Underling villains, five interchangeable scenarios, Kingpin's standalone scenario, all six modular encounter sets, and the full campaign.
 - Rules Reference v1.8 simultaneous timing, enabled by default for new games. Interrupts and responses created by one occurrence share the correct timing window and can be resolved in player-chosen order. The legacy timing dispatcher remains available through the Rule settings.

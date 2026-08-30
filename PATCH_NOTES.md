@@ -1,3 +1,21 @@
+# Marvel Champions Digital v1.3.0.1
+
+Application version: **1.3.0.1r**
+Windows file version: **1.3.0.1**
+
+This hotfix contains corrections made after v1.3.0.
+
+## Hotfix fixes
+
+- Corrected conditional **Surge** under the v1.8 timing workflow. Encounter cards such as **Assault** and **Gang-Up** now gain and resolve Surge when their When Revealed condition is met, and the keyword remains part of that cancellable When Revealed effect.
+- Restored explicit confirmation for optional Responses, including optional keyword Responses, when only one legal response is available. Deterministic targeting inside an already chosen ability can still resolve automatically.
+- Corrected **Colossus** setup so **Organic Steel** can be searched for only in his deck, as printed, and not in his discard pile.
+- Corrected **Goblin** so damage is permitted only when its source is a card with a printed physical resource. Retaliate and other damage without a qualifying printed card resource no longer damage Goblin.
+
+The Windows package remains unsigned. See the v1.3.0 antivirus notice below, verify this hotfix archive with its accompanying `.sha256` file, and scan the downloaded package yourself.
+
+---
+
 # Marvel Champions Digital v1.3.0
 
 Application version: **1.3.0r**
