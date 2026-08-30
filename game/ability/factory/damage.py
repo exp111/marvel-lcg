@@ -429,6 +429,39 @@ class AbilityFactoryDamage:
         )
 
     @staticmethod
+    def UnitCanOnlyTakeDamageFromCards(
+        which_card: CardType,
+        by_face: 'CardFinder',
+    ) -> 'Ability':
+        """Prevent damage unless its originating card matches ``by_face``.
+
+        Internal effects such as Retaliate retain their originating face.
+        Only a class-card source that matches the finder qualifies; identities
+        and other rule sources have no printed resource and must be rejected.
+        """
+        from game.card.face.base import ClassCard
+
+        def prevent_damage(
+            effect: 'Effect',
+            message: 'Message.WhenUnitWouldTakeDamage',
+        ) -> None:
+            message.PreventDamage("All", effect)
+
+        def source_card_does_not_match(
+            effect: 'Effect',
+            message: 'Message.WhenUnitWouldTakeDamage',
+        ) -> bool:
+            source = message.by_effect.this
+            return not ClassCard.IsType(source) or not by_face.Check(source)
+
+        return AbilityFactoryDamage.WhenUnitWouldTakeDamage(
+            AbilityType.NonKeyword,
+            which_card,
+            prevent_damage,
+            conditions=[source_card_does_not_match],
+        )
+
+    @staticmethod
     def UpdateAttacksDealDamage(*,
                                 deal_damage_from: CardType=None,
                                 with_piercing: bool|None=None,

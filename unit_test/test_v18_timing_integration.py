@@ -346,6 +346,54 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         ))
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
 
+    def test_alter_ego_assault_and_gang_up_grant_then_resolve_surge(self):
+        for card_id, card_name in (("01187", "Assault"), ("01189", "Gang-Up")):
+            with self.subTest(card_name=card_name):
+                fixture = TimingFixture(
+                    "conditional_surge_when_revealed.json",
+                    f"{card_name} grants Surge in alter-ego form",
+                    "rhino",
+                    ("echo",),
+                    720000 + int(card_id),
+                    (),
+                    (card_id, "01188"),
+                )
+                scene = build_fixture_scene(fixture)
+                commands = [
+                    f'Puzzle.CreateEncounterDeck("{card_id}", "01188")',
+                    f'Puzzle.Reveal("{card_id}")',
+                ]
+                command_index = 0
+
+                def choose(prompt):
+                    nonlocal command_index
+                    if prompt.event_name == "WhenPlayerInTurn" and command_index < len(commands):
+                        command = commands[command_index]
+                        command_index += 1
+                        return self._debug(command)
+                    if prompt.event_name == "WhenPlayerInTurn":
+                        return None
+                    return HeadlessDeviceManager._DefaultChoice(prompt)
+
+                devices = HeadlessDeviceManager(choice_provider=choose)
+                game = run_scene_with_devices(scene, devices)
+                player = game.world.const_players[0]
+
+                self.assertTrue(player.IsAlterEgo())
+                self.assertEqual(player.GetIdentity().health, player.GetIdentity().max_health)
+                self.assertEqual(
+                    [face.paper.card_id for face in player.dealt_encounter_cards.Get()],
+                    ["01188"],
+                )
+                self.assertIn(
+                    card_id,
+                    [
+                        face.paper.card_id
+                        for face in game.world.scenario.encounter_discard_pile.Get()
+                    ],
+                )
+                self.assertEqual(game.world.event_manager.timing_occurrences, [])
+
     def test_nested_get_behind_me_attack_finishes_before_reveal_resumes(self):
         path = OUTPUT_DIRECTORY / "06_nested_reveal_attack_defense.json"
         commands = [

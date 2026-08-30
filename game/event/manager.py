@@ -1229,6 +1229,19 @@ class EventManager:
                 message.SilentInstead()
             return
 
+        # Under v1.8, Surge and Incite are When Revealed abilities. Another
+        # When Revealed ability can make one of those keyword candidates legal
+        # while this same message is resolving (for example, Assault or
+        # Gang-Up granting Surge in alter-ego form). Use the recalculating
+        # timing window so newly legal mandatory candidates are discovered
+        # before reveal resolution continues.
+        if bool(self.world.rule.v18_timing) and isinstance(
+            message,
+            Message.WhenCardRevealed,
+        ):
+            self.BroadcastTimingWindow([message])
+            return
+
         # self.last_message = message
 
         is_playing_res = isinstance(message, Message.WhenPlayerPayingResources)
