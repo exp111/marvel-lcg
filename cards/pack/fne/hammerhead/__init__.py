@@ -19,5 +19,8 @@ def HammerheadVillainAbilities(extra_damage: int) -> List['Ability']:
             "This",
             "Character",
             after_damage,
+        ).SetName(
+            f"Stun the attacked character; if already stunned, deal "
+            f"{extra_damage} damage"
         ),
     ]

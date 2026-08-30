@@ -726,6 +726,15 @@ export class Effect {
             {
                 UI.prompt.setTempPromptText(`<span class='effect-text'>${Effect.select_effect_obj.name_with_space}</span>`)
                 if( targets.length > 0 && Effect.select_effect_obj.target_num_range[1] > 0 ) {
+                    if( Effect.select_effect_obj.automatic_targets.length > 0 ) {
+                        SelectStep.setTargets(true)
+                        if( Effect.select_effect_obj.automatic_submit &&
+                            !ButtonSetting.is_replay ) {
+                            Button.doPost(true)
+                        }
+                        Effect.updateHighLight()
+                        return
+                    }
                     if( targets.length >= Effect.select_effect_obj.target_num_range[0] &&
                         // Effect.select_effect_obj.target_num_range[0] > 0 && // Fix for "03006", also fix 'End Phase' 'Resolve Mulligans'
                         targets.length <= Effect.select_effect_obj.target_num_range[1] ) {

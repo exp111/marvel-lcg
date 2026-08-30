@@ -68,6 +68,8 @@ class CanRecover(CardFace):
             use_basic_power_message.Send()
         else:
             use_basic_power_message = None
+        event_manager = this.card.world.event_manager
+        timing_occurrence = event_manager.BeginTimingOccurrence()
         value = property.GetRecover(this)
         rec_message = this.HealHealth(value, effect)
 
@@ -78,6 +80,8 @@ class CanRecover(CardFace):
             unit = this.card.CastTo(Unit2)
             after_use_basic_power_message = Message.AfterUnitUseBasicPower(unit, "REC", recovery_message, use_basic_power_message)
             after_use_basic_power_message.Send()
+
+        event_manager.EndTimingOccurrence(timing_occurrence)
 
         return recovery_message
 

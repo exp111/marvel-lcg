@@ -25,7 +25,8 @@ class Treachery(EncounterNonVillainCard, FinalType):
         from game.effect.rule import GameRule
         from game.operate.faces import Faces
 
-        if not self.card.world.rule.fix_treachery:
+        if not bool(self.card.world.rule.v18_timing) and \
+            not self.card.world.rule.fix_treachery:
             if not revealed_message.reveal_message.from_area.flags.is_boost_area:
                 self.ResolveIncite()
                 Faces.DiscardAll([self], GameRule(self))

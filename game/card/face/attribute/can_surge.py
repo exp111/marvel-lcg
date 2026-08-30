@@ -27,6 +27,32 @@ class HasSurge(HasAttribute):
 
 class CanSurge(HasSurge):
 
+    @override
+    def GetAbilities(self) -> List['Ability']:
+        def resolve_surge(
+            effect: 'Effect',
+            message: 'Message.WhenCardRevealed',
+        ) -> None:
+            this = effect.this.CastTo(CanSurge)
+            resolved = this.ResolveSurge(message.GetToPlayer())
+            if resolved:
+                message.reveal_message.AddResolved(resolved)
+
+        ability = Ability(
+            AbilityType.WhenRevealed,
+            Message.WhenCardRevealed,
+            [
+                lambda effect, message:
+                    bool(effect.world.rule.v18_timing) and
+                    effect.this is message.trigger and
+                    effect.this.CastTo(CanSurge).surge > 0
+            ],
+            resolve_surge,
+            is_local=True,
+        ).SetName("Surge")
+        ability.v18_timing_keyword = True
+        return [ability] + super().GetAbilities()
+
     @final
     def ResolveSurge(self, player: 'Player') -> 'Effect|None':
         if not self.surge:

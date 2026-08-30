@@ -11,11 +11,38 @@ class HasToughness(HasAttribute):
         self.RegisterInfoDict('toughness')
 
     @override
+    def GetAbilities(self) -> List['Ability']:
+        def give_tough(
+            effect: 'Effect',
+            message: 'Message.AfterCardEnterPlay',
+        ) -> None:
+            from game.effect.rule import Toughness
+            from game.operate.faces import Faces
+
+            Faces.GiveStatus([effect.this], "Tough", Toughness(effect.this))
+
+        return [
+            Ability(
+                AbilityType.ForcedResponse,
+                Message.AfterCardEnterPlay,
+                [
+                    lambda effect, message:
+                        bool(effect.world.rule.v18_timing) and
+                        effect.this is message.trigger and
+                        effect.this.CastTo(HasToughness).IsToughness() and
+                        effect.this.IsInPlay()
+                ],
+                give_tough,
+                is_local=True,
+            ).SetName("Toughness")
+        ] + super().GetAbilities()
+
+    @override
     def OnWhenCardEnterPlay(self, message: 'Message.WhenCardEnterPlay') -> bool:
         from game.effect.rule import Toughness
         from game.operate.faces import Faces
         if super().OnWhenCardEnterPlay(message):
-            if self.IsToughness():
+            if self.IsToughness() and not bool(self.card.world.rule.v18_timing):
                 Faces.GiveStatus([self], "Tough", Toughness(self))
             return True
         return False

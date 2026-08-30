@@ -295,6 +295,20 @@ class SenderCard:
             text = TransText("{this} prevents {face} from moving", this=by_effect.this, face=self.trigger)
             self.Present_Activate(text, by_effect)
 
+    class AfterCardControlChanged(TriggerFaceMessage):
+        def __init__(
+            self,
+            face: 'CardFace',
+            from_controller: 'Player|Scenario|None',
+            to_controller: 'Player|Scenario|None',
+            by_effect: 'Effect',
+        ) -> None:
+            self.from_controller: Final = from_controller
+            self.to_controller: Final = to_controller
+            self.by_effect: Final = by_effect
+            super().__init__(trigger=face)
+            self.AddRelatedFace(from_controller, to_controller, by_effect)
+
     class AfterCardEnterHand(TriggerFaceMessage, TriggerPlayerMessage):
         def __init__(self, face: 'CardFace', from_area: 'Deck', into_area: 'Deck', by_effect: 'Effect') -> None:
             self.from_area = from_area
@@ -513,7 +527,16 @@ class SenderCard:
             if not message.can_be_cancel:
                 return False
             if cancel_level == 'WhenRevealed':
-                return not not self.trigger.effect.Find(type=AbilityType.WhenRevealed) and \
+                when_revealed_effects = self.trigger.effect.Find(
+                    type=AbilityType.WhenRevealed,
+                )
+                if not bool(self.world.rule.v18_timing):
+                    when_revealed_effects = [
+                        effect
+                        for effect in when_revealed_effects
+                        if not effect.ability.v18_timing_keyword
+                    ]
+                return not not when_revealed_effects and \
                     not self.cancel_all_effects and \
                     not self.cancel_when_revealed
             if cancel_level == 'All':

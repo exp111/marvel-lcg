@@ -51,19 +51,45 @@ class FileManager:
         return os.listdir(file_path)
 
     @staticmethod
-    def ListFiles(*folders: str, ext: str|None=None, check_file_name: Callable[[str], bool]|None=None) -> List[str]:
+    def ListFiles(
+        *folders: str,
+        ext: str|None=None,
+        check_file_name: Callable[[str], bool]|None=None,
+        recursive: bool=False,
+    ) -> List[str]:
+        def is_selected(file_path: str, file_name: str) -> bool:
+            return (
+                FileManager.IsFile(file_path)
+                and (ext == None or ext == FileManager.GetExtension(file_name))
+                and (
+                    check_file_name == None
+                    or check_file_name(file_name)
+                )
+            )
+
         def do_list(folder: str) -> List[str]:
-            if FileManager.Exists(folder):
-                return [FileManager.JoinPath(folder, f) for f in FileManager.ListDir(folder) if \
-                    FileManager.IsFile(FileManager.JoinPath(folder, f)) and \
-                    ext == None or ext == FileManager.GetExtension(f) and \
-                        (
-                            check_file_name == None or \
-                            check_file_name(f)
-                        )
-                    ]
-            else:
+            if not FileManager.Exists(folder):
                 return []
+
+            if recursive:
+                files: List[str] = []
+                for root, directories, file_names in os.walk(folder):
+                    directories.sort()
+                    for file_name in sorted(file_names):
+                        file_path = FileManager.JoinPath(root, file_name)
+                        if is_selected(file_path, file_name):
+                            files.append(file_path)
+                return files
+
+            return [
+                FileManager.JoinPath(folder, file_name)
+                for file_name in FileManager.ListDir(folder)
+                if is_selected(
+                    FileManager.JoinPath(folder, file_name),
+                    file_name,
+                )
+            ]
+
         files: List[str] = []
         for folder in folders:
             files += do_list(folder)

@@ -679,7 +679,8 @@ class World(WorldAction, WorldFind):
                 end_round_effect = GameRule(self.const_players[0].GetIdentity())
                 self.players = Types.Rotate(self.players, 1)
                 self.UpdatePlayersOrder(end_round_effect)
-                self.ProcessTemporary(end_round_effect)
+                if not bool(self.rule.v18_timing):
+                    self.ProcessTemporary(end_round_effect)
 
                 end_message = Message.AfterRoundEnd(round_message)
                 end_message.Send()

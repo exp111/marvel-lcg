@@ -211,6 +211,16 @@ class Effect(Object):
         from game.operate.effects import Effects
         from game.ability import Ability
 
+        # Under the grouped v1.8 dispatcher, an event's end message belongs to
+        # the same occurrence as its response conditions.  Event-scoped
+        # delayed effects must therefore survive through the Response and
+        # Consequential stages and be removed at the internal End stage.
+        event_end_ability_type = (
+            AbilityType.Temp2
+            if bool(self.world.rule.v18_timing)
+            else AbilityType.Temp0
+        )
+
         self.is_unregister_after_exec = unregister_after_exec
         temp_effects: List['Effect'] = []
 
@@ -283,7 +293,7 @@ class Effect(Object):
         if isinstance(until_after_event, Message.WhenUnitWouldDefend):
             temp_effects += self.this.effect.RegisterTemp(
                 AbilityFactory.AfterUnitAttackEnd(
-                    AbilityType.Temp0,
+                    event_end_ability_type,
                     None,
                     lambda effect, message:
                         try_unregister(self),
@@ -297,7 +307,7 @@ class Effect(Object):
         elif isinstance(until_after_event, Message.WhenUnitWouldAttackUnit):
             temp_effects += self.this.effect.RegisterTemp(
                 AbilityFactory.AfterUnitAttackEnd(
-                    AbilityType.Temp0,
+                    event_end_ability_type,
                     None,
                     lambda effect, message:
                         try_unregister(self),
@@ -311,7 +321,7 @@ class Effect(Object):
         elif isinstance(until_after_event, Message.WhenUnitWouldAttack):
             temp_effects += self.this.effect.RegisterTemp(
                 AbilityFactory.AfterUnitAttackEnd(
-                    AbilityType.Temp0,
+                    event_end_ability_type,
                     None,
                     lambda effect, message:
                         try_unregister(self),
@@ -325,7 +335,7 @@ class Effect(Object):
         elif isinstance(until_after_event, Message.WhenUnitWouldThwart):
             temp_effects += self.this.effect.RegisterTemp(
                 AbilityFactory.AfterUnitThwartEnd(
-                    AbilityType.Temp0,
+                    event_end_ability_type,
                     None,
                     lambda effect, message:
                         try_unregister(self),
@@ -339,7 +349,7 @@ class Effect(Object):
         elif isinstance(until_after_event, Message.WhenUnitWouldScheme):
             temp_effects += self.this.effect.RegisterTemp(
                 AbilityFactory.AfterUnitSchemeEnd(
-                    AbilityType.Temp0,
+                    event_end_ability_type,
                     None,
                     lambda effect, message:
                         try_unregister(self),
@@ -578,6 +588,21 @@ class Effect(Object):
             display_in_target_order = False
             full_search_display_targets = []
 
+        automatic_targets: List[int] = []
+        if selector and \
+            self.context.target_range == (1, 1) and \
+            len(self.context.all_legal_targets) == 1 and \
+            not selector.force_choose and \
+            not is_search and \
+            not full_search_display_targets:
+            automatic_targets = [
+                self.context.all_legal_targets[0].card.object_id
+            ]
+        automatic_submit = not (
+            self.ability.type == AbilityType.BasicPower and
+            self.ability.IsFunction("DEF")
+        )
+
         # Fix "07042"
         failure_reason = self.failures.GetText(bind_player_id)
         if self.failures.IsNoProcess(bind_player_id):
@@ -598,4 +623,6 @@ class Effect(Object):
             is_search=is_search,
             display_in_target_order=display_in_target_order,
             full_search_display_targets=full_search_display_targets,
+            automatic_targets=automatic_targets,
+            automatic_submit=automatic_submit,
         )

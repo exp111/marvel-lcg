@@ -135,6 +135,9 @@ class CanScheme(CardFace):
         recalculate.Send()
         value = recalculate.value
 
+        event_manager = this.card.world.event_manager
+        timing_occurrence = event_manager.BeginTimingOccurrence()
+
         if would_sch_message.remove_threat_instead_of_placing:
             target_scheme.RemoveThreatInternal(this, value, would_sch_message.remove_threat_instead_of_placing)
             value *= - 1
@@ -153,6 +156,7 @@ class CanScheme(CardFace):
             unit = this.card.CastTo(Unit2)
             after_use_basic_power_message = Message.AfterUnitUseBasicPower(unit, "SCH", end_message, use_basic_power_message)
             after_use_basic_power_message.Send()
+        event_manager.EndTimingOccurrence(timing_occurrence)
         return end_message
 
     def BasicSchemes(self, by_effect: 'Effect', *, property: 'SchemeProperty|None' = None) -> 'Message.AfterUnitSchemeEnd|None':

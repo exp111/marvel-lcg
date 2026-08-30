@@ -82,14 +82,18 @@ class CanStatus(HasVulnerable, HasSteady, HasToughness, HasStalwart):
 
         would_message = Message.WhenStatusWouldCardPlaceOn(self, name, by_effect)
         would_message.Send()
-        if would_message.is_be_instead:
+        # A forced interrupt can remove the intended recipient from play. In
+        # that case (notably Vulnerable), the interrupted status placement no
+        # longer has a legal card on which to place the status.
+        if would_message.is_be_instead or not self.card.IsOnField():
             return False
 
         status_face = self.components.status.GiveStatusCard(name, by_effect)
         placed_message = Message.AfterStatusCardPlaceOn(status_face, would_message)
         placed_message.Send()
 
-        if self.CastTo(HasVulnerable).IsVulnerable():
+        if not bool(self.card.world.rule.v18_timing) and \
+            self.CastTo(HasVulnerable).IsVulnerable():
             if self.IsStunned() or self.IsConfused():
                 rule = GameRule(self)
                 Faces.DiscardAll([self], rule)

@@ -69,15 +69,27 @@ class Message2(Object):
         if not self.world.is_game_over:
             if isinstance(self, CardStateUpdatedMessage):
                 self.world.event_manager.StackMessage(self)
+            elif self.world.event_manager.TryQueueTimingMessage(self):
+                pass
             else:
+                event_manager = self.world.event_manager
+                timing_depth = len(event_manager.timing_occurrences)
+                event_manager.broadcasting_messages.append(self)
                 try:
-                    self.world.event_manager.BroadcastMessage(self)
+                    event_manager.BroadcastMessage(self)
                 except Exception as exc:
                     info = Log.OnCrash(CATEGORY_NAME, exc, self.name, None)
                     self.world.render.ErrorOccurred(info)
+                finally:
+                    assert event_manager.broadcasting_messages[-1] is self
+                    event_manager.broadcasting_messages.pop()
+                    event_manager.RestoreTimingOccurrenceDepth(
+                        timing_depth,
+                        reason=f"message {self.name} did not close its timing occurrence",
+                    )
                 if not isinstance(self, CheckNoneMessage) and \
-                    self.world.event_manager.stack_message:
-                    self.world.event_manager.BroadcastStackMessage()
+                    event_manager.stack_message:
+                    event_manager.BroadcastStackMessage()
         else:
             from game.message.sender.sender import CanBeInstead
             if isinstance(self, CanBeInstead):

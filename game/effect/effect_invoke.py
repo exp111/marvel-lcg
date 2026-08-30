@@ -61,7 +61,8 @@ class EffectInvoker:
                         for atk_target in atk_message.attacked_targets:
                             if atk_target not in retaliated_unit:
                                 retaliated_unit.add(atk_target)
-                                if Unit2.IsType(atk_target) and \
+                                if not bool(world.rule.v18_timing) and \
+                                    Unit2.IsType(atk_target) and \
                                     atk_target.IsInPlay():
                                     atk_target.ResolveRetaliate(would_atk_unit_message)
 
@@ -105,6 +106,11 @@ class EffectInvoker:
 
             end_message.Send()
             world.stat.RecordThwart(end_message)
+
+        if effect.context.timing_occurrence != None:
+            timing_occurrence = effect.context.timing_occurrence
+            effect.context.timing_occurrence = None
+            world.event_manager.EndTimingOccurrence(timing_occurrence)
 
         # if end_attack_message:
         #     end_attack_message.Send()
@@ -172,6 +178,7 @@ class EffectInvoker:
                 controller_manager.console.TryBreak(world)
 
             resolve_message = None
+            timing_depth = len(world.event_manager.timing_occurrences)
 
             try:
                 # invoke_operation
@@ -233,6 +240,16 @@ class EffectInvoker:
             except Exception as exc:
                 info = Log.OnCrash(CATEGORY_NAME, exc, effect.GetDisplayName(), ability.operation)
                 world.render.ErrorOccurred(info)
+            finally:
+                world.event_manager.RestoreTimingOccurrenceDepth(
+                    timing_depth,
+                    reason=(
+                        f"effect {effect.this.paper.card_id} "
+                        f"{ability.type.name} did not close its timing occurrence"
+                    ),
+                )
+                if effect.context.timing_occurrence not in world.event_manager.timing_occurrences:
+                    effect.context.timing_occurrence = None
 
             if not Build.release:
                 controller_manager.console.TryBreak(world)

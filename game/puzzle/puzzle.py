@@ -29,6 +29,20 @@ class RunPuzzle:
             found_card: CardFace|None = None
 
             player = self.world.GetCurrentPlayer()
+            # Debug and puzzle commands describe the card the player can see
+            # on the table.  Prefer that live copy before looking through
+            # hidden decks; otherwise a command such as
+            # ``Exhaust("Supernova Helmet")`` creates a duplicate after the
+            # real Helmet has entered play.
+            found_cards = self.world.FindCardsOnField(
+                name=card,
+                game_area=player.GetIdentity().card.game_area,
+            )
+            if found_cards:
+                return found_cards[0]
+
+            if not found_card:
+                found_card = player.hand_cards.FindCard(name=card)
             if not found_card:
                 found_card = player.player_deck.FindCard(name=card)
             if not found_card:
@@ -40,10 +54,6 @@ class RunPuzzle:
             for face in Worlds.GetEncounterDeckCards(self.world) + Worlds.GetEncounterDiscardPileCards(self.world):
                 if face.IsName(card):
                     return face
-            # found_card = self.world.FindCardOnField(name=card)
-
-            if found_card:
-                return found_card
         else:
             assert False, f"{card=}"
         return self.CreateCard(card)
@@ -80,6 +90,24 @@ class RunPuzzle:
         first_player = self.world.GetFirstPlayer()
         for card in cards:
             CardFactory.GenerateCard(card, first_player.hand_cards, self.world)
+
+    def CreateHandCardsFor(self, player_id: int, *cards: str):
+        """Create deterministic integration-fixture cards for one player."""
+        from game.card.factory import CardFactory
+        player = self.world.const_seat_order_players[player_id]
+        for card in cards:
+            CardFactory.GenerateCard(card, player.hand_cards, self.world)
+
+    def ClearHand(self):
+        from game.operate.faces import Faces
+        player = self.world.GetFirstPlayer()
+        Faces.DiscardAll(player.hand_cards.Get(), self.debug_rule)
+
+    def ClearHandFor(self, player_id: int):
+        """Discard a fixture player's dealt hand before injecting exact cards."""
+        from game.operate.faces import Faces
+        player = self.world.const_seat_order_players[player_id]
+        Faces.DiscardAll(player.hand_cards.Get(), self.debug_rule)
 
     def CreatePlayerDiscardPile(self, *cards: str):
         from game.card.factory import CardFactory
@@ -124,6 +152,15 @@ class RunPuzzle:
         from game.operate.faces import Faces
         faces = self.FindCommandCards(*cards)
         Faces.ExhaustAll(faces, DebugRule(faces[0]))
+
+    def DoAttack(self, card: CardName) -> 'CardFace':
+        """Start an enemy attack through a puzzle/debug command."""
+        face = self.FindOrCreateFace(card)
+        from game.card.face.base import Enemy
+        if Enemy.IsType(face):
+            player = self.world.GetCurrentPlayer()
+            face.DoAttackYou(player, DebugRule(player.GetIdentity()))
+        return face
 
     def Discard(self, *cards: CardName):
         from game.operate.faces import Faces
@@ -188,6 +225,13 @@ class RunPuzzle:
             if rule == 'Hero':
                 face.ChangeToOtherHeroForm(self.debug_rule)
 
+    def ChangeFormFor(self, player_id: int, rule: Literal['Identity', 'Hero']):
+        face = self.world.const_seat_order_players[player_id].GetIdentity()
+        if rule == 'Identity':
+            face.ChangeToOtherIdentityForm(self.debug_rule)
+        elif rule == 'Hero':
+            face.ChangeToOtherHeroForm(self.debug_rule)
+
     ################################################################################
     #
     def PlaceThreat(self, card: CardName, val:int):
@@ -241,6 +285,19 @@ class RunPuzzle:
             player = self.world.GetCurrentPlayer()
             face.PutIntoPlay(player, self.debug_rule)
             return face
+
+    def PutIntoPlayFor(self, player_id: int, card: str) -> 'CardFace':
+        """Put one exact fixture card into a specified player's play area."""
+        from game.card.factory import CardFactory
+
+        player = self.world.const_seat_order_players[player_id]
+        face = player.hand_cards.FindCard(name=card)
+        if face is None:
+            generated = CardFactory.GenerateCard(card, player.hand_cards, self.world)
+            generated.SetOwner(player)
+            face = generated.face
+        face.PutIntoPlay(player, self.debug_rule)
+        return face
 
     def Boost(self, card: CardName) -> 'CardFace':
         from game.operate.worlds import Worlds
@@ -311,6 +368,9 @@ class PuzzleHelper:
         Puzzle = RunPuzzle(world)
         Unused(Puzzle)
 
+        command_scope: Dict[str, Any] = dict(globals())
+        command_scope.update({'Puzzle': Puzzle, 'world': world})
+
         class PuzzleCallVisitor(ast.NodeVisitor):
             def visit_Call(self, node: ast.Call):
                 # Check if the function call is to a static method of Puzzle
@@ -332,10 +392,15 @@ class PuzzleHelper:
 
             visitor.visit(parsed_code)
 
-            for c in world.object_manager.card_dict:
-                exec(f'c{c} = world.object_manager.card_dict[{c}].face')
+            command_scope.update({
+                f'c{object_id}': card.face
+                for object_id, card in world.object_manager.card_dict.items()
+            })
 
-            exec(command)  # Only execute if the command is valid
+            # Use one explicit namespace for the same Python 3.13+ reason as
+            # the recorded debug-command runner.  This also keeps puzzle
+            # fixture aliases deterministic across sequential setup commands.
+            exec(command, command_scope, command_scope)
             # try:
             #     pass
             # except ValueError as e:

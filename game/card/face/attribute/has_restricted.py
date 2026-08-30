@@ -10,9 +10,31 @@ class HasRestricted(HasAttribute):
         self.RegisterAttribute("Restricted", "printed_restricted")
         self.RegisterInfoDict('restricted')
 
-    # @override
-    # def GetAbilities(self) -> List['Ability']:
-    #     return super().GetAbilities()
+    @override
+    def GetAbilities(self) -> List['Ability']:
+        def after_take_control(
+            effect: 'Effect',
+            message: 'Message.AfterCardEnterPlay|Message.AfterCardControlChanged',
+        ) -> bool:
+            if not bool(effect.world.rule.v18_timing) or \
+                effect.this is not message.trigger or \
+                effect.this.CastTo(HasRestricted).restricted <= 0 or \
+                not effect.this.IsInPlay():
+                return False
+            if isinstance(message, Message.AfterCardControlChanged):
+                return Player.IsType(message.to_controller)
+            return True
+
+        return [
+            Ability(
+                AbilityType.ForcedResponse,
+                Message.AfterCardEnterPlay|Message.AfterCardControlChanged,
+                [after_take_control],
+                lambda effect, message:
+                    effect.this.CastTo(HasRestricted).CheckRestrictedLimit([]),
+                is_local=True,
+            ).SetName("Restricted")
+        ] + super().GetAbilities()
 
     ################################################################################
     #
@@ -29,7 +51,7 @@ class HasRestricted(HasAttribute):
     @override
     def OnWouldEnterPlay(self, into_area: 'Deck') -> bool:
         if super().OnWouldEnterPlay(into_area):
-            if self.restricted:
+            if self.restricted and not bool(self.card.world.rule.v18_timing):
                 if not self.CheckRestrictedLimit([self]):
                     return False
             return True

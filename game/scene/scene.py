@@ -213,6 +213,14 @@ class Scene:
             'fix_treachery' not in self.rules:
             self.rules.append("no_fix_treachery")
 
+        # Replays created before grouped timing windows recorded prompts in
+        # the legacy message-by-message order. Preserve that order so their
+        # recorded choices remain deterministic.
+        if not Ver(self.version).IsV18Timing() and \
+            'v18_timing' not in self.rules and \
+            'no_v18_timing' not in self.rules:
+            self.rules.append("no_v18_timing")
+
         if "encounter_cards_ignore_crisis" in self.rules:
             self.rules.remove("encounter_cards_ignore_crisis")
 

@@ -427,18 +427,30 @@ def RunCheat(current_world: 'World', commands: Sequence[str], player_id: int):
     Unused(villains)
     Unused(rule)
 
-    for c in world.object_manager.card_dict:
-        exec(f'c{c} = world.object_manager.card_dict[{c}].face')
-
-    for e in world.object_manager.effect_dict:
-        exec(f'e{e} = world.object_manager.effect_dict[{e}]')
-
-    for i in range(len(world.const_players)):
-        exec(f'p{i} = world.const_players[{i}]')
+    # Python 3.13 no longer guarantees that names assigned by one ``exec``
+    # call inside a function are visible to a later ``exec`` call.  Keep the
+    # debugger's card/effect/player aliases in one explicit namespace so
+    # recorded setup commands such as ``ChangeForm(c1, "Hero")`` remain
+    # replayable on every supported Python version.
+    command_scope: Dict[str, Any] = dict(globals())
+    command_scope.update(locals())
+    command_scope.update({
+        f'c{object_id}': card.face
+        for object_id, card in world.object_manager.card_dict.items()
+    })
+    command_scope.update({
+        f'e{object_id}': effect
+        for object_id, effect in world.object_manager.effect_dict.items()
+    })
+    command_scope.update({
+        f'p{index}': existing_player
+        for index, existing_player in enumerate(world.const_players)
+    })
 
     c = world.object_manager.card_dict
     e = world.object_manager.effect_dict
     p = player
+    command_scope.update({'c': c, 'e': e, 'p': p})
     Unused(c)
     Unused(e)
     Unused(p)
@@ -478,7 +490,7 @@ if val != None and not Test.is_in_test:
                 if "crashs\\dl" in world.scene.path:
                     """This save is download from internet, please make sure it is safe enough"""
                     Debug.DebugBreak()
-                exec(cmd)
+                exec(cmd, command_scope, command_scope)
 
             except Exception as exc:
                 Log.Print(f"Error when running debug command: {command}")

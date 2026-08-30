@@ -11,6 +11,69 @@ class HasVictory(HasAttribute):
         # self.RegisterInfoDict('victory')
 
     @override
+    def GetAbilities(self) -> List['Ability']:
+        from game.card.face.base import Scheme2, Unit2
+        from game.card.face.card_type import Attachment, Upgrade
+
+        def is_direct_victory_trigger(
+            effect: 'Effect',
+            message: 'Message.WhenUnitBeDefeated|Message.WhenSchemeBeDefeated',
+        ) -> bool:
+            this = effect.this.CastTo(HasVictory)
+            return (
+                bool(effect.world.rule.v18_timing) and
+                this.victory and
+                this.IsThisFaceUp() and
+                this is message.trigger
+            )
+
+        def is_attached_victory_trigger(
+            effect: 'Effect',
+            message: 'Message.WhenUnitBeDefeated|Message.WhenSchemeBeDefeated',
+        ) -> bool:
+            this = effect.this.CastTo(HasVictory)
+            return (
+                bool(effect.world.rule.v18_timing) and
+                this.victory and
+                this.IsThisFaceUp() and
+                this.bind_face is message.trigger
+            )
+
+        if Attachment.IsType(self) or Upgrade.IsType(self):
+            ability = Ability(
+                AbilityType.ForcedInterrupt,
+                Message.WhenUnitBeDefeated|Message.WhenSchemeBeDefeated,
+                [is_attached_victory_trigger],
+                lambda effect, message:
+                    effect.this.CastTo(HasVictory).MoveToVictoryDisplay(),
+            )
+        elif Unit2.IsType(self) or Scheme2.IsType(self):
+            ability = Ability(
+                AbilityType.WhenDefeated,
+                Message.WhenUnitBeDefeated|Message.WhenSchemeBeDefeated,
+                [is_direct_victory_trigger],
+                lambda effect, message:
+                    effect.this.CastTo(HasVictory).MoveToVictoryDisplay(),
+            )
+        else:
+            return super().GetAbilities()
+
+        return [ability.SetName("Victory")] + super().GetAbilities()
+
+    def MoveToVictoryDisplay(self) -> None:
+        from game.card.face.base import Villain
+        from game.effect.rule import GameRule
+        from game.operate.faces import Faces
+
+        do_move = True
+        if Villain.IsType(self):
+            next_villain = self.card.world.scenario.GetNextVillain(self)
+            if next_villain and next_villain.IsName(self.name, check_all_face=True):
+                do_move = False
+        if do_move:
+            Faces.AddToVictoryDisplay([self], GameRule(self))
+
+    @override
     def GetInfoDict(self) -> Dict[str, int]:
         return {
             'victory': self.printed_victory if self.printed_victory != None else 0,
@@ -18,21 +81,9 @@ class HasVictory(HasAttribute):
 
     @override
     def OnBeDefeated(self, would_defeated_message: 'Message.WhenSchemeWouldBeDefeated|Message.WhenUnitWouldBeDefeated', *, as_asset: bool, ignore_when_defeated: bool):
-        from game.card.face.base import Villain
-        from game.effect.rule import GameRule
-        from game.operate.faces import Faces
-        # if self.victory and not Villain.IsType(self) and self.IsThisFaceUp():
-        if self.victory and self.IsThisFaceUp():
-            do_move = True
-            if Villain.IsType(self):
-                next_villain = self.card.world.scenario.GetNextVillain(self)
-                if(not next_villain or not next_villain.IsName(self.name, check_all_face=True)):
-                    pass
-                else:
-                    do_move = False
-            if do_move:
-                Faces.AddToVictoryDisplay([self], GameRule(self))
-                # self.card.MoveToArea(self.card.world.victory_display, GameRule(self))
+        if self.victory and self.IsThisFaceUp() and \
+            not bool(self.card.world.rule.v18_timing):
+            self.MoveToVictoryDisplay()
         return super().OnBeDefeated(would_defeated_message, as_asset=as_asset, ignore_when_defeated=ignore_when_defeated)
 
     # @override

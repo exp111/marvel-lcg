@@ -121,6 +121,17 @@ class CanThwart(CardFace):
 
         gain_value_when_divided(would_thw_message)
 
+        is_not_delay = use_basic_power_message or not by_effect.ability.IsLabel('thwart')
+        timing_occurrence = (
+            this.card.world.event_manager.BeginTimingOccurrence()
+            if is_not_delay
+            else None
+        )
+        if not is_not_delay and by_effect.context.timing_occurrence == None:
+            by_effect.context.timing_occurrence = (
+                this.card.world.event_manager.BeginTimingOccurrence()
+            )
+
         thwart_targets: List['Scheme2'] = []
         total_remove_threat = 0
 
@@ -163,7 +174,7 @@ class CanThwart(CardFace):
 
         end_message = Message.AfterUnitThwartEnd(this, thwart_targets, total_remove_threat, by_effect, after_thw_messages)
 
-        if use_basic_power_message or not by_effect.ability.IsLabel('thwart'):
+        if is_not_delay:
             end_message.Send()
 
             if use_basic_power_message and not this.IsDefeated():
@@ -171,6 +182,7 @@ class CanThwart(CardFace):
                 after_use_basic_power_message = Message.AfterUnitUseBasicPower(unit, "THW", end_message, use_basic_power_message)
                 after_use_basic_power_message.Send()
             this.card.world.stat.RecordThwart(end_message)
+            this.card.world.event_manager.EndTimingOccurrence(timing_occurrence)
 
         else:
             by_effect.context.AddThwMessage(end_message)

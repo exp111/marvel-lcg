@@ -114,8 +114,17 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
 
     def PlaceThreatInternal(self, value: INT_TYPE, by_effect: 'Effect', sch_message: 'Message.WhenUnitWouldScheme|None'=None) -> 'Message.AfterSchemePlaceThreat|None':
         from game.message import Message
+        from game.card.face.card_type import MainScheme
         from game.operate.worlds import Worlds
 
+        event_manager = self.card.world.event_manager
+        timing_occurrence = (
+            event_manager.BeginTimingOccurrence()
+            if not MainScheme.IsType(self) and
+            (not event_manager.timing_occurrences or
+             event_manager.broadcasting_messages)
+            else None
+        )
         value = Worlds.ConvertPerPlayerIconToInt(value, by_effect)
         message = Message.WhenSchemeWouldPlaceThreat(self, value, by_effect, sch_message)
         message.Send()
@@ -123,7 +132,9 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
             super().PlaceTokensInternal(message.value, 'threat', by_effect)
             after_message = Message.AfterSchemePlaceThreat(self, message.value, by_effect, message)
             after_message.Send()
+            event_manager.EndTimingOccurrence(timing_occurrence)
             return after_message
+        event_manager.EndTimingOccurrence(timing_occurrence)
         return None
 
     @override
@@ -138,6 +149,14 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
         from game.card.face.card_type import MainScheme
         from game.operate.worlds import Worlds
 
+        event_manager = self.card.world.event_manager
+        timing_occurrence = (
+            event_manager.BeginTimingOccurrence()
+            if not MainScheme.IsType(self) and
+            (not event_manager.timing_occurrences or
+             event_manager.broadcasting_messages)
+            else None
+        )
         if self.threat > 0:
             if value == "All":
                 value = self.threat
@@ -157,7 +176,9 @@ class Scheme2(HasAmplify, HasHazard, CanHinder, CanPlaceCounter, HasAssault, Has
                     not MainScheme.IsType(self) and \
                     not self.card.area.flags.is_victory_display:
                     self.Defeated(by_face, by_effect, thw_message)
+                event_manager.EndTimingOccurrence(timing_occurrence)
                 return threat
+        event_manager.EndTimingOccurrence(timing_occurrence)
         return 0
 
     def MoveThreat(self, value: Literal["All"]|int, by_effect: 'Effect', target: List['Scheme2']|List['CardFace']) -> int:

@@ -52,10 +52,13 @@ class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasVi
                 if would_take_consequential_message.is_be_instead:
                     return
                 damage = would_take_consequential_message.will_take_damage
+                event_manager = self.card.world.event_manager
+                timing_occurrence = event_manager.BeginTimingOccurrence()
                 damage_message = self.TakeDamage(self, damage, Consequential(self))
                 if damage_message != None:
                     take_damage_message = Message.AfterAllyTakeConsequentialDamage(self, message, would_take_consequential_message)
                     take_damage_message.Send()
+                event_manager.EndTimingOccurrence(timing_occurrence)
 
         abilities.append(
             AbilityFactory.AfterUnitUseBasicPower(

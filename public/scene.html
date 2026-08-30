@@ -1008,6 +1008,7 @@ p:has(#timeout_text) {
                     "v16_teamwork": "After a minion with teamwork enters play and engages a player, if there is at least one other minion that shares the specified trait in play, <b>the minion that just entered play</b> activates against the player it is engaged with. ",
                     "v16_referential_ability": "<b>If an ability refers to a title shared by multiple cards in the game, that ability refers only to the card(s) that match the criteria highest in this list:<ol><li>The card on which the referential ability is printed.</li><li>Cards that belong to the same identity or encounter set.</li><li>All other cards.</li></ol></b>",
                     "v16_confuse_stun": "A confused character can attempt to thwart or use a thwart ability even if <b>it has no valid target</b>.<br/>A stunned character can attempt to attack or use an attack ability even if <b>it has no valid target</b>.",
+                    "v18_timing": "Use Rules Reference v1.8 simultaneous timing. A single game occurrence creates one interrupt window and one response window, and players choose the order of abilities with matching priority. Disable this option to use the legacy message-by-message timing dispatcher; the v1.6 options remain unchanged.",
                     "encounter_cards_ignore_crisis": "Environment cards and encounter cards are not affected by crisis icons in play.",
                     "crisis_of_infinite_deadpools": "When setting up a game in which at least one player is using the 'Pool aspect, shuffle 1 copy of the Crisis of Infinite Deadpools treachery card into the encounter deck.",
                     // "fix_surge": "Complete the process of resolving the original card, <b>as well as any response abilities that are triggered by that card being revealed</b>, before revealing the additional card.",
@@ -2206,6 +2207,10 @@ p:has(#timeout_text) {
                 new_game.rules.push('no_encounter_cards_ignore_crisis')
             }
 
+            if( !new_game.rules.includes('v18_timing') ) {
+                new_game.rules.push('no_v18_timing')
+            }
+
             let cmd = JSON.stringify(new_game)
             let encoded = encodeURIComponent(cmd);
             console.log(encoded)
@@ -2303,7 +2308,7 @@ p:has(#timeout_text) {
 <script>
     // Define the key for caching the form data object
     const CACHE_KEY = 'form_cache_data';
-    cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
+    cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'v18_timing', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
         'hide_bug_report', 'show_achievement', 'show_deck_during_full_search', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
         'mode', 'rules', 'challenge', 'settings_other',
         'timeout_slider',

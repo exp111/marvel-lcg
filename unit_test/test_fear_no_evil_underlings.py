@@ -181,6 +181,40 @@ class TestFearNoEvilUnderlingMechanics(unittest.TestCase):
 
         hammerhead.DealDamage.assert_called_once_with([target], 2, effect)
 
+    def test_hammerhead_stuns_a_damaged_character_that_is_not_stunned(self):
+        module = import_module("cards.pack.fne.hammerhead.60086")
+        ability = module.GetAbilities()[0]
+        hammerhead = MagicMock()
+        target = MagicMock()
+        target.IsStunned.return_value = False
+        effect = SimpleNamespace(this=hammerhead)
+        message = SimpleNamespace(attacked=target)
+
+        with patch.object(module.Faces, "GiveStatus", return_value=1) as give:
+            ability.operation(effect, message)
+
+        give.assert_called_once_with([target], "Stunned", effect)
+        hammerhead.DealDamage.assert_not_called()
+        self.assertIn("Stun the attacked character", ability.name)
+
+    def test_hammerhead_does_not_use_fallback_damage_when_stalwart_blocks_stun(self):
+        module = import_module("cards.pack.fne.hammerhead.60086")
+        ability = module.GetAbilities()[0]
+        hammerhead = MagicMock()
+        stalwart_target = MagicMock()
+        stalwart_target.IsStunned.return_value = False
+        effect = SimpleNamespace(this=hammerhead)
+        message = SimpleNamespace(attacked=stalwart_target)
+
+        # Inspiring Pottery grants Stalwart. A failed stun is not the same as
+        # the character already being stunned, so Hammerhead's "otherwise"
+        # damage does not apply.
+        with patch.object(module.Faces, "GiveStatus", return_value=0) as give:
+            ability.operation(effect, message)
+
+        give.assert_called_once_with([stalwart_target], "Stunned", effect)
+        hammerhead.DealDamage.assert_not_called()
+
     def test_chameleon_adds_its_printed_scheme_to_the_highest_thwart(self):
         module = import_module("cards.pack.fne.hammerhead.60091")
 

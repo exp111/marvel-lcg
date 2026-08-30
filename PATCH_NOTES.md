@@ -1,3 +1,19 @@
+# Marvel Champions Digital v1.3.0
+
+Application version: **1.3.0r**
+Windows file version: **1.3.0.0**
+
+This release adds optional Rules Reference v1.8 simultaneous timing while preserving legacy timing for older saves and replays.
+
+## Release changes
+
+- Added a default-on v1.8 timing option so responses created by the same attack, damage, defeat, defense, basic-power, recovery, threat, or scheme occurrence share the correct timing window and can be resolved in player-chosen order.
+- Updated retaliate, vulnerable, consequential damage, When Defeated, and When Completed to use their v1.8 timing priorities.
+- Updated Incite, Quickstrike, Restricted, Surge, Teamwork, Temporary, Toughness, Victory, and Villainous to initiate at their printed v1.8 timing points; reveal responses now wait until the entire reveal process finishes, Ranged no longer opens a Retaliate response, and Piercing no longer discards Tough when an attack would deal no damage.
+- Preserved the prior message-by-message dispatcher as an optional legacy mode without changing the separately selected v1.6 rulings.
+
+---
+
 # Marvel Champions Digital v1.2.0.1
 
 Application version: **1.2.0.1r**

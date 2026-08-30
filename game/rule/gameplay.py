@@ -42,6 +42,22 @@ def GetGamePlayRules() -> List['Ability']:
         player = message.killer.GetControlByPlayer()
         player.stat.UpdateKillCounter(message.trigger.CastTo(Unit2))
 
+    def resolve_v18_retaliate(
+        effect: 'Effect',
+        message: 'Message.AfterUnitAttackUnit',
+    ) -> None:
+        attacked = message.attacked
+        if CanRetaliate.IsType(attacked):
+            attacked.ResolveRetaliate(message.would_atk_unit_message)
+
+    def resolve_v18_vulnerable(
+        effect: 'Effect',
+        message: 'Message.WhenStatusWouldCardPlaceOn',
+    ) -> None:
+        from game.operate.faces import Faces
+
+        Faces.DiscardAll([message.trigger], effect)
+
     def custom_script(effect: 'Effect', message: 'Message.WhenGameWouldBegin'):
         if not ALLOW_CUSTOM_SCRIPT.value:
             return
@@ -114,5 +130,32 @@ def GetGamePlayRules() -> List['Ability']:
                     not message.IsByConsequential()
             ]
         ),
+        Ability(
+            AbilityType.ForcedResponse,
+            Message.AfterUnitAttackUnit,
+            [
+                lambda effect, message:
+                    bool(effect.world.rule.v18_timing) and
+                    CanRetaliate.IsType(message.attacked) and
+                    message.attacked.retaliate > 0 and
+                    message.attacked.IsInPlay() and
+                    not message.attacker.IsDefeated() and
+                    not message.would_atk_unit_message.IsRanged() and
+                    not message.would_atk_unit_message.IsIgnoreRetaliate()
+            ],
+            resolve_v18_retaliate,
+        ).SetName("Retaliate").NoOutOfPlayLimit(),
+        Ability(
+            AbilityType.ForcedInterrupt,
+            Message.WhenStatusWouldCardPlaceOn,
+            [
+                lambda effect, message:
+                    bool(effect.world.rule.v18_timing) and
+                    HasVulnerable.IsType(message.trigger) and
+                    message.trigger.IsVulnerable() and
+                    message.status_name in ("Stunned", "Confused")
+            ],
+            resolve_v18_vulnerable,
+        ).SetName("Vulnerable").NoOutOfPlayLimit(),
     ]
 

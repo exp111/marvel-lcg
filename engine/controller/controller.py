@@ -12,6 +12,17 @@ from game.exceptions import *
 
 CATEGORY_NAME = "CONTROLLER"
 
+@dataclass
+class ChoiceOneOverride:
+    """Alternate rendered identities for timing-window effect candidates."""
+
+    descriptors: Sequence['EffectDescriptor']
+    replay_texts: Sequence[str]
+    prepare: Callable[[int], 'Effect|None']
+    convert_replay_id: Callable[[str], 'str|None']
+    select_only: bool = False
+    selected_index: int|None = None
+
 class Controller:
 
     def __init__(self, player_id: int, devices: 'DeviceManager', manager: 'ControllerManager'):
@@ -48,7 +59,7 @@ class Controller:
             and effect_descriptors[0].target_num_range[0] == 0
         )
 
-    def ChoiceOne(self, effect_list: Sequence['Effect'], by_effect: 'Effect|None', message: 'Message2', priority: 'TimingPriority', is_forced: bool|Literal["Forced_Action"]) -> Tuple['Effect|None', bool]:
+    def ChoiceOne(self, effect_list: Sequence['Effect'], by_effect: 'Effect|None', message: 'Message2', priority: 'TimingPriority', is_forced: bool|Literal["Forced_Action"], choice_override: 'ChoiceOneOverride|None'=None) -> Tuple['Effect|None', bool]:
         from game.scene.replay.operation import CardEffectInt
 
         controller_manager = self.manager
@@ -65,7 +76,12 @@ class Controller:
         #     DeviceManager.play_json_crc = Render.last_render_crc
         controller_manager.replay.calculated_crc = message.world.render.CalculateCRC()
 
-        effect_descriptors = [effect.Render(by_effect, self.player_id) for effect in effect_list]
+        if choice_override:
+            choice_override.selected_index = None
+            effect_descriptors = list(choice_override.descriptors)
+            assert len(effect_descriptors) == len(effect_list)
+        else:
+            effect_descriptors = [effect.Render(by_effect, self.player_id) for effect in effect_list]
 
         # Load replay
         is_puzzle = message.world.scene.is_puzzle
@@ -122,12 +138,25 @@ class Controller:
         try:
             # Convert replay data
             def convert_replay_data(check_object: CommandDescriptor) -> str:
-                new_effect_id = CommandDescriptor.FindNewEffectId(check_object.id, effect_list)
-                found_effect = None
-                for check_effect in effect_list:
-                    if check_effect.object_id == new_effect_id:
-                        found_effect = check_effect
-                        break
+                found_effect: 'Effect|None' = None
+                if choice_override:
+                    new_effect_id = choice_override.convert_replay_id(check_object.id)
+                    if new_effect_id == None:
+                        raise LookupError(
+                            f"Could not restore timing choice: {check_object.id}; "
+                            f"available={list(choice_override.replay_texts)}"
+                        )
+                    for index, descriptor in enumerate(effect_descriptors):
+                        choice_id = descriptor.choice_id or str(descriptor.id)
+                        if choice_id == new_effect_id:
+                            found_effect = choice_override.prepare(index)
+                            break
+                else:
+                    new_effect_id = str(CommandDescriptor.FindNewEffectId(check_object.id, effect_list))
+                    for check_effect in effect_list:
+                        if check_effect.object_id == int(new_effect_id):
+                            found_effect = check_effect
+                            break
                 assert found_effect
                 resources_effects = found_effect.checker.cost_for_different_target.GetAllPayEffects()
 
@@ -136,7 +165,7 @@ class Controller:
                     new_resource_ids.append(str(CommandDescriptor.FindNewEffectId(resources_effect_str, resources_effects)))
 
                 command = CommandDescriptor(
-                    str(new_effect_id),
+                    new_effect_id,
                     check_object.targets,
                     new_resource_ids
                 )
@@ -144,8 +173,16 @@ class Controller:
             if fallthrough_cmd.id and not replay_debug_cmd:
                 convert_fallthrough_input = convert_replay_data(fallthrough_cmd)
         except Exception as exc:
-            # Log.FailedTrace(CATEGORY_NAME, exc)
-            pass
+            # A replay recorded before trigger-aware identities were stable
+            # may be ambiguous after code changes. Stop fast-forwarding and
+            # ask again rather than applying the original runtime id to the
+            # wrong ability.
+            if choice_override and fallthrough_cmd.id:
+                Log.Warn(CATEGORY_NAME, str(exc))
+                replay_input = None
+                fallthrough_input = "{}"
+                convert_fallthrough_input = "{}"
+                controller_manager.skip.SetIsSkipping(False)
 
         if by_effect != None and by_effect.GetDisplayName() == 'End Phase':
             message_name = "End Turn"
@@ -280,8 +317,13 @@ class Controller:
 
             try:
                 input_effect = Json.LoadsAs(user_input, CommandDescriptor)
-                input_effect_id = CardEffectInt(input_effect.id)
-                if input_effect_id == 0:
+                if choice_override:
+                    input_effect_id: int|str = str(input_effect.id)
+                    is_empty_choice = input_effect_id in ("", "0")
+                else:
+                    input_effect_id = CardEffectInt(input_effect.id)
+                    is_empty_choice = input_effect_id == 0
+                if is_empty_choice:
                     if not Controller.CanSubmitEmptyChoice(is_forced, effect_descriptors):
                         # A stale replay or client can submit an empty command even
                         # though this forced choice still requires targets. Stop
@@ -296,10 +338,18 @@ class Controller:
                     break
 
                 # Update selected
-                for effect in effect_descriptors:
-                    index = effect_descriptors.index(effect)
-                    if effect.id == input_effect_id:
-                        select_effect = effect_list[index]
+                selected_index = None
+                for index, effect in enumerate(effect_descriptors):
+                    descriptor_id: int|str = effect.choice_id or effect.id
+                    if str(descriptor_id) == str(input_effect_id):
+                        if choice_override:
+                            select_effect = choice_override.prepare(index)
+                            if select_effect == None:
+                                return None, True
+                            choice_override.selected_index = index
+                        else:
+                            select_effect = effect_list[index]
+                        selected_index = index
                         break
                     else:
                         select_effect = None
@@ -307,12 +357,33 @@ class Controller:
                     continue
                 # Hack
                 if select_effect == None and len(effect_descriptors) == 1 and input_effect.resources == []:
-                    select_effect = effect_list[0]
+                    selected_index = 0
+                    if choice_override:
+                        select_effect = choice_override.prepare(0)
+                        if select_effect == None:
+                            return None, True
+                        choice_override.selected_index = 0
+                    else:
+                        select_effect = effect_list[0]
 
                 assert select_effect != None, f"{select_effect=}"
 
+                if choice_override and choice_override.select_only:
+                    assert selected_index != None
+                    select_cmd = CommandDescriptor(
+                        choice_override.replay_texts[selected_index],
+                        [],
+                        [],
+                    )
+                    break
+
                 select_effect.targets.clear()
-                for check_target in input_effect.targets:
+                submitted_targets = list(input_effect.targets)
+                if not submitted_targets and selected_index != None:
+                    submitted_targets = list(
+                        effect_descriptors[selected_index].automatic_targets
+                    )
+                for check_target in submitted_targets:
                     found = False
                     for target in select_effect.context.all_legal_targets:
                         if target.card.object_id == CardEffectInt(check_target):
@@ -338,7 +409,9 @@ class Controller:
                     select_effect.context.paid_this_res_effects.append(effect)
 
                 select_cmd = CommandDescriptor(
-                    select_effect.GetReplayText(),
+                    choice_override.replay_texts[selected_index]
+                    if choice_override and selected_index != None
+                    else select_effect.GetReplayText(),
                     [x.GetReplayText() for x in select_effect.targets],
                     [x.GetReplayText() for x in select_effect.context.paid_this_res_effects])
                 break
