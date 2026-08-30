@@ -815,6 +815,7 @@ export class Effect {
         if( (
                 options.length == 1 || ( options.length == 2 && options[1].name == 'Cancel' )
             ) &&
+            options[0].name_with_space != "Ask" &&
             ( ["", "Play", "Play 1", "Play 2", "Defense", "Recover", "Change Form",
                 "Interrupt", "Hero Interrupt", "Alter-Ego Interrupt", "First Player Interrupt",
                 "Response", "Hero Response", "Alter-Ego Response", "Forced Response",

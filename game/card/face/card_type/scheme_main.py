@@ -221,6 +221,14 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
     @override
     def CanBeThwartBy(self, effect: 'Effect') -> bool:
         from game.operate.worlds import Worlds
+
+        # Protection Racket gives each player their own main scheme. Player
+        # effects may only thwart the scheme assigned to that player; scenario
+        # effects still need to be able to remove threat from any of them.
+        if self.paper.set_name == "Protection Racket" and effect.IsPlayerInitiator():
+            if self.card.GetOwner() != effect.GetInitiator():
+                return False
+
         main_scheme = Worlds.FindMainScheme(self)
         if main_scheme == self:
             if MainScheme.GetPatrolFaces(effect) != []:

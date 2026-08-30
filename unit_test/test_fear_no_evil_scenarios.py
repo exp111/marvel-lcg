@@ -10,7 +10,7 @@ from cards.database import CardsDB
 from engine.lib.version import Ver
 from game.ability import AbilityType
 from game.card.factory import CardFactory
-from game.card.face import CanCrisis, MainScheme
+from game.card.face import CanCrisis, MainScheme, Scheme2
 from game.message import Message
 from game.operate.worlds import Worlds
 
@@ -217,6 +217,43 @@ class TestTheGetawayMechanics(unittest.TestCase):
 
 
 class TestProtectionRacketMechanics(unittest.TestCase):
+
+    def test_each_player_can_only_thwart_their_owned_main_scheme(self):
+        owner = MagicMock()
+        other_player = MagicMock()
+        effect = MagicMock()
+        effect.IsPlayerInitiator.return_value = True
+        scheme = MainScheme(CardsDB.FindCardPaper("60134b"))
+        scheme.card = MagicMock()
+        scheme.card.GetOwner.return_value = owner
+
+        with (
+            patch.object(Worlds, "FindMainScheme", return_value=scheme),
+            patch.object(MainScheme, "GetPatrolFaces", return_value=[]),
+            patch.object(Scheme2, "CanBeThwartBy", return_value=True) as base_check,
+        ):
+            effect.GetInitiator.return_value = owner
+            self.assertTrue(scheme.CanBeThwartBy(effect))
+
+            effect.GetInitiator.return_value = other_player
+            self.assertFalse(scheme.CanBeThwartBy(effect))
+
+        base_check.assert_called_once_with(effect)
+
+    def test_scenario_effects_can_still_remove_threat_from_any_personal_scheme(self):
+        effect = MagicMock()
+        effect.IsPlayerInitiator.return_value = False
+        scheme = MainScheme(CardsDB.FindCardPaper("60134b"))
+        scheme.card = MagicMock()
+
+        with (
+            patch.object(Worlds, "FindMainScheme", return_value=scheme),
+            patch.object(MainScheme, "GetPatrolFaces", return_value=[]),
+            patch.object(Scheme2, "CanBeThwartBy", return_value=True),
+        ):
+            self.assertTrue(scheme.CanBeThwartBy(effect))
+
+        effect.GetInitiator.assert_not_called()
 
     def test_scenario_area_crisis_blocks_every_personal_main_scheme(self):
         owner_one = MagicMock()
