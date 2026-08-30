@@ -56,7 +56,7 @@ class TestFearNoEvilModularSetRegistration(unittest.TestCase):
         )["60. Fear No Evil"]
 
         self.assertEqual(sets_info["encounters"], MODULAR_SET_ORDER)
-        self.assertEqual(sets_info["max_id"], "60204")
+        self.assertEqual(sets_info["max_id"], "60210")
 
     def test_encounter_files_have_the_printed_cards_and_copy_counts(self):
         expected = {

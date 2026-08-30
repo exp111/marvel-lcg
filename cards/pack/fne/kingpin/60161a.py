@@ -1,4 +1,5 @@
 from . import *
+from cards.pack.fne.campaign import CampaignSetup
 
 
 def GetAbilities() -> Sequence['Ability']:
@@ -7,4 +8,7 @@ def GetAbilities() -> Sequence['Ability']:
         for player in Worlds.GetPlayers(effect):
             RevealSetupNemesis(player, effect)
 
-    return [AbilityFactory.WhenCardSetup("This", setup)]
+    return [
+        AbilityFactory.WhenCardSetup("This", setup),
+        *CampaignSetup("Kingpin"),
+    ]

@@ -105,7 +105,7 @@ class TestArtMuseumHeistRegistration(unittest.TestCase):
                 "tracksuit_mafia",
             ],
         )
-        self.assertEqual(sets_info["max_id"], "60204")
+        self.assertEqual(sets_info["max_id"], "60210")
 
     def test_printed_boost_values_and_attachment_modifiers_match_the_cards(self):
         cards = json.loads(

@@ -38,6 +38,7 @@ class CampaignDescriptor:
             "40": "next_evolution",
             "45": "age_of_apocalypse",
             "50": "agents_of_shield",
+            "60": "fear_no_evil",
         }
         for card_id in [*self.villain, *self.schemes, *self.encounters]:
             campaign_id = campaign_ids_by_prefix.get(card_id[:2])

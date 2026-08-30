@@ -1,4 +1,5 @@
 from . import *
+from cards.pack.fne.campaign import CampaignSetup
 
 
 def GetAbilities() -> Sequence['Ability']:
@@ -21,4 +22,7 @@ def GetAbilities() -> Sequence['Ability']:
                 include_in_play=False,
             )
 
-    return [AbilityFactory.WhenCardSetup("This", setup)]
+    return [
+        AbilityFactory.WhenCardSetup("This", setup),
+        *CampaignSetup("The Getaway"),
+    ]

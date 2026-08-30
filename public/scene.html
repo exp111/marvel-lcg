@@ -1190,6 +1190,19 @@ p:has(#timeout_text) {
                 #campaign_log_container td:nth-child(2) {
                     display: flex;
                 }
+                #campaign_log_container .campaign-random-control {
+                    align-items: center;
+                    gap: 10px;
+                }
+                #campaign_log_container .campaign-random-control output {
+                    flex: 1;
+                    min-width: 20rem;
+                }
+                #campaign_log_container .campaign-list-delimiter {
+                    align-self: center;
+                    margin-left: 8px;
+                    white-space: nowrap;
+                }
                 #campaign_log_container th {
                     background-color: #f2f2f2;
                 }
@@ -1244,6 +1257,10 @@ p:has(#timeout_text) {
                         name: "Agents of S.H.I.E.L.D.",
                         package: "50. Agents of S.H.I.E.L.D.",
                     },
+                    fear_no_evil: {
+                        name: "Fear No Evil",
+                        package: "60. Fear No Evil",
+                    },
                 }
 
                 let savedCampaignSettings = {}
@@ -1265,6 +1282,82 @@ p:has(#timeout_text) {
                     input.value = campaignRandomSeed()
                     input.dispatchEvent(new Event('input', { bubbles: true }))
                     input.dispatchEvent(new Event('change', { bubbles: true }))
+                }
+
+                const fearNoEvilCampaignScenarios = [
+                    "Art Museum Heist",
+                    "The Getaway",
+                    "Protection Racket",
+                    "The Raft Breakout",
+                    "Stop the Presses!",
+                ]
+                const fearNoEvilCampaignUnderlings = [
+                    "Bullseye",
+                    "Electro",
+                    "Hammerhead",
+                    "Purple Man",
+                    "Typhoid Mary",
+                ]
+
+                function campaignRandomIndex(length) {
+                    if( length <= 0 ) {
+                        return -1
+                    }
+                    if( window.crypto && window.crypto.getRandomValues ) {
+                        const value = new Uint32Array(1)
+                        window.crypto.getRandomValues(value)
+                        return value[0] % length
+                    }
+                    return Math.floor(Math.random() * length)
+                }
+
+                function campaignRandomSample(values, count) {
+                    const remaining = [...values]
+                    const selected = []
+                    while( selected.length < count && remaining.length > 0 ) {
+                        selected.push(remaining.splice(campaignRandomIndex(remaining.length), 1)[0])
+                    }
+                    return selected
+                }
+
+                function randomizeFearNoEvilCampaign(button, randomType) {
+                    const output = button.parentElement.querySelector('output')
+                    if( !output ) {
+                        return
+                    }
+
+                    const campaignLog = readCampaignLog("fear_no_evil")
+                    if( randomType === "scenarios" ) {
+                        const remaining = fearNoEvilCampaignScenarios.filter(scenario => {
+                            const status = campaignLog[`${scenario} Status`]
+                            return status !== "Completed" && status !== "Failed"
+                        })
+                        const selected = campaignRandomSample(remaining, Math.min(2, remaining.length))
+                        output.textContent = selected.length > 0
+                            ? selected.join(" / ")
+                            : "No scenarios remaining"
+                        return
+                    }
+
+                    if( randomType === "underling" ) {
+                        const chosen = new Set(
+                            fearNoEvilCampaignScenarios
+                                .map(scenario => campaignLog[`${scenario} Villain`])
+                                .filter(Boolean),
+                        )
+                        const remaining = fearNoEvilCampaignUnderlings.filter(underling => !chosen.has(underling))
+                        const selected = campaignRandomSample(remaining, 1)
+                        output.textContent = selected.length > 0
+                            ? selected[0]
+                            : "No underlings remaining"
+                    }
+                }
+
+                function campaignCardTooltip(option) {
+                    const cardId = option.split(",")[0]
+                    return /^\d{5,6}[a-z]?$/.test(cardId)
+                        ? `<span class="tooltip campaign-card-tooltip"><img src="${cardId}"></img></span>`
+                        : ""
                 }
 
                 function applyCampaignSettings(campaign_id, container) {
@@ -1646,6 +1739,38 @@ p:has(#timeout_text) {
                             { description: "Player 3 Campaign Aspect Support", type: "card" },
                             { description: "Player 4 Campaign Aspect Support", type: "card" },
                         ],
+                        fear_no_evil:
+                        [
+                            { description: "Scenarios to Progress", type: "campaignRandom", randomType: "scenarios", emptyText: "Click Random to draw up to 2 remaining scenarios" },
+                            { description: "Random Underling", type: "campaignRandom", randomType: "underling", emptyText: "Click Random to draw an unused underling" },
+
+                            { description: "Player 1 Remaining hit points", type: "number" },
+                            { description: "Player 2 Remaining hit points", type: "number" },
+                            { description: "Player 3 Remaining hit points", type: "number" },
+                            { description: "Player 4 Remaining hit points", type: "number" },
+
+                            { description: "Art Museum Heist Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "The Getaway Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "Protection Racket Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "The Raft Breakout Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "Stop the Presses! Status", type: "select", options: ["Completed", "Failed"] },
+
+                            { description: "Art Museum Heist Progress", type: "number" },
+                            { description: "The Getaway Progress", type: "number" },
+                            { description: "Protection Racket Progress", type: "number" },
+                            { description: "The Raft Breakout Progress", type: "number" },
+                            { description: "Stop the Presses! Progress", type: "number" },
+
+                            { description: "Art Museum Heist Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "The Getaway Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "Protection Racket Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "The Raft Breakout Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "Stop the Presses! Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+
+                            { description: "Trust Established?", type: "checkbox", options: ["Yes"] },
+                            { description: "Mary Defeated?", type: "checkbox", options: ["Yes"] },
+                            { description: "Allies and Persona Supports Removed from the Campaign", type: "list", tooltip: "Enter card titles or IDs" },
+                        ],
                         agents_of_shield:
                         [
                             { description: "Evidence Seed", label: "Evidence Seed (Do Not Change During a Campaign)", type: "number", default: campaignRandomSeed(), random: true },
@@ -1703,14 +1828,7 @@ p:has(#timeout_text) {
                         if (item.type === "select") {
                             let html = `<input type="hidden" data-key="${item.description}">`;
                             item.options.forEach(option => {
-                                let option0 = option.split(",")[0]
-                                if( option.length >= 5 && option.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option}"></img></span>`
-                                } if( option0.length >= 5 && option0.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option0}"></img></span>`
-                                } else {
-                                    tooltip = ""
-                                }
+                                tooltip = campaignCardTooltip(option)
                                 html += `<label><input type="radio" data-key="${option}" name="${item.description}">${option}${tooltip}</label>`;
                             });
 
@@ -1724,18 +1842,16 @@ p:has(#timeout_text) {
 
                             let html = `<input type="hidden" data-key="${item.description}">`;
                             item.options.forEach(option => {
-                                if( option.length >= 5 && option.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option}"></img></span>`
-                                } else {
-                                    tooltip = ""
-                                }
+                                tooltip = campaignCardTooltip(option)
                                 html += `<label><input type="checkbox" data-key="${option}">${option}${tooltip}</label>`;
                             });
                             row.innerHTML += `<td>${html}</td>`
 
                         } else if (item.type === "list") {
-                            tooltip = item.tooltip ? item.tooltip : "use ';' as the delimiter"
-                            row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="${tooltip}"></td>`;
+                            tooltip = item.tooltip ? item.tooltip : "Enter list items"
+                            row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="${tooltip}"><span class="campaign-list-delimiter">Delimiter: <code>;</code></span></td>`;
+                        } else if (item.type === "campaignRandom") {
+                            row.innerHTML += `<td class="campaign-random-control"><output aria-live="polite">${item.emptyText}</output><button type="button" onclick="randomizeFearNoEvilCampaign(this, '${item.randomType}')">Random</button></td>`;
                         } else if (item.type === "card") {
                             row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="use 'card_id'"></td>`;
                         } else {

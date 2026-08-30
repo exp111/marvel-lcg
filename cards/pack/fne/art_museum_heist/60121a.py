@@ -1,4 +1,5 @@
 from . import *
+from cards.pack.fne.campaign import CampaignSetup
 
 # Art Museum Heist 1A
 
@@ -26,4 +27,5 @@ def GetAbilities() -> Sequence['Ability']:
             "This",
             art_museum_heist_setup,
         ),
+        *CampaignSetup("Art Museum Heist"),
     ]

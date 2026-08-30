@@ -1,4 +1,5 @@
 from . import *
+from cards.pack.fne.campaign import CampaignSetup
 
 
 def GetAbilities() -> Sequence['Ability']:
@@ -20,4 +21,7 @@ def GetAbilities() -> Sequence['Ability']:
 
         Faces.RemoveAllFromGame(available, effect)
 
-    return [AbilityFactory.WhenCardSetup("This", setup)]
+    return [
+        AbilityFactory.WhenCardSetup("This", setup),
+        *CampaignSetup("Stop the Presses!"),
+    ]

@@ -59,7 +59,7 @@ class TestFearNoEvilScenarioRegistration(unittest.TestCase):
             (ROOT / "data" / "sets_info.json").read_text(encoding="utf-8")
         )["60. Fear No Evil"]
         self.assertEqual(sets_info["scenarios"], SCENARIO_ORDER)
-        self.assertEqual(sets_info["max_id"], "60204")
+        self.assertEqual(sets_info["max_id"], "60210")
 
     def test_scenario_files_contain_printed_cards_and_recommended_modulars(self):
         expected = {

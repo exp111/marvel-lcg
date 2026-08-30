@@ -64167,7 +64167,127 @@
             "traits": [],
             "set_name": "Tracksuit Mafia",
             "text": "<b>When Revealed</b>: Discard cards from the top of the encounter deck until a [[TRACKSUIT]] minion is discarded and tuck that minion here.\n<b>Forced Response</b>: After a player reveals a [[TRACKSUIT]] minion from the encounter deck, that player reveals 1 minion tucked here."
+        },
+        {
+            "card_id": "60205a",
+            "type": "Environment",
+            "name": "Art Museum Heist",
+            "subtitle": "COMPLETED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Give each identity a tough status card."
+        },
+        {
+            "card_id": "60205b",
+            "type": "Environment",
+            "name": "Art Museum Heist",
+            "subtitle": "FAILED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Each player chooses to stun or confuse their identity (in expert mode, do both instead)."
+        },
+        {
+            "card_id": "60206a",
+            "type": "Environment",
+            "name": "The Getaway",
+            "subtitle": "COMPLETED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: After resolving mulligans, each player may search their deck and discard pile for an upgrade and add it to their hand. In expert mode, each player who did so discards 1 card from their hand."
+        },
+        {
+            "card_id": "60206b",
+            "type": "Environment",
+            "name": "The Getaway",
+            "subtitle": "FAILED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "In expert mode, attachments cannot be discarded from play during the first round.\n<b>Setup</b>: Each player searches the encounter deck for an attachment and reveals it. Deal a facedown encounter card to each player who could not."
+        },
+        {
+            "card_id": "60207a",
+            "type": "Environment",
+            "name": "Protection Racket",
+            "subtitle": "COMPLETED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: After resolving mulligans, each player may search their deck and discard pile for a support and add it to their hand. In expert mode, each player who did so discards 1 card from their hand."
+        },
+        {
+            "card_id": "60207b",
+            "type": "Environment",
+            "name": "Protection Racket",
+            "subtitle": "FAILED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Each player chooses and discards 1 card from their hand (in expert mode, 2 cards instead)."
+        },
+        {
+            "card_id": "60208a",
+            "type": "Environment",
+            "name": "The Raft Breakout",
+            "subtitle": "COMPLETED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: After resolving mulligans, each player may search their deck and discard pile for an ally and add it to their hand. In expert mode, each player who did so discards 1 card from their hand."
+        },
+        {
+            "card_id": "60208b",
+            "type": "Environment",
+            "name": "The Raft Breakout",
+            "subtitle": "FAILED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Shuffle each minion in The Raft Breakout encounter set into the encounter deck (in expert mode, deal 1 of those minions at random to each player as a facedown encounter card before shuffling in the rest)."
+        },
+        {
+            "card_id": "60209a",
+            "type": "Environment",
+            "name": "Stop the Presses!",
+            "subtitle": "COMPLETED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Each player puts 1 [[DAILY BUGLE]] support (that has not been removed from the campaign) into play from the Stop the Presses! encounter set."
+        },
+        {
+            "card_id": "60209b",
+            "type": "Environment",
+            "name": "Stop the Presses!",
+            "subtitle": "FAILED",
+            "desc": {},
+            "traits": [],
+            "set_name": "Fear No Evil Campaign",
+            "text": "<b>Setup</b>: Deal each player 1 facedown encounter card (in expert mode, 2 encounter cards instead)."
+        },
+        {
+            "card_id": "60210a",
+            "type": "Ally",
+            "name": "* Typhoid Mary",
+            "subtitle": "Mary Walker",
+            "desc": {"HP": "3", "ATK": "1*", "THW": "2*", "RES": "B", "Class": "Campaign", "Setup": "1", "Victory": "-1"},
+            "traits": ["MUTANT", "PSIONIC"],
+            "set_name": "Fear No Evil Campaign",
+            "text": "Setup. Victory -1.\n<b>Forced Response</b>: After you reveal a minion, remove all damage from here and flip this card."
+        },
+        {
+            "card_id": "60210b",
+            "type": "Ally",
+            "name": "* Bloody Mary",
+            "subtitle": "Mary Walker",
+            "desc": {"HP": "3", "ATK": "2*", "THW": "1*", "RES": "R", "Class": "Campaign", "Victory": "-1"},
+            "traits": ["MUTANT", "PSIONIC"],
+            "set_name": "Fear No Evil Campaign",
+            "text": "Victory -1.\n<b>Forced Response</b>: After you reveal a side scheme, remove all damage from here and flip this card."
         }
     ],
-    "checksum": "31eb9e802fb263b5c9924d7df5b6d651f051c1169e90221d7e69f626533e7ee6"
+    "checksum": "ad89809e15fb584daa7b6ee4d2f15a54b99c44c7f3195fa3962af13c161378bd"
 }

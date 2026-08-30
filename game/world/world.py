@@ -447,6 +447,14 @@ class World(WorldAction, WorldFind):
                 player.phase.ResolveMulligans(Message.WhenPlayerResolveMulligans(player))
             JobManager.Simultaneous(process_player, self.const_players)
 
+        # Campaign instructions that happen after player setup must wait
+        # until every configured mulligan pass is over. Send this even when
+        # mulligans are disabled so campaign setup reaches the same printed
+        # checkpoint.
+        if self.rule.mode_campaign.val and \
+            self.scene.campaign.campaign_id == "fear_no_evil":
+            Message.AfterPlayersResolveMulligans(self).Send()
+
         # [x] 16. Resolve Character Setup Abilities
         Message.TextRender("\n--- Resolve Character Setup Abilities ---", self)
         for player in self.const_players:

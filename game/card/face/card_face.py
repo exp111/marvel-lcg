@@ -152,7 +152,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         "Cyclops", "Flight", "Super Strength", "Telepathy", "Four Horsemen", 
         "Blue Moon", "Genosha", "Savage Land", "Magneto", "Shadow King", "Dreadpool", "Kree Fanatic", 
         "Thunderbolts", "Executive Board Evidence", "Frostbite", "Iceman", "Spider-Man - Miles Morales",
-        "Daredevil", "Sense Deck", "Daredevil Nemesis", "Echo", "Echo Nemesis", "Bullseye", "Art Museum Heist", "The Getaway", "Protection Racket", "The Raft Breakout", "Stop the Presses!", "Kingpin", "Disasters", "Cops", "Drive", "The Owl", "Tombstone", "Tracksuit Mafia",
+        "Daredevil", "Sense Deck", "Daredevil Nemesis", "Echo", "Echo Nemesis", "Bullseye", "Art Museum Heist", "The Getaway", "Protection Racket", "The Raft Breakout", "Stop the Presses!", "Kingpin", "Disasters", "Cops", "Drive", "The Owl", "Tombstone", "Tracksuit Mafia", "Fear No Evil Campaign",
     ]
 
     BASIC_POWER = Literal["ATK", "THW", "REC", "SCH", "DEF"]
