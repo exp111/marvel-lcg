@@ -24,7 +24,7 @@ See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/ins
 
 v1.3.0 uses the byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, and UPX-disabled configuration used by prior community releases. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
 
-The package remains unsigned. Microsoft's engine on VirusTotal flags the v1.3.0 executable; the [VirusTotal report for the exact packaged executable](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is public. Detection results can change over time, so this should be treated as an unresolved antivirus warning rather than a guarantee that every scanner will accept the build. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
+The package remains unsigned. Microsoft's engine on VirusTotal flagged a v1.3.0 release-candidate executable; the [public VirusTotal report](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is provided for transparency. The final package was rebuilt after the release documentation was updated, so that report is not a byte-for-byte scan of the executable in the download. Detection results can change over time; treat this as an unresolved antivirus warning and scan the downloaded package yourself. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
 
 ## Community build highlights
 

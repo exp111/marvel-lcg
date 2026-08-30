@@ -45,8 +45,8 @@ This release completes **Fear No Evil**, adds its full campaign, and makes the n
 ## Antivirus notice and Windows package
 
 - The Windows package remains unsigned and uses the pinned Python 3.12.13 runtime, PyInstaller one-folder layout, and UPX-disabled configuration used by prior community releases.
-- Microsoft's engine on VirusTotal flags the v1.3.0 executable. The [VirusTotal report for the exact packaged executable](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is public and should be treated as an unresolved antivirus warning; detection results can change over time.
-- The executable in that report has SHA-256 `a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b`. The release ZIP has its own accompanying `.sha256` file for download verification.
+- Microsoft's engine on VirusTotal flagged a v1.3.0 release-candidate executable. The [public VirusTotal report](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is provided for transparency and should be treated as an unresolved antivirus warning; detection results can change over time.
+- The scanned release-candidate executable has SHA-256 `a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b`. The final package was rebuilt after the documentation update, so verify the published ZIP with its accompanying `.sha256` file and scan the downloaded package yourself.
 
 ---
 
