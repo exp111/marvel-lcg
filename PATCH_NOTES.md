@@ -3,14 +3,50 @@
 Application version: **1.3.0r**
 Windows file version: **1.3.0.0**
 
-This release adds optional Rules Reference v1.8 simultaneous timing while preserving legacy timing for older saves and replays.
+This release completes **Fear No Evil**, adds its full campaign, and makes the new Rules Reference v1.8 timing workflow the default for new games. These notes describe changes since v1.2.0.1.
 
-## Release changes
+## Complete Fear No Evil expansion
 
-- Added a default-on v1.8 timing option so responses created by the same attack, damage, defeat, defense, basic-power, recovery, threat, or scheme occurrence share the correct timing window and can be resolved in player-chosen order.
-- Updated retaliate, vulnerable, consequential damage, When Defeated, and When Completed to use their v1.8 timing priorities.
-- Updated Incite, Quickstrike, Restricted, Surge, Teamwork, Temporary, Toughness, Victory, and Villainous to initiate at their printed v1.8 timing points; reveal responses now wait until the entire reveal process finishes, Ranged no longer opens a Retaliate response, and Piercing no longer discards Tough when an attack would deal no damage.
-- Preserved the prior message-by-message dispatcher as an optional legacy mode without changing the separately selected v1.6 rulings.
+- Completed the **Fear No Evil** box: the **Daredevil** and **Echo** hero expansions, their obligations and nemesis sets, the complete player-card pool, every scenario and encounter set, and all campaign cards.
+- Added standard and expert versions of the five interchangeable Underling villains: **Bullseye**, **Electro**, **Hammerhead**, **Purple Man**, and **Typhoid Mary**.
+- Added the five interchangeable scenarios: **Art Museum Heist**, **The Getaway**, **Protection Racket**, **The Raft Breakout**, and **Stop the Presses!**, including their scenario-specific setup and encounter mechanics.
+- Added **Kingpin** as a complete standalone standard/expert scenario with its built-in scenario setup. Selecting Kingpin disables the interchangeable scenario and Standard-set choices that do not apply to him.
+- Added all six modular encounter sets in printed order: **Disasters**, **Cops**, **Drive**, **The Owl**, **Tombstone**, and **Tracksuit Mafia**.
+- Implemented the complete Fear No Evil campaign, including scenario and Underling selection, scenario results, campaign-card setup, persistent campaign tracking, rewards, removed allies and Persona supports, and campaign-specific scenario instructions.
+- Added campaign helpers that randomly offer up to two unfinished scenarios and an unused Underling while keeping completed, failed, and previously selected entries out of those results.
+
+## Rules Reference v1.8 timing
+
+- Added `v18_timing`, enabled by default for new games. Interrupts and responses created by the same attack, damage, defeat, defense, basic-power, recovery, threat, or scheme occurrence now share the correct timing window and can be resolved in player-chosen order.
+- Players can choose among simultaneous forced abilities at the same priority. Optional response opportunities rotate from the first player and are recalculated after each resolution, allowing newly legal responses—such as Jarnbjorn after Nova readies Supernova Helmet—to be used in the same window.
+- Updated Retaliate, Vulnerable, consequential damage, When Defeated, and When Completed to use their printed v1.8 priorities and lifecycle timing.
+- Updated Incite, Quickstrike, Restricted, Surge, Teamwork, Temporary, Toughness, Victory, and Villainous to initiate at their printed timing points. Surge and Incite are cancellable When Revealed effects, reveal responses wait until the complete reveal finishes, Ranged prevents Retaliate, and Piercing does not discard Tough when an attack would deal no damage.
+- Hardened nested timing occurrences, replay identities, unnamed internal effects, duplicate candidates, target/cost revalidation, and parent/child attack and damage windows.
+- Constant modifiers and other non-triggered game-state effects apply automatically without unnecessary ordering prompts. Exact one-target outcomes are preselected where safe, while defense declarations and Ask abilities retain explicit confirmation.
+- Preserved the prior message-by-message dispatcher as an optional legacy mode. Disabling `v18_timing` changes only simultaneous-trigger handling and does not disable separately selected v1.6 rulings.
+- Existing saves and replays created before v1.3.0 continue in legacy timing unless they explicitly contain the v1.8 timing rule, preserving their recorded prompt order.
+
+## Interface and search improvements
+
+- Added the optional **Show Deck During Full Search** rule. When enabled, a complete deck or discard-pile search displays every card being searched so the player can inspect the full pool before choosing.
+- Kept random full-deck searches random even while the deck is visible; the last inspected or selected card is no longer incorrectly reused as the random result.
+- Full-search presentation works for player and encounter searches while preserving shuffle behavior, card-order rules, and the original hidden presentation when the option is disabled.
+- Improved campaign setup presentation and status tracking, including visible delimiter tokens for removed allies and Persona supports and cleaner completed/failed controls.
+- Removed redundant one-of-one target prompts where the outcome is deterministic. Ask remains an explicit option even when it is the only action available on a selectable player card.
+
+## Scenario and engine corrections
+
+- Restricted each **Protection Racket** main scheme to its assigned player for player-initiated thwart effects while preserving scenario effects that must add or remove threat across personal schemes.
+- Corrected crisis handling across Protection Racket's separate main schemes.
+- Corrected Art Museum Heist attachment setup, search, shuffling, action labels, and full-search randomization.
+- Corrected Underling, modular-set, Kingpin, and campaign-card values, selectors, timing, targets, status effects, empty-search fallbacks, and printed-text interactions found during focused audits.
+- Corrected partial and empty full-deck searches such as **Suit Up** so legal results remain selectable without exposing or reusing invalid search state.
+
+## Antivirus notice and Windows package
+
+- The Windows package remains unsigned and uses the pinned Python 3.12.13 runtime, PyInstaller one-folder layout, and UPX-disabled configuration used by prior community releases.
+- Microsoft's engine on VirusTotal flags the v1.3.0 executable. The [VirusTotal report for the exact packaged executable](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is public and should be treated as an unresolved antivirus warning; detection results can change over time.
+- The executable in that report has SHA-256 `a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b`. The release ZIP has its own accompanying `.sha256` file for download verification.
 
 ---
 

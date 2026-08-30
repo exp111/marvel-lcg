@@ -4,38 +4,40 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest testing release: v1.2.0.1
+## Latest testing release: v1.3.0
 
-[Download Community Build v1.2.0.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.2.0.1)
+[Download Community Build v1.3.0 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.0)
 
-This hotfix corrects gameplay issues found after v1.2.0 while retaining that release's **Daredevil**, **Echo**, **Fear No Evil**, and **Age of Apocalypse** content. Major corrections include:
+v1.3.0 completes the **Fear No Evil** expansion and introduces the game's default-on **Rules Reference v1.8 timing system**. Release highlights include:
 
-- Nebula's first Technique attachment each round—not one per player—gains surge.
-- Brainstorm remains playable under Patrol, and In Harm's Way is playable when either half has a legal target.
-- Daredevil has 2 printed THW, and Sense cards that say “you” no longer trigger from ally attacks or thwarts.
-- Discarded Sense cards return to the bottom of the Sense deck.
-- Echo can select a playable tucked event directly in hero form, choose the Photographic Reflexes copy to discard before payment, and use remaining copies for their printed resources.
+- The complete **Fear No Evil** box: Daredevil and Echo, all player cards, five interchangeable Underling villains, five interchangeable scenarios, Kingpin's standalone scenario, all six modular encounter sets, and the full campaign.
+- Rules Reference v1.8 simultaneous timing, enabled by default for new games. Interrupts and responses created by one occurrence share the correct timing window and can be resolved in player-chosen order. The legacy timing dispatcher remains available through the Rule settings.
+- Updated v1.8 timing for Surge, Incite, Quickstrike, Teamwork, Toughness, Retaliate, Vulnerable, Villainous, Victory, When Defeated, When Completed, and related attack/damage workflows.
+- A new optional **Show Deck During Full Search** setting, allowing players to inspect the complete searched deck or discard pile while still preserving random searches and shuffles.
+- A dedicated Fear No Evil campaign setup interface for tracking scenario outcomes, Underlings, campaign cards, rewards, removed allies and Persona supports, and randomized scenario progression.
 
 Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
 
 See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/install_guide.md) for details.
 
-## Windows packaging and verification
+## Antivirus notice and Windows packaging
 
-v1.2.0.1 uses the same byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, UPX-disabled configuration, and hash-verified locally compiled bootloader used for v1.2.0. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
+v1.3.0 uses the byte-matched Python 3.12.13 runtime, pinned release dependencies, PyInstaller one-folder package, and UPX-disabled configuration used by prior community releases. The one-folder layout avoids self-extracting the executable into a temporary directory and reduces generic heuristic antivirus detections.
 
-The v1.2.0.1 executable passed a local Microsoft Defender custom scan, and its [VirusTotal analysis](https://www.virustotal.com/gui/file/9f526791102675fbdf201d1f039f0e2f4eb84ab1e747b0c7a3f9f7d4cf5eb24c) reported no detections at release time. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
+The package remains unsigned. Microsoft's engine on VirusTotal flags the v1.3.0 executable; the [VirusTotal report for the exact packaged executable](https://www.virustotal.com/gui/file/a1ab2e6a911db3c1c2dfefb88a2b8cb145b80542ad31075c6bfcf64959bc452b?nocache=1) is public. Detection results can change over time, so this should be treated as an unresolved antivirus warning rather than a guarantee that every scanner will accept the build. A SHA-256 checksum file is generated beside the Windows archive so testers can verify the exact download.
 
 ## Community build highlights
 
-- **Campaigns:** Complete playable campaign flows for **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
+- **Campaigns:** Complete playable campaign flows for **Fear No Evil**, **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
 - **Playable heroes:** Full **Wonder Man**, **Hercules**, **Daredevil**, and **Echo** hero expansions, each with a starter deck, identity-specific cards, an obligation, and a registered nemesis set. Daredevil includes his separate Sense deck, while Echo includes her tucked-event mechanics.
 - **Player cards:** The complete **Fear No Evil** player-card set, including Starting and Team-Up cards, together with the aspect and basic player cards released alongside Wonder Man and Hercules.
+- **Fear No Evil scenarios:** Five interchangeable Underlings—**Bullseye**, **Electro**, **Hammerhead**, **Purple Man**, and **Typhoid Mary**—can be paired with **Art Museum Heist**, **The Getaway**, **Protection Racket**, **The Raft Breakout**, or **Stop the Presses!**. **Kingpin** is implemented as a complete standalone scenario, together with the Disasters, Cops, Drive, The Owl, Tombstone, and Tracksuit Mafia modular sets.
 - **Synthezoid Smackdown:** Standard and expert cooperative scenarios against **She-Hulk** and **Vision**, supported by the S.H.I.E.L.D. Ops, Thunderbolts, Taskmaster, Deadly Duo, Young Avengers, Scarlet Twins, Moon Knight, and Royal Guard encounter sets.
 - **Trickster Takeover:** Complete standard and expert **Loki: God of Lies** scenarios, including the Loki Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic content.
 - **Civil War:** Expert scenario variants for **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman**.
 - Campaign implementations cover setup, progression, campaign logs, persistent health and cards, player assignments, missions, evidence, rewards, and campaign-specific scenario changes.
-- Rules and card-engine implementations support the added content's Starting abilities, Rules Reference v1.8 Team-Up ally replacement, multi-villain targeting, alternate resource costs, and reusable modular-difficulty setup.
+- Rules and card-engine implementations support default-on Rules Reference v1.8 timing, Starting abilities, Team-Up ally replacement, multi-villain targeting, alternate resource costs, and reusable modular-difficulty setup.
+- The optional full-deck-search display exposes all cards in a complete search without changing random selection, shuffle, or hidden-information behavior when the option is disabled.
 - The community content is registered throughout the card database, starter-deck library, scenario loader, encounter-set system, and campaign framework for play alongside the original Irefrixs content.
 
 ## Release and distribution
