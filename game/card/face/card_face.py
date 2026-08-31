@@ -502,12 +502,19 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
                 unregister_after_exec=False,
             )
         if if_this_attack_deal_excess_damage:
-            ability = AbilityFactory.AfterUnitDealExcessDamage(
+            # Register through the damage event so the resulting defeat
+            # listener survives until the grouped v1.8 response window.
+            ability = AbilityFactory.AfterUnitDefeatedUnit(
                 AbilityType.Temp0,
                 None,
+                units,
                 lambda effect, message:
                     if_this_attack_deal_excess_damage(message.excess_damage),
-                by_effect=by_effect
+                has_excess_damage=True,
+                conditions=[
+                    lambda effect, message:
+                        message.by_effect == by_effect,
+                ],
             )
 
             temp_effects += self.effect.RegisterTemp(

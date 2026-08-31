@@ -7,6 +7,29 @@ def _ShouldResolvePiercing(
 ) -> bool:
     return calculated_damage > 0 and attack_message.IsPiercing()
 
+
+def _TakeIndirectAttackDamage(
+    atk_target: 'Unit2',
+    attacker: 'Unit2',
+    calculated_damage: int,
+    by_effect: 'Effect',
+    would_atk_message: 'Message.WhenUnitWouldAttack',
+    attack_timing_occurrence: 'TimingOccurrence|None',
+):
+    if calculated_damage == 0:
+        # AssignDamage has nothing to assign in this case, so emit the same
+        # presentation-only event used by the standard damage path.
+        Message.WhenDamageIsZero_Text(atk_target, attacker, True)
+
+    return atk_target.TakeIndirectDamage(
+        attacker,
+        calculated_damage,
+        by_effect,
+        from_atk_message=would_atk_message,
+        timing_occurrence=attack_timing_occurrence,
+    )
+
+
 @dataclass
 class AttackProperty(PowerProperty):
     additional_boost_card: int = field(default=0) # Only for basic attack
@@ -401,12 +424,13 @@ class CanAttack(CardFace):
             # Send.WhenUnitAttacksUnit(target, calculated_damage, atk_message)
             if property.deal_indirect_damage:
                 #  and atk_target == atk_target.GetControlByPlayer().GetIdentity():
-                damage_messages = atk_target.TakeIndirectDamage(
+                damage_messages = _TakeIndirectAttackDamage(
+                    atk_target,
                     this,
                     calculated_damage,
                     by_effect,
-                    from_atk_message=would_atk_message,
-                    timing_occurrence=attack_timing_occurrence,
+                    would_atk_message,
+                    attack_timing_occurrence,
                 )
                 took_damage = 0
                 for damage_message in damage_messages:

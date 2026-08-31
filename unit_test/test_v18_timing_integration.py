@@ -1226,6 +1226,60 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         )
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
 
+    def test_into_the_fray_removes_threat_for_excess_damage(self):
+        fixture = TimingFixture(
+            "",
+            "Into the Fray excess damage",
+            "rhino",
+            ("spider_man",),
+            180017,
+            (
+                'Puzzle.ChangeFormFor(0, "Hero")',
+                'Puzzle.ClearHand()',
+                'Puzzle.CreateHandCards("13013", "01088", "01089")',
+                'Puzzle.PutIntoPlay("01157")',
+                'Puzzle.SetThreat("01097b", 3)',
+            ),
+            ("13013", "01088", "01089", "01157", "01097b"),
+        )
+        scene = build_fixture_scene(fixture)
+        played = False
+
+        def choose(prompt):
+            nonlocal played
+            world = Engine.game.world
+            if prompt.event_name == "WhenPlayerInTurn" and not played:
+                into_the_fray = next(
+                    face
+                    for face in world.const_players[0].hand_cards.Get()
+                    if face.paper.card_id == "13013"
+                )
+                killmonger = world.FindCardsOnField(name="Killmonger")[0]
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("bind_id") == into_the_fray.card.object_id
+                )
+                played = True
+                return self._choice(
+                    option,
+                    [killmonger.card.object_id],
+                    self._payment_effect_ids(option),
+                )
+            if prompt.event_name == "WhenPlayerChooseAbility" and played:
+                return self._choice(prompt.options[0])
+            if prompt.event_name == "WhenPlayerInTurn" and played:
+                return None
+            return HeadlessDeviceManager._DefaultChoice(prompt)
+
+        devices = HeadlessDeviceManager(choice_provider=choose)
+        game = run_scene_with_devices(scene, devices)
+        main_scheme = game.world.FindCardsOnField(name="The Break-In!")[0]
+
+        self.assertEqual(main_scheme.threat, 2)
+        self.assertEqual(game.world.FindCardsOnField(name="Killmonger"), [])
+        self.assertEqual(game.world.event_manager.timing_occurrences, [])
+
     def test_recorded_nova_inputs_end_at_the_attack_that_opens_the_window(self):
         expected_lengths = {
             "01_nova_jarnbjorn_unlock.json": 7,

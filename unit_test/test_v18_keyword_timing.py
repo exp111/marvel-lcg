@@ -8,7 +8,10 @@ from cards.database import CardsDB
 from game.ability import AbilityType, TimingPriority
 from game.card.card import Card
 from game.card.factory import CardFactory
-from game.card.face.attribute.can_attack import _ShouldResolvePiercing
+from game.card.face.attribute.can_attack import (
+    _ShouldResolvePiercing,
+    _TakeIndirectAttackDamage,
+)
 from game.card.face.attribute.can_retaliate import CanRetaliate
 from game.card.face.attribute.has_villainous import HasVillainous
 from game.event.manager import EventManager
@@ -447,6 +450,34 @@ class TestV18OtherKeywordResolution(unittest.TestCase):
 
         self.assertFalse(_ShouldResolvePiercing(0, attack))
         self.assertTrue(_ShouldResolvePiercing(1, attack))
+
+    @patch("game.card.face.attribute.can_attack.Message.WhenDamageIsZero_Text")
+    def test_zero_damage_indirect_attack_emits_attack_presentation(self, zero_damage_text):
+        target = MagicMock()
+        attacker = MagicMock()
+        effect = MagicMock()
+        attack_message = MagicMock()
+        timing_occurrence = MagicMock()
+        target.TakeIndirectDamage.return_value = []
+
+        result = _TakeIndirectAttackDamage(
+            target,
+            attacker,
+            0,
+            effect,
+            attack_message,
+            timing_occurrence,
+        )
+
+        zero_damage_text.assert_called_once_with(target, attacker, True)
+        target.TakeIndirectDamage.assert_called_once_with(
+            attacker,
+            0,
+            effect,
+            from_atk_message=attack_message,
+            timing_occurrence=timing_occurrence,
+        )
+        self.assertEqual(result, [])
 
     def test_ranged_attack_ignores_retaliate(self):
         defender = MagicMock(retaliate=2)
