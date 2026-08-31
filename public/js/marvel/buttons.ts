@@ -147,7 +147,7 @@ export class Button{
             let bind_player_id = Setting.player_id
             if( Effect.select_effect_obj.id != -1 ) {
                 let result_json = {
-                    'id': Effect.select_effect_obj.id,
+                    'id': Effect.select_effect_obj.choice_id || Effect.select_effect_obj.id,
                     // 'name': CardEffect.select_effect_obj.name,
                     // 'card': CardEffect.select_effect_obj.bind_id,
                     'targets': [] as number[],

@@ -118,7 +118,8 @@ class Minion(Enemy, CanQuickstrike, CanTeamwork, HasGuard, HasPatrol, HasVillain
         engaged_message = Message.WhenMinionEngagePlayer(would_message)
         engaged_message.Send()
 
-        self.ResolveQuickstrike(player)
+        if not bool(self.card.world.rule.v18_timing):
+            self.ResolveQuickstrike(player)
 
         after_message = Message.AfterMinionEngagePlayer(self, player, engaged_message)
         after_message.Send()

@@ -265,6 +265,37 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
         self.assertEqual(captured_selector.kwargs["range"], (1, 1))
         process_choose.assert_called_once_with(valid_target)
 
+    def test_full_search_select_all_ignores_player_click_order(self):
+        deck = make_deck(card_count=4)
+        canonical_matches = deck.Get(True)
+        clicked_matches = list(reversed(canonical_matches))
+        player = SimpleNamespace(
+            AskChooseSelect=MagicMock(return_value=clicked_matches)
+        )
+        finder = SimpleNamespace(
+            Checks=MagicMock(return_value=canonical_matches)
+        )
+
+        with patch(
+            "game.operate.search_internal.Select.From",
+            return_value=SimpleNamespace(),
+        ):
+            selected = SearchInternal.SearchForCardsInternal(
+                SimpleNamespace(),
+                player,
+                deck.Get(True),
+                process_choose=None,
+                process_other=None,
+                finder=finder,
+                may=False,
+                range="All",
+                full_search_display_faces=deck.Get(True),
+                full_search_decks=[deck],
+            )
+
+        self.assertEqual(selected, canonical_matches)
+        self.assertNotEqual(selected, clicked_matches)
+
     def test_force_choose_allows_a_no_match_viewer(self):
         selector = Select.From(faces=[], range=(1, 1), force_choose=True)
 

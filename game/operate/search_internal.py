@@ -93,6 +93,14 @@ class SearchInternal:
         else:
             faces = player.AskChooseSelect(selector, by_effect)
 
+        # Showing a complete deck turns an otherwise automatic "select all"
+        # search into a player-facing confirmation.  The order in which the
+        # player clicks those cards is presentation state, not a game choice.
+        # Restore the search's canonical order before callers perform any
+        # subsequent random choice (for example, Art Museum Heist setup).
+        if show_full_deck_search and range == "All" and faces:
+            faces = [face for face in legal_faces if face in faces]
+
         def process(targets: Sequence['CardFace']) -> None:
             for face in targets:
                 if process_choose:

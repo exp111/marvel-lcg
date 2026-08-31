@@ -837,6 +837,7 @@ class AbilityFactoryDoAttack:
                               piercing: bool=False,
                               indirect_damage: bool=False,
                               ignore_retaliate: bool=False,
+                              lost_ranged: bool=False,
                               lost_piercing: bool=False) -> 'Ability':
 
         def gain(effect: 'Effect', message: 'Message.CheckIfAttackMessageHasKeyword') -> None:
@@ -850,6 +851,8 @@ class AbilityFactoryDoAttack:
                 message.SetDealIndirectDamage(effect)
             if ignore_retaliate:
                 message.SetIgnoreRetaliate(effect)
+            if lost_ranged:
+                message.SetLostRanged(effect)
             if lost_piercing:
                 message.SetLostPiercing(effect)
 

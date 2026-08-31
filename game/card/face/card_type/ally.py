@@ -8,7 +8,7 @@ from game.player import *
 from cards.paper import Paper
 
 @final
-class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasAccelerationIcon, HasAmplify, HasHazard, HasSetup, HasVictory, ClassCard, CanPlaceCounter, CanAttach, FinalType):
+class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasVillainous, HasAccelerationIcon, HasAmplify, HasHazard, HasSetup, HasVictory, ClassCard, CanPlaceCounter, CanAttach, FinalType):
     @override
     def __init__(self, paper: 'Paper') -> None:
         self.attack_consequential_damage = 0
@@ -52,10 +52,13 @@ class Ally(HasThwart, CanThwart, HasAttack, CanAttack, Friend, CanDefense, HasAc
                 if would_take_consequential_message.is_be_instead:
                     return
                 damage = would_take_consequential_message.will_take_damage
+                event_manager = self.card.world.event_manager
+                timing_occurrence = event_manager.BeginTimingOccurrence()
                 damage_message = self.TakeDamage(self, damage, Consequential(self))
                 if damage_message != None:
                     take_damage_message = Message.AfterAllyTakeConsequentialDamage(self, message, would_take_consequential_message)
                     take_damage_message.Send()
+                event_manager.EndTimingOccurrence(timing_occurrence)
 
         abilities.append(
             AbilityFactory.AfterUnitUseBasicPower(

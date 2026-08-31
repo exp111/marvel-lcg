@@ -46,13 +46,14 @@ class ConditionPlayerType:
         return ConditionPlayerType.CheckWhichPlayer(against_player, message.against_player, effect)
 
     @staticmethod
-    def CheckWhichPlayerIncludeAllies(check_rule: 'PLAYER_TYPE', message: 'Message.CheckIfUnitCanBeAttackBy|Message.CheckIfSchemeCanBeThwartBy', from_effect: 'Effect') -> bool:
+    def CheckWhichPlayerIncludeAllies(check_rule: 'PLAYER_TYPE', message: 'Message.CheckIfUnitCanBeAttackBy|Message.CheckIfSchemeCanBeThwartBy|Message.WhenUnitWouldTakeDamage', from_effect: 'Effect', *, by_face: 'CardFace|None'=None) -> bool:
         from game.card.face.card_type import Identity
         from game.card.face.card_type import Upgrade
         # from game.card.face.card_type import Event
         from game.card.face.card_type import Ally
 
-        by_face = message.by_effect.this
+        if by_face == None:
+            by_face = message.by_effect.this
         check_player = message.by_effect.initiator
 
         if check_rule == "You":

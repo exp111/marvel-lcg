@@ -51,6 +51,12 @@ class SenderRound:
         def __init__(self, world: 'World') -> None:
             super().__init__(world=world)
 
+    class AfterPlayersResolveMulligans(Message2):
+        """Sent once after every configured mulligan pass has finished."""
+
+        def __init__(self, world: 'World') -> None:
+            super().__init__(world=world)
+
     class WhenGameInitialize(Message2):
         def __init__(self, world: 'World') -> None:
             super().__init__(world=world)

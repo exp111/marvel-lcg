@@ -1,0 +1,15 @@
+{
+    "version": "0.5.8",
+    "name": "Electro",
+    "kind": "underling",
+    "villain": ["60076", "60077"],
+    "expert": false,
+    "schemes": [],
+    "set_aside": ["60079"],
+    "encounters": [
+        "60080", "60081", "60082", "60082", "60083", "60083",
+        "60084", "60084", "60085", "60085"
+    ],
+    "encounter_sets": ["standard"],
+    "modular_sets": []
+}

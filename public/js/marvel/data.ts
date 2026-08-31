@@ -2,6 +2,7 @@ import { Lib } from "./lib.js";
 
 export class EffectDescriptor {
     id: number;
+    choice_id: string;
     name: string;
     name_with_space: string;
     bind_id: number;
@@ -18,6 +19,8 @@ export class EffectDescriptor {
     is_search: boolean;
     display_in_target_order: boolean;
     full_search_display_targets: number[];
+    automatic_targets: number[];
+    automatic_submit: boolean;
     start_x: boolean; // can select one target more than once
 
     /**
@@ -25,6 +28,7 @@ export class EffectDescriptor {
      */
     constructor(obj: Record<string, any>) {
         this.id = obj?.['id'] ?? -1;
+        this.choice_id = obj?.['choice_id'] ?? "";
         this.name = obj?.['name'] ?? "";
         if( this.name.startsWith("p_") ) {
             let src = this.name.replace(/^p_/, '');
@@ -52,6 +56,9 @@ export class EffectDescriptor {
         this.is_search = obj?.['is_search'];
         this.display_in_target_order = obj?.['display_in_target_order'] ?? false;
         this.full_search_display_targets = structuredClone(obj?.['full_search_display_targets'] ?? []);
+        this.automatic_targets = structuredClone(obj?.['automatic_targets'] ?? []);
+        this.automatic_submit = obj?.['automatic_submit'] ?? true;
+        this.selected_targets = structuredClone(this.automatic_targets);
 
         let start_x = false;
         if( this.all_legal_targets ) {
@@ -70,6 +77,7 @@ export class EffectDescriptor {
      */
     clear() {
         this.id = -1;
+        this.choice_id = '';
         this.name = '';
         this.name_with_space = '';
         this.bind_id = -1;
@@ -85,6 +93,8 @@ export class EffectDescriptor {
         this.is_search = false;
         this.display_in_target_order = false;
         this.full_search_display_targets = [];
+        this.automatic_targets = [];
+        this.automatic_submit = true;
         this.start_x = false;
     }
 

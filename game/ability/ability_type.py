@@ -75,6 +75,7 @@ class AbilityType(str, Enum):
 
     Response            = "Response"
     ForcedResponse      = "Forced Response"
+    ForcedResponseHero  = "Forced Response (Hero)"
     HeroResponse        = "Hero Response"
     AlterEgoResponse    = "Alter-Ego Response"
 
@@ -127,6 +128,7 @@ class AbilityType(str, Enum):
             AbilityType.Preparation             : AbilityTypeFlags.Preparation,
             AbilityType.Response                : AbilityTypeFlags.Response,
             AbilityType.ForcedResponse          : AbilityTypeFlags.ForcedResponse,
+            AbilityType.ForcedResponseHero      : AbilityTypeFlags.ForcedResponseHero,
             AbilityType.HeroResponse            : AbilityTypeFlags.HeroResponse,
             AbilityType.AlterEgoResponse        : AbilityTypeFlags.AlterEgoResponse,
             AbilityType.Special                 : AbilityTypeFlags.Special,
@@ -163,6 +165,7 @@ class AbilityTypeFlags:
         AbilityType.WhenRevealed:       TimingPriority.Boost,
         AbilityType.WhenDefeated:       TimingPriority.Boost,
         AbilityType.ForcedResponse:     TimingPriority.ForcedResponse,
+        AbilityType.ForcedResponseHero: TimingPriority.ForcedResponse,
         AbilityType.Response:           TimingPriority.Response,
         AbilityType.HeroResponse:       TimingPriority.Response,
         AbilityType.AlterEgoResponse:   TimingPriority.Response,
@@ -341,6 +344,7 @@ class AbilityTypeFlags:
         ability_type = AbilityType.ForcedInterrupt
 
     class ForcedInterruptHero(ForcedInterrupt):
+        is_hero_type = True
         ability_type = AbilityType.ForcedInterruptHero
 
     class HeroInterrupt(Interrupt):
@@ -399,6 +403,10 @@ class AbilityTypeFlags:
     class ForcedResponse(Response):
         is_forced = True
         ability_type = AbilityType.ForcedResponse
+
+    class ForcedResponseHero(ForcedResponse):
+        is_hero_type = True
+        ability_type = AbilityType.ForcedResponseHero
 
     class HeroResponse(Response):
         is_hero_type = True

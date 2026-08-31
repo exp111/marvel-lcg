@@ -1,5 +1,12 @@
 from . import *
 
+
+def _ShouldResolvePiercing(
+    calculated_damage: int,
+    attack_message: 'Message.WhenUnitWouldAttackUnit',
+) -> bool:
+    return calculated_damage > 0 and attack_message.IsPiercing()
+
 @dataclass
 class AttackProperty(PowerProperty):
     additional_boost_card: int = field(default=0) # Only for basic attack
@@ -7,6 +14,7 @@ class AttackProperty(PowerProperty):
 
     overkill: bool = field(default=False)
     ranged: bool = field(default=False) # ignore retaliate
+    lost_ranged: bool = field(default=False)
     piercing: bool = field(default=False) # discard tough
     other_characters_cannot_defend: bool = field(default=False)
     must_defend_with_ally: bool = field(default=False)
@@ -191,6 +199,20 @@ class CanAttack(CardFace):
         gain_value_when_divided(would_atk_message)
 
         is_not_delay = activate_message or use_basic_power_message or not by_effect.ability.IsLabel('attack')
+        timing_occurrence = (
+            world.event_manager.BeginTimingOccurrence()
+            if is_not_delay
+            else None
+        )
+        if not is_not_delay and by_effect.context.timing_occurrence == None:
+            by_effect.context.timing_occurrence = (
+                world.event_manager.BeginTimingOccurrence()
+            )
+        attack_timing_occurrence = (
+            timing_occurrence
+            if timing_occurrence != None
+            else by_effect.context.timing_occurrence
+        )
 
         attacked_targets: List['CardFace'] = []
         damage_targets: List['Unit2'] = []
@@ -310,6 +332,7 @@ class CanAttack(CardFace):
                         )
                     this.ResolveBoostCards(being_atk_message, gain_att)
                     if Worlds.IsGameOver(by_effect):
+                        world.event_manager.EndTimingOccurrence(timing_occurrence)
                         return None
 
                 this = this.card.CastTo(Unit2)
@@ -356,7 +379,9 @@ class CanAttack(CardFace):
             # unit_health = target.health
 
             excess_damage = 0
-            if would_attack_unit_message.IsPiercing():
+            # Piercing only discards tough if the attack would actually deal
+            # damage to the attacked character (Rules Reference v1.8).
+            if _ShouldResolvePiercing(calculated_damage, would_attack_unit_message):
                 if atk_target.IsTough():
                     atk_target.DiscardTough(by_effect, rule="All")
 
@@ -376,7 +401,13 @@ class CanAttack(CardFace):
             # Send.WhenUnitAttacksUnit(target, calculated_damage, atk_message)
             if property.deal_indirect_damage:
                 #  and atk_target == atk_target.GetControlByPlayer().GetIdentity():
-                damage_messages = atk_target.TakeIndirectDamage(this, calculated_damage, by_effect, from_atk_message=would_atk_message)
+                damage_messages = atk_target.TakeIndirectDamage(
+                    this,
+                    calculated_damage,
+                    by_effect,
+                    from_atk_message=would_atk_message,
+                    timing_occurrence=attack_timing_occurrence,
+                )
                 took_damage = 0
                 for damage_message in damage_messages:
                     took_damage += damage_message.took_damage
@@ -396,7 +427,12 @@ class CanAttack(CardFace):
                     else:
                         deal_divide_damage = divide_damage
                     if deal_divide_damage:
-                        divide_damage_messages.append(divide_target.TakeDamage(this, deal_divide_damage, by_effect))
+                        divide_damage_messages.append(divide_target.TakeDamage(
+                            this,
+                            deal_divide_damage,
+                            by_effect,
+                            timing_occurrence=attack_timing_occurrence,
+                        ))
 
                 took_damage = 0
                 excess_damage = 0
@@ -411,7 +447,14 @@ class CanAttack(CardFace):
                         excess_damage += 0
             else:
                 # original_health = atk_target.health
-                damage_messages = atk_target.TakeDamageWithOverkillTarget(this, calculated_damage, by_effect, would_attack_unit_message, overkill_target)
+                damage_messages = atk_target.TakeDamageWithOverkillTarget(
+                    this,
+                    calculated_damage,
+                    by_effect,
+                    would_attack_unit_message,
+                    overkill_target,
+                    timing_occurrence=attack_timing_occurrence,
+                )
                 if damage_messages:
                     took_damage = damage_messages[0].took_damage
                     excess_damage = damage_messages[0].excess_damage
@@ -432,8 +475,9 @@ class CanAttack(CardFace):
             total_dealt_damage += calculated_damage
 
             if is_not_delay:
-                retaliate_message = atk_target.ResolveRetaliate(would_attack_unit_message)
-                attacker_is_defeated += retaliate_message != None and isinstance(retaliate_message, Message.AfterUnitDefeatedUnit)
+                if not bool(world.rule.v18_timing):
+                    retaliate_message = atk_target.ResolveRetaliate(would_attack_unit_message)
+                    attacker_is_defeated += retaliate_message != None and isinstance(retaliate_message, Message.AfterUnitDefeatedUnit)
 
                 if being_atk_message.defense_messages:
                     defend_against_message = Message.AfterUnitDefendEnd(being_atk_message.defense_messages, would_atk_message, calculated_damage, took_damage)
@@ -477,6 +521,7 @@ class CanAttack(CardFace):
                 if basic_defense_message.IsBasicDefense() and basic_defense_message.use_basic_power_message:
                     after_use_def_power_message = Message.AfterUnitUseBasicPower(basic_defense_message.defender, "DEF", basic_defense_message, basic_defense_message.use_basic_power_message)
                     after_use_def_power_message.Send()
+            world.event_manager.EndTimingOccurrence(timing_occurrence)
         else:
             # For event cards, or "08004"
             by_effect.context.AddAtkMessage(end_message)

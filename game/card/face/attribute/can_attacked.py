@@ -9,14 +9,23 @@ class CanAttacked(CardFace):
                                     *,
                                     from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, # Fix for indirect damage, "43036"
                                     operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None,
+                                    timing_occurrence: 'TimingOccurrence|None'=None,
                                     ) -> List['Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage']:
-        self.TakeDamage(source, property, by_effect, would_attack_unit_message, operation=operation)
+        self.TakeDamage(
+            source,
+            property,
+            by_effect,
+            would_attack_unit_message,
+            operation=operation,
+            timing_occurrence=timing_occurrence,
+        )
         return []
 
     def TakeDamage(self, source: 'CardFace', property: 'int|DamageProperty', by_effect: 'Effect',
                     would_attack_unit_message: 'Message.WhenUnitWouldAttackUnit|None'=None,
                     *,
                     operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None,
+                    timing_occurrence: 'TimingOccurrence|None'=None,
                     ) -> 'Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage|None':
         if isinstance(property, int):
             damage = property

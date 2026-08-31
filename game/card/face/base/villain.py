@@ -86,7 +86,8 @@ class Villain(Enemy, HasStage, HasAccelerationIcon, HasHazard, HasAmplify, HasVi
                                     overkill_target: 'Unit2|None'=None,
                                     *,
                                     from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, # Fix for indirect damage, "43036"
-                                    operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None
+                                    operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None,
+                                    timing_occurrence: 'TimingOccurrence|None'=None,
                                     ) -> List['Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage']:
         ignore_guard = False
         guard_faces: Sequence[CardFace] = []
@@ -95,7 +96,15 @@ class Villain(Enemy, HasStage, HasAccelerationIcon, HasHazard, HasAmplify, HasVi
             if guard_faces:
                 ignore_guard = True
 
-        ret_value = super().TakeDamageWithOverkillTarget(source, property, by_effect, would_attack_unit_message, from_atk_message=from_atk_message, operation=operation)
+        ret_value = super().TakeDamageWithOverkillTarget(
+            source,
+            property,
+            by_effect,
+            would_attack_unit_message,
+            from_atk_message=from_atk_message,
+            operation=operation,
+            timing_occurrence=timing_occurrence,
+        )
 
         if ignore_guard:
             ignore_message = Message.AfterIgnoreKeywordOnCard(source, guard_faces, "Guard")

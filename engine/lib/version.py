@@ -77,6 +77,9 @@ class Ver:
     def IsFixTreachery(self):
         return self >= Versions.fix_treachery
 
+    def IsV18Timing(self):
+        return self >= Versions.v18_timing
+
 class Versions:
 
     #                                           # After this version:
@@ -88,4 +91,5 @@ class Versions:
     deadpools_encounter     = Ver(f'0.5.8.227') # Enable "1crisis_of_infinite_deadpools" by default
     fix_surge               = Ver(f'0.5.9.142') # Enable "fix_surge" by default
     fix_treachery           = Ver(f'0.5.9.148') # Enable "fix_treachery" by default
+    v18_timing              = Ver(f'1.3.0')     # Enable grouped v1.8 timing windows by default
     puzzle                  = Ver(f'0.5.8')

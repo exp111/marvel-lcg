@@ -21,9 +21,22 @@ PUZZLE_TEST_FOLDER      = ConfigVariables.Folder('puzzle_test_folder')
 
 class GameServerGet(GameServerBase):
 
-    def ListFile(self, *folders: str, ext: str|None=None) -> web.Response:
+    def ListFile(
+        self,
+        *folders: str,
+        ext: str|None=None,
+        recursive: bool=False,
+    ) -> web.Response:
+        files = FileManager.ListFiles(
+            *folders,
+            ext=ext,
+            recursive=recursive,
+        )
+        if recursive:
+            # Browser query strings use these returned paths verbatim.
+            files = [file.replace("\\", "/") for file in files]
         return web.json_response(
-            FileManager.ListFiles(*folders, ext=ext),
+            files,
             headers=self.HeaderCache,
         )
 
@@ -44,9 +57,17 @@ class GameServerGet(GameServerBase):
 
     async def list_replay_files(self, request: web.Request) -> web.Response:
         if READ_ONLY_FIRST_REPLAY_FOLDER.value:
-            return self.ListFile(REPLAY_FOLDERS.value[0])
+            return self.ListFile(
+                REPLAY_FOLDERS.value[0],
+                ext=".json",
+                recursive=True,
+            )
         else:
-            return self.ListFile(*REPLAY_FOLDERS.value)
+            return self.ListFile(
+                *REPLAY_FOLDERS.value,
+                ext=".json",
+                recursive=True,
+            )
 
     async def list_puzzle_files(self, request: web.Request) -> web.Response:
         return self.ListFile(PUZZLE_FOLDER.value)

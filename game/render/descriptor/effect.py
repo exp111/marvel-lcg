@@ -26,5 +26,18 @@ class EffectDescriptor:
     is_search: bool
     display_in_target_order: bool
     full_search_display_targets: List[int]
+    # Timing-window choices may contain the same registered effect more than
+    # once, bound to different triggering conditions.  Keep `id` as the real
+    # effect id for card highlighting and use this optional opaque id only for
+    # selecting the rendered option.
+    choice_id: str = ""
+    # Exact one-of-one targets are outcomes, not player choices.  The client
+    # can submit the selected ability without opening a target-selection step.
+    automatic_targets: List[int] = field(default_factory=list)
+    # Most exact one-of-one outcomes can be submitted immediately. Optional
+    # Interrupts, Responses, and basic defense declarations are exceptions:
+    # keep the sole target preselected, but let the player explicitly confirm
+    # or cancel.
+    automatic_submit: bool = True
 
     # is_ex_effect check `AskOption`

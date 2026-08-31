@@ -41,6 +41,13 @@ class WorldRule:
         self.v16_referential_ability        = VariableBool(self, False, "v16_referential_ability")
         self.v16_confuse_stun               = VariableBool(self, False, "v16_confuse_stun")
 
+        # Rules Reference v1.8 treats every triggering condition created by a
+        # single occurrence as one interrupt window and one response window.
+        # Keep this independent from the cumulative v1.6 rule switches so a
+        # player can opt into the legacy dispatcher without changing any
+        # other selected rulings.
+        self.v18_timing                     = VariableBool(self, True, "v18_timing")
+
         self.fix_surge                      = VariableBool(self, True, "fix_surge")
         self.fix_treachery                  = VariableBool(self, True, "fix_treachery")
         self.encounter_cards_ignore_crisis  = VariableBool(self, True, "encounter_cards_ignore_crisis")

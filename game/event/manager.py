@@ -45,12 +45,187 @@ class EventManager:
         self.debug_log_only_global = DebugLog("Only Global")
 
         self.stack_message: List['CardStateUpdatedMessage'] = []
+        self.timing_occurrences: List['TimingOccurrence'] = []
+        self.resolving_timing_occurrences: List['TimingOccurrence'] = []
+        self.broadcasting_messages: List['Message2'] = []
+
+    def BeginTimingOccurrence(
+        self,
+        *,
+        delay_reveal_responses: bool=False,
+    ) -> 'TimingOccurrence|None':
+        if not bool(self.world.rule.v18_timing):
+            return None
+        from game.event.timing import TimingOccurrence
+
+        occurrence = TimingOccurrence(
+            self.world,
+            delay_reveal_responses=delay_reveal_responses,
+        )
+        self.timing_occurrences.append(occurrence)
+        return occurrence
+
+    def EndTimingOccurrence(self, occurrence: 'TimingOccurrence|None') -> None:
+        if occurrence == None:
+            return
+        if occurrence not in self.timing_occurrences:
+            from engine.log import Log
+
+            if occurrence.state == "collecting":
+                occurrence.Abort()
+            Log.Warn(
+                "MESSAGE",
+                f"Ignored stale timing occurrence close (state={occurrence.state})",
+            )
+            return
+        if self.timing_occurrences[-1] is not occurrence:
+            self.AbortTimingOccurrence(
+                occurrence,
+                reason="timing occurrences closed out of order",
+            )
+            return
+        self.timing_occurrences.pop()
+
+        # A child window must finish before its parent can collect any more
+        # conditions. Temporarily hide every collecting parent while the
+        # child resolves so gameplay initiated by a response opens its own
+        # occurrence instead of leaking messages into the parent.
+        parents = self.timing_occurrences[:]
+        self.timing_occurrences.clear()
+        self.resolving_timing_occurrences.append(occurrence)
+        try:
+            occurrence.Resolve()
+        finally:
+            if self.timing_occurrences:
+                from engine.log import Log
+
+                leaked = self.timing_occurrences[:]
+                for check_occurrence in reversed(leaked):
+                    check_occurrence.Abort()
+                self.timing_occurrences.clear()
+                Log.Warn(
+                    "MESSAGE",
+                    f"Aborted {len(leaked)} leaked timing occurrence(s) "
+                    f"while resolving {occurrence.messages[0].name if occurrence.messages else 'empty occurrence'}",
+                )
+            assert self.resolving_timing_occurrences[-1] is occurrence
+            self.resolving_timing_occurrences.pop()
+            self.timing_occurrences.extend(parents)
+
+    def AbortTimingOccurrence(
+        self,
+        occurrence: 'TimingOccurrence|None',
+        *,
+        reason: str="",
+    ) -> None:
+        if occurrence == None:
+            return
+        if occurrence not in self.timing_occurrences:
+            return
+        index = self.timing_occurrences.index(occurrence)
+        aborted = self.timing_occurrences[index:]
+        del self.timing_occurrences[index:]
+        for check_occurrence in reversed(aborted):
+            check_occurrence.Abort()
+        if reason:
+            from engine.log import Log
+
+            Log.Warn(
+                "MESSAGE",
+                f"Aborted {len(aborted)} timing occurrence(s): {reason}",
+            )
+
+    def RestoreTimingOccurrenceDepth(self, depth: int, *, reason: str) -> None:
+        if len(self.timing_occurrences) <= depth:
+            return
+        occurrence = self.timing_occurrences[depth]
+        self.AbortTimingOccurrence(occurrence, reason=reason)
+
+    def TimingOccurrenceScope(
+        self,
+        *,
+        delay_reveal_responses: bool=False,
+    ):
+        from contextlib import contextmanager
+
+        @contextmanager
+        def scope():
+            occurrence = self.BeginTimingOccurrence(
+                delay_reveal_responses=delay_reveal_responses,
+            )
+            try:
+                yield occurrence
+            except Exception:
+                self.AbortTimingOccurrence(
+                    occurrence,
+                    reason="exception escaped timing occurrence scope",
+                )
+                raise
+            else:
+                self.EndTimingOccurrence(occurrence)
+
+        return scope()
+
+    def TryQueueTimingMessage(self, message: 'Message2') -> bool:
+        if not self.timing_occurrences:
+            return False
+        from game.message import Message
+
+        grouped_types: Tuple[Type['Message2'], ...] = (
+            Message.AfterAllyTakeConsequentialDamage,
+            Message.AfterEnemyActivationEnd,
+            Message.AfterFaceDealDamage,
+            Message.AfterMainSchemeCompleted,
+            Message.AfterSchemeBeDefeated,
+            Message.AfterSchemePlaceThreat,
+            Message.AfterSchemeRemoveThreat,
+            Message.AfterUnitAttackEnd,
+            Message.AfterUnitAttackUnit,
+            Message.AfterUnitBeDefeated,
+            Message.AfterUnitDefeatedUnit,
+            Message.AfterUnitDefeatedScheme,
+            Message.AfterUnitDefendEnd,
+            Message.AfterUnitHealHealth,
+            Message.AfterUnitRecovery,
+            Message.AfterUnitSchemeEnd,
+            Message.AfterUnitThwartEnd,
+            Message.AfterUnitThwartScheme,
+            Message.AfterUnitTookDamage,
+            Message.AfterUnitUseBasicPower,
+        )
+        occurrence = self.timing_occurrences[-1]
+        if occurrence.state != "collecting":
+            return False
+        if occurrence.delay_reveal_responses:
+            # Rules Reference v1.8 defers responses to every step of an
+            # encounter-card reveal until the complete reveal process ends.
+            grouped_types += (
+                Message.AfterCardEnterPlay,
+                Message.AfterCardPutIntoPlay,
+                Message.AfterMinionEngagePlayer,
+                Message.AfterCardRevealed,
+                Message.AfterCardRevealedEnd,
+            )
+        if not isinstance(message, grouped_types):
+            return False
+        occurrence.Add(message)
+        return True
 
     def GetEffectCategory(self, effect: 'Effect', event: Type['Message2']) ->  Literal["Forced", "Rule", "Paying", "Optional", "Statistics"]:
+        from game.ability import AbilityType
         from game.message import Message
         if effect.ability.flags.is_statistics:
             return "Statistics"
         if effect.is_nonkeyword:
+            return "Rule"
+        # Delayed effects and consequential damage are mandatory framework
+        # effects, not Forced abilities. They resolve automatically at their
+        # designated timing priorities and must never create an ordering
+        # prompt intended for printed Forced triggers.
+        if bool(self.world.rule.v18_timing) and effect.ability.type in (
+            AbilityType.DelayAbility,
+            AbilityType.Consequential,
+        ):
             return "Rule"
         if event is Message.WhenPlayerPayingResources:
             return "Paying"
@@ -77,6 +252,39 @@ class EventManager:
         if priority not in found_dict[event]:
             return []
         return found_dict[event][priority]
+
+    def GetEffectivePriority(self, effect: 'Effect') -> 'TimingPriority':
+        """Return the selected ruleset's priority without mutating abilities."""
+        from game.ability import AbilityType, TimingPriority
+
+        if bool(self.world.rule.v18_timing) and effect.ability.type in (
+            AbilityType.WhenDefeated,
+            AbilityType.WhenCompleted,
+        ):
+            return TimingPriority.ForcedInterrupt
+        if bool(self.world.rule.v18_timing) and effect.ability.type in (
+            AbilityType.DelayAbility,
+            AbilityType.Temp1,
+        ):
+            return TimingPriority.Constant
+        return effect.ability.priority
+
+    def FindTimingEffects(
+        self,
+        category: 'EventManager.CATEGORY',
+        event: Type['Message2'],
+        priority: 'TimingPriority',
+    ) -> List['Effect']:
+        """Find effects by effective rather than registration-time priority."""
+        if not bool(self.world.rule.v18_timing):
+            return self.FindEffectsList(category, event, priority)
+        event_effects = self.effects[category].get(event, {})
+        return [
+            effect
+            for effects in event_effects.values()
+            for effect in effects
+            if self.GetEffectivePriority(effect) == priority
+        ]
 
     def HasRegisteredEvent(self, event: Type['Message2']) -> int:
         if event in self.registered_message_type:
@@ -152,7 +360,7 @@ class EventManager:
 
     ################################################################################
     #
-    def ProcessEffect(self, effect: 'Effect', message: 'Message2', priority: 'TimingPriority'):
+    def ProcessEffect(self, effect: 'Effect', message: 'Message2', priority: 'TimingPriority') -> bool:
         from game.player import Player
         from game.message.sender.sender import TriggerNonePlayerMessage
 
@@ -181,15 +389,16 @@ class EventManager:
                 # else:
                     cheat = True
                     while cheat:
-                        _, cheat = player.ChoiceAndSpellEffect([effect], message, priority, forced=True)
-                    processed = True
+                        selected, cheat = player.ChoiceAndSpellEffect([effect], message, priority, forced=True)
+                    processed = selected != None
             else:
                 assert effect.is_forced, f"{effect=}"
                 assert effect.context.target_range[0] == effect.context.target_range[1], f"{effect.context.target_range=}"
                 assert len(effect.context.all_legal_targets) == effect.context.target_range[1], f"{effect.context.all_legal_targets=}"
                 effect.context.targets_internal = effect.context.all_legal_targets[:]
         if not processed:
-            effect.ResolveSelf(message, effect)
+            processed = effect.ResolveSelf(message, effect)
+        return processed
 
     ################################################################################
     #
@@ -213,10 +422,98 @@ class EventManager:
 
         return self.world.is_game_over
 
+    def ProcessOptionalTimingPriority(
+        self,
+        messages: Sequence['Message2'],
+        priority: 'TimingPriority',
+        processed: Set[Tuple[int, int]],
+    ) -> 'GAME_OVER':
+        """Resolve one v1.8 optional priority in player order."""
+        from game.message import Message
+
+        players = [
+            player
+            for player in self.world.const_players
+            if getattr(player, "is_eliminated", False) is not True
+        ]
+        if not players:
+            return self.world.is_game_over
+
+        first_player = self.world.GetFirstPlayer()
+        if first_player in players:
+            first_index = players.index(first_player)
+            players = players[first_index:] + players[:first_index]
+
+        player_index = 0
+        consecutive_passes = 0
+        while not self.world.is_game_over:
+            active_players = [
+                player
+                for player in players
+                if getattr(player, "is_eliminated", False) is not True
+            ]
+            if not active_players or consecutive_passes >= len(active_players):
+                break
+
+            player = players[player_index]
+            player_index = (player_index + 1) % len(players)
+            if player not in active_players:
+                continue
+
+            candidates = self._BuildTimingCandidates(
+                messages,
+                "Optional",
+                priority,
+                player,
+                processed,
+            )
+            if not candidates:
+                consecutive_passes += 1
+                continue
+
+            Message.PlayerOnEvent_Text(player, candidates[0].message)
+            candidate, retry_choice = self._ChooseTimingCandidate(
+                player,
+                candidates,
+                priority,
+                forced=False,
+                select_only=False,
+            )
+            if retry_choice:
+                player_index = (player_index - 1) % len(players)
+                continue
+            if candidate == None:
+                consecutive_passes += 1
+            elif player.ResolveEffect(candidate.effect, candidate.message):
+                processed.add(candidate.key)
+                consecutive_passes = 0
+            else:
+                from engine.log import Log
+
+                Log.Warn(
+                    "MESSAGE",
+                    f"Timing response failed after selection: "
+                    f"{candidate.GetDiagnosticText()}",
+                )
+                consecutive_passes += 1
+
+        return self.world.is_game_over
+
     def ProcessOptionalEffect(self, message: 'Message2', optional_effects: List['Effect'], local_optional_effects: List['Effect'], priority: 'TimingPriority') -> 'GAME_OVER':
         from game.message import Message
         from game.effect.effect_failure import EffectFailure
+        from game.ability import TimingPriority
         # from game.object.object_manager import ObjectManager
+
+        if bool(self.world.rule.v18_timing) and priority in (
+            TimingPriority.Interrupt,
+            TimingPriority.Response,
+        ):
+            return self.ProcessOptionalTimingPriority(
+                [message],
+                priority,
+                set(),
+            )
 
         is_play_turn = type(message) == Message.WhenPlayerInTurn
 
@@ -312,7 +609,10 @@ class EventManager:
                         if type(message) in self.effects["Optional"] and \
                             priority in self.effects["Optional"][type(message)]:
 
-                            optional_effects = [x for x in self.effects["Optional"][type(message)][priority] if x.ability.priority == priority] + local_optional_effects
+                            optional_effects = [
+                                x for x in self.effects["Optional"][type(message)][priority]
+                                if self.GetEffectivePriority(x) == priority
+                            ] + local_optional_effects
                             optional_effects = Types.RemoveDuplicates(optional_effects)
 
                         if is_cheating:
@@ -358,21 +658,51 @@ class EventManager:
 
             first_effect = forced_effects[0]
 
-            if first_effect.ability.priority != TimingPriority.Status and \
+            if self.GetEffectivePriority(first_effect) != TimingPriority.Status and \
                 not isinstance(message, Message.WhenGameBeginSetup) and \
                 not check_is_resources(first_effect) and \
                 not first_effect.ability.flags.is_delay_ability:
                 first_player = self.world.GetFirstPlayer()
-                faces = [x.this for x in forced_effects if not x.ability.flags.is_delay_ability]
-                is_on_the_same_card = all(x.card == faces[0].card for x in faces)
-                if is_on_the_same_card:
-                    face = faces[0]
+                if bool(self.world.rule.v18_timing) and len(forced_effects) > 1:
+                    from game.event.timing import TriggeredCandidate
+
+                    candidates: List[TriggeredCandidate] = []
+                    for effect in forced_effects:
+                        descriptor = effect.Render(None, first_player.player_id)
+                        candidate = TriggeredCandidate(
+                            effect,
+                            message,
+                            0,
+                            None,
+                            descriptor,
+                            self._GetTimingAbilitySlot(effect),
+                        )
+                        descriptor.choice_id = candidate.choice_id
+                        candidates.append(candidate)
+                    self._FinalizeTimingCandidateLabels(candidates)
+                    candidate, retry_choice = self._ChooseTimingCandidate(
+                        first_player,
+                        candidates,
+                        priority,
+                        forced=True,
+                        select_only=True,
+                    )
+                    if retry_choice:
+                        continue
+                    if candidate == None:
+                        break
+                    effect = candidate.effect
                 else:
-                    face = first_player.AskChooseFace(faces, Ties("Forced abilities would initiate at the same moment", world=self.world), forced=True)
-                    if face == None:
+                    faces = [x.this for x in forced_effects if not x.ability.flags.is_delay_ability]
+                    is_on_the_same_card = all(x.card == faces[0].card for x in faces)
+                    if is_on_the_same_card:
                         face = faces[0]
-                assert face
-                effect = forced_effects[faces.index(face)]
+                    else:
+                        face = first_player.AskChooseFace(faces, Ties("Forced abilities would initiate at the same moment", world=self.world), forced=True)
+                        if face == None:
+                            face = faces[0]
+                    assert face
+                    effect = forced_effects[faces.index(face)]
             else:
                 effect = first_effect
 
@@ -614,6 +944,268 @@ class EventManager:
         return effects_list
 
     ################################################################################
+    # Rules Reference v1.8 grouped timing windows
+    def _FindLocalTimingEffects(
+        self,
+        message: 'Message2',
+        category: 'EventManager.CATEGORY',
+        priority: 'TimingPriority',
+    ) -> List['Effect']:
+        local_effects: List['Effect'] = []
+        for face in message.related_faces:
+            for effect in face.effect.local_effects:
+                if not isinstance(message, effect.ability.when):
+                    continue
+                # Damage responses controlled by the character that took the
+                # damage cease to be active once that character has left play.
+                # The message itself remains in the occurrence so responses on
+                # other cards can still observe the defeated target.
+                if isinstance(message, Message.AfterUnitTookDamage) and \
+                    effect.this is message.trigger and \
+                    not effect.this.IsInPlay():
+                    continue
+                if self.GetEffectCategory(effect, type(message)) != category:
+                    continue
+                if self.GetEffectivePriority(effect) != priority:
+                    continue
+                local_effects.append(effect)
+        return local_effects
+
+    @staticmethod
+    def _GetTimingAbilitySlot(effect: 'Effect') -> int:
+        """Return the deterministic position of an ability on its face."""
+        try:
+            return effect.this.effect.GetAll().index(effect)
+        except (AttributeError, ValueError):
+            # Registered effects should be face-owned. Keep an internal
+            # fallback for temporary test/rule effects instead of making
+            # timing-choice rendering fatal.
+            return 0
+
+    @staticmethod
+    def _FinalizeTimingCandidateLabels(
+        candidates: Sequence['TriggeredCandidate'],
+    ) -> None:
+        base_names: Dict[str, int] = {}
+        for candidate in candidates:
+            candidate.descriptor.name = candidate.GetDisplayName()
+            base_names[candidate.descriptor.name] = (
+                base_names.get(candidate.descriptor.name, 0) + 1
+            )
+
+        used_names: Dict[str, int] = {}
+        for candidate in candidates:
+            base_name = candidate.descriptor.name
+            if base_names[base_name] > 1:
+                base_name += f"_-_{candidate.GetTriggerLabel()}"
+            occurrence = used_names.get(base_name, 0) + 1
+            used_names[base_name] = occurrence
+            if occurrence > 1:
+                base_name += f"_(option_{occurrence})"
+            candidate.descriptor.name = base_name
+
+    def _BuildTimingCandidates(
+        self,
+        messages: Sequence['Message2'],
+        category: 'EventManager.CATEGORY',
+        priority: 'TimingPriority',
+        asked_player: 'Player|None',
+        processed: Set[Tuple[int, int]],
+    ) -> List['TriggeredCandidate']:
+        from game.event.timing import TriggeredCandidate
+
+        candidates: List[TriggeredCandidate] = []
+        bind_player = asked_player or self.world.GetFirstPlayer()
+        for message_index, message in enumerate(messages):
+            effects = self.FindTimingEffects(category, type(message), priority)[:]
+            effects += self._FindLocalTimingEffects(message, category, priority)
+            effects = sorted(Types.RemoveDuplicates(effects), key=lambda x: x.object_id)
+            for effect in effects:
+                key = (effect.object_id, message.object_id)
+                if key in processed:
+                    continue
+                available = EventManager.FilterAvailableEffects(
+                    message,
+                    [effect],
+                    asked_player,
+                    self.world,
+                    None,
+                )
+                if not available:
+                    continue
+                descriptor = effect.Render(None, bind_player.player_id)
+                candidate = TriggeredCandidate(
+                    effect,
+                    message,
+                    message_index,
+                    asked_player,
+                    descriptor,
+                    self._GetTimingAbilitySlot(effect),
+                )
+                descriptor.choice_id = candidate.choice_id
+                candidates.append(candidate)
+
+        self._FinalizeTimingCandidateLabels(candidates)
+        return candidates
+
+    def _ChooseTimingCandidate(
+        self,
+        player: 'Player',
+        candidates: Sequence['TriggeredCandidate'],
+        priority: 'TimingPriority',
+        *,
+        forced: bool,
+        select_only: bool,
+    ) -> Tuple['TriggeredCandidate|None', bool]:
+        from engine.controller.controller import ChoiceOneOverride
+        from game.event.timing import TriggeredCandidate
+
+        descriptors = [copy(candidate.descriptor) for candidate in candidates]
+        if select_only:
+            for descriptor in descriptors:
+                descriptor.all_legal_targets = []
+                descriptor.target_num_range = [0, 0]
+                descriptor.target_payment = {}
+
+        override = ChoiceOneOverride(
+            descriptors=descriptors,
+            replay_texts=[candidate.GetReplayText() for candidate in candidates],
+            prepare=lambda index: candidates[index].TryPrepare(),
+            convert_replay_id=lambda replay_text: TriggeredCandidate.ConvertReplayId(
+                replay_text,
+                candidates,
+            ),
+            select_only=select_only,
+        )
+        effects = [candidate.effect for candidate in candidates]
+        selected, is_cheating = player.GetController().ChoiceOne(
+            effects,
+            None,
+            candidates[0].message,
+            priority,
+            forced,
+            override,
+        )
+        if is_cheating:
+            return None, True
+        if selected == None or override.selected_index == None:
+            return None, False
+        return candidates[override.selected_index], False
+
+    def BroadcastTimingWindow(self, messages: Sequence['Message2']) -> None:
+        """Resolve simultaneous conditions in one v1.8 timing window."""
+        from game.ability import TimingPriority
+        from game.card.face.card_type import Event
+        from game.event.timing import TriggeredCandidate
+        from game.message import Message
+        from game.player import Player
+
+        messages = [message for message in messages if not self.world.is_game_over]
+        if not messages:
+            return
+        if not bool(self.world.rule.v18_timing):
+            for message in messages:
+                self.BroadcastMessage(message)
+            return
+
+        processed: Set[Tuple[int, int]] = set()
+        for priority in list(TimingPriority):
+            for category in ("Statistics", "Rule"):
+                while True:
+                    candidates = self._BuildTimingCandidates(
+                        messages,
+                        category,
+                        priority,
+                        None,
+                        processed,
+                    )
+                    if not candidates or self.world.is_game_over:
+                        break
+                    candidate = candidates[0]
+                    effect = candidate.TryPrepare()
+                    if effect == None:
+                        from engine.log import Log
+
+                        Log.Warn(
+                            "MESSAGE",
+                            f"Skipped stale timing rule candidate: {candidate.GetDiagnosticText()}",
+                        )
+                        processed.add(candidate.key)
+                        continue
+                    if self.ProcessEffect(effect, candidate.message, priority):
+                        processed.add(candidate.key)
+                    else:
+                        processed.add(candidate.key)
+
+            while not self.world.is_game_over:
+                candidates = self._BuildTimingCandidates(
+                    messages,
+                    "Forced",
+                    priority,
+                    None,
+                    processed,
+                )
+                if not candidates:
+                    break
+                if len(candidates) == 1:
+                    candidate = candidates[0]
+                    effect = candidate.TryPrepare()
+                    if effect == None:
+                        continue
+                else:
+                    candidate, retry_choice = self._ChooseTimingCandidate(
+                        self.world.GetFirstPlayer(),
+                        candidates,
+                        priority,
+                        forced=True,
+                        select_only=True,
+                    )
+                    if retry_choice:
+                        continue
+                    if candidate == None:
+                        return
+                    effect = candidate.TryPrepare()
+                    if effect == None:
+                        from engine.log import Log
+
+                        Log.Warn(
+                            "MESSAGE",
+                            f"Selected timing candidate became stale: "
+                            f"{candidate.GetDiagnosticText()}",
+                        )
+                        continue
+                resolved = False
+                if effect.IsPlayerInitiator() and effect.context.all_legal_targets:
+                    initiator = effect.GetInitiator()
+                    assert isinstance(initiator, Player)
+                    selected, is_cheating = initiator.ChoiceAndSpellEffect(
+                        [effect],
+                        candidate.message,
+                        priority,
+                        forced=True,
+                    )
+                    if is_cheating:
+                        continue
+                    resolved = selected != None
+                else:
+                    resolved = self.ProcessEffect(
+                        effect,
+                        candidate.message,
+                        priority,
+                    )
+                if not resolved:
+                    return
+                processed.add(candidate.key)
+
+            # An ability resolution resets consecutive passes, so an earlier
+            # player may reconsider after a later response changes the state.
+            if self.ProcessOptionalTimingPriority(messages, priority, processed):
+                return
+
+        if self.stack_message:
+            self.BroadcastStackMessage()
+
+    ################################################################################
     #
     def StackMessage(self, message: 'CardStateUpdatedMessage'):
         self.stack_message.append(message)
@@ -640,6 +1232,19 @@ class EventManager:
             from game.message.sender.sender import CanBeInstead
             if isinstance(message, CanBeInstead):
                 message.SilentInstead()
+            return
+
+        # Under v1.8, Surge and Incite are When Revealed abilities. Another
+        # When Revealed ability can make one of those keyword candidates legal
+        # while this same message is resolving (for example, Assault or
+        # Gang-Up granting Surge in alter-ego form). Use the recalculating
+        # timing window so newly legal mandatory candidates are discovered
+        # before reveal resolution continues.
+        if bool(self.world.rule.v18_timing) and isinstance(
+            message,
+            Message.WhenCardRevealed,
+        ):
+            self.BroadcastTimingWindow([message])
             return
 
         # self.last_message = message
@@ -743,7 +1348,7 @@ class EventManager:
                     if has_registered_event:
                         for category in catogories:
 
-                            found_global_effects = self.FindEffectsList(category, type(message), priority)
+                            found_global_effects = self.FindTimingEffects(category, type(message), priority)
 
                             def check_is_in_hand(face: 'CardFace'):
                                 if isinstance(message, Message.CheckIfFaceIsLikeInHand):
@@ -769,7 +1374,7 @@ class EventManager:
                         found_local_effects: List['Effect'] = []
 
                         for check_effect in local_effects:
-                            if check_effect.ability.priority == priority:
+                            if self.GetEffectivePriority(check_effect) == priority:
                                 found_local_effects.append(check_effect)
 
                         if found_local_effects:
@@ -788,25 +1393,38 @@ class EventManager:
 
             check_effects: Dict['EventManager.CATEGORY', List[Effect]] = {}
 
+            local_effect_priority_statistics: List['Effect'] = []
+            local_effect_priority_rule: List['Effect'] = []
+            local_effect_priority_paying: List['Effect'] = []
             local_effect_priority_forced: List['Effect'] = []
             local_effect_priority_optional: List['Effect'] = []
 
             size = 0
             if has_registered_event:
                 for category in EventManager.CATEGORY_LIST:
-                    found_effects = self.FindEffectsList(category, type(message), priority)
+                    found_effects = self.FindTimingEffects(category, type(message), priority)
                     # check_effects[catogory] = get_only_in_play_effects(found_effects)
                     check_effects[category] = found_effects[:]
                     size += len(check_effects[category])
             if local_effects:
                 for check_effect in local_effects:
-                    if check_effect.ability.priority == priority:
-                        if check_effect.is_forced or is_playing_res:
+                    if self.GetEffectivePriority(check_effect) == priority:
+                        category = self.GetEffectCategory(
+                            check_effect,
+                            type(message),
+                        )
+                        if category == "Statistics":
+                            local_effect_priority_statistics.append(check_effect)
+                        elif category == "Rule":
+                            local_effect_priority_rule.append(check_effect)
+                        elif category == "Paying":
+                            local_effect_priority_paying.append(check_effect)
+                        elif category == "Forced":
                             local_effect_priority_forced.append(check_effect)
                         else:
+                            assert category == "Optional"
                             local_effect_priority_optional.append(check_effect)
-                    size += len(local_effect_priority_forced)
-                    size += len(local_effect_priority_optional)
+                        size += 1
 
             if size == 0:
                 continue
@@ -814,15 +1432,31 @@ class EventManager:
             if "Statistics" in check_effects and check_effects["Statistics"]:
                 if self.ProcessRuleEffect(message, check_effects["Statistics"], priority, undo_handle):
                     return
+            if local_effect_priority_statistics:
+                if self.ProcessRuleEffect(
+                    message,
+                    local_effect_priority_statistics,
+                    priority,
+                    undo_handle,
+                ):
+                    return
 
             if "Rule" in check_effects and check_effects["Rule"]:
                 if self.ProcessRuleEffect(message, check_effects["Rule"], priority, undo_handle):
                     return
+            if local_effect_priority_rule:
+                if self.ProcessRuleEffect(
+                    message,
+                    local_effect_priority_rule,
+                    priority,
+                    undo_handle,
+                ):
+                    return
 
-            if local_effect_priority_forced:
-                if is_playing_res:
-                    if self.ProcessPayingEffect(message, message.by_effect, priority):
-                        return
+            if local_effect_priority_paying:
+                assert is_playing_res
+                if self.ProcessPayingEffect(message, message.by_effect, priority):
+                    return
 
             if local_effect_priority_forced and not is_playing_res or \
                 "Forced" in check_effects and check_effects["Forced"]:

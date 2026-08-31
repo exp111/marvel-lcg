@@ -43,7 +43,7 @@ class CanCrisis(HasAttribute):
         from game.operate.worlds import Worlds
 
         if diff != 0 and (self.IsInPlay() or forced):
-            for scheme in Worlds.GetMainSchemes(self.card.game_area):
+            for scheme in Worlds.GetMainSchemesAffectedByCrisis(self):
                 scheme.card.ui.SetEffectedBy(diff, GameRule(self))
 
     @final

@@ -32,3 +32,22 @@ class Attachment(Asset2, HasModify, HasAmplify, HasHazard, CanCrisis, CanAttacke
         # return False
         return True
 
+    def _CanAttachByPrintedRuleTo(self, face: 'CardFace', by_effect: 'Effect') -> bool:
+        """Whether this attachment's printed attach instruction accepts face.
+
+        Ignore target-ordering clauses such as "highest ATK" here.  Those
+        clauses choose among otherwise legal targets and are resolved by the
+        live selector when the attachment itself is revealed.
+        """
+        from game.ability.condition import Condition
+        from game.card.card_finder import CardFinder
+
+        for ability in self.ability.Find(func_name="AttachToWhenEnterPlay"):
+            target = getattr(ability, "_attachment_target_rule", None)
+            if isinstance(target, CardFinder):
+                if target.Check(face, by_effect):
+                    return True
+            elif target is not None and Condition.CheckWhichCard(target, face, by_effect):
+                return True
+        return False
+

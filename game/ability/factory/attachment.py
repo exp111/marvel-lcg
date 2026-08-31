@@ -152,7 +152,7 @@ class AbilityFactoryAttachment:
             if when_attach_exhaust_attached:
                 Faces.ExhaustAll([face], effect)
 
-        return AbilityFactory.AttachToFaceWhenPutIntoPlayInternal(
+        ability = AbilityFactory.AttachToFaceWhenPutIntoPlayInternal(
             selector,
             conditions=[
                 Condition2.ThisIsTrigger,
@@ -165,4 +165,10 @@ class AbilityFactoryAttachment:
             if_cannot_operation=if_cannot_action,
             when_attach_operation=when_attach_action,
         )
+        # Preserve only the printed target rule for effects such as Beetle's
+        # search.  This is intentionally separate from the live selector,
+        # whose highest/fewest ordering is only relevant while revealing the
+        # attachment itself.
+        ability._attachment_target_rule = target
+        return ability
 

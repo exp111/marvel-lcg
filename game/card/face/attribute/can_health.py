@@ -178,15 +178,28 @@ class CanHealth(HasHealth):
             return None
 
     @final
-    def TakeIndirectDamage(self, source: 'CardFace', damage: int, by_effect: 'Effect', *, from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, as_group: bool=False, operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None):
+    def TakeIndirectDamage(self, source: 'CardFace', damage: int, by_effect: 'Effect', *, from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, as_group: bool=False, operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None, timing_occurrence: 'TimingOccurrence|None'=None):
         from game.operate.worlds import Worlds
 
+        event_manager = self.card.world.event_manager
+        owns_timing_occurrence = False
+        if timing_occurrence == None:
+            timing_occurrence = (
+                event_manager.BeginTimingOccurrence()
+                if not event_manager.timing_occurrences or
+                event_manager.broadcasting_messages
+                else None
+            )
+            owns_timing_occurrence = timing_occurrence != None
         player = self.GetControlByPlayer()
         if as_group:
             units = Worlds.GetOnFieldFriendlyCharacters(by_effect)
         else:
             units = [player.GetIdentity()] + player.GetControlAllies()
-        return player.AssignDamage(units, source, damage, by_effect, operation=operation, from_atk_message=from_atk_message)
+        messages = player.AssignDamage(units, source, damage, by_effect, operation=operation, from_atk_message=from_atk_message)
+        if owns_timing_occurrence:
+            event_manager.EndTimingOccurrence(timing_occurrence)
+        return messages
 
     @override
     def TakeDamage(self, source: 'CardFace', property: 'int|DamageProperty', by_effect: 'Effect',
@@ -194,8 +207,17 @@ class CanHealth(HasHealth):
                     *,
                     from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, # Fix for indirect damage, "43036"
                     operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None,
+                    timing_occurrence: 'TimingOccurrence|None'=None,
                     ) -> 'Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage|None':
-        messages = self.TakeDamageWithOverkillTarget(source, property, by_effect, would_attack_unit_message, from_atk_message=from_atk_message, operation=operation)
+        messages = self.TakeDamageWithOverkillTarget(
+            source,
+            property,
+            by_effect,
+            would_attack_unit_message,
+            from_atk_message=from_atk_message,
+            operation=operation,
+            timing_occurrence=timing_occurrence,
+        )
         if messages:
             return messages[0]
         return None
@@ -209,10 +231,21 @@ class CanHealth(HasHealth):
                                     overkill_target: 'Unit2|None'=None,
                                     *,
                                     from_atk_message: 'Message.WhenUnitWouldAttack|None'=None, # Fix for indirect damage, "43036"
-                                    operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None
+                                    operation: Callable[['Message.AfterUnitTookDamage'], None]|None=None,
+                                    timing_occurrence: 'TimingOccurrence|None'=None,
                                     ) -> List['Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage']:
         from game.card.face.base import Unit2
 
+        event_manager = self.card.world.event_manager
+        owns_timing_occurrence = False
+        if timing_occurrence == None:
+            timing_occurrence = (
+                event_manager.BeginTimingOccurrence()
+                if not event_manager.timing_occurrences or
+                event_manager.broadcasting_messages
+                else None
+            )
+            owns_timing_occurrence = timing_occurrence != None
         return_messages: List['Message.AfterUnitDefeatedUnit|Message.AfterUnitTookDamage'] = []
 
         lost_message_overkill_helper = None
@@ -273,7 +306,7 @@ class CanHealth(HasHealth):
                             would_attack_unit_message.would_atk_message.has_defeated_target = True
 
                         # Fix defeating "27073" while "27081" is in play
-                        if unit.IsInPlay():
+                        if unit.IsInPlay() or bool(world.rule.v18_timing):
                             took_damage_message = Message.AfterUnitTookDamage(
                                 unit,
                                 source,
@@ -322,6 +355,8 @@ class CanHealth(HasHealth):
                 by_effect)
             after_damage_message.Send()
 
+        if owns_timing_occurrence:
+            event_manager.EndTimingOccurrence(timing_occurrence)
         return return_messages
 
     @final

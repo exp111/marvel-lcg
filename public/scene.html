@@ -56,14 +56,20 @@
         display: none;
     }
 
+    #split-scenario-selector[hidden] {
+        display: none;
+    }
+
     div:has(#modular-sets),
-    div:has(#encounter-sets) {
+    div:has(#encounter-sets),
+    div:has(#split-scenarios) {
         flex: 0 0 100%;
         width: 0px; /* hack */
         max-width: 100%;
         flex: 0 0 100%;
     }
     #set-content .details,
+    #split-scenarios,
     #modular-sets,
     #encounter-sets {
         flex: 0 0 100%;
@@ -121,7 +127,8 @@
     }
 
     #modular-sets div img,
-    #encounter-sets div img {
+    #encounter-sets div img,
+    #split-scenarios div img {
         padding: 0;
         margin: 0;
     }
@@ -139,12 +146,24 @@
 
     #modular-sets button,
     #encounter-sets button,
+    #split-scenarios button,
     #set-content button {
         position: relative;
         margin: 2px;
         padding: 0;
         display: inline-flex;
         border-radius: .25em;
+    }
+
+    #split-scenarios button:disabled,
+    #encounter-sets button:disabled {
+        cursor: not-allowed;
+        filter: grayscale(1) brightness(.38);
+        opacity: .72;
+    }
+
+    #split-scenario-selector.disabled-choice > legend {
+        color: #777;
     }
 
     .debug-only-option {
@@ -316,7 +335,7 @@
 </head>
 <body>
     <fieldset style="flex-direction: column;">
-        <legend>Scenario</legend>
+        <legend id="scenario-selector-title">Scenario</legend>
 
         <div id="set-images"></div>
 
@@ -346,6 +365,10 @@ class SetInfo{
             /** @type {string[]} */
             this.scenarios = obj['scenarios'];
             /** @type {string[]} */
+            this.underlings = obj['underlings'] || [];
+            /** @type {string[]} */
+            this.fixed_scenarios = obj['fixed_scenarios'] || [];
+            /** @type {string[]} */
             this.heroes = obj['heroes'];
             /** @type {string[]} */
             this.encounters = obj['encounters'];
@@ -355,6 +378,58 @@ class SetInfo{
 
 /** @type{Object.<string, SetInfo>} */
 let sets_json = {}
+
+let selected_underling = null
+let selected_main_scenario = null
+
+function mergeInterchangeableScenario() {
+    if( !selected_underling || !selected_main_scenario ) {
+        scenario = ""
+        return
+    }
+
+    const combine = (first, second) => [...(first || []), ...(second || [])]
+    const combineUnique = (first, second) => [...new Set(combine(first, second))]
+    const merged = {
+        ...selected_underling,
+        ...selected_main_scenario,
+        name: `${selected_underling.name} / ${selected_main_scenario.name}`,
+        villain: [...selected_underling.villain],
+        expert: selected_underling.expert,
+        schemes: [...selected_main_scenario.schemes],
+        set_aside: combine(selected_underling.set_aside, selected_main_scenario.set_aside),
+        encounters: combine(selected_underling.encounters, selected_main_scenario.encounters),
+        encounter_sets: combineUnique(selected_underling.encounter_sets, selected_main_scenario.encounter_sets),
+        modular_sets: combineUnique(selected_underling.modular_sets, selected_main_scenario.modular_sets),
+    }
+    delete merged.kind
+    SetScenario(merged)
+}
+
+function resetInterchangeableScenario() {
+    selected_underling = null
+    selected_main_scenario = null
+    scenario = ""
+}
+
+function setInterchangeableScenarioSelectionEnabled(enabled) {
+    const splitSelector = document.querySelector("#split-scenario-selector")
+    splitSelector.classList.toggle('disabled-choice', !enabled)
+    document.querySelectorAll("#split-scenarios button").forEach(button => {
+        button.disabled = !enabled
+    })
+}
+
+function setStandardEncounterSetSelectionEnabled(enabled) {
+    document.querySelectorAll('#encounter-sets button[data-family="standard"]').forEach(button => {
+        button.disabled = !enabled
+        if( !enabled ) {
+            button.classList.remove('click')
+            button.classList.remove('lock')
+            button.classList.remove('required-family')
+        }
+    })
+}
 
 var last_current_package = ""
 
@@ -418,7 +493,8 @@ async function createScenarios() {
 
     var select = document.querySelector("#set-images");
     for( let key in sets_json ) {
-        if( sets_json[key].scenarios.length == 0 ) {
+        const hasInterchangeableParts = sets_json[key].underlings.length > 0
+        if( sets_json[key].scenarios.length == 0 && !hasInterchangeableParts ) {
             continue
         }
 
@@ -427,7 +503,10 @@ async function createScenarios() {
             const img = document.createElement("img");
             img.style.pointerEvents = "none"
             img.src = "/sets/" + key
-            summary.dataset.total = sets_json[key].scenarios.length * 2
+            const primaryChoices = hasInterchangeableParts
+                ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+                : sets_json[key].scenarios
+            summary.dataset.total = primaryChoices.length * 2
             // summary.innerHTML = key
             summary.appendChild(img)
             summary.classList.add("set")
@@ -437,8 +516,10 @@ async function createScenarios() {
             const match = key.match(/^([\w\d]+)\./);
             summary.setAttribute('data-title', match ? match[1] : key);
             details.classList.add("details")
+            details.classList.add("primary-details")
             details.style.display = "none"
             summary.dataset.package = key
+            summary.dataset.interchangeable = hasInterchangeableParts
             if( key == "Weekly Challenges" ) {
                 summary.dataset.total = sets_json[key].scenarios.length
                 for( let text of sets_json[key].scenarios ) {
@@ -455,9 +536,10 @@ async function createScenarios() {
 
         const [summary, details] = createDetailsButton()
 
-        async function createButtons(text) {
+        async function createButtons(text, choiceType="combined") {
             var option = document.createElement("button");
             option.value = text;
+            option.dataset.choiceType = choiceType
             if( !file_names.includes(text) ) {
                 option.disabled = true
                 option.textContent = getFileName(text);
@@ -466,17 +548,21 @@ async function createScenarios() {
             else {
                 let img = document.createElement("img");
                 let data = await getScenario(option.value)
-                let scheme = data["villain"][0]
+                let villain = data["villain"]?.[0]
+                let scheme = data["schemes"]?.[0]
                 let image_name = ""
                 if( 'challenges' in data ) {
                     image_name = `${data['challenges'][0]}`
                     img.classList.add('challenge')
-                } else if( scheme ) {
-                    image_name = get_name(scheme)
                 } else {
-                    image_name = get_name(data["schemes"][0])
+                    // Some villains (such as Typhoid Mary) begin set aside and
+                    // enter play through setup, so their preset has no villain
+                    // or scheme available to use as the selector image.
+                    const image_card = villain || scheme || data["set_aside"]?.[0]
+                    image_name = image_card ? get_name(image_card) : "no_image"
                 }
-                option.setAttribute('data-text', data['encounters'].length)
+                option.setAttribute('data-text', (data['encounters'] || []).length)
+                option.dataset.scenario = JSON.stringify(data)
 
                 img.src = image_name
                 option.appendChild(img)
@@ -485,15 +571,42 @@ async function createScenarios() {
             return option
         }
 
-        for( let text of sets_json[key].scenarios ) {
-            details.appendChild(await createButtons(text))
+        const primaryChoices = hasInterchangeableParts
+            ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+            : sets_json[key].scenarios
+        for( let text of primaryChoices ) {
+            const choiceType = hasInterchangeableParts && !sets_json[key].fixed_scenarios.includes(text)
+                ? "underling"
+                : "combined"
+            details.appendChild(await createButtons(text, choiceType))
             if( key != "Weekly Challenges" && key != 'Custom' ) {
-                details.appendChild(await createButtons(`${text}_expert`))
+                details.appendChild(await createButtons(`${text}_expert`, choiceType))
             }
         }
 
+        const scenarioDetails = document.createElement("div")
+        scenarioDetails.classList.add("details")
+        scenarioDetails.classList.add("scenario-details")
+        scenarioDetails.style.display = "none"
+        if( hasInterchangeableParts ) {
+            for( let text of sets_json[key].scenarios ) {
+                if( sets_json[key].fixed_scenarios.includes(text) ) {
+                    continue
+                }
+                scenarioDetails.appendChild(await createButtons(text, "main-scenario"))
+            }
+            if( sets_json[key].scenarios.length == 0 ) {
+                const message = document.createElement("p")
+                message.textContent = "No scenarios from this set have been implemented yet."
+                scenarioDetails.appendChild(message)
+            }
+            summary.appendChild(scenarioDetails)
+        }
+
         summary.onclick = (e0) =>{
-            let details = e0.target.querySelector(".details")
+            const selectedSet = e0.currentTarget
+            const interchangeable = selectedSet.dataset.interchangeable == "true"
+            let details = selectedSet.querySelector(".primary-details")
             let details2 = details.cloneNode(true)
             details2.style.display = "flex"
             details2.querySelectorAll("button").forEach(e => {
@@ -501,15 +614,53 @@ async function createScenarios() {
                     e.parentNode.querySelectorAll("button").forEach(e2 => {
                         e2.classList.remove('click')
                     })
-                    loadScenario(e.value)
-                    generateInputs(e0.target.dataset.package)
+                    if( e.dataset.choiceType == "underling" ) {
+                        setInterchangeableScenarioSelectionEnabled(true)
+                        setStandardEncounterSetSelectionEnabled(true)
+                        selected_underling = JSON.parse(e.dataset.scenario)
+                        mergeInterchangeableScenario()
+                    } else {
+                        resetInterchangeableScenario()
+                        setInterchangeableScenarioSelectionEnabled(false)
+                        loadScenario(e.value)
+                    }
+                    generateInputs(selectedSet.dataset.package)
                     e.classList.add('click')
                 }
             })
             document.querySelectorAll('#set-images>div').forEach(e => {
                 e.classList.remove('click')
             })
-            e0.target.classList.add('click')
+            selectedSet.classList.add('click')
+
+            const scenarioTitle = document.querySelector("#scenario-selector-title")
+            const splitSelector = document.querySelector("#split-scenario-selector")
+            const splitScenarios = document.querySelector("#split-scenarios")
+            resetInterchangeableScenario()
+            if( interchangeable ) {
+                scenarioTitle.textContent = "Villains"
+                splitSelector.hidden = false
+                const scenarioDetails = selectedSet.querySelector(".scenario-details").cloneNode(true)
+                scenarioDetails.style.display = "flex"
+                scenarioDetails.querySelectorAll("button").forEach(e => {
+                    e.onclick = () => {
+                        e.parentNode.querySelectorAll("button").forEach(e2 => {
+                            e2.classList.remove('click')
+                        })
+                        selected_main_scenario = JSON.parse(e.dataset.scenario)
+                        mergeInterchangeableScenario()
+                        generateInputs(selectedSet.dataset.package)
+                        e.classList.add('click')
+                    }
+                })
+                splitScenarios.replaceChildren(scenarioDetails)
+                setInterchangeableScenarioSelectionEnabled(true)
+            } else {
+                scenarioTitle.textContent = "Scenario"
+                splitSelector.hidden = true
+                splitScenarios.replaceChildren()
+                setInterchangeableScenarioSelectionEnabled(true)
+            }
 
             document.querySelector("#set-content").replaceChildren()
             document.querySelector("#set-content").appendChild(details2)
@@ -520,7 +671,7 @@ async function createScenarios() {
 
     document.querySelectorAll("#set-images>div.set").forEach(
         e => {
-            let length = Array.from(e.querySelectorAll('div button:not(:disabled)')).length
+            let length = Array.from(e.querySelectorAll('.primary-details button:not(:disabled)')).length
             let total = e.dataset.total
             let text = ` (${length}/${total})`
             if( length == total ) {
@@ -538,6 +689,16 @@ async function createScenarios() {
 }
 
 </script>
+
+<fieldset id="split-scenario-selector" hidden style="flex-direction: column; position: relative;">
+    <legend>Scenarios</legend>
+
+    <fieldset style="gap: 0; padding: 0; border: none">
+        <div>
+            <div id="split-scenarios"></div>
+        </div>
+    </fieldset>
+</fieldset>
 
 <fieldset style="flex-direction: column; position: relative;">
     <legend>Standard Sets</legend>
@@ -847,6 +1008,7 @@ p:has(#timeout_text) {
                     "v16_teamwork": "After a minion with teamwork enters play and engages a player, if there is at least one other minion that shares the specified trait in play, <b>the minion that just entered play</b> activates against the player it is engaged with. ",
                     "v16_referential_ability": "<b>If an ability refers to a title shared by multiple cards in the game, that ability refers only to the card(s) that match the criteria highest in this list:<ol><li>The card on which the referential ability is printed.</li><li>Cards that belong to the same identity or encounter set.</li><li>All other cards.</li></ol></b>",
                     "v16_confuse_stun": "A confused character can attempt to thwart or use a thwart ability even if <b>it has no valid target</b>.<br/>A stunned character can attempt to attack or use an attack ability even if <b>it has no valid target</b>.",
+                    "v18_timing": "Use Rules Reference v1.8 simultaneous timing. A single game occurrence creates one interrupt window and one response window, and players choose the order of abilities with matching priority. Disable this option to use the legacy message-by-message timing dispatcher; the v1.6 options remain unchanged.",
                     "encounter_cards_ignore_crisis": "Environment cards and encounter cards are not affected by crisis icons in play.",
                     "crisis_of_infinite_deadpools": "When setting up a game in which at least one player is using the 'Pool aspect, shuffle 1 copy of the Crisis of Infinite Deadpools treachery card into the encounter deck.",
                     // "fix_surge": "Complete the process of resolving the original card, <b>as well as any response abilities that are triggered by that card being revealed</b>, before revealing the additional card.",
@@ -1028,6 +1190,19 @@ p:has(#timeout_text) {
                 #campaign_log_container td:nth-child(2) {
                     display: flex;
                 }
+                #campaign_log_container .campaign-random-control {
+                    align-items: center;
+                    gap: 10px;
+                }
+                #campaign_log_container .campaign-random-control output {
+                    flex: 1;
+                    min-width: 20rem;
+                }
+                #campaign_log_container .campaign-list-delimiter {
+                    align-self: center;
+                    margin-left: 8px;
+                    white-space: nowrap;
+                }
                 #campaign_log_container th {
                     background-color: #f2f2f2;
                 }
@@ -1082,6 +1257,10 @@ p:has(#timeout_text) {
                         name: "Agents of S.H.I.E.L.D.",
                         package: "50. Agents of S.H.I.E.L.D.",
                     },
+                    fear_no_evil: {
+                        name: "Fear No Evil",
+                        package: "60. Fear No Evil",
+                    },
                 }
 
                 let savedCampaignSettings = {}
@@ -1103,6 +1282,82 @@ p:has(#timeout_text) {
                     input.value = campaignRandomSeed()
                     input.dispatchEvent(new Event('input', { bubbles: true }))
                     input.dispatchEvent(new Event('change', { bubbles: true }))
+                }
+
+                const fearNoEvilCampaignScenarios = [
+                    "Art Museum Heist",
+                    "The Getaway",
+                    "Protection Racket",
+                    "The Raft Breakout",
+                    "Stop the Presses!",
+                ]
+                const fearNoEvilCampaignUnderlings = [
+                    "Bullseye",
+                    "Electro",
+                    "Hammerhead",
+                    "Purple Man",
+                    "Typhoid Mary",
+                ]
+
+                function campaignRandomIndex(length) {
+                    if( length <= 0 ) {
+                        return -1
+                    }
+                    if( window.crypto && window.crypto.getRandomValues ) {
+                        const value = new Uint32Array(1)
+                        window.crypto.getRandomValues(value)
+                        return value[0] % length
+                    }
+                    return Math.floor(Math.random() * length)
+                }
+
+                function campaignRandomSample(values, count) {
+                    const remaining = [...values]
+                    const selected = []
+                    while( selected.length < count && remaining.length > 0 ) {
+                        selected.push(remaining.splice(campaignRandomIndex(remaining.length), 1)[0])
+                    }
+                    return selected
+                }
+
+                function randomizeFearNoEvilCampaign(button, randomType) {
+                    const output = button.parentElement.querySelector('output')
+                    if( !output ) {
+                        return
+                    }
+
+                    const campaignLog = readCampaignLog("fear_no_evil")
+                    if( randomType === "scenarios" ) {
+                        const remaining = fearNoEvilCampaignScenarios.filter(scenario => {
+                            const status = campaignLog[`${scenario} Status`]
+                            return status !== "Completed" && status !== "Failed"
+                        })
+                        const selected = campaignRandomSample(remaining, Math.min(2, remaining.length))
+                        output.textContent = selected.length > 0
+                            ? selected.join(" / ")
+                            : "No scenarios remaining"
+                        return
+                    }
+
+                    if( randomType === "underling" ) {
+                        const chosen = new Set(
+                            fearNoEvilCampaignScenarios
+                                .map(scenario => campaignLog[`${scenario} Villain`])
+                                .filter(Boolean),
+                        )
+                        const remaining = fearNoEvilCampaignUnderlings.filter(underling => !chosen.has(underling))
+                        const selected = campaignRandomSample(remaining, 1)
+                        output.textContent = selected.length > 0
+                            ? selected[0]
+                            : "No underlings remaining"
+                    }
+                }
+
+                function campaignCardTooltip(option) {
+                    const cardId = option.split(",")[0]
+                    return /^\d{5,6}[a-z]?$/.test(cardId)
+                        ? `<span class="tooltip campaign-card-tooltip"><img src="${cardId}"></img></span>`
+                        : ""
                 }
 
                 function applyCampaignSettings(campaign_id, container) {
@@ -1484,6 +1739,38 @@ p:has(#timeout_text) {
                             { description: "Player 3 Campaign Aspect Support", type: "card" },
                             { description: "Player 4 Campaign Aspect Support", type: "card" },
                         ],
+                        fear_no_evil:
+                        [
+                            { description: "Scenarios to Progress", type: "campaignRandom", randomType: "scenarios", emptyText: "Click Random to draw up to 2 remaining scenarios" },
+                            { description: "Random Underling", type: "campaignRandom", randomType: "underling", emptyText: "Click Random to draw an unused underling" },
+
+                            { description: "Player 1 Remaining hit points", type: "number" },
+                            { description: "Player 2 Remaining hit points", type: "number" },
+                            { description: "Player 3 Remaining hit points", type: "number" },
+                            { description: "Player 4 Remaining hit points", type: "number" },
+
+                            { description: "Art Museum Heist Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "The Getaway Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "Protection Racket Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "The Raft Breakout Status", type: "select", options: ["Completed", "Failed"] },
+                            { description: "Stop the Presses! Status", type: "select", options: ["Completed", "Failed"] },
+
+                            { description: "Art Museum Heist Progress", type: "number" },
+                            { description: "The Getaway Progress", type: "number" },
+                            { description: "Protection Racket Progress", type: "number" },
+                            { description: "The Raft Breakout Progress", type: "number" },
+                            { description: "Stop the Presses! Progress", type: "number" },
+
+                            { description: "Art Museum Heist Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "The Getaway Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "Protection Racket Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "The Raft Breakout Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+                            { description: "Stop the Presses! Villain", type: "select", options: ["Bullseye", "Electro", "Hammerhead", "Purple Man", "Typhoid Mary"] },
+
+                            { description: "Trust Established?", type: "checkbox", options: ["Yes"] },
+                            { description: "Mary Defeated?", type: "checkbox", options: ["Yes"] },
+                            { description: "Allies and Persona Supports Removed from the Campaign", type: "list", tooltip: "Enter card titles or IDs" },
+                        ],
                         agents_of_shield:
                         [
                             { description: "Evidence Seed", label: "Evidence Seed (Do Not Change During a Campaign)", type: "number", default: campaignRandomSeed(), random: true },
@@ -1541,14 +1828,7 @@ p:has(#timeout_text) {
                         if (item.type === "select") {
                             let html = `<input type="hidden" data-key="${item.description}">`;
                             item.options.forEach(option => {
-                                let option0 = option.split(",")[0]
-                                if( option.length >= 5 && option.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option}"></img></span>`
-                                } if( option0.length >= 5 && option0.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option0}"></img></span>`
-                                } else {
-                                    tooltip = ""
-                                }
+                                tooltip = campaignCardTooltip(option)
                                 html += `<label><input type="radio" data-key="${option}" name="${item.description}">${option}${tooltip}</label>`;
                             });
 
@@ -1562,18 +1842,16 @@ p:has(#timeout_text) {
 
                             let html = `<input type="hidden" data-key="${item.description}">`;
                             item.options.forEach(option => {
-                                if( option.length >= 5 && option.length <= 6 ) {
-                                    tooltip = `<span class="tooltip campaign-card-tooltip"><img src="${option}"></img></span>`
-                                } else {
-                                    tooltip = ""
-                                }
+                                tooltip = campaignCardTooltip(option)
                                 html += `<label><input type="checkbox" data-key="${option}">${option}${tooltip}</label>`;
                             });
                             row.innerHTML += `<td>${html}</td>`
 
                         } else if (item.type === "list") {
-                            tooltip = item.tooltip ? item.tooltip : "use ';' as the delimiter"
-                            row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="${tooltip}"></td>`;
+                            tooltip = item.tooltip ? item.tooltip : "Enter list items"
+                            row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="${tooltip}"><span class="campaign-list-delimiter">Delimiter: <code>;</code></span></td>`;
+                        } else if (item.type === "campaignRandom") {
+                            row.innerHTML += `<td class="campaign-random-control"><output aria-live="polite">${item.emptyText}</output><button type="button" onclick="randomizeFearNoEvilCampaign(this, '${item.randomType}')">Random</button></td>`;
                         } else if (item.type === "card") {
                             row.innerHTML += `<td><input type="text" data-key="${item.description}" placeholder="use 'card_id'"></td>`;
                         } else {
@@ -1788,6 +2066,8 @@ p:has(#timeout_text) {
 
                 document.querySelectorAll("#encounter-sets button").forEach(click_encounter_set)
                 document.querySelectorAll("#modular-sets button").forEach(click_encounter_set)
+                const allowStandardSets = j['standard_sets'] !== false
+                setStandardEncounterSetSelectionEnabled(allowStandardSets)
                 document.querySelector("#modular-sets").classList.add('hide-not-click')
                 document.querySelectorAll(`#modular-sets .nemesis`).forEach(e=>e.classList.remove('hide'))
 
@@ -2043,6 +2323,10 @@ p:has(#timeout_text) {
                 new_game.rules.push('no_encounter_cards_ignore_crisis')
             }
 
+            if( !new_game.rules.includes('v18_timing') ) {
+                new_game.rules.push('no_v18_timing')
+            }
+
             let cmd = JSON.stringify(new_game)
             let encoded = encodeURIComponent(cmd);
             console.log(encoded)
@@ -2140,7 +2424,7 @@ p:has(#timeout_text) {
 <script>
     // Define the key for caching the form data object
     const CACHE_KEY = 'form_cache_data';
-    cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
+    cache_ids = ['v16_all', 'v16_player_elimination', 'v16_reveal', 'v16_teamwork', 'v16_referential_ability', 'v16_confuse_stun', 'v18_timing', 'encounter_cards_ignore_crisis', 'crisis_of_infinite_deadpools',
         'hide_bug_report', 'show_achievement', 'show_deck_during_full_search', 'scene_3d', 'statistics_notification', 'mode_heroic_slider', 'mode_skirmish',
         'mode', 'rules', 'challenge', 'settings_other',
         'timeout_slider',

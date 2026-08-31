@@ -14,6 +14,7 @@ class EffectContext:
         self.effect = effect
         self.end_attack_messages: List['Message.AfterUnitAttackEnd'] = []
         self.end_thwart_messages: List['Message.AfterUnitThwartEnd'] = []
+        self.timing_occurrence: 'TimingOccurrence|None' = None
         self.initialized_targets: List[bool] = []
         self.paid_this_cost: 'Cost' = Cost("0")
         self.paid_this_resources: 'Resources' = Resources("0")
@@ -45,6 +46,7 @@ class EffectContext:
     def ResetBeforeOperation(self):
         self.end_attack_messages = []
         self.end_thwart_messages = []
+        self.timing_occurrence = None
         self.initialized_targets = [False, False, False]
 
     def GetTargetsInternal(self, index: int) -> List['CardFace']:

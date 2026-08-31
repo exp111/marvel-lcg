@@ -22,6 +22,20 @@ class TestCampaignSetupUI(unittest.TestCase):
 
         self.assertIn("if( div.classList.contains('lock') )", html)
 
+    def test_set_aside_villain_can_supply_the_scenario_selector_image(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            'const image_card = villain || scheme || data["set_aside"]?.[0]',
+            html,
+        )
+        self.assertIn(
+            'image_name = image_card ? get_name(image_card) : "no_image"',
+            html,
+        )
+
     def test_campaign_settings_are_loaded_and_evidence_seed_can_be_randomized(self):
         html = (
             Path(__file__).resolve().parents[1] / "public" / "scene.html"
@@ -33,6 +47,36 @@ class TestCampaignSetupUI(unittest.TestCase):
         self.assertIn('onclick="randomizeCampaignNumber(this)"', html)
         self.assertIn('description: "Evidence Seed"', html)
         self.assertIn('label: "Evidence Seed (Do Not Change During a Campaign)"', html)
+
+    def test_fear_no_evil_random_helpers_filter_finished_scenarios_and_used_underlings(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        scenario_helper = html.index('description: "Scenarios to Progress"')
+        underling_helper = html.index('description: "Random Underling"')
+        first_player_field = html.index(
+            'description: "Player 1 Remaining hit points"',
+            scenario_helper,
+        )
+        self.assertLess(scenario_helper, underling_helper)
+        self.assertLess(underling_helper, first_player_field)
+        self.assertIn('function randomizeFearNoEvilCampaign(button, randomType)', html)
+        self.assertIn('status !== "Completed" && status !== "Failed"', html)
+        self.assertIn('campaignRandomSample(remaining, Math.min(2, remaining.length))', html)
+        self.assertIn('campaignLog[`${scenario} Villain`]', html)
+        self.assertIn('fearNoEvilCampaignUnderlings.filter(underling => !chosen.has(underling))', html)
+        self.assertIn('onclick="randomizeFearNoEvilCampaign(this, \'${item.randomType}\')"', html)
+
+    def test_campaign_list_delimiter_is_visible_and_statuses_have_no_card_tooltip(self):
+        html = (
+            Path(__file__).resolve().parents[1] / "public" / "scene.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('Delimiter: <code>;</code>', html)
+        self.assertIn('function campaignCardTooltip(option)', html)
+        self.assertIn('/^\\d{5,6}[a-z]?$/.test(cardId)', html)
+        self.assertNotIn('option.length >= 5 && option.length <= 6', html)
 
     def test_campaign_log_can_be_saved_without_starting_a_game(self):
         html = (

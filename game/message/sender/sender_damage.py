@@ -381,7 +381,7 @@ class SenderDamage:
         def IsPiercing(self) -> bool:
             return (self.temp_piercing or self.property.piercing) and not self.property.lost_piercing
         def IsRanged(self) -> bool:
-            return self.temp_ranged or self.property.ranged
+            return (self.temp_ranged or self.property.ranged) and not self.property.lost_ranged
         def IsIgnoreRetaliate(self) -> bool:
             return self.property.ignore_retaliate
 

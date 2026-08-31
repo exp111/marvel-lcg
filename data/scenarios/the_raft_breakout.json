@@ -1,0 +1,12 @@
+{
+    "version": "0.5.8",
+    "name": "The Raft Breakout",
+    "kind": "main-scenario",
+    "villain": [],
+    "expert": false,
+    "schemes": ["60142a,60142b"],
+    "set_aside": ["60143"],
+    "encounters": ["60144", "60145", "60146", "60147", "60148", "60149", "60150"],
+    "encounter_sets": [],
+    "modular_sets": ["the_owl", "tombstone"]
+}

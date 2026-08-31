@@ -52,6 +52,11 @@ class Ability:
         self.paper: Paper|None = None # Why not save the card face? Because card is dynamic, paper is static
 
         self.cannot_be_cancel = False
+        # Internal marker for rules-reference keyword abilities that only
+        # participate in the v1.8 timing workflow.  Legacy reveal checks use
+        # this to distinguish printed When Revealed abilities from the v1.8
+        # Surge/Incite equivalents.
+        self.v18_timing_keyword = False
 
         self.cost_fn: Callable[['Effect', List['CardFace']], Cost]|None = None
         self.play_cost: Cost|None = None
@@ -111,6 +116,11 @@ class Ability:
         ability_type_flags = ability_type.flags
         if ability_type_flags.is_hero_type:
             def player_is_hero(effect: 'Effect', message: 'Message2') -> bool:
+                # Quickstrike's printed "Forced Response (hero)" qualifier
+                # refers to the player the minion just engaged, not to the
+                # encounter card's controller/ability initiator.
+                if isinstance(message, Message.AfterMinionEngagePlayer):
+                    return message.engaged_player.IsHero()
                 return effect.GetInitiator().IsHero()
             conditions.append(player_is_hero)
         if ability_type_flags.is_first_player_type:

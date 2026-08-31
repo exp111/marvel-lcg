@@ -559,6 +559,28 @@ class TestEchoIdentityAndCards(unittest.TestCase):
 
 class TestEchoObligationAndNemesis(unittest.TestCase):
 
+    def test_raised_by_the_kingpin_only_prevents_echo_from_dealing_damage(self):
+        module = import_module("cards.pack.fne.echo.60060")
+        ability = module.GetAbilities()[0]
+        ally = object.__new__(module.Ally)
+        message = SimpleNamespace(
+            source=ally,
+            by_effect=SimpleNamespace(
+                this=MagicMock(),
+                initiator=MagicMock(),
+            ),
+        )
+
+        with patch(
+            "game.ability.condition.player_type."
+            "ConditionPlayerType.CheckWhichPlayer",
+            return_value=True,
+        ):
+            self.assertFalse(ability.conditions[0](MagicMock(), message))
+
+            message.source = object()
+            self.assertTrue(ability.conditions[0](MagicMock(), message))
+
     def test_obligation_finds_kingpin_and_tracks_removed_threat(self):
         module = import_module("cards.pack.fne.echo.60060")
         abilities = module.GetAbilities()

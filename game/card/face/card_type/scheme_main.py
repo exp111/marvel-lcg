@@ -143,14 +143,22 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
     @override
     def RemoveThreatInternal(self, by_face: 'CardFace', value: Literal["All"]|INT_TYPE, by_effect: 'Effect', thw_message: 'Message.WhenSchemeBeingThwart|None' = None) -> int:
         from game.operate.worlds import Worlds
+        event_manager = self.card.world.event_manager
+        timing_occurrence = (
+            event_manager.BeginTimingOccurrence()
+            if not event_manager.timing_occurrences or
+            event_manager.broadcasting_messages
+            else None
+        )
         ignored_crisis = False
         ignored_patrol = False
 
-        crisis_faces = Worlds.GetCrisisFaces(self.card.GetGameArea())
+        crisis_faces = Worlds.GetCrisisFacesAffectingMainScheme(self)
         if crisis_faces:
             if not by_effect.IsIgnoreKeyword('Crisis', by_effect):
                 message = Message.IconsActivate_Text(self, crisis_faces, 'Crisis')
                 message.Send()
+                event_manager.EndTimingOccurrence(timing_occurrence)
                 return 0
             else:
                 ignored_crisis = True
@@ -171,12 +179,20 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
             ignore_message = Message.AfterIgnoreKeywordOnCard(by_face, patrol_faces, "Patrol")
             ignore_message.Send()
 
+        event_manager.EndTimingOccurrence(timing_occurrence)
         return ret_value
 
     @override
     def PlaceThreatInternal(self, value: INT_TYPE, by_effect: 'Effect', sch_message: 'Message.WhenUnitWouldScheme|None'=None) -> 'Message.AfterSchemePlaceThreat|None':
         from game.effect.rule import Advance
         from game.message import Message
+        event_manager = self.card.world.event_manager
+        timing_occurrence = (
+            event_manager.BeginTimingOccurrence()
+            if not event_manager.timing_occurrences or
+            event_manager.broadcasting_messages
+            else None
+        )
         place_message = super().PlaceThreatInternal(value, by_effect, sch_message)
         if place_message and self.target_threat != None:
             if self.threat >= self.target_threat and not self.is_completed:
@@ -190,7 +206,9 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
                     self.Advance(None, effect)
                     after_message = Message.AfterMainSchemeCompleted(self, when_complete_message)
                     after_message.Send()
+            event_manager.EndTimingOccurrence(timing_occurrence)
             return place_message
+        event_manager.EndTimingOccurrence(timing_occurrence)
         return None
 
     @staticmethod
@@ -203,6 +221,14 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
     @override
     def CanBeThwartBy(self, effect: 'Effect') -> bool:
         from game.operate.worlds import Worlds
+
+        # Protection Racket gives each player their own main scheme. Player
+        # effects may only thwart the scheme assigned to that player; scenario
+        # effects still need to be able to remove threat from any of them.
+        if self.paper.set_name == "Protection Racket" and effect.IsPlayerInitiator():
+            if self.card.GetOwner() != effect.GetInitiator():
+                return False
+
         main_scheme = Worlds.FindMainScheme(self)
         if main_scheme == self:
             if MainScheme.GetPatrolFaces(effect) != []:

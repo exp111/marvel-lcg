@@ -33,6 +33,28 @@ class HasQuickstrike(HasAttribute):
 
 class CanQuickstrike(HasQuickstrike):
 
+    @override
+    def GetAbilities(self) -> List['Ability']:
+        return [
+            Ability(
+                AbilityType.ForcedResponseHero,
+                Message.AfterMinionEngagePlayer,
+                [
+                    lambda effect, message:
+                        bool(effect.world.rule.v18_timing) and
+                        effect.this is message.trigger and
+                        effect.this.CastTo(CanQuickstrike).IsQuickstrike() and
+                        effect.this.IsInPlay() and
+                        message.engaged_player.IsHero()
+                ],
+                lambda effect, message:
+                    effect.this.CastTo(CanQuickstrike).ResolveQuickstrike(
+                        message.engaged_player,
+                    ),
+                is_local=True,
+            ).SetName("Quickstrike")
+        ] + super().GetAbilities()
+
     @final
     def ResolveQuickstrike(self, player: 'Player'):
         from game.effect.rule import Quickstrike

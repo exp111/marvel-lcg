@@ -497,6 +497,7 @@ class Card(Object):
         into_area = leave_play_message.into_area
         by_effect = leave_play_message.by_effect
         from_area = leave_play_message.from_area
+        from_controller = self.GetController()
 
         self.area.Remove(self)
         into_area.Insert(index, self, target_game_area)
@@ -505,6 +506,17 @@ class Card(Object):
 
         if callback:
             callback()
+
+        to_controller = self.GetController()
+        if from_area.flags.is_in_play and \
+            into_area.flags.is_in_play and \
+            from_controller is not to_controller:
+            Message.AfterCardControlChanged(
+                up_face,
+                from_controller,
+                to_controller,
+                by_effect,
+            ).Send()
 
         if not into_area.flags.is_in_play and from_area.flags.is_in_play:
             # We call this before `AfterCardMoved` for render 21019

@@ -225,7 +225,8 @@ class ModelOnEvent(ModelBase):
         this = self.GetThis()
         if CanIncite.IsType(this):
             # Hack
-            if this.card.world.rule.fix_treachery or not Treachery.IsType(this):
+            if not bool(this.card.world.rule.v18_timing) and \
+                (this.card.world.rule.fix_treachery or not Treachery.IsType(this)):
                 effect = this.ResolveIncite()
                 if effect:
                     revealed_message.reveal_message.AddResolved(effect)
@@ -257,6 +258,7 @@ class ModelOnEvent(ModelBase):
 
         this = self.GetThis()
         world = this.card.world
+        event_manager = world.event_manager
 
         if player == "FirstPlayer":
             player = world.GetFirstPlayer()
@@ -272,6 +274,13 @@ class ModelOnEvent(ModelBase):
         if would_message.is_be_instead:
             return None
 
+        # v1.8 holds every response created during the reveal process until
+        # the card has entered play/resolved, its When Revealed abilities and
+        # keywords have resolved, and a treachery has been discarded.
+        reveal_occurrence = event_manager.BeginTimingOccurrence(
+            delay_reveal_responses=True,
+        )
+
         if not this.IsInPlay():
             if not this.card.area.flags.is_boost_area: # Fix "32029"
                 this.Reset(False)
@@ -286,9 +295,11 @@ class ModelOnEvent(ModelBase):
         reveal_message = Message.WhenPlayerRevealCard(this, would_message)
         if not this.OnPlayerRevealCard(reveal_message):
             this.card.state.is_revealing = False
+            event_manager.EndTimingOccurrence(reveal_occurrence)
             return None
         if reveal_message.is_be_instead: # "52008"
             this.card.state.is_revealing = False
+            event_manager.EndTimingOccurrence(reveal_occurrence)
             return None
 
         entered = False
@@ -324,7 +335,7 @@ class ModelOnEvent(ModelBase):
 # reveal_message    |   Yes         | Yes
 #
         if not reveal_message.cancel_all_effects:
-            if CanSurge.IsType(this):
+            if CanSurge.IsType(this) and not bool(world.rule.v18_timing):
                 effect = this.ResolveSurge(player)
                 if effect:
                     reveal_message.AddResolved(effect)
@@ -342,6 +353,8 @@ class ModelOnEvent(ModelBase):
         else:
             if if_entered_play:
                 if_entered_play()
+
+        event_manager.EndTimingOccurrence(reveal_occurrence)
 
         if revealed_message:
             return revealed_message

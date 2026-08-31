@@ -1,12 +1,28 @@
 from core import *
 import io
-from PIL import Image, ImageFont, ImageDraw, ImageOps
+from PIL import Image, ImageFont, ImageDraw, ImageOps, UnidentifiedImageError, features
 from engine.config import ConfigVariables
 
 SHOW_IMAGE_TEXT = ConfigVariables.Bool('show_image_text', False)
 FONT = ConfigVariables.Str('font', 'cour.ttf')
 
 class ImageLib:
+
+    @staticmethod
+    def IsWebP(image_data: bytes) -> bool:
+        return (
+            len(image_data) >= 12
+            and image_data[:4] == b'RIFF'
+            and image_data[8:12] == b'WEBP'
+        )
+
+    @staticmethod
+    def GetContentType(image_data: bytes) -> str:
+        if ImageLib.IsWebP(image_data):
+            return 'image/webp'
+        if image_data.startswith(b'\x89PNG\r\n\x1a\n'):
+            return 'image/png'
+        return 'image/jpeg'
 
     @staticmethod
     def ImageToByteArray(image: Image.Image) -> bytes:
@@ -18,7 +34,17 @@ class ImageLib:
 
     @staticmethod
     def TryRotateImage(image_data: bytes) -> bytes:
-        img_io: Image.Image = Image.open(io.BytesIO(image_data))
+        if ImageLib.IsWebP(image_data) and not features.check('webp'):
+            return image_data
+        try:
+            img_io: Image.Image = Image.open(io.BytesIO(image_data))
+        except UnidentifiedImageError:
+            # Browsers can decode WebP themselves. If Pillow's optional WebP
+            # codec is unavailable in a frozen build, preserve the valid
+            # source bytes instead of failing the image request.
+            if ImageLib.IsWebP(image_data):
+                return image_data
+            raise
         # 1. Normalize orientation based on EXIF tags (what the browser does)
         # This physically rotates pixels so 'top-left' is actually top-left.
         img_io = ImageOps.exif_transpose(img_io)

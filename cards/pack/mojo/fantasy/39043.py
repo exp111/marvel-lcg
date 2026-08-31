@@ -16,10 +16,9 @@ def GetAbilities() -> Sequence['Ability']:
 
 
     return [
-        AbilityFactory.UnitTakeAdditionalDamageFromCards(
+        AbilityFactory.UnitCanOnlyTakeDamageFromCards(
             "This",
-            "Prevent",
-            CardFinder(non_printed_res="R"),
+            CardFinder(has_printed_res="R"),
         ),
         AbilityFactory.WhenUnitBeDefeated(
             AbilityType.WhenDefeated,
