@@ -431,13 +431,18 @@ class EventManager:
         """Resolve one v1.8 optional priority in player order."""
         from game.message import Message
 
-        players = self.world.const_players[:]
+        players = [
+            player
+            for player in self.world.const_players
+            if getattr(player, "is_eliminated", False) is not True
+        ]
+        if not players:
+            return self.world.is_game_over
+
         first_player = self.world.GetFirstPlayer()
         if first_player in players:
             first_index = players.index(first_player)
             players = players[first_index:] + players[:first_index]
-        if not players:
-            return self.world.is_game_over
 
         player_index = 0
         consecutive_passes = 0

@@ -784,6 +784,26 @@ class TestTimingOccurrence(unittest.TestCase):
         eliminated.ResolveEffect.assert_not_called()
         active.ResolveEffect.assert_called_once_with(candidate.effect, message)
 
+    def test_all_eliminated_players_end_optional_window_without_first_player(self):
+        world = self.make_world()
+        eliminated = MagicMock(player_id=0, is_eliminated=True)
+        world.const_players = [eliminated]
+        world.GetFirstPlayer.side_effect = AssertionError(
+            "there is no active first player"
+        )
+        manager = EventManager(world)
+        manager._BuildTimingCandidates = MagicMock()
+
+        result = manager.ProcessOptionalTimingPriority(
+            [SimpleNamespace(world=world)],
+            TimingPriority.Response,
+            set(),
+        )
+
+        self.assertFalse(result)
+        world.GetFirstPlayer.assert_not_called()
+        manager._BuildTimingCandidates.assert_not_called()
+
     def test_candidate_legality_is_recalculated_after_each_response(self):
         world = self.make_world()
         player = MagicMock(player_id=0)

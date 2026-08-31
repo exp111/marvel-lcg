@@ -15,6 +15,7 @@ class Filter:
             engaged_with_fewest_minions: bool=False,
             most_remaining_hp: bool=False,
             highest_atk: bool=False,
+            highest_thw: bool=False,
             lowest_thw: bool=False,
 
             fewest_counter: 'CardFace.COUNTER|Literal[False]'=False,
@@ -38,6 +39,7 @@ class Filter:
             engaged_with_fewest_minions=engaged_with_fewest_minions,
             most_remaining_hp=most_remaining_hp,
             highest_atk=highest_atk,
+            highest_thw=highest_thw,
             lowest_thw=lowest_thw,
             least_threat=least_threat,
             most_threat=most_threat,

@@ -599,11 +599,12 @@ class Effect(Object):
                 self.context.all_legal_targets[0].card.object_id
             ]
         # A deterministic target can be preselected without deciding whether
-        # the player wants to use an optional printed Response.  Keep those
-        # targets selected, but wait for an explicit OK/cancel decision.  A
-        # Forced Response is mandatory and retains the streamlined submit.
-        is_optional_response = (
-            self.ability.flags.is_response and
+        # the player wants to use an optional printed Interrupt or Response.
+        # Keep those targets selected, but wait for an explicit OK/cancel
+        # decision. Forced triggers are mandatory and retain the streamlined
+        # submit.
+        is_optional_trigger = (
+            (self.ability.flags.is_interrupt or self.ability.flags.is_response) and
             not self.ability.flags.is_forced
         )
         is_basic_defense = (
@@ -611,7 +612,7 @@ class Effect(Object):
             self.ability.IsFunction("DEF")
         )
         automatic_submit = not (
-            is_optional_response or
+            is_optional_trigger or
             is_basic_defense
         )
 

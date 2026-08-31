@@ -873,6 +873,111 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
                 self.assertFalse(option.get("automatic_submit"))
                 self.assertEqual(game.world.event_manager.timing_occurrences, [])
 
+    def test_optional_interrupts_require_confirmation_for_only_target(self):
+        echo_fixture = TimingFixture(
+            "optional_echo_interrupt_confirmation.json",
+            "Echo optional interrupt confirmation",
+            "rhino",
+            ("echo",),
+            770001,
+            (),
+            (),
+        )
+        echo_changed_form = False
+
+        def choose_echo(prompt):
+            nonlocal echo_changed_form
+            if prompt.event_name == "WhenPlayerInTurn" and not echo_changed_form:
+                echo_changed_form = True
+                return self._debug('Puzzle.ChangeFormFor(0, "Hero")')
+            if (
+                prompt.event_name == "WhenUnitWouldChangeForm" and
+                prompt.ability_type == "Interrupt"
+            ):
+                return None
+            return HeadlessDeviceManager._DefaultChoice(prompt)
+
+        echo_devices = HeadlessDeviceManager(choice_provider=choose_echo)
+        echo_game = run_scene_with_devices(
+            build_fixture_scene(echo_fixture),
+            echo_devices,
+        )
+        echo_prompt = echo_devices.stopped_prompt
+
+        self.assertIsNotNone(echo_prompt)
+        self.assertTrue(echo_prompt.show_cancel)
+        self.assertEqual(echo_prompt.ability_type, "Interrupt")
+        self.assertEqual(echo_prompt.event_name, "WhenUnitWouldChangeForm")
+        self.assertEqual(len(echo_prompt.options), 1)
+        echo_option = echo_prompt.options[0]
+        self.assertEqual(
+            echo_option.get("automatic_targets"),
+            echo_option.get("all_legal_targets"),
+        )
+        self.assertFalse(echo_option.get("automatic_submit"))
+        self.assertEqual(echo_game.world.event_manager.timing_occurrences, [])
+
+        bamf_fixture = TimingFixture(
+            "optional_bamf_interrupt_confirmation.json",
+            "Bamf optional interrupt confirmation",
+            "rhino",
+            ("nightcrawler",),
+            770002,
+            (
+                'Puzzle.ClearHand()',
+                'Puzzle.CreateHandCards("48006")',
+            ),
+            ("48006",),
+        )
+        bamf_stage = 0
+
+        def choose_bamf(prompt):
+            nonlocal bamf_stage
+            if prompt.event_name == "WhenPlayerInTurn" and bamf_stage == 0:
+                bamf_stage = 1
+                return self._debug('Puzzle.ChangeFormFor(0, "Hero")')
+            if prompt.event_name == "WhenPlayerInTurn" and bamf_stage == 1:
+                bamf = Engine.game.world.const_players[0].hand_cards.FindCard(
+                    name="Bamf!"
+                )
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("name") == "Play"
+                    and option.get("bind_id") == bamf.card.object_id
+                )
+                bamf_stage = 2
+                return self._choice(option)
+            if prompt.event_name == "WhenPlayerInTurn" and bamf_stage == 2:
+                bamf_stage = 3
+                return self._debug('Puzzle.DoAttack("Rhino")')
+            if (
+                prompt.event_name == "WhenUnitWouldAttack" and
+                prompt.ability_type == "Interrupt"
+            ):
+                return None
+            return HeadlessDeviceManager._DefaultChoice(prompt)
+
+        bamf_devices = HeadlessDeviceManager(choice_provider=choose_bamf)
+        bamf_game = run_scene_with_devices(
+            build_fixture_scene(bamf_fixture),
+            bamf_devices,
+        )
+        bamf_prompt = bamf_devices.stopped_prompt
+
+        self.assertIsNotNone(bamf_prompt)
+        self.assertTrue(bamf_prompt.show_cancel)
+        self.assertEqual(bamf_prompt.ability_type, "Interrupt")
+        self.assertEqual(bamf_prompt.event_name, "WhenUnitWouldAttack")
+        self.assertEqual(len(bamf_prompt.options), 1)
+        bamf_option = bamf_prompt.options[0]
+        self.assertEqual(
+            bamf_option.get("automatic_targets"),
+            bamf_option.get("all_legal_targets"),
+        )
+        self.assertFalse(bamf_option.get("automatic_submit"))
+        self.assertEqual(bamf_game.world.event_manager.timing_occurrences, [])
+
     def test_indirect_damage_keeps_each_target_and_tough_replacement(self):
         path = OUTPUT_DIRECTORY / "12_indirect_divided_damage.json"
         commands = [

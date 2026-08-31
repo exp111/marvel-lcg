@@ -295,7 +295,12 @@ class AbilityFactoryPlayer:
         from game.card.face.card_type import Minion
 
         def check_which_player(effect: 'Effect', message: 'Message.WhenUnitWouldTakeDamage') -> bool:
-            return Condition.CheckWhichPlayer(which_player, message.by_effect.initiator, effect)
+            return Condition.CheckWhichPlayerIncludeAllies(
+                which_player,
+                message,
+                effect,
+                by_face=message.source,
+            )
 
         def check_which_unit(effect: 'Effect', message: 'Message.WhenUnitWouldTakeDamage') -> bool:
             return Condition.CheckWhichCard(which_unit, message.trigger, effect)

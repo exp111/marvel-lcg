@@ -8,6 +8,7 @@ from unittest.mock import MagicMock, patch
 from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
+from game.card.face.attribute import HasThwart
 from game.card.factory import CardFactory
 
 
@@ -228,8 +229,12 @@ class TestFearNoEvilUnderlingMechanics(unittest.TestCase):
         calculate_scheme = set_keyword.call_args.args[0]
         chameleon = MagicMock()
         chameleon.scheme = 1
-        character = MagicMock()
-        character.thwart = 4
+        lower_thwart = object.__new__(HasThwart)
+        lower_thwart.GetBuff = MagicMock(return_value=None)
+        lower_thwart.GetKeyword = MagicMock(return_value=2)
+        highest_thwart = object.__new__(HasThwart)
+        highest_thwart.GetBuff = MagicMock(return_value=None)
+        highest_thwart.GetKeyword = MagicMock(return_value=4)
         effect = SimpleNamespace(this=MagicMock())
         effect.this.CastTo.return_value = chameleon
         ui = []
@@ -238,16 +243,14 @@ class TestFearNoEvilUnderlingMechanics(unittest.TestCase):
             patch.object(
                 module.Worlds,
                 "GetOnFieldFriendlyCharacters",
-                return_value=[character],
+                return_value=[lower_thwart, highest_thwart],
             ),
-            patch.object(module.Filter, "One", return_value=character),
-            patch.object(module.HasThwart, "IsType", return_value=True),
         ):
             value, changed = calculate_scheme(effect, ui)
 
         self.assertEqual(value, 5)
         self.assertTrue(changed)
-        self.assertEqual(ui, [character])
+        self.assertEqual(ui, [highest_thwart])
 
     def test_underboss_adds_its_boost_card_to_the_current_activation(self):
         module = import_module("cards.pack.fne.hammerhead.60093")

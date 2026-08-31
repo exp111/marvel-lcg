@@ -11,6 +11,13 @@ from engine.lib.version import Ver
 from game.card.card import Card
 from game.card.face.card_type import Ally, Hero
 from game.card.factory import CardFactory
+from game.scene.replay.operation import CommandDescriptor
+from game.test.headless import HeadlessDeviceManager
+from game.test.v18_timing_harness import (
+    TimingFixture,
+    build_fixture_scene,
+    run_scene_with_devices,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -364,6 +371,130 @@ class TestSenseDeck(unittest.TestCase):
                     message.defeating_player = MagicMock()
                     self.assertFalse(defeated_by_you(effect, message))
                     message.defeating_player = player
+
+    def test_deft_focus_reduces_a_sense_played_as_if_from_hand(self):
+        fixture = TimingFixture(
+            "deft_focus_sense_deck.json",
+            "Deft Focus discounts a Sense card",
+            "rhino",
+            ("daredevil",),
+            780078,
+            (
+                'Puzzle.ClearHand()',
+                'Puzzle.CreateHandCards("16024", "01088")',
+            ),
+            ("16024", "01088"),
+        )
+        stage = 0
+        discounted_cost = None
+        played_sense_id = None
+
+        def choice(option, resources=()):
+            target_minimum = int(
+                (option.get("target_num_range") or [0])[0]
+            )
+            targets = [
+                str(
+                    target.get("id", target)
+                    if isinstance(target, dict)
+                    else target
+                )
+                for target in option.get("all_legal_targets", [])[:target_minimum]
+            ]
+            return CommandDescriptor(
+                str(option.get("choice_id") or option["id"]),
+                targets,
+                list(resources),
+            )
+
+        def choose(prompt):
+            nonlocal stage, discounted_cost, played_sense_id
+            player = Engine.game.world.const_players[0]
+
+            if prompt.event_name == "WhenPlayerInTurn" and stage == 0:
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("name") == "Change_Form"
+                )
+                stage = 1
+                return choice(option)
+
+            if prompt.event_name == "WhenPlayerInTurn" and stage == 1:
+                deft_focus = player.hand_cards.FindCard(name="Deft Focus")
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("name") == "Play"
+                    and option.get("bind_id") == deft_focus.card.object_id
+                )
+                payments = next(iter(option["target_payment"].values()))[
+                    "payment"
+                ]
+                payment_effect = str(next(iter(payments[0])))
+                stage = 2
+                return choice(option, [payment_effect])
+
+            if prompt.event_name == "WhenPlayerInTurn" and stage == 2:
+                deft_focus = Engine.game.world.FindCardsOnField(
+                    name="Deft Focus"
+                )[0]
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("bind_id") == deft_focus.card.object_id
+                )
+                stage = 3
+                return choice(option)
+
+            if prompt.event_name == "WhenPlayerInTurn" and stage == 3:
+                played_sense_id = player.additional_deck.GetTop().paper.card_id
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("name") == "Superhuman_Senses"
+                )
+                stage = 4
+                return choice(option)
+
+            if prompt.event_name == "WhenPlayerLikeInTurn" and stage == 4:
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("name") == "Play"
+                )
+                discounted_cost = next(
+                    iter(option["target_payment"].values())
+                )["cost"]
+                stage = 5
+                return choice(option)
+
+            if prompt.event_name == "WhenPlayerInTurn" and stage == 5:
+                stage = 6
+                return None
+
+            return HeadlessDeviceManager._DefaultChoice(prompt)
+
+        devices = HeadlessDeviceManager(choice_provider=choose)
+        game = run_scene_with_devices(
+            build_fixture_scene(fixture),
+            devices,
+        )
+        player = game.world.const_players[0]
+
+        self.assertEqual(stage, 6)
+        self.assertEqual(discounted_cost, "0")
+        self.assertEqual(player.hand_cards.Get(), [])
+        self.assertEqual(len(player.additional_deck.Get()), 4)
+        self.assertTrue(
+            game.world.FindCardsOnField(name="Deft Focus")[0].card.IsExhaust()
+        )
+        self.assertTrue(
+            any(
+                face.paper.card_id == played_sense_id
+                for face in game.world.FindCardsOnField()
+            )
+        )
 
 
 class TestDaredevilCards(unittest.TestCase):

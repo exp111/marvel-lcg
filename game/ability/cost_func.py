@@ -77,7 +77,14 @@ class CostFunc:
                             targets = self.selector.GetRandomTarget(targets, effect)
                             targets = targets[:num_range[0]]
                         elif isinstance(player, Player):
-                            targets = player.AskChooseFaces(targets, num_range, effect, prompt=f"Pay cost {self}")
+                            targets = player.AskChooseFaces(
+                                targets,
+                                num_range,
+                                effect,
+                                prompt=f"Pay cost {self}",
+                                select_rule=self.selector.selector_rule.raw_select_rule,
+                                target_must_include_traits=self.selector.selector_rule.target_must_include_traits,
+                            )
                 else:
                     targets = []
 
