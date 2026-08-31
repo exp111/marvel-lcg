@@ -1,3 +1,26 @@
+# Marvel Champions Digital v1.3.0.2
+
+Application version: **1.3.0.2r**
+Windows file version: **1.3.0.2**
+
+This hotfix contains corrections made after v1.3.0.1.
+
+## Hotfix highlight: optional Interrupts
+
+- Restored explicit confirmation for optional Interrupts under the v1.8 timing workflow, including **Echo's alter-ego Interrupt**, when only one legal ability or target is available. Deterministic targeting inside an already chosen ability can still resolve automatically, while Forced Interrupts remain mandatory.
+
+## Additional hotfix fixes
+
+- Corrected **Deft Focus** so its discount applies to a Superpower card played from **Daredevil's Sense deck** as if it were in his hand.
+- Corrected **Chameleon** so its SCH and ATK can use the highest printed THW and ATK among the appropriate friendly characters without raising an invalid-filter error.
+- Corrected **Mutant Mayhem** so its Alliance cost requires one X-Men ally and one X-Force ally rather than allowing two allies with the same required trait.
+- Corrected **Raised by the Kingpin** so it prevents damage dealt by Echo herself without incorrectly preventing damage dealt by her allies.
+- Restored set and box images on systems where Pillow's optional WebP decoder is unavailable by passing valid WebP data through to the browser and returning the correct image content type.
+
+The Windows package remains unsigned. See the v1.3.0 antivirus notice below, verify this hotfix archive with its accompanying `.sha256` file, and scan the downloaded package yourself.
+
+---
+
 # Marvel Champions Digital v1.3.0.1
 
 Application version: **1.3.0.1r**

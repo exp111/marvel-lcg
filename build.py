@@ -8,4 +8,4 @@ class Build:
     MAJOR = 1
     MINOR = 3
     PATCH = 0
-    BUILD = 1
+    BUILD = 2
