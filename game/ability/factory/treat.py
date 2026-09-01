@@ -219,6 +219,9 @@ class AbilityFactoryTreat:
 
         return GiveKeywordToAttachWhenApplyThisInternal(
             apply=treat_attached_ally_as_minion,
-            ignore_flip=False,
+            # The conversion itself swaps the attached ally/hero to a minion
+            # face on the same physical card. Preserve this continuous value
+            # across that swap so the conversion is not invoked a second time.
+            ignore_flip=True,
         ).SetFuncName("TreatAttachedCardAsMinion")
 

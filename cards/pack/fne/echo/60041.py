@@ -7,7 +7,10 @@ def GetAbilities() -> Sequence['Ability']:
         message: 'Message.WhenPlayerInTurn',
     ) -> None:
         player = effect.GetInitiator()
-        finder = ASPECT_OR_BASIC_EVENT | CardFinder(
+        # CardFinder.__or__ mutates its left operand.  Build this expanded
+        # finder from a fresh base so Study the Tape cannot permanently add
+        # Photographic Reflexes to the shared finder used by Choreography.
+        finder = AspectOrBasicEventFinder() | CardFinder(
             card_ids=PHOTOGRAPHIC_REFLEXES_IDS,
         )
         face = Search.PlayerCard(

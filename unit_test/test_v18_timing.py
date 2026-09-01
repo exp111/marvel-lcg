@@ -1360,6 +1360,40 @@ class TestTriggeredCandidateReplayIdentity(unittest.TestCase):
         self.assertFalse(retry)
         candidate.effect.GetReplayText.assert_not_called()
 
+    def test_select_only_chooser_clears_stale_failure_reasons(self):
+        world = TestTimingOccurrence.make_world()
+        manager = EventManager(world)
+        player = MagicMock(player_id=1)
+        candidate = self.make_candidate()
+        candidate.message.world = world
+        candidate.descriptor = SimpleNamespace(
+            name="Call for Backup: When Defeated",
+            failure_reason="no process",
+            all_legal_targets=[10],
+            target_num_range=[1, 1],
+            target_payment={0: object()},
+        )
+        controller = player.GetController.return_value
+        controller.ChoiceOne.return_value = (None, False)
+
+        selected, retry = manager._ChooseTimingCandidate(
+            player,
+            [candidate],
+            TimingPriority.ForcedInterrupt,
+            forced=True,
+            select_only=True,
+        )
+
+        self.assertIsNone(selected)
+        self.assertFalse(retry)
+        override = controller.ChoiceOne.call_args.args[5]
+        descriptor = override.descriptors[0]
+        self.assertEqual(descriptor.failure_reason, "")
+        self.assertEqual(descriptor.all_legal_targets, [])
+        self.assertEqual(descriptor.target_num_range, [0, 0])
+        self.assertEqual(descriptor.target_payment, {})
+        self.assertEqual(candidate.descriptor.failure_reason, "no process")
+
     def test_duplicate_display_names_include_trigger_origin_and_ability_slot(self):
         world = TestTimingOccurrence.make_world()
         manager = EventManager(world)

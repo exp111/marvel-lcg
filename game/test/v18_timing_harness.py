@@ -24,7 +24,12 @@ from game.scene import Scene, SceneLoader
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIRECTORY = REPOSITORY_ROOT / "replays" / "v18_timing"
-V18_RULES = ["fix_attached_health_flip", "v16_all", "v18_timing"]
+V18_RULES = [
+    "fix_attached_health_flip",
+    "fix_attached_health_swap",
+    "v16_all",
+    "v18_timing",
+]
 
 
 class HeadlessStatistics:

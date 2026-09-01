@@ -8,14 +8,15 @@ def GetAbilities() -> Sequence['Ability']:
         this = effect.this.CastTo(Event)
         Unused(this)
 
-        counter = 1
+        ironheart = effect.targets2
+
         def action(unit: 'Unit2'):
-            nonlocal counter
-            counter = 2
+            Unused(unit)
+            Faces.PlaceCountersOn(ironheart, 1, 'progress', effect)
 
         this.DealDamage(effect.targets, 4, effect, if_this_attack_defeats=action)
 
-        Faces.PlaceCountersOn(effect.targets2, counter, 'progress', effect)
+        Faces.PlaceCountersOn(ironheart, 1, 'progress', effect)
 
     return [
         AbilityFactory.WhenInYourPlayTurn(

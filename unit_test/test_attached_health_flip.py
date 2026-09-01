@@ -9,12 +9,16 @@ from game.ability.factory.asset_helper import (
 )
 from game.message import Message, OnEvent
 from game.scene.replay import OperationDescriptor
-from game.scene.scene import ATTACHED_HEALTH_FLIP_RULE, Scene
+from game.scene.scene import (
+    ATTACHED_HEALTH_FLIP_RULE,
+    ATTACHED_HEALTH_SWAP_RULE,
+    Scene,
+)
 
 
 class TestAttachedHealthFlip(unittest.TestCase):
 
-    def test_while_valid_preserves_modifier_across_faces_of_same_card(self):
+    def test_while_valid_preserves_modifier_across_swapped_faces_of_same_card(self):
         class Card:
             def __init__(self):
                 self.state = SimpleNamespace(is_leaving_play=False)
@@ -24,8 +28,9 @@ class TestAttachedHealthFlip(unittest.TestCase):
                 self.card = card
 
         identity_card = Card()
+        swapped_out_card = Card()
         old_face = Face(identity_card)
-        new_face = Face(identity_card)
+        new_face = Face(swapped_out_card)
 
         registrations = []
 
@@ -66,6 +71,11 @@ class TestAttachedHealthFlip(unittest.TestCase):
         ability.operation(effect, SimpleNamespace())
 
         process.assert_called_once_with(effect, 1, 1)
+        # SwapCard exchanges faces between physical cards before persistent
+        # attachment effects re-check their target. The old face therefore no
+        # longer points at the physical card that still owns the +HP state.
+        old_face.card = swapped_out_card
+        new_face.card = identity_card
         upgrade.bind_face = new_face
         gain_ability = next(
             registered
@@ -126,6 +136,22 @@ class TestAttachedHealthFlip(unittest.TestCase):
         operation.crc = "corrected-health-state"
         scene.MigrateAttachedHealthFlip()
         self.assertEqual(operation.crc, "corrected-health-state")
+
+    def test_legacy_save_crc_is_migrated_once_for_attached_health_swap_fix(self):
+        operation = OperationDescriptor(crc="inflated-swap-health-state")
+        scene = Scene(
+            rules=[ATTACHED_HEALTH_FLIP_RULE],
+            inputs=[operation],
+        )
+
+        scene.MigrateAttachedHealthSwap()
+
+        self.assertEqual(operation.crc, "")
+        self.assertIn(ATTACHED_HEALTH_SWAP_RULE, scene.rules)
+
+        operation.crc = "corrected-swap-health-state"
+        scene.MigrateAttachedHealthSwap()
+        self.assertEqual(operation.crc, "corrected-swap-health-state")
 
 
 if __name__ == "__main__":

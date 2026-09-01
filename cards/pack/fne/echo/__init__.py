@@ -2,10 +2,16 @@ from cards.pack.fne import *
 
 
 PHOTOGRAPHIC_REFLEXES_IDS = ["60040a", "60040b", "60040c"]
-ASPECT_OR_BASIC_EVENT = CardFinder(
-    card_type=Event,
-    card_classes=["Aspect", "Basic"],
-)
+
+
+def AspectOrBasicEventFinder() -> 'CardFinder':
+    return CardFinder(
+        card_type=Event,
+        card_classes=["Aspect", "Basic"],
+    )
+
+
+ASPECT_OR_BASIC_EVENT = AspectOrBasicEventFinder()
 
 
 class BuffDaredevilEventDiscount(Buff):

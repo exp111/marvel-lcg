@@ -816,6 +816,16 @@ class EventManager:
                 elif Environment.IsType(this):
                     # Fix "27077a"
                     check_player = current_player
+                elif effect.ability.is_play and \
+                    this.card.can_state.is_like_in_hand is True and \
+                    asked_player is not None:
+                    # Effects such as Echo's Photographic Reflexes can let a
+                    # player play a card they do not own as though it were in
+                    # their hand. In that explicit temporary state, the
+                    # player evaluating the play is its initiator; using the
+                    # tucked card's owner here rejects the play before its
+                    # normal costs and targets can be checked.
+                    check_player = asked_player
                 elif effect.ability.flags.is_play_turn_option or \
                     effect.ability.flags.is_basic_power or \
                     effect.ability.flags.is_interrupt or \
@@ -1066,6 +1076,12 @@ class EventManager:
                 descriptor.all_legal_targets = []
                 descriptor.target_num_range = [0, 0]
                 descriptor.target_payment = {}
+                # These candidates already passed FilterAvailableEffects.
+                # The first player is only choosing their resolution order,
+                # and may differ from the player who controls each effect.
+                # Do not let that player's unchecked "no process" sentinel
+                # disable every button in the ordering prompt.
+                descriptor.failure_reason = ""
 
         override = ChoiceOneOverride(
             descriptors=descriptors,
