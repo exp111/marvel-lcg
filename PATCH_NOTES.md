@@ -1,3 +1,25 @@
+# Marvel Champions Digital v1.3.1
+
+Application version: **1.3.1r**
+Windows file version: **1.3.1.0**
+
+This release contains gameplay and timing corrections made after v1.3.0.2.
+
+## Gameplay and timing fixes
+
+- Corrected **Photographic Reflexes** so Echo can play a tucked event owned by another player as though it were in her hand, including normal costs, targets, and resolution.
+- Corrected the shared Echo event selector so **Study the Tape** no longer makes **Photographic Reflexes** incorrectly eligible for **Choreography**. Photographic Reflexes remains available to effects that explicitly permit it.
+- Corrected multiplayer v1.8 timing-order prompts so **Call for Backup** and similar effects controlled by another player do not retain a stale disabled state and freeze the game.
+- Corrected persistent attached maximum-health modifiers across villain face swaps. The same physical card no longer receives the modifier twice, and legacy saves are replayed once with the corrected health state.
+- Corrected effects such as **Beguiled** that treat an attached ally as a minion so the conversion does not react to its own face swap and execute twice.
+- Corrected **Photon Beam** so defeating its target places 2 progress counters on Ironheart while a non-defeating attack still places 1.
+- Restored excess-damage follow-up effects under grouped v1.8 timing, including **Into the Fray** removing threat after its attack defeats a minion with excess damage.
+- Corrected indirect attacks reduced to 0 damage so they emit the normal zero-damage attack presentation and resolve cleanly.
+
+The Windows package remains unsigned. Verify this release archive with its accompanying `.sha256` file and scan the downloaded package yourself.
+
+---
+
 # Marvel Champions Digital v1.3.0.2
 
 Application version: **1.3.0.2r**
