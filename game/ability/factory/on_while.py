@@ -61,6 +61,7 @@ class AbilityFactoryWhile:
 
             last_value = 0
             last_bind_face: 'CardFace|None' = None
+            last_bind_card: 'Card|None' = None
 
             def invoke_check_value(effect: 'Effect') -> Tuple[int, bool]:
                 effect.this.card.ui.ResetTempEffectBy(effect)
@@ -89,11 +90,13 @@ class AbilityFactoryWhile:
             if last_value != 0 or forced_update:
                 if effect.this.bind_face:
                     last_bind_face = effect.this.bind_face
+                    last_bind_card = last_bind_face.card
                 process_fn(effect, last_value, last_value)
 
             def new_condition(message: Any) -> bool: # Hack
                 nonlocal new_value
                 nonlocal last_bind_face
+                nonlocal last_bind_card
                 nonlocal last_value
 
                 # Fix "31001a"
@@ -101,9 +104,9 @@ class AbilityFactoryWhile:
                 if bind_face and last_bind_face != bind_face:
                     same_card_flip = \
                         preserve_value_on_same_card_flip and \
-                        last_bind_face is not None and \
-                        last_bind_face.card is bind_face.card
+                        last_bind_card is bind_face.card
                     last_bind_face = bind_face
+                    last_bind_card = bind_face.card
                     if not same_card_flip:
                         last_value = 0
 

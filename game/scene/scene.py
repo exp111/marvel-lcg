@@ -12,6 +12,7 @@ CATEGORY_NAME = "SCENE"
 # These rules will be added for testing file, use when change some new rules as default
 TEST_RULES = ConfigVariables.ListStr('test_rules', [])
 ATTACHED_HEALTH_FLIP_RULE = "fix_attached_health_flip"
+ATTACHED_HEALTH_SWAP_RULE = "fix_attached_health_swap"
 GOD_OF_LIES_SHATTER_TOTAL_RULE = "fix_god_of_lies_shatter_total"
 
 METADATA_KEY_LIST = Literal[
@@ -181,6 +182,7 @@ class Scene:
     def UpdateVersion(self):
         self.campaign.UpdateVersion()
         self.MigrateAttachedHealthFlip()
+        self.MigrateAttachedHealthSwap()
         self.MigrateGodOfLiesShatterTotal()
         if "mode_skirmish" in self.metadata: # type: ignore
             self.rules.append("mode_skirmish")
@@ -240,6 +242,17 @@ class Scene:
         for operation in self.inputs:
             operation.crc = ""
         self.rules.append(ATTACHED_HEALTH_FLIP_RULE)
+
+    def MigrateAttachedHealthSwap(self) -> None:
+        if ATTACHED_HEALTH_SWAP_RULE in self.rules:
+            return
+
+        # A face swapped from another physical card used to make persistent
+        # attached +HP effects look newly applied. Rebuild legacy saves from
+        # their recorded choices without the duplicated maximum health.
+        for operation in self.inputs:
+            operation.crc = ""
+        self.rules.append(ATTACHED_HEALTH_SWAP_RULE)
 
     def MigrateGodOfLiesShatterTotal(self) -> None:
         if self.campaign.name != "Loki: God of Lies":

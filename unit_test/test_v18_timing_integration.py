@@ -1280,6 +1280,56 @@ class TestV18TimingPlayableCheckpoints(unittest.TestCase):
         self.assertEqual(game.world.FindCardsOnField(name="Killmonger"), [])
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
 
+    def test_photon_beam_places_two_progress_when_it_defeats_an_enemy(self):
+        fixture = TimingFixture(
+            "",
+            "Photon Beam defeat progress",
+            "rhino",
+            ("ironheart",),
+            180018,
+            (
+                'Puzzle.ChangeFormFor(0, "Hero")',
+                'Puzzle.ClearHand()',
+                'Puzzle.CreateHandCards("29006", "01088")',
+                'Puzzle.PutIntoPlay("60203")',
+            ),
+            ("29006", "01088", "60203"),
+        )
+        scene = build_fixture_scene(fixture)
+        played = False
+
+        def choose(prompt):
+            nonlocal played
+            world = Engine.game.world
+            if prompt.event_name == "WhenPlayerInTurn" and not played:
+                photon_beam = next(
+                    face
+                    for face in world.const_players[0].hand_cards.Get()
+                    if face.paper.card_id == "29006"
+                )
+                tracksuit_bro = world.FindCardsOnField(name="Tracksuit Bro")[0]
+                option = next(
+                    option
+                    for option in prompt.options
+                    if option.get("bind_id") == photon_beam.card.object_id
+                )
+                played = True
+                return self._choice(
+                    option,
+                    [tracksuit_bro.card.object_id],
+                    self._payment_effect_ids(option),
+                )
+            if prompt.event_name == "WhenPlayerInTurn" and played:
+                return None
+            return HeadlessDeviceManager._DefaultChoice(prompt)
+
+        devices = HeadlessDeviceManager(choice_provider=choose)
+        game = run_scene_with_devices(scene, devices)
+        ironheart = game.world.const_players[0].GetIdentity()
+
+        self.assertEqual(ironheart.GetCounters("progress"), 2)
+        self.assertEqual(game.world.event_manager.timing_occurrences, [])
+
     def test_recorded_nova_inputs_end_at_the_attack_that_opens_the_window(self):
         expected_lengths = {
             "01_nova_jarnbjorn_unlock.json": 7,

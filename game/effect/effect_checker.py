@@ -347,7 +347,9 @@ class EffectChecker:
 
         if self.ability.is_play:
             if asked_player:
-                if this.card.area == asked_player.hand_cards:
+                if this.card.can_state.is_like_in_hand is True:
+                    pass
+                elif this.card.area == asked_player.hand_cards:
                     pass
                 elif this.GetOwner() != asked_player:
                     self.failures.SetText(asked_player, f"{asked_player} doesn't have this card")

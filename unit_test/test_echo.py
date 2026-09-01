@@ -9,7 +9,18 @@ from engine import Engine  # noqa: F401 - establishes the project's import order
 from cards.database import CardsDB
 from engine.lib.version import Ver
 from game.card.factory import CardFactory
+from game.ability import TimingPriority
+from game.effect.rule import DebugRule
+from game.event.manager import EventManager
+from game.message import Message
 from game.player.action.player_action import PlayerAction
+from game.scene.loader import SceneLoader
+from game.scene.replay.operation import CommandDescriptor
+from game.test.headless import HeadlessDeviceManager
+from game.test.v18_timing_harness import (
+    V18_RULES,
+    run_scene_with_devices,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -369,6 +380,126 @@ class TestWatchAndLearnAndPhotographicReflexes(unittest.TestCase):
         module = import_module("cards.pack.fne.echo.60040a")
         self.assertEqual(module.GetAbilities(), [])
 
+    def test_reflexes_can_play_another_players_tucked_event(self):
+        Ver.Initialize()
+        CardsDB.Initialize()
+        scene = SceneLoader.NewScene(
+            "rhino",
+            None,
+            ["echo", "cyclops"],
+            810081,
+        )
+        scene.rules = list(V18_RULES)
+        scene.SetMetadataBool("is_puzzle", True)
+        scene.puzzle = [
+            "Puzzle.ClearHandFor(0)",
+            "Puzzle.ClearHandFor(1)",
+            'Puzzle.ChangeFormFor(0, "Hero")',
+            'Puzzle.CreateHandCardsFor(0, "60040a", "01089")',
+            'Puzzle.PutIntoPlayFor(0, "40024")',
+            'Puzzle.PutIntoPlayFor(0, "33013")',
+            'Puzzle.CreateHandCardsFor(1, "47028")',
+        ]
+        devices = HeadlessDeviceManager(
+            stop_when=lambda prompt:
+                prompt.event_name == "WhenPlayerInTurn" and
+                prompt.player_id == 0,
+        )
+        game = run_scene_with_devices(scene, devices)
+        echo = game.world.const_seat_order_players[0]
+        other_player = game.world.const_seat_order_players[1]
+        event = other_player.hand_cards.FindCard(name="Mutant Mayhem")
+        reflexes = echo.hand_cards.FindCard(name="Photographic Reflexes")
+        genius = echo.hand_cards.FindCard(name="Genius")
+        deadpool = echo.allies.FindCard(name="Deadpool")
+        rockslide = echo.allies.FindCard(name="Rockslide")
+        self.assertIsNotNone(event)
+        self.assertIsNotNone(reflexes)
+        self.assertIsNotNone(genius)
+        self.assertIsNotNone(deadpool)
+        self.assertIsNotNone(rockslide)
+        assert event is not None
+        assert reflexes is not None
+        assert genius is not None
+        assert deadpool is not None
+        assert rockslide is not None
+
+        hero = echo.GetIdentity()
+        self.assertTrue(hero.TuckCardUnderHere(event, DebugRule(hero)))
+        module = import_module("cards.pack.fne.echo")
+        module.RegisterPhotographicReflexesPlayAbilities(event)
+        proxy = next(
+            effect
+            for effect in event.effects
+            if getattr(
+                effect.ability,
+                "photographic_reflexes_play_effect",
+                None,
+            ) is not None
+        )
+        message = Message.WhenPlayerInTurn(echo, game.world.round_id)
+        effects = game.world.event_manager.FindTimingEffects(
+            "Optional",
+            Message.WhenPlayerInTurn,
+            TimingPriority.Normal,
+        )
+        available = EventManager.FilterAvailableEffects(
+            message,
+            effects,
+            echo,
+            game.world,
+            None,
+        )
+
+        self.assertIs(event.GetOwnerPlayer(), other_player)
+        self.assertIs(event.card.area.GetOwner(), echo)
+        self.assertIn(proxy, available)
+
+        def choose_with_genius_payment(prompt):
+            option = prompt.options[0]
+            choice = HeadlessDeviceManager._DefaultChoice(prompt)
+            if option.get("name") == "Play" and \
+                option.get("bind_id") == event.card.object_id:
+                payment = option["target_payment"]["0"]["payment"]
+                genius_resource_effect_id = next(
+                    str(effect_id)
+                    for entry in payment
+                    for effect_id, resources in entry.items()
+                    if resources == "BB"
+                )
+                return CommandDescriptor(
+                    choice.id,
+                    choice.targets,
+                    [genius_resource_effect_id],
+                )
+            return choice
+
+        # Continue this in-memory checkpoint just far enough to resolve the
+        # proxy through the real controller, cost, and tucked-event scripts.
+        game.world.game_over.reason = None
+        game.state.SetExitStatus("")
+        devices.stop_when = None
+        devices.choice_provider = choose_with_genius_payment
+        with patch.object(
+            echo,
+            "PlayAnAlly",
+            wraps=echo.PlayAnAlly,
+        ) as play_ally:
+            resolved = echo.ChooseEffects([proxy], message)
+
+        self.assertIs(resolved, proxy)
+        self.assertIn(reflexes, echo.discard_pile.Get())
+        self.assertIn(genius, echo.discard_pile.Get())
+        self.assertIn(event, other_player.discard_pile.Get())
+        self.assertNotIn(event, hero.GetPlacedCardArea().GetAll())
+        self.assertEqual(play_ally.call_count, 2)
+        self.assertEqual(
+            {call.args[0] for call in play_ally.call_args_list},
+            {deadpool, rockslide},
+        )
+        self.assertIn(deadpool, echo.allies.Get())
+        self.assertIn(rockslide, echo.allies.Get())
+
 
 class TestEchoIdentityAndCards(unittest.TestCase):
 
@@ -425,6 +556,33 @@ class TestEchoIdentityAndCards(unittest.TestCase):
         self.assertEqual(search.call_args.kwargs["include_discard_pile"], "All")
         self.assertFalse(search.call_args.kwargs["include_player_deck"])
         player.GainCard.assert_called_once_with(face, effect)
+
+    def test_study_the_tape_does_not_broaden_choreography_selector(self):
+        common = import_module("cards.pack.fne.echo")
+        module = import_module("cards.pack.fne.echo.60041")
+        ability = module.GetAbilities()[0]
+        shared_finder = common.ASPECT_OR_BASIC_EVENT
+        original_or_finders = list(shared_finder.or_finders)
+        player = MagicMock()
+        effect = SimpleNamespace(GetInitiator=MagicMock(return_value=player))
+
+        try:
+            with patch.object(
+                module.Search,
+                "PlayerCard",
+                return_value=None,
+            ) as search:
+                ability.operation(effect, MagicMock())
+
+            self.assertEqual(shared_finder.or_finders, original_or_finders)
+            study_finder = search.call_args.kwargs["finder"]
+            self.assertIsNot(study_finder, shared_finder)
+            self.assertEqual(
+                study_finder.or_finders[-1].card_ids,
+                common.PHOTOGRAPHIC_REFLEXES_IDS,
+            )
+        finally:
+            shared_finder.or_finders[:] = original_or_finders
 
     def test_the_rez_heals_for_highest_tucked_printed_cost(self):
         module = import_module("cards.pack.fne.echo.60042")
