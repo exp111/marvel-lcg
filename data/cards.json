@@ -64287,7 +64287,29 @@
             "traits": ["MUTANT", "PSIONIC"],
             "set_name": "Fear No Evil Campaign",
             "text": "Victory -1.\n<b>Forced Response</b>: After you reveal a side scheme, remove all damage from here and flip this card."
+        },
+                {
+            "card_id": "61028",
+            "type": "PlayerSideScheme",
+            "name": "* Second Chance",
+            "subtitle": "",
+            "desc": {"Cost": "0", "RES": "B", "StartingThreat": "3*", "Victory": "0", "MaxPerDeck": "1", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: Each player may shuffle all of their identity-specific cards from their discard pile into their deck."
         }
+        ,
+                {
+            "card_id": "62022",
+            "type": "Event",
+            "name": "Dynamic Duo",
+            "subtitle": "",
+            "desc": {"Cost": "2", "RES": "R", "Class": "Basic"},
+            "traits": [],
+            "set_name": "",
+            "text": "<b>Action</b>: Search your deck and discard pile for a Team-Up card and an ally named by that card's Team-Up keyword. Add those cards to your hand. <i>(Shuffle.)</i>"
+        }
+        
     ],
     "checksum": "06c04c9d377776bcf8d66b884b6e2512e1a9855a49fdaaf6a907a7f6e760a7f3"
 }
