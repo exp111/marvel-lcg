@@ -7,18 +7,18 @@ def GetAbilities() -> Sequence['Ability']:
         bullseye = Worlds.FindCardOnField(
             effect,
             name="Bullseye",
-            card_type=Minion,
+            card_type=Enemy,
         )
-        if not bullseye:
-            bullseye = Find.FindAndReveal(
+        if bullseye:
+            bullseye.DoAttackYou(player, effect)
+        else:
+            Find.FindAndReveal(
                 effect,
                 player,
                 who_perform=player,
                 name="Bullseye",
                 card_type=Minion,
             )
-        if bullseye and bullseye.IsInPlay():
-            bullseye.CastTo(Minion).DoAttackYou(player, effect)
 
     def eye_on_the_target(effect: 'Effect', message: 'Message.WhenCardRevealed') -> None:
         player = message.GetToPlayer()

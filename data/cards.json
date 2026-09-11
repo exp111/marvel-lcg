@@ -62636,7 +62636,7 @@
             "desc": {"Boost": "2", "ATK+": "2"},
             "traits": ["WEAPON"],
             "set_name": "Bullseye",
-            "text": "Attach to Bullseye.\n[star] Bullseye's attacks lose ranged and gain piercing.\n<b>Hero Response</b>: After your hero defends against an attack from Bullseye, spend 2 different resources → discard this card.\n<hr />\n[star] <b>Boost</b>: The activating enemy gets +2 ATK for this activation."
+            "text": "Attach to Bullseye.\n[star] Bullseye's attacks lose ranged and gain piercing.\n<b>Hero Response</b>: After your hero defends against an attack from Bullseye, spend 2 different resources → discard this card."
         },
         {
             "card_id": "60071",
@@ -64309,7 +64309,7 @@
             "set_name": "",
             "text": "<b>Action</b>: Search your deck and discard pile for a Team-Up card and an ally named by that card's Team-Up keyword. Add those cards to your hand. <i>(Shuffle.)</i>"
         }
-        
+
     ],
-    "checksum": "06c04c9d377776bcf8d66b884b6e2512e1a9855a49fdaaf6a907a7f6e760a7f3"
+    "checksum": "af1adec02fb26425982129de159007b45c4430cc8c460ad2c77f4c4d6b078a06"
 }

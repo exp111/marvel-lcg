@@ -13,6 +13,17 @@ def _get_activation_target_player(being_message: 'Message.WhenUnitBeingAttack|Me
 
 class SenderCard:
 
+    class DiscardedCardFound_Text(TextMessage):
+        def __init__(self, face: 'CardFace') -> None:
+            super().__init__(world=face.card.world)
+            # The final discarded card may already be back in a shuffled deck.
+            # Keep its printed identity available without exposing its position.
+            text = TransText(
+                "Discarded card found: {face}",
+                face=face.GetDisplayName(no_hidden=True, no_object_id=True),
+            )
+            self.Present(text, "")
+
     class LookAt_Text(TextMessage):
         def __init__(self, player: 'Player', faces: Sequence['CardFace']) -> None:
             for face in faces:

@@ -275,10 +275,13 @@ class TestSenseDeck(unittest.TestCase):
         hero = self.controlled_face(Hero, player)
         ally = self.controlled_face(Ally, player)
         scheme = MagicMock()
-        scheme.CastTo.return_value = SimpleNamespace(threat=0)
+        scheme.CastTo.return_value = SimpleNamespace(threat=2)
         message = SimpleNamespace(
             trigger=scheme,
-            would_remove_message=SimpleNamespace(by_face=hero),
+            by_face=hero,
+            value=2,
+            is_be_instead=False,
+            cannot_be_removed=False,
         )
         effect = SimpleNamespace(
             this=SimpleNamespace(
@@ -297,23 +300,31 @@ class TestSenseDeck(unittest.TestCase):
                 with self.subTest(card_id=card_id):
                     module = import_module(f"cards.pack.fne.sense_deck.{card_id}")
                     ability = module.GetAbilities()[2]
-                    by_who = ability.conditions[1]
-                    last_threat = ability.conditions[3]
+                    last_threat_by_you = ability.conditions[-1]
 
                     self.assertIs(
                         ability.when,
-                        module.Message.AfterSchemeRemoveThreat,
+                        module.Message.WhenSchemeWouldRemoveThreat,
                     )
-                    self.assertTrue(by_who(effect, message))
-                    self.assertTrue(last_threat(effect, message))
+                    self.assertTrue(last_threat_by_you(effect, message))
 
-                    message.would_remove_message.by_face = ally
-                    self.assertFalse(by_who(effect, message))
-                    message.would_remove_message.by_face = hero
+                    message.by_face = ally
+                    self.assertFalse(last_threat_by_you(effect, message))
+                    message.by_face = hero
 
-                    scheme.CastTo.return_value = SimpleNamespace(threat=1)
-                    self.assertFalse(last_threat(effect, message))
+                    message.value = 1
+                    self.assertFalse(last_threat_by_you(effect, message))
+                    message.value = 3
+                    self.assertTrue(last_threat_by_you(effect, message))
+                    message.value = 2
+
+                    for flag in ("is_be_instead", "cannot_be_removed"):
+                        setattr(message, flag, True)
+                        self.assertFalse(last_threat_by_you(effect, message))
+                        setattr(message, flag, False)
                     scheme.CastTo.return_value = SimpleNamespace(threat=0)
+                    self.assertFalse(last_threat_by_you(effect, message))
+                    scheme.CastTo.return_value = SimpleNamespace(threat=2)
 
     def test_enhanced_olfaction_applies_its_next_card_discount(self):
         module = import_module("cards.pack.fne.sense_deck.60003")

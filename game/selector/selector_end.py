@@ -68,6 +68,10 @@ class SelectorEnd:
         return True
 
     def OnSelectTargetFailure(self, effect: 'Effect', peeked_faces: Sequence['CardFace']) -> None:
+        # Deferred and non-shuffling selections keep that behavior when
+        # there are no legal targets, just as they do on success.
+        if self.not_move or self.not_shuffle:
+            return
         if self.peek and peeked_faces:
             SelectorEnd.DoShuffle(
                 effect,

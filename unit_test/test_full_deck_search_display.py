@@ -450,6 +450,28 @@ class TestFullDeckSearchDisplay(unittest.TestCase):
 
         self.assertEqual(result, canonical)
 
+    def test_failed_deferred_or_non_shuffling_selection_keeps_deck_order(self):
+        deck = make_deck()
+        for flags in ({"not_move": True}, {"not_shuffle": True}):
+            with self.subTest(flags=flags), patch.object(
+                SelectorEnd, "DoShuffle",
+            ) as shuffle:
+                selector_end = SelectorEnd(peek=True, **flags)
+                selector_end.OnSelectTargetFailure(make_effect(), deck.Get(True))
+
+                shuffle.assert_not_called()
+
+    def test_failed_normal_search_still_shuffles_peeked_cards(self):
+        deck = make_deck()
+        effect = make_effect()
+        faces = deck.Get(True)
+        with patch.object(SelectorEnd, "DoShuffle") as shuffle:
+            SelectorEnd(peek=True).OnSelectTargetFailure(effect, faces)
+
+        shuffle.assert_called_once_with(
+            effect, faces, False, True, additional_decks=[],
+        )
+
     def test_presentation_metadata_does_not_add_shuffle_calls(self):
         deck = make_deck()
         selector_end = SelectorEnd(

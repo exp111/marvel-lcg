@@ -114,9 +114,7 @@ class Controller:
         # Load replay
         is_puzzle = message.world.scene.is_puzzle
         replay_input, read_ok = controller_manager.replay.GetReplayOperation(is_puzzle)
-        if not read_ok:
-            if controller_manager.skip.SetIsSkipping(False):
-                message.world.render.PresentForceNoWait()
+        replay_restore_failed = replay_input != None and not read_ok
 
         if replay_input:
             replay_debug_cmd = replay_input.effect.GetDebugCommand()
@@ -198,19 +196,27 @@ class Controller:
                     new_resource_ids
                 )
                 return Json.Dumps(command)
-            if fallthrough_cmd.id and not replay_debug_cmd:
+            if not replay_restore_failed and fallthrough_cmd.id and not replay_debug_cmd:
                 convert_fallthrough_input = convert_replay_data(fallthrough_cmd)
         except Exception as exc:
-            # A replay recorded before trigger-aware identities were stable
-            # may be ambiguous after code changes. Stop fast-forwarding and
-            # ask again rather than applying the original runtime id to the
-            # wrong ability.
-            if choice_override and fallthrough_cmd.id:
-                Log.Warn(CATEGORY_NAME, str(exc))
-                replay_input = None
-                fallthrough_input = "{}"
-                convert_fallthrough_input = "{}"
-                controller_manager.skip.SetIsSkipping(False)
+            Log.Warn(CATEGORY_NAME, f"Could not restore replay choice {fallthrough_cmd.id}: {exc}")
+            replay_restore_failed = True
+
+        if replay_restore_failed:
+            # A saved timing choice can reach an ordinary prompt when the
+            # replay diverges. Never pass its original id to CardEffectInt or
+            # reuse a runtime id after conversion failed.
+            replay_input = None
+            replay_debug_cmd = ""
+            fallthrough_input = "{}"
+            convert_fallthrough_input = "{}"
+            controller_manager.skip.Clean()
+            Notify.Game(
+                f"Replay paused at step {controller_manager.replay.current_step_id}: "
+                "the saved choice no longer matches the current game state. "
+                "Choose an action to continue."
+            )
+            message.world.render.PresentForceNoWait()
 
         if by_effect != None and by_effect.GetDisplayName() == 'End Phase':
             message_name = "End Turn"
@@ -332,6 +338,12 @@ class Controller:
 
                 # When click auto
                 if controller_manager.skip.is_skipping or controller_manager.skip.skip_to > 0:
+                    if replay_restore_failed:
+                        # Auto cannot retry the rejected command or turn it
+                        # into an unintended pass. Keep the live choice open.
+                        controller_manager.skip.Clean()
+                        message.world.render.PresentForceNoWait()
+                        continue
                     user_input = convert_fallthrough_input
                     controller_manager.console.SetCommand(replay_debug_cmd, message.world)
                     if controller_manager.console.Execute(message.GetReplayText(), message.world, effect_list):
