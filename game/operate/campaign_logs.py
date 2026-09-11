@@ -12,7 +12,9 @@ PLAYER_LIST_KEY: TypeAlias = Literal[
 
 PLAYER_STR_KEY: TypeAlias = Literal[
     "Tech Upgrade",
+    "tech upgrade removed from campaign",
     "Basic Upgrade",
+    "Basic Condition replaced with Improved side",
     "Role",
     "S.H.I.E.L.D. Tech: Reputation Track Reward",
     "Planning Ahead: Reputation Track Reward",
