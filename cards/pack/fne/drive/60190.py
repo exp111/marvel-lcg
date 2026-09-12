@@ -24,15 +24,16 @@ def GetAbilities() -> Sequence['Ability']:
             reveal_vehicle([])
             return
 
+        Message.DiscardedCardFound_Text(vehicle)
         player.ChooseAbilities(
             effect,
             AbilityFactory.ForChoiceAbilityWithCost(
                 Cost("3", same_type=True),
-                "Spend 3 resources of the same type → attach the VEHICLE to your identity",
+                f"Spend 3 resources of the same type → attach {vehicle.name} to your identity",
                 lambda targets, resources: vehicle.AttachTo2(identity, effect),
             ),
             AbilityFactory.ForChoiceAbility(
-                "Reveal the discarded VEHICLE attachment",
+                f"Reveal {vehicle.name}",
                 reveal_vehicle,
             ),
         )

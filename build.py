@@ -7,5 +7,5 @@ class Build:
     # Version
     MAJOR = 1
     MINOR = 3
-    PATCH = 1
+    PATCH = 2
     BUILD = 0

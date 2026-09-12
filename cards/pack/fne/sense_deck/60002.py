@@ -23,11 +23,10 @@ def GetAbilities() -> Sequence['Ability']:
             has_defeating_player=True,
             conditions=[defeated_by_you],
         ).SetCostFunc(CostFunc.Discard("This")),
-        AbilityFactory.AfterSchemeRemoveThreat(
+        AbilityFactory.WhenSchemeWouldRemoveThreat(
             AbilityType.Interrupt,
             "AttachedScheme",
             acute_tactility,
-            by_who="YourIdentity",
-            last_threat=True,
+            conditions=[YourIdentityWouldRemoveLastThreat],
         ).SetCostFunc(CostFunc.Discard("This")),
     ]

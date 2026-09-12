@@ -119,7 +119,8 @@ class Worlds:
                 ret_main_scheme = main_scheme
         if not ret_main_scheme:
             if against_player is None and source_effect is not None:
-                initiator = source_effect.GetInitiator()
+                # Encounter effects may be initiated by the scenario itself.
+                initiator = source_effect.initiator
                 if isinstance(initiator, Player):
                     against_player = initiator
             if against_player is not None:
