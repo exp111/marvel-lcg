@@ -1,3 +1,53 @@
+# Marvel Champions Digital v1.3.2
+
+Application version: **1.3.2r**
+Windows file version: **1.3.2.0**
+
+This release contains all fixes and improvements made since v1.3.1.
+
+## Antivirus notice
+
+The Windows package remains unsigned. VirusTotal reported antivirus detections for the v1.3.2 executable; the [public VirusTotal report](https://www.virustotal.com/gui/file/7572b331addeede32e964618da9d7d0a61a0869b736046de3df8d89e8c28fe75?nocache=1) is provided for transparency and matches the exact executable included in this release (SHA-256: `7572b331addeede32e964618da9d7d0a61a0869b736046de3df8d89e8c28fe75`). The same executable passed a local Microsoft Defender custom scan before publication. Detection results can differ between engines and change over time; treat this as an unresolved antivirus warning and scan the downloaded package yourself. Verify the ZIP with its accompanying `.sha256` file.
+
+## Card and rules fixes
+
+- **Miscreant / main-scheme lookup ([#93](https://github.com/sdolle1775/marvel-lcg/issues/93)):** Fixed a scripting error that treated a scenario-initiated effect as player-initiated when finding the main scheme. Encounter effects can now resolve that lookup without the player-ownership assertion, while scenarios with player-specific main schemes retain their targeting rules.
+- **Carjacking ([#94](https://github.com/sdolle1775/marvel-lcg/issues/94)):** The discarded Vehicle was not identified before the player had to decide whether to spend resources or reveal it. The found card is now presented and named in both choices, including when discarding it empties and reshuffles the encounter deck.
+- **Second Chance ([PR #100](https://github.com/sdolle1775/marvel-lcg/pull/100)):** Added the missing When Defeated effect. Each player may shuffle all identity-specific cards from their discard pile into their deck.
+- **Dynamic Duo ([PR #100](https://github.com/sdolle1775/marvel-lcg/pull/100)):** Added its Team-Up and matching-ally searches. Both selections now finish before the cards move to hand, followed by one deck shuffle. The deck also shuffles when the searches find nothing or select only cards from the discard pile.
+- **Deadly Sai ([#97](https://github.com/sdolle1775/marvel-lcg/issues/97)):** Removed an unprinted boost effect that added another 2 ATK. Its two printed boost icons now resolve without that extra attack bonus; its attachment effects are unchanged.
+- **Eye on the Target ([#98](https://github.com/sdolle1775/marvel-lcg/issues/98)):** Recognizes Bullseye already in play as either a villain or a minion. An existing Bullseye attacks; if he must be found and revealed, the card no longer adds an attack after revealing him.
+- **Daredevil's Acute Tactility and Enhanced Olfaction ([#99](https://github.com/sdolle1775/marvel-lcg/issues/99)):** Moved their last-threat interrupts to before Daredevil removes the final threat. The Sense cards now resolve and discard before the scheme is defeated, allowing interactions such as Focus the Senses to find them at the correct time.
+- **Hunted / Prism Dust ([#104](https://github.com/sdolle1775/marvel-lcg/issues/104)):** Fixed Hunted remaining in the processing area when Prism Dust defeated the fetched minion before Hunted could attach. Hunted now goes to the discard pile and can be retrieved with Undercover Work.
+- **Overkill damage modifiers:** Effects that increase damage taken by the receiving enemy, such as Exploit Weakness, now apply to Overkill damage reaching that enemy. Modifiers to the original attack are not applied a second time.
+- **Disasters encounter icons:** Added the missing crisis icons and their gameplay effect to Mystic Incursion, Sinking Ferry, and Towering Inferno. Corrected Collapsing Bridge to use its printed hazard icon instead of a crisis icon.
+
+## Saves, search display, and performance
+
+- **Replay recovery ([#96](https://github.com/sdolle1775/marvel-lcg/issues/96)):** A saved choice that no longer matched the current prompt could cause an error or leave automatic replay stuck. Loading now stops at a usable prompt, explains which replay step could not be restored, and lets the player choose how to continue. Auto and Next cannot repeatedly submit the rejected choice.
+- **Full-deck search display:** Search previews are now shown only to the player performing the search, including when a different player's deck is searched. Other players and spectators no longer receive the private preview. In hotseat play, the preview clears before control returns to another player. Searches still finish with their normal card movement and shuffle behavior, and searches configured to defer movement or shuffling retain that behavior when no eligible card is found.
+- **Game-log performance ([#101](https://github.com/sdolle1775/marvel-lcg/issues/101)):** Adding a log entry now appends the new entry instead of rebuilding the browser's entire log. This reduces repeated browser work as the history grows. Existing log links, scrolling, and rewind behavior are preserved; this change does not remove the engine's cost of replaying a long game during Undo.
+
+## Rise of Red Skull campaign settings
+
+- **Removed Tech upgrades ([#103](https://github.com/sdolle1775/marvel-lcg/issues/103)):** Kept the single-choice Tech Upgrade radio buttons and added a **Player N tech upgrade removed from campaign - Yes** checkbox for each player. Checking it prevents that player's selected Tech card from being added during campaign setup and removes existing copies from their deck or play area. Another player's copy is unaffected, and checking Yes with no selection does nothing.
+- **Improved conditions:** Added **Player N "Basic" Condition replaced with "Improved" side - Yes** for each player. Campaign setup uses the matching Improved side of their selected Basic condition when checked.
+- **Condition selection and saved settings:** Only Basic conditions can be selected directly. Improved cards remain visible as greyed-out radio choices with hover previews. Existing saved Improved selections load as the corresponding Basic selection with Yes checked, preserving the chosen condition. Each player's removal and improvement flags save independently.
+
+## Windows package and installation
+
+The v1.3.2 package uses the same Python 3.12.13 runtime, pinned dependencies, verified bootloader, PyInstaller one-folder layout, embedded Python module archive, and UPX-disabled configuration used for v1.3.1. The package remains unsigned; matching the build method does not guarantee identical antivirus results.
+
+1. Extract the ZIP into a new, empty folder. Do not overwrite an older installation.
+2. Keep `marvel-lcg.exe` beside the included `_internal` folder.
+3. Copy `campaign_settings.json`, personal saves, replays, campaign logs, and custom decks from the previous installation if desired.
+4. Do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
+5. Verify the archive with its accompanying `.sha256` file.
+
+Standard card artwork is downloaded on demand. This community-maintained build is based on the Irefrixs Team project. See `PATCH_NOTES.md` in the download for the cumulative change list.
+
+---
+
 # Marvel Champions Digital v1.3.1
 
 Application version: **1.3.1r**
