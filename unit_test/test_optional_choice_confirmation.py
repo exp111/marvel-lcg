@@ -1,5 +1,10 @@
 import contextlib
 import io
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -19,7 +24,7 @@ class TestOptionalChoiceConfirmation(unittest.TestCase):
     def setUpClass(cls):
         initialize_database()
 
-    def run_choice(self, command, *, accept, card_id=None, rules=None):
+    def run_choice(self, command, *, accept, card_id=None, rules=None, extra_setup=()):
         scene = SceneLoader.NewScene('rhino', None, ['black_panther_shuri'], 109)
         scene.rules = rules if rules is not None else ['v16_all', 'v18_timing']
         setup = iter([
@@ -28,6 +33,7 @@ class TestOptionalChoiceConfirmation(unittest.TestCase):
             *([f'puzzle.PutIntoPlay("{card_id}")'] if card_id else []),
             'puzzle.Damage("51001a", 2)',
             'puzzle.SetThreat("01097b", 3)',
+            *extra_setup,
         ])
         resolved = False
         prompts = []
@@ -60,7 +66,10 @@ class TestOptionalChoiceConfirmation(unittest.TestCase):
                     # Send the same targetless command as the web client for
                     # a preselected singleton; the controller restores it.
                     return CommandDescriptor(
-                        HeadlessDeviceManager._DescriptorId(prompt.options[0]), [], [])
+                        HeadlessDeviceManager._DescriptorId(prompt.options[0]),
+                        [] if prompt.options[0]['automatic_targets'] else
+                        [str(target) for target in prompt.options[0]['all_legal_targets']
+                         [:prompt.options[0]['target_num_range'][0]]], [])
                 if prompt.show_cancel:
                     return CommandDescriptor()
                 cancel = next(option for option in prompt.options if option['name'] == 'Cancel')
@@ -124,6 +133,73 @@ class TestOptionalChoiceConfirmation(unittest.TestCase):
 
     def test_legacy_timing_also_preserves_the_optional_discard(self):
         self.check_upgrade('51013', False, rules=['v16_all', 'no_v18_timing'])
+
+    def test_spider_bites_optional_discard_with_multiple_enemies(self):
+        for legacy in (False, True):
+            for accept in (False, True):
+                with self.subTest(legacy=legacy, accept=accept):
+                    world, prompt, _ = self.run_choice(
+                        'p.ResolveSpecialAbility([puzzle.FindOrCreateFace("51012")], DebugRule(hero))',
+                        accept=accept, card_id='51012',
+                        rules=['v16_all', 'no_v18_timing' if legacy else 'v18_timing'],
+                        extra_setup=['puzzle.PutIntoPlay("01101")'],
+                    )
+                    player = world.GetFirstPlayer()
+                    upgrade = next(card.face for card in world.object_manager.card_dict.values()
+                                   if card.face.paper.card_id == '51012')
+                    minion = next(card.face for card in world.object_manager.card_dict.values()
+                                  if card.face.paper.card_id == '01101' and card.face.IsInPlay())
+                    self.assertEqual(upgrade.IsInPlay(), not accept)
+                    self.assertEqual(upgrade in player.discard_pile.Get(), accept)
+                    self.assertEqual(minion.health, 2)
+                    self.assertEqual(minion.IsStunned(), accept)
+                    self.assertEqual(world.GetScenario().area_villain.Get()[0].IsStunned(), accept)
+                    self.assertEqual(prompt.options[0]['target_num_range'], [2, 2])
+                    self.assertFalse(prompt.options[0]['automatic_submit'])
+
+    def test_shuri_discard_decisions_do_not_submit_through_client_automation(self):
+        node = shutil.which('node')
+        compiler = shutil.which('tsc.cmd') or shutil.which('tsc')
+        if not node or not compiler:
+            self.skipTest('Node and TypeScript are required for the client regression')
+        fixtures = []
+        for card_id, extra_setup in [
+            ('51010', ()), ('51011', ()), ('51012', ()), ('51013', ()),
+            ('51010', ['puzzle.PutIntoPlay("01101")']),
+            ('51012', ['puzzle.PutIntoPlay("01101")']),
+        ]:
+            world, prompt, _ = self.run_choice(
+                f'p.ResolveSpecialAbility([puzzle.FindOrCreateFace("{card_id}")], DebugRule(hero))',
+                accept=False, card_id=card_id, extra_setup=extra_setup,
+            )
+            fixtures.append({
+                'ask': {
+                    'options_json': json.dumps(prompt.options), 'ability_type': prompt.ability_type,
+                    'event_name': prompt.event_name, 'show_cancel': prompt.show_cancel,
+                },
+                'cards': [{
+                    'id': card.object_id, 'card_id': card.face.paper.card_id,
+                    'name': card.face.name, 'control_player': 0,
+                    'card_type': ('EncounterVillain' if card.face.paper.card_id == '01094'
+                                  else 'Minion' if card.face.paper.card_id == '01101' else 'Upgrade'),
+                    'info': {'engaged_with': 0},
+                } for card in world.object_manager.card_dict.values()],
+            })
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix='marvel-shuri-choices-') as output:
+            result = subprocess.run(
+                [compiler, '-p', str(root / 'public/js/tsconfig.json'), '--outDir', output],
+                cwd=root, capture_output=True, text=True, timeout=60,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            fixture = Path(output) / 'prompts.json'
+            fixture.write_text(json.dumps(fixtures), encoding='utf-8')
+            result = subprocess.run(
+                [node, str(root / 'unit_test/shuri_optional_discard_ui.cjs'),
+                 str(Path(output) / 'marvel'), str(fixture)],
+                cwd=root, capture_output=True, text=True, timeout=30,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_optional_choice_without_a_cancel_ability_requires_confirmation(self):
         for accept in (False, True):

@@ -46,7 +46,9 @@ class ControllerManager:
 
         self.controllers = self.controllers[:total_players]
 
+        watching_replay = bool(state and state.is_undo and self.replay.is_replay)
         self.replay.Clean()
+        self.replay.SetIsReplay(watching_replay)
 
         if scene:
             inputs = scene.inputs

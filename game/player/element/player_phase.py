@@ -86,7 +86,9 @@ class PlayerPhase:
 
         faces: List[CardFace] = []
         effect = EndPhase(player)
-        for face in player.GetControlCards():
+        # Obligations are encounter cards in the player's play area and must
+        # ready here too, even though the player does not control them.
+        for face in player.GetControlCards() + player.obligations_area.Get():
             faces.append(face)
             for upgrade in face.GetInventoryDeck().Get():
                 faces.append(upgrade)

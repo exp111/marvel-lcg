@@ -135,6 +135,46 @@ class GameSession:
         data = Json.SaveString(scene, ignore_check_sum=False)
         return data
 
+    def ReplaySnapshot(self) -> 'Scene':
+        import copy
+
+        if not self.scene:
+            raise ValueError("No game is available to save")
+        replay = self.game.controller_manager.replay
+        keep_recording = replay.is_replay and replay.replay_step_id < len(replay.replay_inputs)
+        inputs = replay.replay_inputs if keep_recording else replay.history_inputs
+        snapshot = copy.deepcopy(self.scene)
+        if not snapshot.is_puzzle:
+            playtime = Time.GetTime() - self.start_time + self.scene.playtime
+            snapshot.PrepareSave(self.game, playtime=playtime)
+        snapshot.inputs = copy.deepcopy(inputs)
+        if not keep_recording:
+            world = self.world
+            snapshot.SetMetadataBool("replay_complete", bool(
+                world and world.is_game_over and not world.game_over.is_game_exit_or_undo
+            ))
+        return snapshot
+
+    def SaveReplay(self) -> str:
+        import uuid
+        import os
+
+        snapshot = self.ReplaySnapshot()
+        if snapshot.is_puzzle:
+            raise ValueError("Only regular games can be saved to the replay library")
+        if not REPLAY_FOLDERS.value:
+            raise ValueError("No replay folder is configured")
+        # The main-menu library includes this folder even when other replay
+        # folders are hidden. Never replace the recording currently being watched.
+        file_name = FileManager.JoinPath(
+            REPLAY_FOLDERS.value[0],
+            f"{snapshot.GetSaveFileName()}-{uuid.uuid4().hex[:8]}.json",
+        )
+        snapshot.SetMetadataStr("path", file_name.replace("\\", "/"))
+        FileManager.MakeDir(FileManager.GetDirName(file_name))
+        Json.Save(snapshot, file_name, ignore_check_sum=False)
+        return os.path.abspath(file_name)
+
     def SaveScene(self, name: str|None=None, *, ex_save_name: str|None=None, delete_old: bool) -> str|None:
         from game.test import Test
 
@@ -196,7 +236,11 @@ class GameSession:
             self.world.game_over.SetUndo()
         self.ExitWait()
         skip_to = self.game.controller_manager.replay.current_step_id - undo
-        self.game.ApplyHistoryInput()
+        if self.game.controller_manager.replay.is_replay:
+            # Seeking within playback retains the complete source recording.
+            self.scene.inputs = self.game.controller_manager.replay.replay_inputs[:]
+        else:
+            self.game.ApplyHistoryInput()
         self.game.controller_manager.skip.SetSkipTo(skip_to)
         self.game.controller_manager.replay.Clear()
         self.game.state.SetStartState('Undo')

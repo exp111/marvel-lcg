@@ -10,8 +10,18 @@ def GetAbilities() -> Sequence['Ability']:
 
         for target in effect.targets:
             player = target.GetControlByPlayer()
-            player.DrawUp(2, effect)
-            player.DiscardHandCards(("Zero", 2), effect)
+
+            def draw_and_discard(targets: Sequence['CardFace']):
+                player.DrawUp(2, effect)
+                player.DiscardHandCards(("Zero", 2), effect)
+
+            player.MayChooseOneAbility(
+                effect,
+                AbilityFactory.ForChoiceAbility(
+                    "Draw 2 cards, then discard 2 cards",
+                    draw_and_discard,
+                ),
+            )
 
 
     return [

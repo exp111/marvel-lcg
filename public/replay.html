@@ -189,7 +189,8 @@
     </style>
 
     <fieldset style="flex-direction: column; position: relative; align-items: flex-start;" id="replay-items">
-        <legend>Game Replay</legend>
+        <legend>Replay library</legend>
+        <p>Watch a saved recording, or resume the game from its last recorded choice.</p>
     </fieldset>
 
     <fieldset style="flex-direction: column; position: relative; align-items: flex-start;" id="puzzle-items">
@@ -214,7 +215,7 @@ Please be cautious and only use trusted content.
     </fieldset>
 <script>
 class JsonData {
-    constructor(version, is_puzzle, time, cover, path, comment, villain, players, seed, checksum, author, step) {
+    constructor(version, is_puzzle, time, cover, path, comment, villain, players, seed, checksum, author, step, replay_complete) {
         this.version = version;
         this.is_puzzle = is_puzzle
         this.time = time
@@ -227,6 +228,7 @@ class JsonData {
         this.checksum = checksum
         this.author = author
         this.step = step
+        this.replay_complete = replay_complete
     }
 }
 
@@ -260,6 +262,7 @@ async function create_item(file_name, is_replay) {
         jsonData.checksum,
         jsonData.author,
         jsonData.step,
+        jsonData.replay_complete,
     );
 
     let cover = dataInstance.cover
@@ -336,6 +339,20 @@ async function create_item(file_name, is_replay) {
     // Append the image div and button to the main div
     replayItemDiv.appendChild(imagesDiv);
     replayItemDiv.appendChild(commentDiv);
+    if( is_replay ) {
+        const actions = document.createElement('div')
+        for( const [label, resume] of [['Watch replay', false], ['Resume game', true]] ) {
+            const button = document.createElement('button')
+            button.textContent = label
+            button.disabled = resume && dataInstance.replay_complete === true
+            button.onclick = event => {
+                event.stopPropagation()
+                doReplay(file_name, true, resume)
+            }
+            actions.appendChild(button)
+        }
+        replayItemDiv.appendChild(actions)
+    }
     // replayItemDiv.appendChild(buttonElement);
 
     return replayItemDiv;
@@ -386,21 +403,21 @@ if( is_puzzle_page ) {
     }
 })()
 
-function doReplay(file_name, is_replay) {
+function doReplay(file_name, is_replay, resume=false) {
     // let file_name = document.querySelector(`#replay_files`).selectedOptions[0].text
     var ajax = new XMLHttpRequest();
     let cmd = ""
     if( is_puzzle_page ) {
         cmd = `load_puzzle?${file_name}`
     } else {
-        cmd = `load_replay?${file_name}`
+        cmd = `${resume ? 'resume_replay' : 'load_replay'}?${file_name}`
     }
     ajax.open("GET", cmd, true);
     ajax.onreadystatechange = function () {
-        if( this.readyState == 4 ) {
+        if( this.readyState == 4 && this.status == 200 ) {
             console.log('ok')
             cmd = ".?hot_seat&3d_scene"
-            if( is_replay ) {
+            if( is_replay && !resume ) {
                 cmd = `${cmd}&replay`
             }
             window.open(cmd)

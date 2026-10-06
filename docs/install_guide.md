@@ -25,8 +25,14 @@ uses the same version when opening setup and utility pages.
 ### 1. Install the prerequisites
 
 Install [Python](https://www.python.org/downloads/) and
-[Node.js](https://nodejs.org/en/download). Python 3.10 and Python 3.14 are
-supported; the current development build has been verified with Python 3.14.
+[Node.js](https://nodejs.org/en/download). Python 3.10 through Python 3.14 are
+supported for running the source-code development build. The commands below use
+Python 3.14 because the current development build has been verified with that
+version.
+
+This development environment is separate from the environment used to create
+official releases. Reproducible release builds must use exactly Python 3.12.13
+and the pinned release dependencies described in the [release guide](release_guide.md).
 
 ### 2. Download the source
 

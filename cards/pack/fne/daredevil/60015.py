@@ -3,9 +3,9 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
-    def defeated_by_your_attorney(
+    def defeated_by_attorney(
         effect: 'Effect',
-        message: 'Message.WhenSchemeBeDefeated',
+        message: 'Message.AfterUnitDefeatedScheme',
     ) -> bool:
         finder = CardFinder(
             card_type=AlterEgo|Hero|Ally|Support,
@@ -15,16 +15,16 @@ def GetAbilities() -> Sequence['Ability']:
 
     def nelson_and_murdock(
         effect: 'Effect',
-        message: 'Message.WhenSchemeBeDefeated',
+        message: 'Message.AfterUnitDefeatedScheme',
     ) -> None:
         Faces.GiveStatus(effect.targets, "Confused", effect)
 
     return [
-        AbilityFactory.WhenSchemeBeDefeated(
+        AbilityFactory.AfterUnitDefeatedScheme(
             AbilityType.Response,
+            None,
             SchemeSide2,
             nelson_and_murdock,
-            has_defeating_player=True,
-            conditions=[defeated_by_your_attorney],
+            conditions=[defeated_by_attorney],
         ).SetTarget(Enemy, canbe_confused=True),
     ]

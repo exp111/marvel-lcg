@@ -4,6 +4,7 @@ import { Notify } from "./notify.js";
 export class Command {
 
     private static newWindow: Window|null = null
+    private static savingReplay = false
 
     static setLastClickCard(card_div: HTMLElement) {
         if( Command.newWindow && !Command.newWindow.closed ) {
@@ -24,11 +25,23 @@ export class Command {
     }
 
     static async saveLocal() {
-        const response_block_thread = await fetch("save_local?");
-        const text = await response_block_thread.text();
-        // const text = "A"
-        // prompt(`Your save file has been saved in:`, text)
-        Notify.showCommand(`Your save file has been saved in: ${text}`)
+        if( Command.savingReplay ) return
+        Command.savingReplay = true
+        try {
+            const response = await fetch("save_local", { method: 'POST' })
+            if( !response.headers.get('Content-Type')?.includes('application/json') ) {
+                throw new Error('The server returned an unexpected save response. Reload the game page.')
+            }
+            const result = await response.json()
+            if( !response.ok || !result.path ) {
+                throw new Error(result.error || 'The replay could not be saved.')
+            }
+            Notify.create('REPLAY', '', `Saved to ${result.path}. Open Replay on the main menu to watch.`, 6)
+        } catch( error ) {
+            Notify.create('SAVE FAILED', '', error instanceof Error ? error.message : 'The replay could not be saved.', 6)
+        } finally {
+            Command.savingReplay = false
+        }
     }
 
     static async uploadSave(save_type: "Bug"|"Crash"|"Share", comment: string="") {

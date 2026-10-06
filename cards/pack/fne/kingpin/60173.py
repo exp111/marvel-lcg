@@ -9,7 +9,7 @@ def GetAbilities() -> Sequence['Ability']:
         player = message.GetDefeatingPlayer()
         scheme = Worlds.FindCardOnField(
             effect,
-            CardFinder(card_type=SideScheme, is_nemesis=player),
+            CardFinder(card_type=EncounterSideScheme, is_nemesis=player),
         )
         if scheme:
             effect.this.PlaceThreatOnSchemes([scheme], 3, effect)
@@ -18,7 +18,7 @@ def GetAbilities() -> Sequence['Ability']:
                 effect,
                 player,
                 who_perform=player,
-                finder=CardFinder(card_type=SideScheme, is_nemesis=player),
+                finder=CardFinder(card_type=EncounterSideScheme, is_nemesis=player),
             )
 
     return [

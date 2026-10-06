@@ -80,6 +80,30 @@ class GameServerNewGame(GameServerBase):
         self.game.LoadReplay(request.rel_url.query_string)
         return web.json_response({'result': "New game created"})
 
+    async def resume_replay(self, request: web.Request) -> web.Response:
+        self.game.session.Load(request.rel_url.query_string, -1, "Load")
+        self.controller_manager.OnNewGame()
+        return web.json_response({'result': "Saved game loaded"})
+
+    async def continue_replay(self, request: web.Request) -> web.Response:
+        if not self.controller_manager.replay.IsReplayFinished():
+            return web.json_response({'error': "The recording has not ended"}, status=409)
+        if not self.game.world or self.game.world.is_game_over:
+            return web.json_response({'error': "This game has already ended"}, status=409)
+        self.controller_manager.replay.SetIsReplay(False)
+        self.game.world.render.PresentForceNoWait()
+        # Keep the waiting player so DoGetInput returns None and re-prompts.
+        # Clearing asking_players here would consume an empty gameplay choice.
+        self.device_manager.notify.ExitWait()
+        return web.json_response({'result': "Continue playing"})
+
+    async def save_local(self, request: web.Request) -> web.Response:
+        try:
+            path = self.game.session.SaveReplay()
+        except Exception as exc:
+            return web.json_response({'error': f"Could not save replay: {exc}"}, status=500)
+        return web.json_response({'path': path, 'result': "Replay saved"})
+
     async def load_replay_data(self, request: web.Request) -> web.Response:
         from game.scene.scene import Scene
 
@@ -107,7 +131,7 @@ class GameServerNewGame(GameServerBase):
         return web.json_response({'result': "New game created"})
 
     async def save_replay_data(self, request: web.Request) -> web.Response:
-        data = Json.SaveString(self.game.scene, ignore_check_sum=False)
+        data = Json.SaveString(self.game.session.ReplaySnapshot(), ignore_check_sum=False)
         compressed_data = Json.DumpGZip(data)
         self.device_manager.AddSize("Save", len(compressed_data))
         return web.Response(body=compressed_data, content_type='application/json', headers={'Content-Encoding': 'gzip'})
@@ -214,6 +238,11 @@ class GameServerNewGame(GameServerBase):
         self.AddPostSecurity('/clear_campaign_settings', self.clear_campaign_settings)
         self.AddAwaitGetSecurity('/new_debug', self.new_debug)
         self.AddAwaitGetSecurity('/load_replay', self.load_replay)
+        self.AddAwaitGetSecurity('/resume_replay', self.resume_replay)
+        self.AddPostSecurity('/continue_replay', self.continue_replay)
+        self.AddPostSecurity('/save_local', self.save_local)
+        # Older cached clients used GET for this explicit save button.
+        self.AddAwaitGetSecurity('/save_local', self.save_local)
         self.AddPostSecurity('/load_replay_data', self.load_replay_data)
         self.AddAwaitGetSecurity('/save_replay_data', self.save_replay_data)
         self.AddAwaitGetSecurity('/load_puzzle', self.load_puzzle)

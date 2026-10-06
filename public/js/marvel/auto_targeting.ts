@@ -18,6 +18,9 @@ export class AutoEffect {
         if (Effect.response_json_ask.options.length !== 1) {
             return false;
         }
+        if (!Effect.response_json_ask.options[0].automatic_submit) {
+            return false;
+        }
         let name = Effect.response_json_ask.options[0].name_with_space;
         if (["Flip to alter-ego form", "Ask", "Change form", "Change Form", 'Defense'].includes(name)) {
             return false;

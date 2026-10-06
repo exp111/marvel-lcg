@@ -36,6 +36,7 @@ class InputModule:
         self.replay_step_id = 0
         self.is_updated = False
         self.calculated_crc = []
+        self.is_replay = False
 
     def Clear(self):
         self.break_on = []
@@ -45,6 +46,9 @@ class InputModule:
 
     def SetIsReplay(self, replay: bool):
         self.is_replay = replay
+
+    def IsReplayFinished(self) -> bool:
+        return self.is_replay and self.replay_step_id >= len(self.replay_inputs)
 
     def SetBreakOn(self, break_on: List[int]):
         self.break_on = break_on

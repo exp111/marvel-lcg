@@ -399,6 +399,12 @@ class CanHealth(HasHealth):
         would_take_damage_message = Message.WhenUnitWouldTakeDamage(this, source, property, by_effect, would_deal_damage_message)
         would_take_damage_message.Send()
         if would_take_damage_message.is_be_instead:
+            if (would_take_damage_message.total_prevent_damage > 0 and
+                    would_take_damage_message.will_take_damage == 0):
+                # Prevention replaces taking damage, but damage was still dealt.
+                return Message.AfterUnitLossHealthHelper(
+                    None, would_take_damage_message, would_take_damage_message.overkill_damage
+                )
             return None
         if would_attack_unit_message and not source.IsInPlay():
             return None

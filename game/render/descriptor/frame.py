@@ -15,5 +15,6 @@ class FrameDescriptor:
     player_id           : int
     total_players       : int
     show_deck_during_full_search: bool
+    is_replay           : bool = False
     # is_skipping         : bool
 
