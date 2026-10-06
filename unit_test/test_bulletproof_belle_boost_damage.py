@@ -2,9 +2,10 @@ import contextlib
 import io
 from pathlib import Path
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 from engine import Engine
+from engine.lib import Ver
 from cards.database import CardsDB
 from engine.log import Log
 from game.message import Message
@@ -96,6 +97,7 @@ class TestBulletproofBelleBoostDamage(unittest.TestCase):
             return (CommandDescriptor() if prompt.show_cancel
                     else HeadlessDeviceManager._DefaultChoice(prompt))
 
+        scene = validate_file(SAVE)
         devices = HeadlessDeviceManager(choice_provider=choose)
         with (
             contextlib.redirect_stdout(io.StringIO()),
@@ -107,9 +109,11 @@ class TestBulletproofBelleBoostDamage(unittest.TestCase):
             patch.object(Log, "Warn") as warnings,
             patch.object(Engine, "SaveCrash"),
         ):
-            game = run_scene_with_devices(validate_file(SAVE), devices, load_type="InTesting")
+            game = run_scene_with_devices(scene, devices, load_type="InTesting")
         errors.assert_not_called()
-        warnings.assert_not_called()
+        expected_warnings = [call("VERSION", f"Version {scene.version} is lower than last version {Ver.version}")] \
+            if Ver(scene.version) < Ver.version else []
+        self.assertEqual(warnings.call_args_list, expected_warnings)
         self.assertEqual(starting_state, [(11, True)])
         self.assertIsNotNone(devices.stopped_prompt)
         self.assertEqual(devices.prompts[0].event_name, "WhenUnitBeingAttack")

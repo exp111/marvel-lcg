@@ -2,9 +2,10 @@ import contextlib
 import io
 from pathlib import Path
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 from engine import Engine
+from engine.lib import Ver
 from cards.database import CardsDB
 from engine.log import Log
 from game.card.face.card_type.minion import Minion
@@ -44,7 +45,9 @@ class TestNightcrawlerForcedChoices(unittest.TestCase):
                 scene, devices, load_type="InTesting" if replay else "New",
             )
         errors.assert_not_called()
-        warnings.assert_not_called()
+        expected_warnings = [call("VERSION", f"Version {scene.version} is lower than last version {Ver.version}")] \
+            if Ver(scene.version) < Ver.version else []
+        self.assertEqual(warnings.call_args_list, expected_warnings)
         self.assertIsNotNone(devices.stopped_prompt)
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
         return game

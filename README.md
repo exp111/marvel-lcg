@@ -4,11 +4,11 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest release: v1.3.2
+## Latest release: v1.3.3
 
-[Download Community Build v1.3.2 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.2)
+[Download Community Build v1.3.3 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.3).
 
-v1.3.2 adds per-player Red Skull campaign upgrade controls, reduces browser work when updating the game log, and corrects full-deck search privacy, Overkill modifiers, Disasters icons, Second Chance, Dynamic Duo, Miscreant, Carjacking, replay recovery, Deadly Sai, Eye on the Target, Daredevil's Sense interrupts, and Hunted cleanup. It includes all earlier v1.3 releases and content, including:
+v1.3.3 adds a complete local replay library with playback that stops at the recording's endpoint, restores optional discard and Psi-Weapon choices, corrects card and scenario timing, restores the sparkles animation, and updates community credits. It also fixes form-change entry triggers, upgrade discounts, Victory ordering, Kang's keywords, Purple Man's obligations, Nightcrawler's forced choices, Bulletproof Belle/Tough prevention, Kingpin's side-scheme reveals, and Synth-Suit. The main menu and Credits display **Community Build v1.3.3r**. It includes all earlier v1.3 releases and content, including:
 
 - The complete **Fear No Evil** box: Daredevil and Echo, all player cards, five interchangeable Underling villains, five interchangeable scenarios, Kingpin's standalone scenario, all six modular encounter sets, and the full campaign.
 - Rules Reference v1.8 simultaneous timing, enabled by default for new games. Interrupts and responses created by one occurrence share the correct timing window and can be resolved in player-chosen order. The legacy timing dispatcher remains available through the Rule settings.
@@ -20,11 +20,11 @@ Campaign setup choices are saved in `campaign_settings.json`. When installing a 
 
 See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/install_guide.md) for details.
 
-## Antivirus notice and Windows packaging
+## Windows packaging
 
-v1.3.2 uses the same Python 3.12.13 runtime, pinned release dependencies, verified bootloader, PyInstaller one-folder package with an embedded Python module archive, and UPX-disabled configuration used for v1.3.1. The one-folder layout avoids extracting the executable into a temporary directory at startup.
+v1.3.3 uses the v1.3.2 release environment: Python 3.12.13, the same pinned dependencies and verified locally compiled bootloader, PyInstaller's one-folder package with an embedded Python module archive, and UPX disabled. The one-folder layout avoids extracting the executable into a temporary directory at startup.
 
-The Windows package remains unsigned. VirusTotal reported antivirus detections for the v1.3.2 executable; the [public VirusTotal report](https://www.virustotal.com/gui/file/7572b331addeede32e964618da9d7d0a61a0869b736046de3df8d89e8c28fe75?nocache=1) is provided for transparency and matches the exact executable included in this release (SHA-256: `7572b331addeede32e964618da9d7d0a61a0869b736046de3df8d89e8c28fe75`). The same executable passed a local Microsoft Defender custom scan before publication. Detection results can differ between engines and change over time; treat this as an unresolved antivirus warning and scan the downloaded package yourself. Verify the ZIP with its accompanying `.sha256` file.
+Verify the downloaded archive with its accompanying `.sha256` file.
 
 ## Community build highlights
 
