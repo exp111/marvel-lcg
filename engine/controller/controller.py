@@ -111,6 +111,24 @@ class Controller:
         else:
             effect_descriptors = [effect.Render(by_effect, self.player_id) for effect in effect_list]
 
+        optional_target_count = (
+            isinstance(message, Message.WhenPlayerChooseAbility)
+            and len(effect_descriptors) == 1
+            and effect_descriptors[0].target_num_range[0] == 0
+            and effect_descriptors[0].target_num_range[1] > 0
+        )
+
+        # A sole target does not make an optional ability mandatory. The
+        # choice can be declined through either the prompt's Cancel button
+        # or the explicit Cancel ability added by MayChooseOneAbility. A
+        # zero-to-N selection also leaves its amount up to the player.
+        if isinstance(message, Message.WhenPlayerChooseAbility) and (
+            is_forced == False or optional_target_count
+            or any(effect.IsName("Cancel") for effect in effect_list)
+        ):
+            for descriptor in effect_descriptors:
+                descriptor.automatic_submit = False
+
         # Load replay
         is_puzzle = message.world.scene.is_puzzle
         replay_input, read_ok = controller_manager.replay.GetReplayOperation(is_puzzle)
@@ -315,7 +333,7 @@ class Controller:
                         ability_type=priority.name,
                         event_name=message_name,
                         prompt_text=prompt_text,
-                        show_cancel=is_forced == False,
+                        show_cancel=is_forced == False or optional_target_count,
                         replay_input=fallthrough_input,
                     )
                 )
@@ -365,15 +383,15 @@ class Controller:
                     is_empty_choice = input_effect_id == 0
                 if is_empty_choice:
                     if not Controller.CanSubmitEmptyChoice(is_forced, effect_descriptors):
-                        # A stale replay or client can submit an empty command even
-                        # though this forced choice still requires targets. Stop
-                        # replaying that command and leave the prompt open.
+                        # A client clears its options after posting. Refresh the
+                        # world even when it was not skipping so it can retrieve
+                        # this required choice again instead of getting stuck.
                         replay_input = None
                         fallthrough_input = "{}"
                         convert_fallthrough_input = "{}"
-                        if controller_manager.skip.SetIsSkipping(False):
-                            if self.world:
-                                self.world.render.PresentForceNoWait()
+                        controller_manager.skip.Clean()
+                        if self.world:
+                            self.world.render.PresentForceNoWait()
                         continue
                     break
 

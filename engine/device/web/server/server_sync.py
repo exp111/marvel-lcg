@@ -18,6 +18,10 @@ class GameServerSync(GameServerBase):
         return int(request.rel_url.query.get('g', 0))
 
     async def handle_debug_command(self, request: web.Request) -> web.Response:
+        if self.controller_manager.replay.IsReplayFinished():
+            return web.json_response(
+                {'error': "End of recording. Choose Continue game to play."}, status=409,
+            )
         controller = self.get_first_controller(request)
         controller_manager = controller.manager
         debug_cmd = Unquote(request.rel_url.query_string)
@@ -62,6 +66,8 @@ class GameServerSync(GameServerBase):
 
         if data == None:
             return web.json_response({})
+
+        data['replay_finished'] = self.controller_manager.replay.IsReplayFinished()
 
         Log.Debug(CATEGORY_NAME, f"[Client] ask_player_id: {player_ids}")
 
@@ -129,6 +135,10 @@ class GameServerSync(GameServerBase):
         return web.Response(body=compressed_data, content_type='application/json', headers={'Content-Encoding': 'gzip'})
 
     async def handle_post(self, request: web.Request) -> web.Response:
+        if self.controller_manager.replay.IsReplayFinished():
+            return web.json_response(
+                {'error': "End of recording. Choose Continue game to play."}, status=409,
+            )
         post_data = await request.text()
         player_ids = self.get_player_ids(request)
         post_json = Unquote(post_data)

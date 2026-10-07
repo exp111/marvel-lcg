@@ -253,6 +253,7 @@ export class AskOptionPayload {
     prompt_text: string;
     show_cancel: boolean;
     replay_input: string;
+    replay_finished: boolean;
     ability_type: string;
 
     constructor(obj: {
@@ -262,6 +263,7 @@ export class AskOptionPayload {
         prompt_text: string;
         show_cancel: boolean;
         replay_input: string;
+        replay_finished?: boolean;
     }) {
         this.options = []
         for( let x of JSON.parse(obj.options_json) as EffectDescriptor[] ) {
@@ -271,6 +273,7 @@ export class AskOptionPayload {
         this.prompt_text = obj.prompt_text;
         this.show_cancel = obj.show_cancel;
         this.replay_input = obj.replay_input;
+        this.replay_finished = obj.replay_finished === true;
         this.ability_type = obj.ability_type;
 
         // type(message) is Message.WhenPlayerChooseAbility or effect_list[0].is_forced,

@@ -1,3 +1,64 @@
+# Marvel Champions Digital v1.3.3
+
+Application version: **1.3.3r**
+Windows file version: **1.3.3.0**
+
+This release includes all changes since v1.3.2. The previous v1.3 release descriptions follow below.
+
+## Local replay library and playback
+
+- **Save Replay ([#122](https://github.com/sdolle1775/marvel-lcg/issues/122)):** Saves the complete recorded game history locally in the configured replay folder, including completed games. Saved recordings are available from **Replay** on the main menu without manually moving a browser download into the replay folder.
+- **Playback controls:** Replay mode follows the recorded choices with Next or Auto and stops at the end of the recording. It stays in playback until the player explicitly chooses **Continue Game**, instead of silently switching to normal play. Normal save loading remains available for resuming a game.
+- **Replay handling:** Added safe replay-library filenames, refreshed local replay listings, and retained the full recording when replaying or saving it again.
+
+## Card and scenario fixes
+
+- **Pawn Shop Showdown ([#105](https://github.com/sdolle1775/marvel-lcg/issues/105)):** The upgrade discount applies to the destination play area and is consumed by the first actual upgrade play each round, including a zero-cost upgrade. Cost previews and putting an upgrade into play without playing it no longer consume the discount. Upgrade costs are checked separately for their possible destinations.
+- **Hung Out to Dry and form changes ([#106](https://github.com/sdolle1775/marvel-lcg/issues/106)):** Changing an identity's form or flipping an upgrade no longer counts as entering play. This prevents false obligation triggers and extra Pawn Shop Showdown threat, including Vision's mass-form changes. Continuous modifiers, health checks, statuses, attachments, counters, and printed form-change abilities still refresh correctly. Uses are initialized on setup without being refilled by later flips; Collector's health recovery is preserved.
+- **Daredevil's Acute Tactility and Enhanced Olfaction ([#107](https://github.com/sdolle1775/marvel-lcg/issues/107)):** Their enemy-defeat Interrupts resolve before the enemy and attached Sense cards leave play, so Daredevil can receive the printed benefits at the correct time.
+- **Teamwork ([#108](https://github.com/sdolle1775/marvel-lcg/issues/108)):** The entering minion activates under the current rules without incorrectly activating existing minions or requiring a legacy rule switch.
+- **Stun and confuse ([#109](https://github.com/sdolle1775/marvel-lcg/issues/109)):** The v1.8 workflow permits an attack or thwart ability to clear the corresponding status even when it has no otherwise valid target. This also fixes attack/thwart Specials during Wakanda Forever, including Vibranium Suit.
+- **Berserker Barrage ([#113](https://github.com/sdolle1775/marvel-lcg/issues/113)):** Repeated attacks finish correctly when the player chooses to use the event's follow-up.
+- **Defeat and Victory ([#115](https://github.com/sdolle1775/marvel-lcg/issues/115)):** Defeat abilities finish before the defeated card moves to the victory display. The deterministic Victory destination no longer adds a redundant ordering choice. Older recordings with that choice remain aligned when loaded.
+- **Kang's separate game areas ([#116](https://github.com/sdolle1775/marvel-lcg/issues/116)):** Retaliate and Vulnerable continue to resolve after players move into Kang's stage-two game areas.
+- **Purple Man's command obligations ([#117](https://github.com/sdolle1775/marvel-lcg/issues/117)):** Obligations in a player's play area now ready during that player's end phase, allowing their printed once-per-turn actions and limited uses to work on later turns.
+- **Nightcrawler and forced timing choices ([#118](https://github.com/sdolle1775/marvel-lcg/issues/118)):** Mandatory ordering choices cannot be skipped with End or an empty submission. The prompt refreshes instead of leaving the round-end discard sequence stuck. The reported Azazel engagement occurred in alter-ego form, where Quickstrike correctly does not attack.
+- **Bulletproof Belle and Tough ([#119](https://github.com/sdolle1775/marvel-lcg/issues/119)):** Damage prevention records the prevented damage correctly and allows damage-dealt responses to resolve even when Tough prevents damage taken. Bulletproof Belle prevents attack damage while the attack continues through its remaining resolution. Separate boost damage can still consume Tough before the attack's damage is prevented.
+- **Kingpin's side-scheme searches ([#120](https://github.com/sdolle1775/marvel-lcg/issues/120)):** Organized Crime and nemesis side schemes are found and revealed as encounter side schemes, preventing the reported failure during the Kingpin/Bishop game.
+- **Synth-Suit ([#124](https://github.com/sdolle1775/marvel-lcg/issues/124)):** Its optional ready response occurs after the controller's Preparation ability finishes resolving, including Ready for a Fight changing form and defending. Internal temporary effects do not produce duplicate responses.
+- **Imprisoned:** Corrected its reveal and attachment flow so it attaches to the affected identity without repeating attachment setup. Its printed restrictions, payment options, and boost reveal still apply.
+- **Related response timing:** Runaway Nuclear Reaction resolves after damage is dealt to Radioactive Man, counts that damage even when Tough prevents damage taken, excludes Overkill damage to the villain, and does not trigger again from its own explosion. Nelson and Murdock responds after an Attorney defeats a side scheme; Hammerhead's Consolidate Power responds after a minion is defeated; Flight of the Valkyrior remembers the Death-Glow enemy through the defeat and offers its response afterward. Deadpool's mandatory consequential-damage healing uses a Forced Interrupt.
+- **Psylocke's Psi-Weapons ([#130](https://github.com/sdolle1775/marvel-lcg/issues/130)):** Generating resources offers an explicit **Keep** or **Flip** choice for the weapon used. Automatic targeting no longer flips it without consent. Removed an unprinted exhaust-to-flip action while retaining Psylocke's printed basic-power Interrupt.
+
+## Optional choices and discards
+
+- **Optional ability choices ([#114](https://github.com/sdolle1775/marvel-lcg/issues/114)):** A single legal optional outcome still requires confirmation. Automatic targeting can select a deterministic target inside a chosen ability without accepting the optional ability itself.
+- **Shuri's upgrade Specials ([#131](https://github.com/sdolle1775/marvel-lcg/issues/131)):** Players may keep each upgrade and resolve its initial Special or explicitly discard it for the printed bonus, with automatic targeting enabled or disabled.
+- **Other optional discards:** Restored explicit decisions for Melinda May's inspected encounter card, Weapons Training, Goldballs' attack bonus, Stryfe's discard option, and Magnetic Missile's discard-or-damage choice. Declining an optional discard still resolves the required remaining instructions.
+- **S.H.I.E.L.D. Mobile Bunker:** The recipient may decline before drawing or discarding; accepting still requires the printed two-card discard.
+- **Required costs:** Mandatory discards and minimum discard costs, including Adam Warlock's events, remain mandatory. Optional discard quantities and player decisions are no longer submitted automatically by the client.
+
+## Interface, assets, and credits
+
+- **Sparkles animation ([#123](https://github.com/sdolle1775/marvel-lcg/issues/123)):** Restored the missing `sparkles.gif` interface texture, added attribution, and made it a required release input. Interface textures, including this animation and Storm's weather assets, are bundled; standard card artwork continues to download on demand.
+- **Credits:** Shows the running community-build version, credits Sam (sdolle1775) and community contributors, links to community source and releases, and retains a dedicated original-development credit for the Irefrixs Team.
+- **Version display:** The main menu and Credits show **Community Build v1.3.3r** from the live application version. Updated the gameplay interface's cache version and the executable's Windows version to match this release.
+- **Development instructions:** Clarified installation dependencies and the recommended source-checkout setup.
+
+## Windows package and installation
+
+Built using the v1.3.2 release environment: Python 3.12.13, the same pinned dependencies and verified locally compiled bootloader, PyInstaller's one-folder layout with an embedded Python module archive, and UPX disabled. Verify the downloaded ZIP with its accompanying `.sha256` file.
+
+1. Extract the ZIP into a new, empty folder rather than overwriting an older installation.
+2. Keep `marvel-lcg.exe` beside the included `_internal` folder.
+3. Copy `campaign_settings.json`, personal saves, the `replays` folder, campaign logs, and custom decks from your previous installation if desired.
+4. Do not copy the old executable or old `public`, `data`, or cache folders into the new installation.
+5. Open **Replay** on the main menu to watch locally saved recordings; choose **Continue Game** only when you want to resume play from the recording's endpoint.
+
+Standard card artwork is downloaded on demand. This community-maintained build is based on the original Irefrixs Team project.
+
+---
+
 # Marvel Champions Digital v1.3.2
 
 Application version: **1.3.2r**

@@ -13,7 +13,7 @@ def GetAbilities() -> Sequence['Ability']:
                 Worlds.GetFirstPlayer(effect),
                 who_perform=Worlds.GetFirstPlayer(effect),
                 name="Organized Crime",
-                card_type=SideScheme,
+                card_type=EncounterSideScheme,
             )
 
     return [AbilityFactory.WhenThisRevealed(None, revealed)]

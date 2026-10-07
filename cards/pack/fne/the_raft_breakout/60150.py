@@ -19,7 +19,6 @@ def GetAbilities() -> Sequence['Ability']:
         effect.this.Reveal(message.GetToPlayer(), effect)
 
     return [
-        AbilityFactory.AttachToFaceWhenPutIntoPlay("YourIdentity"),
         AbilityFactory.PlayersCannotThwartWhile(
             "AttachedPlayer",
             Scheme2,

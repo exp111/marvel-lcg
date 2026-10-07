@@ -7,3 +7,5 @@ This repository is a community-maintained derivative build. The upstream develop
 Marvel, Marvel Champions: The Card Game, character names, card artwork, and related marks and assets belong to their respective owners. This project is unofficial, non-commercial, and is not affiliated with or endorsed by Marvel, Fantasy Flight Games, or their licensors.
 
 The main release package does not contain the downloaded standard card-image cache. At runtime, card artwork can be requested from the image services configured in `launch.json` and cached on the user's computer. The included `assets` content is limited to the small runtime sounds and interface textures used by the application.
+
+`assets/textures/sparkles.gif` is an original community-build replacement animation for the ultra-rare card effect. The upstream source references this filename, but the upstream v0.5.9.200 download does not contain it.

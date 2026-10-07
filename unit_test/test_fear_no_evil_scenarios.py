@@ -636,11 +636,11 @@ class TestRaftBreakoutMechanics(unittest.TestCase):
     def test_imprisoned_has_both_discard_costs_and_all_three_restrictions(self):
         module = import_module("cards.pack.fne.the_raft_breakout.60150")
         abilities = module.GetAbilities()
-        self.assertEqual(len(abilities), 7)
+        self.assertEqual(len(abilities), 6)
+        self.assertEqual(abilities[3].flags.ability_type, AbilityType.HeroAction)
         self.assertEqual(abilities[4].flags.ability_type, AbilityType.HeroAction)
-        self.assertEqual(abilities[5].flags.ability_type, AbilityType.HeroAction)
-        self.assertIsNotNone(abilities[4].cost_fn)
-        self.assertEqual(len(abilities[5].cost_funcs), 1)
+        self.assertIsNotNone(abilities[3].cost_fn)
+        self.assertEqual(len(abilities[4].cost_funcs), 1)
 
 
 class TestStopThePressesMechanics(unittest.TestCase):

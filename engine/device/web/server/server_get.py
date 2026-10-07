@@ -56,18 +56,11 @@ class GameServerGet(GameServerBase):
         return self.ListFile(STARTER_DECK_FOLDER.value)
 
     async def list_replay_files(self, request: web.Request) -> web.Response:
-        if READ_ONLY_FIRST_REPLAY_FOLDER.value:
-            return self.ListFile(
-                REPLAY_FOLDERS.value[0],
-                ext=".json",
-                recursive=True,
-            )
-        else:
-            return self.ListFile(
-                *REPLAY_FOLDERS.value,
-                ext=".json",
-                recursive=True,
-            )
+        folders = REPLAY_FOLDERS.value[:1] if READ_ONLY_FIRST_REPLAY_FOLDER.value else REPLAY_FOLDERS.value
+        response = self.ListFile(*folders, ext=".json", recursive=True)
+        # Newly saved recordings must appear even when static assets are cached.
+        response.headers['Cache-Control'] = 'no-store'
+        return response
 
     async def list_puzzle_files(self, request: web.Request) -> web.Response:
         return self.ListFile(PUZZLE_FOLDER.value)
@@ -91,6 +84,7 @@ class GameServerGet(GameServerBase):
             "checksum": checksum == "Ok",
             "author": "",
             "step": len(replay.inputs),
+            "replay_complete": replay.metadata.get("replay_complete", False),
         })
 
     def ReadPuzzleFile(self, file_path: str) -> web.Response:

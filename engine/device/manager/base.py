@@ -108,10 +108,11 @@ class DeviceManager:
         self.asking_players.append(player_id)
         self.notify.has_client_input = False
 
-        wait = self.timer.max_timeout
-        if wait <= 0:
+        watching_replay = self.controllers[player_id].manager.replay.is_replay
+        wait = None if watching_replay else self.timer.max_timeout
+        if wait is not None and wait <= 0:
             wait = None
-        self.timer.start_time = Time.GetTime()
+        self.timer.start_time = None if watching_replay else Time.GetTime()
 
         def check_fn():
             if self.notify.should_exit_wait:

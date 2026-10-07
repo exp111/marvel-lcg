@@ -79,6 +79,7 @@ $requiredPaths = @(
     "public\marvel.html",
     "assets\sounds",
     "assets\textures",
+    "assets\textures\sparkles.gif",
     "deck\starter",
     "PATCH_NOTES.md",
     "ATTRIBUTION.md",

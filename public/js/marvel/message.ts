@@ -1,5 +1,6 @@
 import { Command } from "./command.js";
 import { Game } from "./game.js";
+import { Replay } from "./replay.js";
 
 export class Message {
 
@@ -23,6 +24,7 @@ export class Message {
         const buttonSave = document.createElement('button');
         buttonSave.innerHTML = '<i class="fa fa-download" aria-hidden="true"></i> Save replay';
         buttonSave.classList.add('save-replay')
+        buttonSave.title = 'Save this game to the local replay library'
         buttonSave.addEventListener('click', function() {
             Command.saveLocal()
         });
@@ -46,9 +48,9 @@ export class Message {
         Message.game_over_div.classList.add('active');
         Message.overlay.classList.remove('active');
         if( Game.players_won ) {
-            Message.end_messageElement.textContent = "VICTORY";
+            Message.end_messageElement.textContent = Replay.is_watching ? "Replay complete — VICTORY" : "VICTORY";
         } else {
-            Message.end_messageElement.textContent = "DEFEAT";
+            Message.end_messageElement.textContent = Replay.is_watching ? "Replay complete — DEFEAT" : "DEFEAT";
         }
         Message.end_messageElementText.textContent = text
     }

@@ -124,6 +124,15 @@ export class BtnOk
             }
         }
 
+        if( Effect.isForcedTimingChoice() ) {
+            // A forced window must resolve an ability. Canceling a selected
+            // ability can return to the selection, but cannot end the window.
+            BtnOk.btn_end_div.disabled = SelectStep.isCard()
+            if( !SelectStep.isCard() ) {
+                text = 'Cancel'
+            }
+        }
+
         BtnOk.btn_ok_div.disabled = true
         BtnOk.btn_end_div.innerHTML = text
     }

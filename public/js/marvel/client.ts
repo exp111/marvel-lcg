@@ -173,6 +173,7 @@ export class Client {
             player_id: number;
             total_players: number;
             show_deck_during_full_search: boolean;
+            is_replay: boolean;
             // is_skipping: boolean;
         }
 
@@ -199,6 +200,7 @@ export class Client {
             player_id           : original_data['player_id'],
             total_players       : original_data['total_players'],
             show_deck_during_full_search: original_data['show_deck_during_full_search'] ?? false,
+            is_replay           : original_data['is_replay'] ?? false,
             // is_skipping      : original_data['is_skipping'],
         };
 
@@ -234,6 +236,7 @@ export class Client {
         UI.setDebugMessage('debug', data.debug_message)
 
         Game.asking_players = data.ask_players
+        Replay.setWatching(data.is_replay === true)
         Game.full_search_presentation_players = data.full_search_presentation_players
         const fullSearchPreferenceChanged = (
             ClientPreferences.showDeckDuringFullSearch(data.player_id) !=
@@ -643,6 +646,8 @@ export class Client {
                     UI.setPhaseText(Game.world_descriptor.phase)
                     showRes()
 
+                    Replay.onPrompt()
+
                     // Replay
                     if( Setting.is_auto_test && UI.error_occurred_text ) {
                         Replay.doReplay(true, 1, true)
@@ -650,7 +655,7 @@ export class Client {
                             window.location.reload()
                         }, 1000);
                     }
-                    else if( Effect.response_json_ask.replay_input && ButtonSetting.is_replay ) {
+                    else if( !Replay.finished && Effect.response_json_ask.replay_input && ButtonSetting.is_replay ) {
                         Replay.doReplay()
                     }
 

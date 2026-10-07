@@ -17,7 +17,7 @@ def GetAbilities() -> Sequence['Ability']:
 
     return [
         AbilityFactory.WhenUnitWouldBeDefeated(
-            AbilityType.ForcedResponse,
+            AbilityType.ForcedInterrupt,
             "This",
             deadpool,
             by_consequential_damage=True,

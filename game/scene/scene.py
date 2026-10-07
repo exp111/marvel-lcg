@@ -20,7 +20,7 @@ METADATA_KEY_LIST = Literal[
 ]
 
 METADATA_KEY_BOOL = Literal[
-    "is_puzzle"
+    "is_puzzle", "replay_complete"
 ]
 
 METADATA_KEY_INT = Literal[

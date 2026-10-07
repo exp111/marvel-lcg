@@ -47,6 +47,11 @@ export class Effect {
         return response?.show_cancel == true || last_option?.name == "Cancel"
     }
 
+    static isForcedTimingChoice() {
+        return !Effect.show_cancel &&
+            ['ForcedResponse', 'ForcedInterrupt'].includes(Effect.response_json_ask?.ability_type)
+    }
+
     static reset() {
         Effect.options_button_div.replaceChildren()
 
@@ -758,6 +763,8 @@ export class Effect {
 
                     if( Effect.getFullSearchDisplayTargets().length == 0 &&
                         (can_select_all_as_target || ButtonSetting.auto_target_forced) &&
+                        (Effect.select_effect_obj.automatic_submit ||
+                            Effect.select_effect_obj.target_num_range[0] > 0) &&
                         !ButtonSetting.is_replay &&
                         ButtonSetting.auto_target )
                     {
@@ -894,11 +901,11 @@ export class Effect {
         Effect.options_button_div.replaceChildren()
 
         Effect.is_in_event = ''
-        if( Effect.response_json_ask.ability_type == "Response" ) {
+        if( ['Response', 'ForcedResponse'].includes(Effect.response_json_ask.ability_type) ) {
             Effect.is_in_event = 'response'
         }
         else
-        if( Effect.response_json_ask.ability_type == "Interrupt" ) {
+        if( ['Interrupt', 'ForcedInterrupt'].includes(Effect.response_json_ask.ability_type) ) {
             Effect.is_in_event = 'interrupt'
         }
         else

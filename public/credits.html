@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credits</title>
+    <title>Community Build Credits — Marvel LCG Digital</title>
     <style>
         body {
             background-color: rgb(43, 43, 43);
@@ -19,6 +19,8 @@
             text-align: center;
             color: white;
             padding: 20px;
+            max-width: 760px;
+            line-height: 1.5;
         }
 
         .credits-container h2 {
@@ -49,14 +51,23 @@
 <body>
     <div class="credits-container">
         <h2>Credits</h2>
-        <p>Marvel Champions: Digital Edition</p>
-        <p>Developed by: Irefrixs</p>
-        <p>Apr 15, 2024</p>
+        <p>Marvel LCG Digital</p>
+        <p id="community-version" aria-live="polite">Community Build</p>
+
+        <h3>Community Build</h3>
+        <p>Maintained by <a target="_blank" rel="noopener noreferrer" href="https://github.com/sdolle1775">Sam (sdolle1775)</a> and community contributors.</p>
+        <p>Community content, campaigns, rules and card fixes, replay improvements, and interface updates.</p>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/sdolle1775/marvel-lcg">Source code and contributions</a> · <a target="_blank" rel="noopener noreferrer" href="https://github.com/sdolle1775/marvel-lcg/graphs/contributors">Community contributors</a></p>
+
+        <h3>Original Development</h3>
+        <p>Based on Marvel LCG Digital, originally developed by the <a target="_blank" rel="noopener noreferrer" href="https://github.com/irefrixs/marvel-lcg">Irefrixs Team</a>.</p>
+        <p>Thank you to the original team for creating the game and making this community build possible.</p>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://irefrixs.itch.io/marvel-lcg">Original game on itch.io</a></p>
 
         <h3>Tools and Technologies</h3>
         <ul>
-            <li><a target="_blank" href="https://docs.python.org/3.10/">Python 3.10.5</a></li>
-            <li><a target="_blank" href="https://pyinstaller.org/en/stable/">PyInstaller 6.12.0</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/">Python</a></li>
+            <li><a target="_blank" href="https://pyinstaller.org/en/stable/">PyInstaller</a></li>
             <li><a target="_blank" href="https://micku7zu.github.io/vanilla-tilt.js/">Vanilla-tilt.js</a></li>
             <li><a target="_blank" href="https://sortablejs.github.io/Sortable/">SortableJS</a></li>
             <li><a target="_blank" href="https://picsmaller.com/">Pic Smaller</a></li>
@@ -73,10 +84,32 @@
             <li><a target="_blank" href="https://www.bing.com/chat">Microsoft Copilot in Bing</a></li>
         </ul>
 
-        <h3>Download the Latest Version</h3>
-        <p><a target="_blank" href="https://irefrixs.itch.io/marvel-lcg#download">irefrixs.itch.io/marvel-lcg</a></p>
+        <h3>Download the Community Build</h3>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/sdolle1775/marvel-lcg/releases">Community build releases on GitHub</a></p>
+
+        <h3>Game and Artwork</h3>
+        <p>Marvel, Marvel Champions: The Card Game, and related artwork and marks belong to their respective owners. This is an unofficial, non-commercial community project.</p>
 
         <h3>Thank You</h3>
         <p>Thank you for playing!</p>
     </div>
+    <script>
+        (async () => {
+            const versionCookie = document.cookie.split(';').map(cookie => cookie.trim())
+                .find(cookie => cookie.startsWith('app_version='));
+            let version = new URLSearchParams(window.location.search).get('v')
+                || versionCookie?.slice('app_version='.length);
+            try {
+                const response = await fetch('/get_version', { cache: 'no-store' });
+                if (response.ok) {
+                    version = (await response.text()).trim() || version;
+                }
+            } catch (error) {
+                console.warn('Could not retrieve the current application version.', error);
+            }
+            document.getElementById('community-version').textContent = version
+                ? `Community Build v${version}`
+                : 'Community Build';
+        })();
+    </script>
 </body>

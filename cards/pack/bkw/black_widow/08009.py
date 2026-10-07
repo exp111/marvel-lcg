@@ -4,7 +4,7 @@ from . import *
 
 def GetAbilities() -> Sequence['Ability']:
 
-    def synth_suit(effect: 'Effect', message: 'Message.WhenEffectWouldResolve') -> None:
+    def synth_suit(effect: 'Effect', message: 'Message.AfterEffectResolved') -> None:
         this = effect.this.CastTo(Upgrade)
         Unused(this)
 
@@ -16,12 +16,15 @@ def GetAbilities() -> Sequence['Ability']:
             CardFinder(name="Black Widow"),
             defense=1,
         ),
-        AbilityFactory.AfterPlayerTriggerAbility(
+        AbilityFactory.AfterPlayerResolveAbility(
             AbilityType.HeroResponse,
             "You",
             CardFinder2("PREPARATION"),
             synth_suit,
-            card_control_by="You"
+            control_by_you=True,
+            conditions=[
+                lambda effect, message: not message.effect.ability.flags.is_temp,
+            ],
         ).SetCostFunc(CostFunc.Exhaust("This"))
         .SetTarget(name="Black Widow", canbe_ready=True),
     ]

@@ -65,7 +65,7 @@ class GameServerSocket(GameServerBase):
                     else []
                 ),
                 remaining_time      = remaining_time,
-                max_timeout         = self.device_manager.timer.max_timeout,
+                max_timeout         = 0 if game.controller_manager.replay.is_replay else self.device_manager.timer.max_timeout,
                 notify_texts        = notify_texts,
                 debug_message       = world.render.debug_message if world else "",
                 current_step_id     = game.controller_manager.replay.current_step_id,
@@ -73,6 +73,7 @@ class GameServerSocket(GameServerBase):
                 player_id           = player_id,
                 total_players       = world.started_player_num if world else 0,
                 show_deck_during_full_search = self.device_manager.controllers[player_id].preferences.show_deck_during_full_search,
+                is_replay           = game.controller_manager.replay.is_replay,
                 # game.controller_manager.skip.is_skipping,
             )
             try:
@@ -103,17 +104,14 @@ class GameServerSocket(GameServerBase):
             query_params = request.rel_url.query
             return 'debug' in query_params or 'show' in query_params
 
-        def is_replay(request: web.Request) -> bool:
-            query_params = request.rel_url.query
-            return 'replay' in query_params
-
         player_ids = self.get_player_ids(request)
         self.device_manager.client_manager.Add(ws, player_ids, request.query_string)
 
         if Build.release and is_cheat(request):
             self.game.statistics.SetPause(True)
 
-        self.controller_manager.replay.SetIsReplay(is_replay(request))
+        # Playback is session state. Reconnecting a tab must not undo an
+        # explicit Continue game action or change another tab's session mode.
 
         try:
             async for msg in ws:

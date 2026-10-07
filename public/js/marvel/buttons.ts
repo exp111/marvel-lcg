@@ -66,12 +66,18 @@ export class Button{
     // }
 
     static doCancel() {
-        if( Game.is_lost_connect ) {
+        if( Game.is_lost_connect || Replay.finished ) {
             return
         }
         if( Effect.isMandatoryHandSizeDiscard() ) {
             // A player above their hand size must discard down. Keep the
             // mandatory selection open instead of posting an empty command.
+            return
+        }
+        if( Effect.isForcedTimingChoice() ) {
+            if( !SelectStep.isCard() ) {
+                Effect.onCancel()
+            }
             return
         }
         Replay.prepared_replay = false
@@ -110,6 +116,7 @@ export class Button{
     }
 
     static doPost(press_by_btn = true) {
+        if( Replay.finished ) return
         // Automatic full-search inspection uses the real selector client-side,
         // but its selections must never enter the gameplay/replay input route.
         if( FullSearchPresentation.isActive() ) {
@@ -212,11 +219,13 @@ export class Button{
     }
 
     static doNext() {
+        if( Replay.finished ) return
         Button.doDebug("/step 1", false)
         Replay.prepared_replay = false
     }
 
     static doDebug(cmd: string, do_sync=true) {
+        if( Replay.finished ) return
         Button.disablePause()
         BtnOk.setDisable(true)
 

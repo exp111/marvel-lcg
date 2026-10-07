@@ -2,13 +2,13 @@ from . import *
 
 
 def GetAbilities() -> Sequence['Ability']:
-    def minion_defeated(effect: 'Effect', message: 'Message.WhenUnitBeDefeated') -> None:
+    def minion_defeated(effect: 'Effect', message: 'Message.AfterUnitBeDefeated') -> None:
         villain = Worlds.FindVillain(effect)
         if villain:
             villain.GiveBoostCard(message.trigger, effect)
 
     return [
-        AbilityFactory.WhenUnitBeDefeated(
+        AbilityFactory.AfterUnitBeDefeated(
             AbilityType.ForcedResponse,
             Minion,
             minion_defeated,
