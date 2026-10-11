@@ -12,4 +12,5 @@ class NewGameDescriptor:
     challenges: List['GameChallenge.CHALLENGE']
     rules: List[str]
     campaign_log: Dict[str, str]
+    remove_standard_set_restriction: bool = False
     # custom_script: str = field(default="")

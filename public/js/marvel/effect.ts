@@ -52,6 +52,11 @@ export class Effect {
             ['ForcedResponse', 'ForcedInterrupt'].includes(Effect.response_json_ask?.ability_type)
     }
 
+    static isTimingChoice() {
+        return ['Response', 'ForcedResponse', 'Interrupt', 'ForcedInterrupt']
+            .includes(Effect.response_json_ask?.ability_type)
+    }
+
     static reset() {
         Effect.options_button_div.replaceChildren()
 
@@ -728,6 +733,23 @@ export class Effect {
         function UpdateCards(option: EffectDescriptor, can_auto_activate = false) {
             Effect.select_effect_obj = new EffectDescriptor(option)
 
+            // Opening a response (including a forced one) only selects it.
+            // Never enter the automatic submission/payment paths below, even
+            // for older descriptors or cards with Auto Activate enabled.
+            if( Effect.isTimingChoice() ) {
+                const selected = Effect.select_effect_obj
+                selected.automatic_submit = false
+                const [minimum, maximum] = selected.target_num_range
+                const targets = selected.all_legal_targets
+                selected.selected_targets = minimum == 1 && maximum == 1 &&
+                    targets.length == 1 && selected.automatic_targets.includes(targets[0]) &&
+                    !selected.is_search && selected.full_search_display_targets.length == 0
+                    ? [targets[0]] : []
+                SelectStep.setTargets(maximum > 0)
+                Effect.updateHighLight()
+                return
+            }
+
             console.log('current effect:', Effect.select_effect_obj)
             let can_select_all_as_target = false
             let targets = Effect.select_effect_obj.all_legal_targets
@@ -830,8 +852,9 @@ export class Effect {
         if( (
                 options.length == 1 || ( options.length == 2 && options[1].name == 'Cancel' )
             ) &&
-            options[0].name_with_space != "Ask" &&
-            ( ["", "Play", "Play 1", "Play 2", "Defense", "Recover", "Change Form",
+            (Effect.isTimingChoice() || options[0].name_with_space != "Ask") &&
+            ( (Effect.isTimingChoice() && options[0].failure_reason == '') ||
+            ["", "Play", "Play 1", "Play 2", "Defense", "Recover", "Change Form",
                 "Interrupt", "Hero Interrupt", "Alter-Ego Interrupt", "First Player Interrupt",
                 "Response", "Hero Response", "Alter-Ego Response", "Forced Response",
                 "Action", "Action 1", "Forced Action", "Hero Action", "Hero Action 1", "Alter-Ego Action", "First Player Action", 
@@ -934,6 +957,39 @@ export class Effect {
 
     static update() {
         if( !Effect.response_json_ask || Effect.response_json_ask.options.length < 1 ) {
+            return
+        }
+
+        if( Effect.isTimingChoice() ) {
+            // Count eligible abilities, not bound cards: one card may offer
+            // several abilities or the same ability for different triggers.
+            // Rendering again must preserve any targets/payments chosen so far.
+            if( SelectStep.isCard() && !ButtonSetting.is_replay ) {
+                const options = Effect.response_json_ask.options.filter(option =>
+                    option.name != 'Cancel' && option.failure_reason == '')
+                // Nested choice prompts already display their option buttons
+                // without a card click, including when Auto Target is off.
+                if( Effect.is_ex_effect && Effect.available_card_bind_object_ids.length == 1 ) {
+                    const object_id = Effect.available_card_bind_object_ids[0]
+                    const div = Cards.getDiv(object_id)
+                    if( div ) {
+                        Effect.clicking_card_div = div
+                        Effect.clicked_card_div = div
+                        Effect.updateButtons(Effect.getSelectAbleObject(object_id))
+                    }
+                }
+                else if( ButtonSetting.auto_target && options.length == 1 ) {
+                    const option = options[0]
+                    const card = Cards.getCard(option.bind_id)
+                    const div = Cards.getDiv(option.bind_id)
+                    if( card && div && !Setting.auto_effect_black_list.includes(card.card_id) ) {
+                        Effect.clicking_card_div = div
+                        Effect.clicked_card_div = div
+                        Effect.updateButtons(options)
+                    }
+                }
+            }
+            Effect.updateHighLight()
             return
         }
 

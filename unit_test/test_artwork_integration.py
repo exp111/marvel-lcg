@@ -224,6 +224,27 @@ class TestArtworkIntegration(unittest.TestCase):
             self.assertEqual(required_images(descriptor, {}, kind="new_game"), {"01094", "45001"})
         self.assertEqual(descriptor.rules, [])
 
+    def test_new_game_preflight_respects_explicit_difficulty_set_opt_out(self):
+        for name, identifier in [("standard", "01188"), ("standard_ii", "24049a"),
+                                 ("expert", "01190"), ("expert_ii", "24029"), ("bomb_scare", "01109")]:
+            (self.root / f"{name}.json").write_text(json.dumps({"encounters": [identifier]}))
+        descriptor = SimpleNamespace(campaign_json=json.dumps({"version": "1.3.3", "name": "Rhino",
+            "villain": ["01095", "01096"], "encounter_sets": ["standard", "expert"]}),
+            encounter_set_names=["bomb_scare"], hero_json=[], seed=1, rules=[], campaign_log={})
+        with (patch.object(ENCOUNTER_SETS_FOLDERS, "value", [str(self.root)]),
+              patch.object(Ver, "version", Ver("1.3.3"), create=True)):
+            self.assertEqual(required_images(descriptor, {}, kind="new_game"),
+                             {"01095", "01096", "01188", "01190", "01109"})
+            descriptor.remove_standard_set_restriction = True
+            self.assertEqual(required_images(descriptor, {}, kind="new_game"),
+                             {"01095", "01096", "01109"})
+            descriptor.encounter_set_names = ["standard", "standard_ii", "expert", "expert_ii", "bomb_scare"]
+            self.assertEqual(required_images(descriptor, {}, kind="new_game"),
+                             {"01095", "01096", "01188", "24049a", "01190", "24029", "01109"})
+            descriptor.remove_standard_set_restriction = False
+            self.assertEqual(required_images(descriptor, {}, kind="new_game"),
+                             {"01095", "01096", "24049a", "24029", "01109"})
+
     def test_replay_debug_cards_are_collected_without_confusing_object_ids(self):
         payload = {"inputs": [
             {"effect": {"id": ":Puzzle.CreatePlayerCard('21013')"}},

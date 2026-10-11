@@ -34,6 +34,7 @@ def required_images(payload, manifest, *, kind=None):
         payload = SceneLoader.NewFromJson(
             payload.campaign_json, payload.encounter_set_names, payload.hero_json,
             payload.seed, list(payload.rules), dict(payload.campaign_log),
+            remove_standard_set_restriction=getattr(payload, "remove_standard_set_restriction", False),
         )
     elif kind == "scene":
         from game.scene.scene import Scene

@@ -48,8 +48,16 @@ class SceneLoader:
         return None
 
     @staticmethod
-    def MergeEncounterSets(required: Sequence[str], selected: Sequence[str]) -> List[str]:
-        """Keep required sets while replacing mutually exclusive difficulty variants."""
+    def MergeEncounterSets(required: Sequence[str], selected: Sequence[str], *, remove_standard_set_restriction: bool=False) -> List[str]:
+        """Keep required sets, with an explicit opt-out for difficulty sets only."""
+        if remove_standard_set_restriction is True:
+            # Retain required modular sets, but accept every selected difficulty
+            # variant (or none) instead of replacing variants within a family.
+            return list(dict.fromkeys([
+                *(name for name in required if not SceneLoader.GetEncounterSetFamily(name)),
+                *selected,
+            ]))
+
         selected_by_family: Dict[str, str] = {}
         for encounter_set in selected:
             family = SceneLoader.GetEncounterSetFamily(encounter_set)
@@ -85,7 +93,7 @@ class SceneLoader:
         return merged
 
     @staticmethod
-    def NewFromJson(campaign_json: str, encounter_set_names: List[str]|None, hero_jsons: List[str], seed: int, rules: List[str], campaign_log: Dict[str, str]) -> 'Scene':
+    def NewFromJson(campaign_json: str, encounter_set_names: List[str]|None, hero_jsons: List[str], seed: int, rules: List[str], campaign_log: Dict[str, str], *, remove_standard_set_restriction: bool=False) -> 'Scene':
         players: List[HeroDescriptor] = []
         for hero_text in hero_jsons:
             player = Json.LoadsAs(hero_text, HeroDescriptor)
@@ -99,6 +107,7 @@ class SceneLoader:
             campaign.encounter_sets = SceneLoader.MergeEncounterSets(
                 campaign.encounter_sets,
                 encounter_set_names,
+                remove_standard_set_restriction=remove_standard_set_restriction,
             )
         else:
             campaign.encounter_sets += campaign.modular_sets

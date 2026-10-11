@@ -421,6 +421,7 @@ function setInterchangeableScenarioSelectionEnabled(enabled) {
 }
 
 function setStandardEncounterSetSelectionEnabled(enabled) {
+    enabled = enabled || document.getElementById('remove_standard_set_restriction').checked
     document.querySelectorAll('#encounter-sets button[data-family="standard"]').forEach(button => {
         button.disabled = !enabled
         if( !enabled ) {
@@ -740,6 +741,41 @@ function getEncounterSetFamily(name) {
     return ''
 }
 
+function toggleEncounterSetSelection(div) {
+    const unrestricted = div.parentElement.id === 'encounter-sets' &&
+        document.getElementById('remove_standard_set_restriction').checked
+    if( div.disabled || (!unrestricted && div.classList.contains('lock')) ) {
+        return
+    }
+    if( div.classList.contains('click') && div.classList.contains('required-family') && !unrestricted ) {
+        return
+    }
+    div.classList.toggle('click')
+    const family = div.dataset.family
+    if( div.classList.contains('click') && family && !unrestricted ) {
+        div.parentElement.querySelectorAll(`button[data-family="${family}"]`).forEach(e => {
+            if( e != div ) e.classList.remove('click')
+        })
+    }
+}
+
+function applyStandardSetRestriction() {
+    setStandardEncounterSetSelectionEnabled(scenario?.standard_sets !== false)
+    if( document.getElementById('remove_standard_set_restriction').checked ) return
+    const row = document.getElementById('encounter-sets')
+    for( const family of ['standard', 'expert'] ) {
+        const required = scenario?.encounter_sets.find(name => getEncounterSetFamily(name) === family)
+        const buttons = [...row.querySelectorAll(`button[data-family="${family}"]`)].filter(button => !button.disabled)
+        const selected = buttons.filter(button => button.classList.contains('click'))
+        // Match the launcher's normal last-variant-wins behavior when the
+        // override is turned off, including families the scenario doesn't require.
+        selected.slice(0, -1).forEach(button => button.classList.remove('click'))
+        if( selected.length === 0 && required ) {
+            buttons.find(button => button.dataset.name === required)?.classList.add('click')
+        }
+    }
+}
+
 async function createSets() {
     const response = await fetchFresh(`list_encounter_sets?`);
     if (!response.ok) {
@@ -773,23 +809,7 @@ async function createSets() {
         div.setAttribute('data-display', `${j['encounters'][0]} ${text}`)
         div.setAttribute('data-family', getEncounterSetFamily(text))
         div.appendChild(img)
-        div.onclick = () => {
-            if( div.classList.contains('lock') ) {
-                return
-            }
-            if( div.classList.contains('click') && div.classList.contains('required-family') ) {
-                return
-            }
-            div.classList.toggle('click')
-            const family = div.dataset.family
-            if( div.classList.contains('click') && family ) {
-                div.parentElement.querySelectorAll(`button[data-family="${family}"]`).forEach(e => {
-                    if( e != div ) {
-                        e.classList.remove('click')
-                    }
-                })
-            }
-        }
+        div.onclick = () => toggleEncounterSetSelection(div)
         if( nemesis ) {
             div.classList.add('nemesis')
             div.classList.add('hide')
@@ -1900,6 +1920,9 @@ p:has(#timeout_text) {
 
         <details id="settings_other" open="">
         <summary>Other</summary>
+        <label><input type="checkbox" id="remove_standard_set_restriction" autocomplete="off" onchange="applyStandardSetRestriction()">Remove Standard Set Restriction
+            <span class="tooltip">Allow any combination of Standard and Expert encounter sets, including none.</span>
+        </label>
         <label><input type="checkbox" id="hide_bug_report">Hide Error Message</label>
         <label><input type="checkbox" id="show_achievement">Show Achievements</label>
         <label><input type="checkbox" id="show_deck_during_full_search">Show Deck During Full Search</label>
@@ -2268,6 +2291,8 @@ p:has(#timeout_text) {
                 rules
                 /** @type {Record<string, string>} */
                 campaign_log
+                /** @type {boolean} */
+                remove_standard_set_restriction
             }
 
             new_game = new NewGame()
@@ -2275,6 +2300,7 @@ p:has(#timeout_text) {
             scenario.campaign_id = selected_campaign_id
             new_game.campaign_json = JSON.stringify(scenario)
             new_game.encounter_set_names = encounter_sets_names
+            new_game.remove_standard_set_restriction = document.getElementById('remove_standard_set_restriction').checked
             new_game.hero_json = []
             new_game.campaign_log = readCampaignLog(selected_campaign_id)
 
