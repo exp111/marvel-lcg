@@ -4,19 +4,19 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Prepared hotfix: v1.3.3.1
+## Latest release: v1.3.3.1
 
-v1.3.3.1 replaces on-demand card-image downloads with a verified, persistent local artwork library. The application ZIP stays small: the host prepares the approximately **1.7 GiB** collection separately before first play, then reuses it across restarts and application updates. LAN and Cloudflare players receive images from the host. Open **Card artwork** on the main menu for progress, recovery controls and library maintenance instructions.
+[Download Community Build v1.3.3.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.3.1).
 
-The hotfix also adds the default-off **Remove Standard Set Restriction** option and preselects sole eligible response prompts while still requiring confirmation. See the [hotfix notes and earlier release descriptions](PATCH_NOTES.md) and [installation and artwork maintenance guide](docs/install_guide.md#6-card-images).
+v1.3.3.1 replaces on-demand card-image downloads with a verified, persistent local artwork library. The application **automatically downloads card images and stores them locally on the host computer**. The application ZIP stays small: the host prepares the approximately **1.7 GiB** collection separately before first play, then reuses it across restarts and application updates. LAN and Cloudflare players receive images from the host. Open **Card artwork** on the main menu for progress, recovery controls and library maintenance instructions. The main menu and Credits display **Community Build v1.3.3.1r**.
 
-### Latest published application release: v1.3.3
+The hotfix also adds the default-off **Remove Standard Set Restriction** option and preselects sole eligible response prompts while still requiring confirmation. See the [release summary](docs/releases/v1.3.3.1.md), [complete patch notes](PATCH_NOTES.md), and [installation and artwork maintenance guide](docs/install_guide.md#6-card-images).
 
-The v1.3.3.1 hotfix is prepared locally; its application release has not been published yet.
+**Antivirus notice:** The [VirusTotal report for this executable](https://www.virustotal.com/gui/file/8277bb66d2a228c6c6c10f23e599184889e04a5a5be044944c8b63de7788794e?nocache=1) reports Microsoft and SecureAge detections as of October 11, 2026, despite the earlier clean local Defender scan. Review the warning in the release summary before running the package. A connection to the artwork changes is unconfirmed.
 
-[Download Community Build v1.3.3 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.3).
+### Included from earlier releases
 
-v1.3.3 adds a complete local replay library with playback that stops at the recording's endpoint, restores optional discard and Psi-Weapon choices, corrects card and scenario timing, restores the sparkles animation, and updates community credits. It also fixes form-change entry triggers, upgrade discounts, Victory ordering, Kang's keywords, Purple Man's obligations, Nightcrawler's forced choices, Bulletproof Belle/Tough prevention, Kingpin's side-scheme reveals, and Synth-Suit. The main menu and Credits display **Community Build v1.3.3r**. It includes all earlier v1.3 releases and content, including:
+v1.3.3 added a complete local replay library with playback that stops at the recording's endpoint, restored optional discard and Psi-Weapon choices, corrected card and scenario timing, restored the sparkles animation, and updated community credits. It also fixed form-change entry triggers, upgrade discounts, Victory ordering, Kang's keywords, Purple Man's obligations, Nightcrawler's forced choices, Bulletproof Belle/Tough prevention, Kingpin's side-scheme reveals, and Synth-Suit. This hotfix includes all earlier v1.3 releases and content, including:
 
 - The complete **Fear No Evil** box: Daredevil and Echo, all player cards, five interchangeable Underling villains, five interchangeable scenarios, Kingpin's standalone scenario, all six modular encounter sets, and the full campaign.
 - Rules Reference v1.8 simultaneous timing, enabled by default for new games. Interrupts and responses created by one occurrence share the correct timing window and can be resolved in player-chosen order. The legacy timing dispatcher remains available through the Rule settings.
