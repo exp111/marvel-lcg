@@ -25,6 +25,11 @@ class TestCardImagesUI(unittest.TestCase):
                 cwd=ROOT, capture_output=True, text=True, timeout=30,
             )
             self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            artwork = subprocess.run(
+                [node, str(ROOT / 'unit_test/artwork_ui.cjs'), str(Path(output) / 'module/artwork.js')],
+                cwd=ROOT, capture_output=True, text=True, timeout=30,
+            )
+            self.assertEqual(artwork.returncode, 0, artwork.stdout + artwork.stderr)
 
 
 if __name__ == '__main__':

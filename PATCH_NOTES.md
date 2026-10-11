@@ -1,11 +1,15 @@
 # Unreleased
 
-## Card image downloads ([#134](https://github.com/sdolle1775/marvel-lcg/issues/134))
+## Persistent card artwork ([#134](https://github.com/sdolle1775/marvel-lcg/issues/134))
 
-- Failed downloads use a temporary text-only fallback and can retry after a 30-second cooldown when the image is requested again, without restarting the game.
-- Temporarily unreachable image hosts are skipped while the next configured provider is tried. Connection and response-body timeouts allow more time for successful downloads.
-- Remote responses are checked before being written to the artwork cache. Invalid responses fall through to the next provider, corrupt cached files can be downloaded again, and file extensions follow the actual image format.
-- Corrected the update instructions: downloaded `assets/cache` artwork can be copied into a new installation and reused. The release archive still excludes downloaded artwork.
+- Replaced the stock Cerebro/MarvelCDB download chain with reviewed, checksum-verified artwork packs prepared from Unicorn Snuggler's pinned Workshop scans. Exact face, crop, rotation and source provenance are maintained separately from game rules and card data.
+- Added automatic full-collection preparation before first play, with download/storage figures, Pause, Resume and Retry. Direct gameplay, deck, card-browsing and saved-game launch routes enforce preparation too. Credits and diagnostics remain accessible.
+- Artwork lives in a persistent user library outside the application folder. Updating or moving the application reuses unchanged verified images. An `artwork_folder` setting supports portable/custom storage. New and corrected content downloads in the background while earlier prepared content stays playable.
+- Downloads use two workers, resumable partial files, cross-process coordination, archive/image validation and atomic installation. Corrupt downloads, interrupted transfers and storage failures cannot replace valid installed artwork.
+- Existing `assets/cache` files are preserved and imported only when their hashes match reviewed artwork. Explicit local `image_folders` overrides and non-stock custom image sources remain supported. Copied legacy stock-provider settings cannot silently reactivate the old chain.
+- Pending images refresh quickly on open pages, including corrected revisions, without discarding deck selections. Browsers receive artwork from the game host, including over LAN and Cloudflare; prepared gameplay requires no artwork-provider connection.
+- Added maintainer import, visual-review, coverage and hosted-pack release checks. An incomplete catalog blocks release and cannot claim first-time preparation is complete. Standard scans remain separate from the executable; the Python 3.12.13, pinned-dependency, verified-bootloader, one-folder, UPX-disabled release workflow is retained.
+- Saves, replay serialization, game commands, rules, decks, campaigns, sounds, card backs, Storm weather and sparkles keep their existing behavior and locations. Published v1.3.3 release files remain unchanged.
 
 ---
 

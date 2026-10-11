@@ -1,0 +1,2319 @@
+{
+  "schema_version": 1,
+  "source_pin": {
+    "schema_version": 1,
+    "workshop_id": "2665262903",
+    "workshop_title": "Marvel Champions High-Resolution Scans",
+    "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+    "workshop_updated_unix": 1786823585,
+    "snapshot": {
+      "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+      "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+      "bytes": 6537002,
+      "encoding": "bson"
+    },
+    "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+  },
+  "mappings": {
+    "06017": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "0ed245",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "4",
+        "card_id": 972217,
+        "name": "Hall of Heroes",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Supports"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908635737174/D75D7A70C91DB7032291A308D5C5EE8C559A011C/",
+        "sheet_sha256": "7ad6b9037e9dad99924235bccc4dc652a3a7985ac77fe17843299ad022e3a3f9",
+        "columns": 8,
+        "rows": 7,
+        "index": 17
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "10018": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "71674e",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          23
+        ],
+        "deck_key": "3",
+        "card_id": 972528,
+        "name": "Martial Prowess",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Upgrades"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908635737174/D75D7A70C91DB7032291A308D5C5EE8C559A011C/",
+        "sheet_sha256": "7ad6b9037e9dad99924235bccc4dc652a3a7985ac77fe17843299ad022e3a3f9",
+        "columns": 8,
+        "rows": 7,
+        "index": 28
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "12033": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "0b7d25",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9688",
+        "card_id": 968832,
+        "name": "Assess the Situation",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908640197120/F2CA7A0B92971EE77B61B1DF44C9EF6FDC3189DA/",
+        "sheet_sha256": "8308af2b0ceae61411f1fbf996f5a76a9268dbd1a4d118070280de725856a2fc",
+        "columns": 10,
+        "rows": 7,
+        "index": 32
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "13014": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "333dd7",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          39
+        ],
+        "deck_key": "3",
+        "card_id": 971233,
+        "name": "Surprise Attack",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908635737174/D75D7A70C91DB7032291A308D5C5EE8C559A011C/",
+        "sheet_sha256": "7ad6b9037e9dad99924235bccc4dc652a3a7985ac77fe17843299ad022e3a3f9",
+        "columns": 8,
+        "rows": 7,
+        "index": 33
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "18013": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "8a7d9b",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          28
+        ],
+        "deck_key": "3",
+        "card_id": 971245,
+        "name": "Plan of Attack",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908635737174/D75D7A70C91DB7032291A308D5C5EE8C559A011C/",
+        "sheet_sha256": "7ad6b9037e9dad99924235bccc4dc652a3a7985ac77fe17843299ad022e3a3f9",
+        "columns": 8,
+        "rows": 7,
+        "index": 45
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "21013": {
+      "reviewed": true,
+      "review_note": "Visually checked clean White Tiger (Ava Ayala), Leadership ally, printed13, 3 cost, 2THW/2ATK/2HP; no Hall of Heroes watermark; full borders and credits retained. Source uses scoped deck9690, tile50 despite CardID969150.",
+      "source": {
+        "guid": "72ac8c",
+        "object_path": [
+          "ObjectStates",
+          104,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          48
+        ],
+        "deck_key": "9690",
+        "card_id": 969150,
+        "name": "White Tiger",
+        "parents": [
+          "Leadership Aspect Cards",
+          "Leadership Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908640127898/659B4BAB6AFF231C9CF02608F74C1A275A4EC918/",
+        "sheet_sha256": "c86659558b0b2c6f332552bacb1bd4dc21f8dff6e51afb9acefe639b7f3b8f65",
+        "columns": 10,
+        "rows": 7,
+        "index": 50
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "26033": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "893d1c",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "3",
+        "card_id": 972107,
+        "name": "Assault Training",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Supports"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1833528529702936172/9A66B507000949C18A519D6703A85D19856AD09D/",
+        "sheet_sha256": "26b67f4850684d4e7a6747b77d88056738558487db43aeca85701e4f32875c36",
+        "columns": 10,
+        "rows": 2,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "28014": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "0db7d3",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          24
+        ],
+        "deck_key": "4",
+        "card_id": 971318,
+        "name": "One by One",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598095336/DBBFB49EB54A3F465BD96FF4F9DE8EFB8DABF9C3/",
+        "sheet_sha256": "1b47685d0a7afd52a597231ef0baf6408260732e264f725145591292f798b622",
+        "columns": 9,
+        "rows": 3,
+        "index": 18
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "32019": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "242f36",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          42
+        ],
+        "deck_key": "2",
+        "card_id": 972108,
+        "name": "Professor X",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 8
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "32020": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "378100",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          25
+        ],
+        "deck_key": "2",
+        "card_id": 972809,
+        "name": "The X-Jet",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Supports"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "32047": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "f8d13c",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "2",
+        "card_id": 971920,
+        "name": "Aggressive Energy",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Resources"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 20
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "35014": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "29df63",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          22
+        ],
+        "deck_key": "1",
+        "card_id": 1401,
+        "name": "Sunfire",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401522680/E1E74BBA475E22A294787709B4F8BCF9ACC496C2/",
+        "sheet_sha256": "8656e6cd3883cdd88c501f6ccc1f6c3cc273746854b11ac86f8fe9da918d21b7",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "35015": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "bbf2a6",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          5,
+          "States",
+          "2"
+        ],
+        "deck_key": "1",
+        "card_id": 102,
+        "name": "Battle Fury",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Upgrades",
+          "Battle Fury"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401522680/E1E74BBA475E22A294787709B4F8BCF9ACC496C2/",
+        "sheet_sha256": "8656e6cd3883cdd88c501f6ccc1f6c3cc273746854b11ac86f8fe9da918d21b7",
+        "columns": 6,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "35018": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "5af054",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          29
+        ],
+        "deck_key": "1",
+        "card_id": 971405,
+        "name": "Precision Strike",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401522680/E1E74BBA475E22A294787709B4F8BCF9ACC496C2/",
+        "sheet_sha256": "8656e6cd3883cdd88c501f6ccc1f6c3cc273746854b11ac86f8fe9da918d21b7",
+        "columns": 6,
+        "rows": 2,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37001a": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Confirmed Gambit Hero is physical1B and Remy LeBeau Alter-Ego is physical1A; game IDs intentionally retain Hero a / Alter-Ego b.",
+      "source": {
+        "guid": "c0912f",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "14",
+        "card_id": 1400,
+        "name": "Gambit",
+        "parents": [
+          "Gambit Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939664699/2C1A5CBC36A70F9104BB0904F7F23775DA72C0FA/",
+        "sheet_sha256": "de7bc434886d0ba47b3e38781f7b06fd65437293116841e3d9d4329c89f6fb82",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "37001b": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Confirmed Gambit Hero is physical1B and Remy LeBeau Alter-Ego is physical1A; game IDs intentionally retain Hero a / Alter-Ego b.",
+      "source": {
+        "guid": "c0912f",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "14",
+        "card_id": 1400,
+        "name": "Gambit",
+        "parents": [
+          "Gambit Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939664929/D4840D48762AB651889731E84C74AF8AAEB39051/",
+        "sheet_sha256": "27bf48d115f04443e45db295e00c922d2f8107a4c68e341a419b6e92901802bf",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "37002": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "fe077c",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          14
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Rogue",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "37003": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "963779",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          13
+        ],
+        "deck_key": "2",
+        "card_id": 201,
+        "name": "The Thieves Guild",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37004": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "ff84b1",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          12
+        ],
+        "deck_key": "2",
+        "card_id": 202,
+        "name": "Gambit's Staff",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 2
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37005": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "330b0f",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          11
+        ],
+        "deck_key": "2",
+        "card_id": 203,
+        "name": "Gambit's Guild Armor",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 3
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37006": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "31b4ea",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          10
+        ],
+        "deck_key": "2",
+        "card_id": 204,
+        "name": "Charged Card",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 4
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "37007": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "552534",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          6
+        ],
+        "deck_key": "2",
+        "card_id": 208,
+        "name": "Royal Flush",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 8
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37008": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "4cabbc",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "2",
+        "card_id": 210,
+        "name": "Natural Agility",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 10
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37009": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "2e467f",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "2",
+        "card_id": 212,
+        "name": "Creole Charmer",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 12
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37010": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "b7c94e",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "2",
+        "card_id": 214,
+        "name": "Molecular Acceleration",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 14
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37011": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "17c673",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "2",
+        "card_id": 969215,
+        "name": "Bishop",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 15
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37012": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "c73492",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          11
+        ],
+        "deck_key": "2",
+        "card_id": 969216,
+        "name": "Dazzler",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 16
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37013": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "10d564",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          16
+        ],
+        "deck_key": "2",
+        "card_id": 973117,
+        "name": "Operative Skill",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Upgrades"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 17
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37014": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "49e1ec",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          32,
+          "States",
+          "2"
+        ],
+        "deck_key": "2",
+        "card_id": 218,
+        "name": "Stealth Strike",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Events",
+          "Stealth Strike"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 18
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37015": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "28e9db",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "2",
+        "card_id": 972019,
+        "name": "Breaking and Entering",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 19
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37019": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "b9c238",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          7
+        ],
+        "deck_key": "2",
+        "card_id": 975320,
+        "name": "Beauty and the Thief",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 20
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37021": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "921191",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          28
+        ],
+        "deck_key": "2",
+        "card_id": 975322,
+        "name": "Mutant Education",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 22
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37025": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "6ff60a",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Guild Business",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37026": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "290a52",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 101,
+        "name": "Belladonna",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37027": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Source is portrait with the landscape title on the right; rotate180 to retain the existing CSS clockwise90 rendering convention and show upright landscape text in game.",
+      "source": {
+        "guid": "922f83",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "4",
+        "card_id": 400,
+        "name": "The Assassins Guild",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939657320/D8291AF1F597D267C90507E311914BC30D1A2CD5/",
+        "sheet_sha256": "7dbbc19e198bb53399e513ada358d7b78c84cc81d2adf1281ede20ec29fa9253",
+        "columns": 3,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 180,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37028": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "283d7d",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "1",
+        "card_id": 103,
+        "name": "Guild Assassin",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 3
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37029": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "23cb25",
+        "object_path": [
+          "ObjectStates",
+          84,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "1",
+        "card_id": 104,
+        "name": "Assassination Attempt",
+        "parents": [
+          "Gambit Hero Pack",
+          "Gambit's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 4
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37030": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "e4dc3d",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          7
+        ],
+        "deck_key": "2",
+        "card_id": 972323,
+        "name": "War Room",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Supports"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 23
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37031": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "02daa2",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          47
+        ],
+        "deck_key": "2",
+        "card_id": 975324,
+        "name": "X-Men Instruction",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939653399/CCD3EA82FBDC11EB4B35B30E2FA91F5DB4471246/",
+        "sheet_sha256": "70e2710004a5d9e7e34c6e582e8bbd0d6d47504666dd3fd69637052005e2620a",
+        "columns": 9,
+        "rows": 3,
+        "index": 24
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37032": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "dd8db4",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          84,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "1",
+        "card_id": 105,
+        "name": "Exodus",
+        "parents": [
+          "Modular Sets",
+          "Exodus Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37033": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Source is portrait with the landscape title on the right; rotate180 to retain the existing CSS clockwise90 rendering convention and show upright landscape text in game.",
+      "source": {
+        "guid": "5273aa",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          84,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "4",
+        "card_id": 401,
+        "name": "Herald of Avalon",
+        "parents": [
+          "Modular Sets",
+          "Exodus Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939657320/D8291AF1F597D267C90507E311914BC30D1A2CD5/",
+        "sheet_sha256": "7dbbc19e198bb53399e513ada358d7b78c84cc81d2adf1281ede20ec29fa9253",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 180,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "37034": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "65775b",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          84,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "1",
+        "card_id": 107,
+        "name": "Psionic Shield",
+        "parents": [
+          "Modular Sets",
+          "Exodus Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "37035": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "7bff6a",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          84,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "1",
+        "card_id": 109,
+        "name": "Acolyte Frenzy",
+        "parents": [
+          "Modular Sets",
+          "Exodus Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "38018": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "bdcd65",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          18
+        ],
+        "deck_key": "3",
+        "card_id": 974423,
+        "name": "Moira MacTaggert",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Supports"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939655971/C0C5C09238A5B80D7707C1CB60F8780A0E8F8B12/",
+        "sheet_sha256": "dc32fd841aa6218f666b6425a00461137f521aca4fcc514895cc75833ce853a4",
+        "columns": 9,
+        "rows": 3,
+        "index": 23
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46001a": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Confirmed Iceman Hero versus Bobby Drake Alter-Ego, distinct correctly titled faces.",
+      "source": {
+        "guid": "bfb7b8",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Iceman",
+        "parents": [
+          "Iceman Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072161569/4FA2A67DE01887B29FB43B719D4470069DCA28A1/",
+        "sheet_sha256": "124496cf08da3707c2dc3ca2ec29ceca8b7f0a223a435428fbbc4b6458e376b0",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46001b": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Confirmed Iceman Hero versus Bobby Drake Alter-Ego, distinct correctly titled faces.",
+      "source": {
+        "guid": "bfb7b8",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Iceman",
+        "parents": [
+          "Iceman Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072161758/5D56FB9D6117AE447E423D573ED66A32E8C9446E/",
+        "sheet_sha256": "a14d4d49eaed4cfd442b7f8e098b98cd4d08f803d43539625018c991ae68a045",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46002": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "da859f",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "4",
+        "card_id": 405,
+        "name": "Frostbite",
+        "parents": [
+          "Iceman Hero Pack",
+          "Frostbite Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 6
+    },
+    "46003": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "980b60",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          13
+        ],
+        "deck_key": "4",
+        "card_id": 407,
+        "name": "Snow Clone",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46004": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "b5e2b2",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          12
+        ],
+        "deck_key": "4",
+        "card_id": 408,
+        "name": "Power Belt",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 8
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46005": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "f2f4eb",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          11
+        ],
+        "deck_key": "4",
+        "card_id": 409,
+        "name": "Cryokinetic Perception",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46006": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "1fc3e4",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          10
+        ],
+        "deck_key": "4",
+        "card_id": 410,
+        "name": "Ice Slide",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 10
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46007": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "e326f3",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          8
+        ],
+        "deck_key": "4",
+        "card_id": 412,
+        "name": "Frozen Solid",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 12
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46008": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "c0b00d",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          7
+        ],
+        "deck_key": "4",
+        "card_id": 413,
+        "name": "Ice Wall",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 13
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46009": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "5bb7aa",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "4",
+        "card_id": 415,
+        "name": "Arctic Attack",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 15
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46010": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "cb77bf",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "4",
+        "card_id": 417,
+        "name": "Ice Blast",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 17
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46011": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "179484",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "4",
+        "card_id": 420,
+        "name": "Chill Out!",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Hero Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072165191/F21FF37B349E63167A8E53E99D40454DF9163068/",
+        "sheet_sha256": "ea8eb0a70afffe4cd9506e935f2c341826729d103c0a46720b298e66f7b25eb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 20
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "46012": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "5928e7",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          17
+        ],
+        "deck_key": "3",
+        "card_id": 977600,
+        "name": "Shark-Girl",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46013": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "7c91e5",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          8
+        ],
+        "deck_key": "3",
+        "card_id": 977601,
+        "name": "Glob",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46014": {
+      "reviewed": true,
+      "review_note": "Visually verified original Iceman 2024 Suppressing Fire, printed14, blue resource, 0 cost, Emma Frost art. Rejected automatic candidate from later States2 reprint with different illustration and printed18.",
+      "source": {
+        "guid": "945726",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          25
+        ],
+        "deck_key": "9781",
+        "card_id": 978102,
+        "name": "Suppressing Fire",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Upgrades"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 0
+    },
+    "46015": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "107c1c",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          40
+        ],
+        "deck_key": "3",
+        "card_id": 977903,
+        "name": "Surprise Move",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 3
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46016": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "0163b5",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          41
+        ],
+        "deck_key": "3",
+        "card_id": 977904,
+        "name": "Take That!",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 4
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46017": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "7c1839",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          18,
+          "States",
+          "2"
+        ],
+        "deck_key": "3",
+        "card_id": 305,
+        "name": "Looking for Trouble",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events",
+          "Looking for Trouble"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46018": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Source is portrait with the landscape title on the right; rotate180 to retain the existing CSS clockwise90 rendering convention and show upright landscape text in game.",
+      "source": {
+        "guid": "033b83",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Keep Up the Pressure",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Player Side Schemes"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072162199/88F0F0FBFBBB155939784907CE010C25577C214F/",
+        "sheet_sha256": "9a67549880615348808b8dda34564b1304e3668dbf548da66b1d687d7e653b7f",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 180,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46019": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "8b4b27",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          45
+        ],
+        "deck_key": "3",
+        "card_id": 972006,
+        "name": "Shadowcat",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 6
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "46020": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "435ee9",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          6
+        ],
+        "deck_key": "3",
+        "card_id": 972007,
+        "name": "Beak",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46023": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "4a8f79",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          5,
+          "States",
+          "2"
+        ],
+        "deck_key": "3",
+        "card_id": 310,
+        "name": "The Power in All of Us",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Resources",
+          "The Power in All of Us"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072163235/764FE5DB15A1D442ACB7DCA66EEB1EB9FD0CE716/",
+        "sheet_sha256": "eca6db22efdb5db415bf93a78ec452d59c17af7d758802acb3886d7a417fe2ba",
+        "columns": 6,
+        "rows": 2,
+        "index": 10
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46024": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "c35e41",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "5",
+        "card_id": 500,
+        "name": "Hot-Headed",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46025": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "561b4b",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "5",
+        "card_id": 501,
+        "name": "Pyro",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "46026": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11). Source is portrait with the landscape title on the right; rotate180 to retain the existing CSS clockwise90 rendering convention and show upright landscape text in game.",
+      "source": {
+        "guid": "29f0d2",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Playing with Fire",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072167497/82E50A155B5930DE6AAFDFF3C703B866059176E9/",
+        "sheet_sha256": "4f295d84f3d8bae42b7efe98d82923f627d7a8685388fae5104e3525c58fb7d1",
+        "columns": 2,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 180,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46027": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "467a23",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "5",
+        "card_id": 502,
+        "name": "Pyro's Flamethrower",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46028": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "e48f55",
+        "object_path": [
+          "ObjectStates",
+          117,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "5",
+        "card_id": 504,
+        "name": "Burn!",
+        "parents": [
+          "Iceman Hero Pack",
+          "Iceman's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 4
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "46029": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "66beec",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          36,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "5",
+        "card_id": 505,
+        "name": "Sauron",
+        "parents": [
+          "Modular Sets",
+          "Sauron Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46031": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "845b2f",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          36,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "5",
+        "card_id": 506,
+        "name": "Life Drain",
+        "parents": [
+          "Modular Sets",
+          "Sauron Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 6
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "46032": {
+      "reviewed": true,
+      "review_note": "Visually checked title, card type, printed number, complete borders and credits, orientation and absence of watermark on targeted contact sheets (2026-10-11).",
+      "source": {
+        "guid": "1649c9",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          36,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "5",
+        "card_id": 509,
+        "name": "The Eye of Sauron",
+        "parents": [
+          "Modular Sets",
+          "Sauron Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072166648/695D886CB429A2419690CCCDBA020BFBF682F65A/",
+        "sheet_sha256": "363de5f7ef9d37ae3ba2abed510f934ca4e82e560b6b3d7fd5fca6e62311be90",
+        "columns": 6,
+        "rows": 2,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    }
+  },
+  "nonnumbered": {},
+  "review_artifacts": {
+    "contact-0001.jpg": "027ac54e357993e5dcc333f6e5a68ffe0d8372e0a5a74ff6aecfff855f29d073",
+    "contact-0002.jpg": "3d701e2ced5f9c74eca0894cab58f01b49b06ec7e797610aafb8575d71f58062",
+    "contact-0003.jpg": "94849d979e0531292a7c38d6430b14e1172eaeb70b5d3d4e0e823e8a2f97f164",
+    "contact-0004.jpg": "01fc0ddcc3d5d9b3f308725047638cd9adfda7edb63b7f03764681c346374ad3",
+    "suppression-correction": "4df7406191ed54c514b40a6a6e2b5105ff820c1cff535963925bd170802ca0bd"
+  }
+}

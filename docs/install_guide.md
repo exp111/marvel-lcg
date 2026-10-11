@@ -9,9 +9,10 @@ files cannot be mixed with the new build.
 Copy `campaign_settings.json` from the old build folder into the new build
 folder, replacing or overwriting the destination file if prompted. This file
 contains the saved setup choices for every campaign. Also copy any personal
-saves, replays, or custom decks that you want to keep. You may also copy
-`assets/cache` to reuse downloaded card artwork; updating the game does not
-require discarding these images. Do not copy the previous
+saves, replays, or custom decks that you want to keep. The persistent artwork
+library described below is shared between new installations on the same user
+account. It does not need to be copied. Keep any existing `assets/cache` and
+custom `assets/pics` files; do not delete them as an update step. Do not copy the previous
 executable, `public`, `data`, or `launch.json` unless you
 intentionally need to migrate a setting. If a build older than `1.0.0.1r` was
 previously opened, clear the browser's site data for
@@ -87,19 +88,51 @@ automatically. Close any older running copy of the game first because port
 
 ### 6. Card images
 
-The repository includes the small sounds and interface textures required to run the game. Standard card artwork is downloaded on demand from the image servers configured in `launch.json` and stored in `assets/cache`.
+The new artwork system prepares the complete reviewed collection before first
+play. The **Card artwork** page opens automatically, shows download and storage
+requirements, and provides Pause, Resume and Retry controls. Keep the host
+application open while downloading. Closing and reopening the host resumes
+unfinished work. Credits and diagnostics remain available during preparation.
 
-If an image server is unavailable, existing cached artwork still works. Keep
-your previous installation's `assets/cache` folder and copy it into the new
-installation to reuse those downloads. The text-only cards are fallback
-images, not missing card definitions. In v1.3.3, restart the game and refresh
-the browser to retry images that failed earlier in the session. The updated
-source build automatically retries temporary placeholders after a 30-second
-cooldown and replaces them on the open page when artwork becomes available.
-Repeated failures wait progressively longer, up to five minutes, and
-temporarily unreachable servers are skipped while trying the next provider.
+The initial reviewed catalog contains 4,060 images in 72 packs and downloads
+1,818,830,230 bytes (about 1.69 GiB). The preparation page shows the additional
+storage required, including temporary download space. Later updates reuse
+unchanged images and archives.
 
-For offline play, an optional image package can be placed in `assets/pics` or referenced through `image_folders` in `launch.json`.
+Artwork packs are separate from the application download. Once prepared, the
+host serves images locally to its browser, LAN players and Cloudflare players.
+They work offline and do not need to be downloaded again after extracting a
+new application version into a different folder. Later versions download new
+or corrected packs while previously prepared content remains available.
+
+The default persistent library is:
+
+| System | Location |
+| --- | --- |
+| Windows | `%LOCALAPPDATA%\Marvel Champions Digital\artwork` |
+| macOS | `~/Library/Application Support/Marvel Champions Digital/artwork` |
+| Linux | `$XDG_DATA_HOME/marvel-champions-digital/artwork`, or `~/.local/share/marvel-champions-digital/artwork` |
+
+Set `"artwork_folder": "D:/MarvelArtwork"` in `launch.json` to choose portable
+or custom storage. Use the same folder in successive installations to reuse
+the collection. An empty value selects the default location. `cache_folder`
+retains its separate legacy/custom-cache meaning.
+
+Old `assets/cache` files are left untouched. They are imported only if their
+bytes match a reviewed manifest image. The first transition may therefore
+download replacements for otherwise readable old images, including watermarked
+copies. Explicit artwork in `image_folders`, including `assets/pics`, continues
+to override managed images. Deliberately configured non-stock `image_servers`
+remain available; copied stock Cerebro and MarvelCDB settings are ignored.
+
+Sounds, card backs, Storm weather and sparkles remain bundled. This change does
+not relocate saves, decks, campaign settings, statistics or replays.
+
+The published **v1.3.3 executable still uses the previous download system**.
+These instructions describe the new source implementation. A build reporting
+**Artwork catalog is incomplete** cannot finish first-time preparation: its
+reviewed image catalog has not yet passed the release gate. Retrying or deleting
+your files cannot fix an incomplete catalog.
 
 ## Updating the development build
 

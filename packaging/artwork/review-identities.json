@@ -1,0 +1,4095 @@
+{
+  "schema_version": 1,
+  "source_pin": {
+    "schema_version": 1,
+    "workshop_id": "2665262903",
+    "workshop_title": "Marvel Champions High-Resolution Scans",
+    "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+    "workshop_updated_unix": 1786823585,
+    "snapshot": {
+      "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+      "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+      "bytes": 6537002,
+      "encoding": "bson"
+    },
+    "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+  },
+  "mappings": {
+    "16001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "b02d67",
+        "object_path": [
+          "ObjectStates",
+          16,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9671",
+        "card_id": 967119,
+        "name": "Groot",
+        "parents": [
+          "Groot Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 19
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "16001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "b02d67",
+        "object_path": [
+          "ObjectStates",
+          16,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9671",
+        "card_id": 967119,
+        "name": "Groot",
+        "parents": [
+          "Groot Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 19
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "16029a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "f76c83",
+        "object_path": [
+          "ObjectStates",
+          26,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9673",
+        "card_id": 967320,
+        "name": "Rocket Raccoon",
+        "parents": [
+          "Rocket Raccoon Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 20
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "16029b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "f76c83",
+        "object_path": [
+          "ObjectStates",
+          26,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9673",
+        "card_id": 967320,
+        "name": "Rocket Raccoon",
+        "parents": [
+          "Rocket Raccoon Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 20
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "32001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "88294d",
+        "object_path": [
+          "ObjectStates",
+          76,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "35",
+        "card_id": 3500,
+        "name": "Colossus",
+        "parents": [
+          "Colossus Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451008793/494FBCD1036146D0331DAC30FA5E5AB9EFB1E8F6/",
+        "sheet_sha256": "6c31a922c66c4fa56f1ea06632039bd525bc6fab3ae22002cfe9d7e07a45fc8f",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "32001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "88294d",
+        "object_path": [
+          "ObjectStates",
+          76,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "35",
+        "card_id": 3500,
+        "name": "Colossus",
+        "parents": [
+          "Colossus Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451009096/AA4DB9FBC47E47F5C733CC860D87FB9647FCF75A/",
+        "sheet_sha256": "2c0053457ddf01085ac4b0550402d2337a303a833be583630e772ae354bbbb1a",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "32030a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "b9e7cf",
+        "object_path": [
+          "ObjectStates",
+          144,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "46",
+        "card_id": 4600,
+        "name": "Shadowcat",
+        "parents": [
+          "Shadowcat Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451036317/9D3350C9C477CFC473131D047F5037E88448A309/",
+        "sheet_sha256": "0955a95bdfc1ab93a6760ba513c55b11caedcc679cfd8b86f11b12750ec07ad4",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "32030b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "b9e7cf",
+        "object_path": [
+          "ObjectStates",
+          144,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "46",
+        "card_id": 4600,
+        "name": "Shadowcat",
+        "parents": [
+          "Shadowcat Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451036526/8AA28309809952C307DBF7D9A54FCFAC8E2D3EB3/",
+        "sheet_sha256": "e294f92cbe4a0432b344e5a2c13e519c4a9082319d68b2c64c1723cc37ab0905",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "33001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "26b7aa",
+        "object_path": [
+          "ObjectStates",
+          75,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "37",
+        "card_id": 3700,
+        "name": "Cyclops",
+        "parents": [
+          "Cyclops Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451013432/C8BD6C8E298D331CBE20887C1FF27777290A9208/",
+        "sheet_sha256": "5e079bd4348d8cf1d37b729f19a036b807219654fb1e348874811decec4f1fac",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "33001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "26b7aa",
+        "object_path": [
+          "ObjectStates",
+          75,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "37",
+        "card_id": 3700,
+        "name": "Cyclops",
+        "parents": [
+          "Cyclops Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451013749/1B2F60C0EBBD8E2834D04244F2F04F1846A92005/",
+        "sheet_sha256": "14172e6eb820b27e5cafd0ad40c20bdf0406f068562ee0505cd8af7ce96c1a36",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "34001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "206f6f",
+        "object_path": [
+          "ObjectStates",
+          74,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "42",
+        "card_id": 4200,
+        "name": "Phoenix",
+        "parents": [
+          "Phoenix Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451029402/F0C465DB3FFA3F674FE793FA08B24B018EE8D232/",
+        "sheet_sha256": "811e7b4bc711043e9e6a34621a6a9df9d647cde69cb0532841de3946e3601355",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "34001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "206f6f",
+        "object_path": [
+          "ObjectStates",
+          74,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "42",
+        "card_id": 4200,
+        "name": "Phoenix",
+        "parents": [
+          "Phoenix Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451029681/9AFB052623B601722F7F78ABEAE99D059C251AEF/",
+        "sheet_sha256": "8aa9c3f967f8c9befa46b00fb17b3f3e8ba12d67d041f9be94438d6d4f1ecdaa",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "35001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "2fb2de",
+        "object_path": [
+          "ObjectStates",
+          77,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "12",
+        "card_id": 1200,
+        "name": "Wolverine",
+        "parents": [
+          "Wolverine Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401546955/68AC1EB0DD45FE22EF86A70A2142637BD6CFDC92/",
+        "sheet_sha256": "635430e243d16a56247f89260e39de563d1dd29ca8cc88721ec0262abbb4c0bc",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "35001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "2fb2de",
+        "object_path": [
+          "ObjectStates",
+          77,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "12",
+        "card_id": 1200,
+        "name": "Wolverine",
+        "parents": [
+          "Wolverine Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401547119/E40453C40FA0E605E44B9213C8A0DEA04B1B081B/",
+        "sheet_sha256": "7b3c340fd88281bfd5edc2a81e7470610226c4ca48a698684e149e1bb36cf145",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "36001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "4d4f45",
+        "object_path": [
+          "ObjectStates",
+          83,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "11",
+        "card_id": 1100,
+        "name": "Storm",
+        "parents": [
+          "Storm Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401544969/7575297348105ABEC9A261A9B2DFE3D979D10112/",
+        "sheet_sha256": "7caf20c1da9b0d7fe4029824278ed64f6ab7a9937698733869affe4b5d3b7947",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "36001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "4d4f45",
+        "object_path": [
+          "ObjectStates",
+          83,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "11",
+        "card_id": 1100,
+        "name": "Storm",
+        "parents": [
+          "Storm Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791401545133/C856435159A10CF8BB4E93128AE47BAD31A83F10/",
+        "sheet_sha256": "fe9374ba5344b7bea8da1fed7cd722eb579fcdb508bb29008985bcb52541b7f4",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "38001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: hero with THW/ATK/DEF matches game side a. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "776e75",
+        "object_path": [
+          "ObjectStates",
+          89,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "13",
+        "card_id": 1300,
+        "name": "Rogue",
+        "parents": [
+          "Rogue Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939663757/8AEDEDE31F3DF1E36E706ECBB9FC8AF311DAD2A7/",
+        "sheet_sha256": "e5b4658e58fef847757fa4acec3e9404e47f8577f90ae7b2068679463eed29fe",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "38001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean hero/alter-ego pair together: alter ego with REC matches game side b. Chosen by visible printed face, without inferring physical A/B letters.",
+      "source": {
+        "guid": "776e75",
+        "object_path": [
+          "ObjectStates",
+          89,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "13",
+        "card_id": 1300,
+        "name": "Rogue",
+        "parents": [
+          "Rogue Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939663132/E74457B0F13F9E817CD75B51DBF820C539DECBDA/",
+        "sheet_sha256": "af85879ff486bcf3859c5c8a4bd13c56c0c58e0c4fa00057277a70d7f720df77",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "05025": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Home by Dawn; Kamala Khan obligation. TTS Home at Dawn nickname is wrong.",
+      "source": {
+        "guid": "0c3c65",
+        "object_path": [
+          "ObjectStates",
+          33,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "9648",
+        "card_id": 964832,
+        "name": "Home at Dawn",
+        "parents": [
+          "Ms. Marvel Hero Pack",
+          "Ms. Marvel's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637338692/027C149C1CA00773AB320B268DCC5E1DFCD527BE/",
+        "sheet_sha256": "6b937eaa83430adb6e462b1ccf16f011fc51743f7690f754d93974cd3ac307a6",
+        "columns": 10,
+        "rows": 7,
+        "index": 32
+      },
+      "rotation": 0
+    },
+    "16126": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Vandarian Power Wand, Galactic Artifacts 5/9; attach to lowest SCH enemy, three energy discard cost. Matches effect of game entry named Vandarian Power Stone; existing game typo untouched.",
+      "source": {
+        "guid": "dffeb6",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          74,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9735",
+        "card_id": 973504,
+        "name": "Vandarian Power Wand",
+        "parents": [
+          "Modular Sets",
+          "Galactic Artifacts Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1833524420366906303/C05328A51E72D13AE41491092D4ED7CEE67B3130/",
+        "sheet_sha256": "2c08dcf7864fc9e32753b370d33bec53c333be4b6531ceec8e9c53c1c112af70",
+        "columns": 10,
+        "rows": 2,
+        "index": 4
+      },
+      "rotation": 0
+    },
+    "27107": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Brute Force Barricade, Sinister Six, 9 threat, Victory 1; unnamed TTS object. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "20b354",
+        "object_path": [
+          "ObjectStates",
+          67,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          9
+        ],
+        "deck_key": "9713",
+        "card_id": 971300,
+        "name": "",
+        "parents": [
+          "Sinister Six Scenario Pack",
+          "Sinister Six Encounter Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014879825/643BF1313C2D8E12B629AFDC749893DD0B39AFED/",
+        "sheet_sha256": "22e4aa4426602a9c6128daaad6054243c650b02a6f86d6998a9319f4620cc136",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 180
+    },
+    "34033": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Psychic Misdirection, Protection event cost 2, Psionic restriction. TTS Psychic Manipulation nickname is wrong.",
+      "source": {
+        "guid": "a5bbab",
+        "object_path": [
+          "ObjectStates",
+          43,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          32
+        ],
+        "deck_key": "1",
+        "card_id": 972728,
+        "name": "Psychic Manipulation",
+        "parents": [
+          "Protection Aspect Cards",
+          "Protection Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451314161/2F1BA8B97E18E882700DCEAF0C3C41A745A1C548/",
+        "sheet_sha256": "c5021aea1df5cb3a78f36dee78b83491a7430902d8d573ec0f71a27028da337f",
+        "columns": 8,
+        "rows": 4,
+        "index": 28
+      },
+      "rotation": 0
+    },
+    "46030": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Sauron Lives!, Sauron 2/6, 3 threat, crisis; unnamed TTS object. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "3ed8ef",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          36,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "6",
+        "card_id": 601,
+        "name": "",
+        "parents": [
+          "Modular Sets",
+          "Sauron Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2502390525072167497/82E50A155B5930DE6AAFDFF3C703B866059176E9/",
+        "sheet_sha256": "4f295d84f3d8bae42b7efe98d82923f627d7a8685388fae5104e3525c58fb7d1",
+        "columns": 2,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 180
+    },
+    "27079": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Guard the Bell Tower, Venom 8/14, 3 threat; unnamed TTS object. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "187064",
+        "object_path": [
+          "ObjectStates",
+          68,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          6
+        ],
+        "deck_key": "9711",
+        "card_id": 971100,
+        "name": "",
+        "parents": [
+          "Venom Scenario Pack",
+          "Venom Encounter Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014897877/F8A187F44C8905F19EF82F4328F8BC5FD5C32188/",
+        "sheet_sha256": "e2401c2f85fb44045df0fb224e1bdeb11cb27bbff08a148ef4aaead7de443476",
+        "columns": 10,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 180
+    },
+    "27080": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Lashing Out, Venom 9/14, 9 threat and acceleration; unnamed TTS object. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "0e7202",
+        "object_path": [
+          "ObjectStates",
+          68,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "9711",
+        "card_id": 971101,
+        "name": "",
+        "parents": [
+          "Venom Scenario Pack",
+          "Venom Encounter Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014897877/F8A187F44C8905F19EF82F4328F8BC5FD5C32188/",
+        "sheet_sha256": "e2401c2f85fb44045df0fb224e1bdeb11cb27bbff08a148ef4aaead7de443476",
+        "columns": 10,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 180
+    },
+    "27081": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Tooth and Nail, Venom 10/14, 8 threat and hazard; unnamed TTS object. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "604cd3",
+        "object_path": [
+          "ObjectStates",
+          68,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9711",
+        "card_id": 971102,
+        "name": "",
+        "parents": [
+          "Venom Scenario Pack",
+          "Venom Encounter Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014897877/F8A187F44C8905F19EF82F4328F8BC5FD5C32188/",
+        "sheet_sha256": "e2401c2f85fb44045df0fb224e1bdeb11cb27bbff08a148ef4aaead7de443476",
+        "columns": 10,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 180
+    },
+    "32126a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Attack on Xavier's 2A, paired with The Atrium 2B. Game calls the front The Atrium A; source pointer selects actual Atrium card. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "3b81a9",
+        "object_path": [
+          "ObjectStates",
+          79,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "16",
+        "card_id": 1601,
+        "name": "Attack on Xavier's",
+        "parents": [
+          "Mansion Attack Scenario Pack",
+          "Mansion Attack Main Scheme"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450971842/86DB11CC33EC6C0E01BC1D323841D2063815D6DA/",
+        "sheet_sha256": "744d1fde59ea6a845b4df6613fc9622db751cde051a2e03e205634d68a7dd039",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 180
+    },
+    "32126b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: The Atrium 2B, 7 per-player target, 1 per-player starting threat/escalation, each character gains steady. Excludes Cafeteria/Courtyard/Basketball Court variants. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "3b81a9",
+        "object_path": [
+          "ObjectStates",
+          79,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "16",
+        "card_id": 1601,
+        "name": "Attack on Xavier's",
+        "parents": [
+          "Mansion Attack Scenario Pack",
+          "Mansion Attack Main Scheme"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450972091/FA7623090E734F22819156049E623968EFF85839/",
+        "sheet_sha256": "a8be53df3790bfd3335299c275aaf9ab755988647f5bb7d08d04a7b6d30b7c29",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 180
+    },
+    "40092": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Inhibitor Collar, Military Grade 3/5, minus 1 ATK. TTS Military Grade nickname is wrong.",
+      "source": {
+        "guid": "bffad1",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          51,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "9738",
+        "card_id": 973810,
+        "name": "Military Grade",
+        "parents": [
+          "Modular Sets",
+          "Military Grade Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431384430/AD392F1FDEC00A1F606481C07DA991C6B8BD6764/",
+        "sheet_sha256": "a2509028f1684608929a6ad8830596aeb8090e30cbdb6c8bc18b2b8479a5ad23",
+        "columns": 7,
+        "rows": 5,
+        "index": 10
+      },
+      "rotation": 0
+    },
+    "40093": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: The Senator's Support, Military Grade 5/5, 3 threat, amplify. TTS Military Grade nickname is wrong. Source is portrait with scheme title on the right; rotate 180 degrees to preserve the game title-left portrait convention before UI landscape rotation.",
+      "source": {
+        "guid": "e75689",
+        "object_path": [
+          "ObjectStates",
+          14,
+          "ContainedObjects",
+          51,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9737",
+        "card_id": 973706,
+        "name": "Military Grade",
+        "parents": [
+          "Modular Sets",
+          "Military Grade Modular Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431396856/8D37B62E7A6BEF46669567F03742D83BAFEFEA23/",
+        "sheet_sha256": "b6e0552cfe4a40b60007f20b60e1105add14cadf05bb6b22063e53e3b6da655c",
+        "columns": 7,
+        "rows": 3,
+        "index": 6
+      },
+      "rotation": 180
+    },
+    "41002a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Psi-Knife, permanent, plus 1 THW and mental resource. Physical source front is Knife despite TTS Psi-Katana nickname.",
+      "source": {
+        "guid": "bf9c61",
+        "object_path": [
+          "ObjectStates",
+          98,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "13",
+        "card_id": 1301,
+        "name": "Psi-Katana",
+        "parents": [
+          "Psylocke Hero Pack",
+          "Psylocke's Setup Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006054269/63A0E014AD44C07F375299C7C7EE165D21851D26/",
+        "sheet_sha256": "811ab8eb647add7433a9bbe7dcae7fd2bf3896dd1f9995d317bef975c413aafd",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0
+    },
+    "41002b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: Psi-Katana, permanent/restricted, plus 1 ATK, piercing and physical resource. Paired reverse of verified Psi-Knife.",
+      "source": {
+        "guid": "bf9c61",
+        "object_path": [
+          "ObjectStates",
+          98,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "13",
+        "card_id": 1301,
+        "name": "Psi-Katana",
+        "parents": [
+          "Psylocke Hero Pack",
+          "Psylocke's Setup Cards"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006057430/975DC6FEC36C281383313FFB88B71C3CCA186904/",
+        "sheet_sha256": "913faaf6076dc0dbca9b29d8234ecc05523099b3b6785027f8f53190d48ef6f2",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0
+    },
+    "50184a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: A.I.M. Interference, energy icon/payment, SHIELD Executive Board 4/6.",
+      "source": {
+        "guid": "5acf10",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          8,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "1",
+        "card_id": 114,
+        "name": "A.I.M. Interference",
+        "parents": [
+          "Campaign and Market Cards",
+          "Agents of S.H.I.E.L.D. Campaign Cards",
+          "S.H.I.E.L.D. Executive Board"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194756038862109/44F3078CD7148DA5F46F1EF18A139F8E56DE4AF7/",
+        "sheet_sha256": "88e2bd29a999496e76804370bac678438c1bda2462d671fa051765191d8091c3",
+        "columns": 9,
+        "rows": 2,
+        "index": 14
+      },
+      "rotation": 0
+    },
+    "50184b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: A.I.M. Interference, mental icon/payment, SHIELD Executive Board 5/6.",
+      "source": {
+        "guid": "b9387c",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          8,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "1",
+        "card_id": 115,
+        "name": "A.I.M. Interference",
+        "parents": [
+          "Campaign and Market Cards",
+          "Agents of S.H.I.E.L.D. Campaign Cards",
+          "S.H.I.E.L.D. Executive Board"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194756038862109/44F3078CD7148DA5F46F1EF18A139F8E56DE4AF7/",
+        "sheet_sha256": "88e2bd29a999496e76804370bac678438c1bda2462d671fa051765191d8091c3",
+        "columns": 9,
+        "rows": 2,
+        "index": 15
+      },
+      "rotation": 0
+    },
+    "50184c": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop: A.I.M. Interference, physical fist icon/payment, SHIELD Executive Board 6/6.",
+      "source": {
+        "guid": "37c54f",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          8,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "1",
+        "card_id": 116,
+        "name": "A.I.M. Interference",
+        "parents": [
+          "Campaign and Market Cards",
+          "Agents of S.H.I.E.L.D. Campaign Cards",
+          "S.H.I.E.L.D. Executive Board"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194756038862109/44F3078CD7148DA5F46F1EF18A139F8E56DE4AF7/",
+        "sheet_sha256": "88e2bd29a999496e76804370bac678438c1bda2462d671fa051765191d8091c3",
+        "columns": 9,
+        "rows": 2,
+        "index": 16
+      },
+      "rotation": 0
+    },
+    "03001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Captain America, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9ab0fe",
+        "object_path": [
+          "ObjectStates",
+          28,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9645",
+        "card_id": 964505,
+        "name": "Captain America",
+        "parents": [
+          "Captain America Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 8
+    },
+    "03001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Steve Rogers, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9ab0fe",
+        "object_path": [
+          "ObjectStates",
+          28,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9645",
+        "card_id": 964505,
+        "name": "Captain America",
+        "parents": [
+          "Captain America Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 5
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "04001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Hawkeye, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "7c71f1",
+        "object_path": [
+          "ObjectStates",
+          13,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9697",
+        "card_id": 969706,
+        "name": "Hawkeye",
+        "parents": [
+          "Hawkeye Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 6
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "04001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Clint Barton, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "7c71f1",
+        "object_path": [
+          "ObjectStates",
+          13,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9697",
+        "card_id": 969706,
+        "name": "Hawkeye",
+        "parents": [
+          "Hawkeye Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 6
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "04031a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Spider-Woman, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "1af424",
+        "object_path": [
+          "ObjectStates",
+          37,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9677",
+        "card_id": 967707,
+        "name": "Spider-Woman",
+        "parents": [
+          "Spider-Woman Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 8
+    },
+    "04031b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Jessica Drew, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "1af424",
+        "object_path": [
+          "ObjectStates",
+          37,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9677",
+        "card_id": 967707,
+        "name": "Spider-Woman",
+        "parents": [
+          "Spider-Woman Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 7
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "05001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ms. Marvel, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "98025d",
+        "object_path": [
+          "ObjectStates",
+          33,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9647",
+        "card_id": 964708,
+        "name": "Ms. Marvel",
+        "parents": [
+          "Ms. Marvel Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 8
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "05001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Kamala Khan, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "98025d",
+        "object_path": [
+          "ObjectStates",
+          33,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9647",
+        "card_id": 964708,
+        "name": "Ms. Marvel",
+        "parents": [
+          "Ms. Marvel Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 8
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "06001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Thor, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "8886c4",
+        "object_path": [
+          "ObjectStates",
+          38,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9649",
+        "card_id": 964909,
+        "name": "Thor",
+        "parents": [
+          "Thor Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "06001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Odinson, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "8886c4",
+        "object_path": [
+          "ObjectStates",
+          38,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9649",
+        "card_id": 964909,
+        "name": "Thor",
+        "parents": [
+          "Thor Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 9
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "08001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Black Widow, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "67c5a0",
+        "object_path": [
+          "ObjectStates",
+          27,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9651",
+        "card_id": 965110,
+        "name": "Black Widow",
+        "parents": [
+          "Black Widow Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 10
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 7
+    },
+    "08001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Natasha Romanoff, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "67c5a0",
+        "object_path": [
+          "ObjectStates",
+          27,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9651",
+        "card_id": 965110,
+        "name": "Black Widow",
+        "parents": [
+          "Black Widow Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 10
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "09001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Doctor Strange, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "4eaae1",
+        "object_path": [
+          "ObjectStates",
+          30,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9653",
+        "card_id": 965311,
+        "name": "Doctor Strange",
+        "parents": [
+          "Doctor Strange Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 11
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "09001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Stephen Strange, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "4eaae1",
+        "object_path": [
+          "ObjectStates",
+          30,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9653",
+        "card_id": 965311,
+        "name": "Doctor Strange",
+        "parents": [
+          "Doctor Strange Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 11
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "10001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Hulk, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "32072a",
+        "object_path": [
+          "ObjectStates",
+          31,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9686",
+        "card_id": 968612,
+        "name": "Hulk",
+        "parents": [
+          "Hulk Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 12
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "10001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Bruce Banner, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "32072a",
+        "object_path": [
+          "ObjectStates",
+          31,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9686",
+        "card_id": 968612,
+        "name": "Hulk",
+        "parents": [
+          "Hulk Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 12
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "12001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ant-Man, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit Tiny TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "5e6b9a",
+        "object_path": [
+          "ObjectStates",
+          19,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "9717",
+        "card_id": 971700,
+        "name": "Ant-Man (Tiny)",
+        "parents": [
+          "Ant-Man Hero Pack",
+          "Scott Lang"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "12001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Scott Lang, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit alter-ego TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "56de7c",
+        "object_path": [
+          "ObjectStates",
+          19,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9662",
+        "card_id": 966201,
+        "name": "Scott Lang",
+        "parents": [
+          "Ant-Man Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0
+    },
+    "12001c": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ant-Man, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit Giant TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "4f3adc",
+        "object_path": [
+          "ObjectStates",
+          19,
+          "ContainedObjects",
+          3,
+          "States",
+          "3"
+        ],
+        "deck_key": "9664",
+        "card_id": 966402,
+        "name": "Ant-Man (Giant)",
+        "parents": [
+          "Ant-Man Hero Pack",
+          "Scott Lang"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 0
+    },
+    "13001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Wasp, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit Tiny TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "70e0e5",
+        "object_path": [
+          "ObjectStates",
+          39,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "9631",
+        "card_id": 963103,
+        "name": "Wasp (Tiny)",
+        "parents": [
+          "Wasp Hero Pack",
+          "Nadia Van Dyne"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 3
+      },
+      "rotation": 0
+    },
+    "13001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nadia Van Dyne, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit alter-ego TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "f4d92f",
+        "object_path": [
+          "ObjectStates",
+          39,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9665",
+        "card_id": 966504,
+        "name": "Nadia Van Dyne",
+        "parents": [
+          "Wasp Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 4
+      },
+      "rotation": 0
+    },
+    "13001c": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Wasp, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Uses the explicit Giant TTS state, not the similarly named ally.",
+      "source": {
+        "guid": "4ee13e",
+        "object_path": [
+          "ObjectStates",
+          39,
+          "ContainedObjects",
+          3,
+          "States",
+          "3"
+        ],
+        "deck_key": "9631",
+        "card_id": 963105,
+        "name": "Wasp (Giant)",
+        "parents": [
+          "Wasp Hero Pack",
+          "Nadia Van Dyne"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637708268/98E40D761CA46E2BE008B96645781EB25BC49B93/",
+        "sheet_sha256": "f6d358a4009b7c712ca7af3581da6761902d15dd522f3fffd5a0d83f13ab6525",
+        "columns": 4,
+        "rows": 2,
+        "index": 5
+      },
+      "rotation": 0
+    },
+    "14001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Quicksilver, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b1a635",
+        "object_path": [
+          "ObjectStates",
+          34,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9667",
+        "card_id": 966717,
+        "name": "Quicksilver",
+        "parents": [
+          "Quicksilver Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 17
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "14001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Pietro Maximoff, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b1a635",
+        "object_path": [
+          "ObjectStates",
+          34,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9667",
+        "card_id": 966717,
+        "name": "Quicksilver",
+        "parents": [
+          "Quicksilver Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 17
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "15001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Scarlet Witch, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a7c02d",
+        "object_path": [
+          "ObjectStates",
+          35,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9669",
+        "card_id": 966918,
+        "name": "Scarlet Witch",
+        "parents": [
+          "Scarlet Witch Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 18
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "15001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Wanda Maximoff, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a7c02d",
+        "object_path": [
+          "ObjectStates",
+          35,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9669",
+        "card_id": 966918,
+        "name": "Scarlet Witch",
+        "parents": [
+          "Scarlet Witch Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 18
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "17001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Star-Lord, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "16f248",
+        "object_path": [
+          "ObjectStates",
+          25,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9674",
+        "card_id": 967421,
+        "name": "Star-Lord",
+        "parents": [
+          "Star-Lord Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 21
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "17001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Peter Quill, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "16f248",
+        "object_path": [
+          "ObjectStates",
+          25,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9674",
+        "card_id": 967421,
+        "name": "Star-Lord",
+        "parents": [
+          "Star-Lord Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 21
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "18001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Gamora, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b748fd",
+        "object_path": [
+          "ObjectStates",
+          22,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9706",
+        "card_id": 970622,
+        "name": "Gamora",
+        "parents": [
+          "Gamora Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 22
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "18001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Gamora, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b748fd",
+        "object_path": [
+          "ObjectStates",
+          22,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9706",
+        "card_id": 970622,
+        "name": "Gamora",
+        "parents": [
+          "Gamora Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 22
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "19001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Drax, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "91ea1d",
+        "object_path": [
+          "ObjectStates",
+          15,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9701",
+        "card_id": 970123,
+        "name": "Drax",
+        "parents": [
+          "Drax Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 23
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "19001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Drax, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "91ea1d",
+        "object_path": [
+          "ObjectStates",
+          15,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9701",
+        "card_id": 970123,
+        "name": "Drax",
+        "parents": [
+          "Drax Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 23
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "20001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Venom, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "81063b",
+        "object_path": [
+          "ObjectStates",
+          24,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9677",
+        "card_id": 967724,
+        "name": "Venom",
+        "parents": [
+          "Venom Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 24
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 7
+    },
+    "20001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Flash Thompson, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "81063b",
+        "object_path": [
+          "ObjectStates",
+          24,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9677",
+        "card_id": 967724,
+        "name": "Venom",
+        "parents": [
+          "Venom Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 24
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "21001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Spectrum, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "8c3f88",
+        "object_path": [
+          "ObjectStates",
+          18,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9699",
+        "card_id": 969925,
+        "name": "Spectrum",
+        "parents": [
+          "Spectrum Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 25
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "21001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Monica Rambeau, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "8c3f88",
+        "object_path": [
+          "ObjectStates",
+          18,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9699",
+        "card_id": 969925,
+        "name": "Spectrum",
+        "parents": [
+          "Spectrum Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 25
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "21031a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Adam Warlock, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "3f8b2b",
+        "object_path": [
+          "ObjectStates",
+          17,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9691",
+        "card_id": 969126,
+        "name": "Adam Warlock",
+        "parents": [
+          "Adam Warlock Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 26
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "21031b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Adam Warlock, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "3f8b2b",
+        "object_path": [
+          "ObjectStates",
+          17,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9691",
+        "card_id": 969126,
+        "name": "Adam Warlock",
+        "parents": [
+          "Adam Warlock Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 26
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "22001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nebula, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9586f4",
+        "object_path": [
+          "ObjectStates",
+          23,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9702",
+        "card_id": 970227,
+        "name": "Nebula",
+        "parents": [
+          "Nebula Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 27
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 6
+    },
+    "22001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nebula, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9586f4",
+        "object_path": [
+          "ObjectStates",
+          23,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9702",
+        "card_id": 970227,
+        "name": "Nebula",
+        "parents": [
+          "Nebula Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 27
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "23001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: War Machine, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a6c9e7",
+        "object_path": [
+          "ObjectStates",
+          21,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9704",
+        "card_id": 970428,
+        "name": "War Machine",
+        "parents": [
+          "War Machine Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637682543/A4E5DD1CC12EE12C678B47998FAB16690A326F82/",
+        "sheet_sha256": "1d840cf59c65d0f4da43383eb600937a0eae3840e92c8258993f92621ce0c209",
+        "columns": 6,
+        "rows": 5,
+        "index": 28
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "23001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: James Rhodes, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a6c9e7",
+        "object_path": [
+          "ObjectStates",
+          21,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9704",
+        "card_id": 970428,
+        "name": "War Machine",
+        "parents": [
+          "War Machine Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908637689251/DAA4DB980CAD2A561773AF4688ADE0FDD2134A76/",
+        "sheet_sha256": "15f429409899ea58a6bb374e0bf49df1dea0513379af850606dc3a5936b0a08a",
+        "columns": 6,
+        "rows": 5,
+        "index": 28
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "25001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Valkyrie, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "961038",
+        "object_path": [
+          "ObjectStates",
+          40,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9714",
+        "card_id": 971400,
+        "name": "Valkyrie",
+        "parents": [
+          "Valkyrie Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1823396325164178216/5CD8370D1B27D6B0B3FDECD6456489A472754405/",
+        "sheet_sha256": "ace56bca878b48ff4e57e07a9b8c47aaf55cabd34b6fbac6c7d78f301c6a165f",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "25001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Brunnhilde, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "961038",
+        "object_path": [
+          "ObjectStates",
+          40,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9714",
+        "card_id": 971400,
+        "name": "Valkyrie",
+        "parents": [
+          "Valkyrie Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1823396325164178402/4A9BBDC2B3B5A19476BEAC8F88EDD39D955A9835/",
+        "sheet_sha256": "f75990b09f559cf236061889ffc95159d071f1fcf49ebd440bb0ec4ac1c29bbd",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "26001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Vision, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "47f46b",
+        "object_path": [
+          "ObjectStates",
+          57,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Vision",
+        "parents": [
+          "Vision Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1833528529702937748/869F5C0E6D34ABDCB91D2BBA1BE023562ACD66EB/",
+        "sheet_sha256": "735b805b25b073e82f5929fa7c081e771f8f843c4858bca6d84036672d4c2362",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 6
+    },
+    "26001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Vision, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "47f46b",
+        "object_path": [
+          "ObjectStates",
+          57,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Vision",
+        "parents": [
+          "Vision Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1833528529702937893/50AD14953BF725C6569184976E2119DA1710D41F/",
+        "sheet_sha256": "6656dc0b5d37b8033964faf381609cedb57b0eee722f4a91c1225fd8a28d0e11",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "27001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ghost-Spider, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "c19a52",
+        "object_path": [
+          "ObjectStates",
+          71,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Ghost-Spider",
+        "parents": [
+          "Ghost-Spider Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014500286/31CA2B8EAC6F994187DF77D564A11AFEE0FC3144/",
+        "sheet_sha256": "864cdacbd2b04920fa465ddd3dbcaf676ba5220fca1c2d22ae3336eb43a67dd0",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "27001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Gwen Stacy, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "c19a52",
+        "object_path": [
+          "ObjectStates",
+          71,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Ghost-Spider",
+        "parents": [
+          "Ghost-Spider Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014500451/8A0FD830ED7013F74FBD6D93DCCB1B4173226453/",
+        "sheet_sha256": "fb8171e35665cc4fc64986bcae909bfa96e7ada98e11925052b5478a176356f6",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "27030a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Spider-Man, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Verified Miles Morales Spider-Man identity; excludes Peter Parker and ally variants.",
+      "source": {
+        "guid": "d6b1e9",
+        "object_path": [
+          "ObjectStates",
+          70,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Spider-Man",
+        "parents": [
+          "Spider-Man Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014559062/7E2EA99C84396015F816657B5D8993F3A8415797/",
+        "sheet_sha256": "68420d798d98469cdf66959668ee8e5406cf31345e862e589cb71c4de6e9478c",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "27030b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Miles Morales, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Verified Miles Morales Spider-Man identity; excludes Peter Parker and ally variants.",
+      "source": {
+        "guid": "d6b1e9",
+        "object_path": [
+          "ObjectStates",
+          70,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Spider-Man",
+        "parents": [
+          "Spider-Man Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1834662762014559242/DEA97BEF404F2F2B721618518126EBC57D6D5C68/",
+        "sheet_sha256": "c99088dcec326a1ce8cb6cc4192c27006e83efe4069d62aa6bfd970ff7b149ed",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "28001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nova, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "13ab9f",
+        "object_path": [
+          "ObjectStates",
+          62,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "5",
+        "card_id": 500,
+        "name": "Nova",
+        "parents": [
+          "Nova Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598154626/43E70C35268A0C00315E8E0B820A2EED7C130B8B/",
+        "sheet_sha256": "8272d235b2fdc66c6a611c9b25175b09d046cf1faac0ba7d60adaf915337d525",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "28001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Sam Alexander, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "13ab9f",
+        "object_path": [
+          "ObjectStates",
+          62,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "5",
+        "card_id": 500,
+        "name": "Nova",
+        "parents": [
+          "Nova Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598154809/C140ACBD69319CF8ECBE8D71BEA69D62E0EC32DB/",
+        "sheet_sha256": "d8c6617294204fa600cade91cc258373d83f47f532167f8f4e6e30597459e29d",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "29001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ironheart, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 1 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "eaab93",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "5",
+        "card_id": 500,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598175754/84FA10C39E1DD18896A4C0CD6D300C9AD22499D9/",
+        "sheet_sha256": "3f748aaec80fabf9eb47d151bd569e70cd70deebb952be8395c4ed4e1ddbaad1",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "29001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Riri Williams, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 1 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "eaab93",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "5",
+        "card_id": 500,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598175935/82244EA1D8ACC2A25C7EE08FFE6BFB83C0B44A73/",
+        "sheet_sha256": "fcd315c2b343fba363c1523f5c9b813860f6341a05d252e0a6fc424279b35f80",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "29002a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ironheart, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 2 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "09efea",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack",
+          "Ironheart"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598176194/2DB0A414A0394BDE6C11C8B183D7F07D9647B244/",
+        "sheet_sha256": "01c048f7f879d9e3b2c489daa89dc8090e1bf4681c65011f95c5078e8b27b5de",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "29002b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Riri Williams, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 2 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "09efea",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack",
+          "Ironheart"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598176368/288A38CA7DCF2AAB39F4BBA4DA3913F4F5E876BB/",
+        "sheet_sha256": "f09a7f778b27caf4e76ce953bafcabc96448dcc7a92422000cc440e0aaba2251",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "29003a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Ironheart, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 3 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "e12a40",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3,
+          "States",
+          "3"
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack",
+          "Ironheart"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598176636/7C4C658C3EDEDA7C2F579682DD04EA46ECD50EEA/",
+        "sheet_sha256": "e50e480a7651b8312296cf362ed12349af39620915172fca62b7522d6e38511e",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "29003b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Riri Williams, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names. Verified Version 3 hero and matching Riri Williams reverse; distinct upgrade-stage art and hand size.",
+      "source": {
+        "guid": "e12a40",
+        "object_path": [
+          "ObjectStates",
+          64,
+          "ContainedObjects",
+          3,
+          "States",
+          "3"
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Ironheart",
+        "parents": [
+          "Ironheart Hero Pack",
+          "Ironheart"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1831288304598176829/3429F46E6E9EA5EFD117E0E317E1EFFE471D2433/",
+        "sheet_sha256": "6ac3428013f35db503a42c645530bea5e1b3250584a0de17260e146c603a3922",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "30001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Spider-Ham, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a65e7d",
+        "object_path": [
+          "ObjectStates",
+          73,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9719",
+        "card_id": 971900,
+        "name": "Spider-Ham",
+        "parents": [
+          "Spider-Ham Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463097403/85F1A1053164726F21D4B95F2DD30679D7237CFF/",
+        "sheet_sha256": "68077e191ed109db2fedd7604e0a8c2bc5e948a42c74ef40889efc2f541222ed",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "30001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Peter Porker, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a65e7d",
+        "object_path": [
+          "ObjectStates",
+          73,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9719",
+        "card_id": 971900,
+        "name": "Spider-Ham",
+        "parents": [
+          "Spider-Ham Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463097590/B7845BD6CFEAF2594BEA13935622E439546A4AAC/",
+        "sheet_sha256": "8df627f9f627f87b0130036ce9e4897719e09a6c5c2ae066c980903bc60b712e",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "31001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: SP//dr Suit, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a65e7d",
+        "object_path": [
+          "ObjectStates",
+          72,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9716",
+        "card_id": 971600,
+        "name": "SP//dr Suit",
+        "parents": [
+          "SP//dr Hero Pack",
+          "SP//dr's Identity Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463064460/9D8BEEDFE10A929AB7A8337DED07DC0E4ADFAF22/",
+        "sheet_sha256": "c3617828c1fb09bba432a5ea1d90e8a59d85d9795bc38a579898915fcb2c1ec5",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "31002a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Peni Parker, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "5c2697",
+        "object_path": [
+          "ObjectStates",
+          72,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "9717",
+        "card_id": 971700,
+        "name": "Peni Parker",
+        "parents": [
+          "SP//dr Hero Pack",
+          "SP//dr's Identity Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463077661/B90307CC1D3B5B3417ABB21D90390755014F9462/",
+        "sheet_sha256": "27d9638ff3c49f987d90565ac891abe3f1ebf9264994062dcc7c857b779a2845",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "40001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Cable, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "04fba0",
+        "object_path": [
+          "ObjectStates",
+          91,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 300,
+        "name": "Cable",
+        "parents": [
+          "Cable Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431272935/A3FA4B77016A762E6372B993F49DB33D036F25EB/",
+        "sheet_sha256": "2b904d84f53f2d4200eec3c81e028f46b133099cc4ef5ff1b21cf2d2901f49c5",
+        "columns": 6,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "40001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nathan Summers, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "04fba0",
+        "object_path": [
+          "ObjectStates",
+          91,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 300,
+        "name": "Cable",
+        "parents": [
+          "Cable Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431273322/2C2A7CC9F2EF2D894A31191B076FB5567067ADEB/",
+        "sheet_sha256": "24c51c802f2e205cd912a3cdc097a7e51326a9626759bc0303c723a3b7c71457",
+        "columns": 6,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "40037a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Domino, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "3eb4b7",
+        "object_path": [
+          "ObjectStates",
+          90,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 301,
+        "name": "Domino",
+        "parents": [
+          "Domino Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431272935/A3FA4B77016A762E6372B993F49DB33D036F25EB/",
+        "sheet_sha256": "2b904d84f53f2d4200eec3c81e028f46b133099cc4ef5ff1b21cf2d2901f49c5",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "40037b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Neena Thurman, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "3eb4b7",
+        "object_path": [
+          "ObjectStates",
+          90,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 301,
+        "name": "Domino",
+        "parents": [
+          "Domino Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431273322/2C2A7CC9F2EF2D894A31191B076FB5567067ADEB/",
+        "sheet_sha256": "24c51c802f2e205cd912a3cdc097a7e51326a9626759bc0303c723a3b7c71457",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "41001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Psylocke, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "2c7528",
+        "object_path": [
+          "ObjectStates",
+          98,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "13",
+        "card_id": 1300,
+        "name": "Psylocke",
+        "parents": [
+          "Psylocke Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006054269/63A0E014AD44C07F375299C7C7EE165D21851D26/",
+        "sheet_sha256": "811ab8eb647add7433a9bbe7dcae7fd2bf3896dd1f9995d317bef975c413aafd",
+        "columns": 3,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "41001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Betsy Braddock, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "2c7528",
+        "object_path": [
+          "ObjectStates",
+          98,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "13",
+        "card_id": 1300,
+        "name": "Psylocke",
+        "parents": [
+          "Psylocke Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006057430/975DC6FEC36C281383313FFB88B71C3CCA186904/",
+        "sheet_sha256": "913faaf6076dc0dbca9b29d8234ecc05523099b3b6785027f8f53190d48ef6f2",
+        "columns": 3,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "42001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Angel, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "813d45",
+        "object_path": [
+          "ObjectStates",
+          97,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "13",
+        "card_id": 1303,
+        "name": "Angel",
+        "parents": [
+          "Angel Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006054269/63A0E014AD44C07F375299C7C7EE165D21851D26/",
+        "sheet_sha256": "811ab8eb647add7433a9bbe7dcae7fd2bf3896dd1f9995d317bef975c413aafd",
+        "columns": 3,
+        "rows": 2,
+        "index": 3
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "42001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Warren Worthington III, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "813d45",
+        "object_path": [
+          "ObjectStates",
+          97,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "13",
+        "card_id": 1303,
+        "name": "Angel",
+        "parents": [
+          "Angel Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006057430/975DC6FEC36C281383313FFB88B71C3CCA186904/",
+        "sheet_sha256": "913faaf6076dc0dbca9b29d8234ecc05523099b3b6785027f8f53190d48ef6f2",
+        "columns": 3,
+        "rows": 2,
+        "index": 3
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "42001c": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Archangel, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names. Native Archangel is landscape; rotate 90 degrees counterclockwise into the title-left portrait convention expected by the existing Archangel-specific CSS rotation.",
+      "source": {
+        "guid": "1c3806",
+        "object_path": [
+          "ObjectStates",
+          97,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "16",
+        "card_id": 1600,
+        "name": "Archangel",
+        "parents": [
+          "Angel Hero Pack",
+          "Angel"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006065374/7D0BBF80A0A208FA71043B43334ED2E66C95904A/",
+        "sheet_sha256": "d65b44f6f2fedfb29ad6f84230798a5a4f460e3c20cefccb90805006902928d2",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "43001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: X-23, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "559676",
+        "object_path": [
+          "ObjectStates",
+          100,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "X-23",
+        "parents": [
+          "X-23 Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2263683262606151236/41222BE9B244CCA302573027CCBD39F1966DBD76/",
+        "sheet_sha256": "f30cb1cca12879d19631d27a914fcc2666288644757358145a312fc3216c7176",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "43001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Laura Kinney, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "559676",
+        "object_path": [
+          "ObjectStates",
+          100,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "X-23",
+        "parents": [
+          "X-23 Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2263683262606151463/46DDDBDF3A8326E9C3A7F3B0DC2D61021D729048/",
+        "sheet_sha256": "f7e08d0e818020da721f66aa433af183073017bc64d95218bcc7472ce8719c55",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "44001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Deadpool, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9f5ba3",
+        "object_path": [
+          "ObjectStates",
+          101,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9",
+        "card_id": 900,
+        "name": "Deadpool",
+        "parents": [
+          "Deadpool Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2263683262606151939/2618EB02F02432C002727E88448E3C8BA1DEBC62/",
+        "sheet_sha256": "47f8a24a09190ec42a887d62ac147ebe2900e22cd0beab5e8d4eb8f15202abcc",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "44001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Wade Wilson, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9f5ba3",
+        "object_path": [
+          "ObjectStates",
+          101,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9",
+        "card_id": 900,
+        "name": "Deadpool",
+        "parents": [
+          "Deadpool Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2263683262606152135/02C898A638CBD6B1BACC0ECD2F58149218BF5A90/",
+        "sheet_sha256": "241c28a90abc55d353950eeaa435eab74a0e6dedc539338a952504c6eb468f95",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "45001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Bishop, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "210bc9",
+        "object_path": [
+          "ObjectStates",
+          102,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Bishop",
+        "parents": [
+          "Bishop Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798065303594/0B640565B878A88768FA31E3697CB68994066D61/",
+        "sheet_sha256": "90b1992bddae2a6fe42fc4da3132b1ab527fe2e2ec4542d79dd6da2a9da26af7",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "45001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Lucas Bishop, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "210bc9",
+        "object_path": [
+          "ObjectStates",
+          102,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Bishop",
+        "parents": [
+          "Bishop Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798065303796/B9B4FAA5344AC7F875D92DAF85442C2D15C6DB04/",
+        "sheet_sha256": "86f7204b08ed1ef1042ad3578232b6dda20cb451f2c4273af66f93cf43914912",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "45030a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Magik, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a185f7",
+        "object_path": [
+          "ObjectStates",
+          103,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Magik",
+        "parents": [
+          "Magik Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798065316014/91B0ACEFE8BB1947B7F1D6F0A0E607F7CBE47614/",
+        "sheet_sha256": "1c846af6e45490671a31c73f767a55e15d4cd3f858d3989ddffcecf9187f428f",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "45030b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Illyana Rasputin, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "a185f7",
+        "object_path": [
+          "ObjectStates",
+          103,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Magik",
+        "parents": [
+          "Magik Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798065316219/A97506132FA970AAE5F6B6C192B6779A62C93E5B/",
+        "sheet_sha256": "869983f92b6005792a6ce266e8eaca3cc7cddf65fae328b9a5c87649d3129c66",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "47001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Jubilee, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "bc80f1",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Jubilee",
+        "parents": [
+          "Jubilee Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048474367/5FD0366D799C0689C350D80C21A4E7E4D7F4570D/",
+        "sheet_sha256": "90b46179741b473dff2b50e46506ea99319612c6537e4c3313962b4bb256bf03",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "47001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Jubilation Lee, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "bc80f1",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Jubilee",
+        "parents": [
+          "Jubilee Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048474611/0FE17336FCD4DFAF08A777C125AF78B3F30BAF3F/",
+        "sheet_sha256": "368efaa1872bbec66b8769c3fd608701f0e2c68aee9aa03308c65435459b1350",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "48001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nightcrawler, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "080285",
+        "object_path": [
+          "ObjectStates",
+          119,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 300,
+        "name": "Nightcrawler",
+        "parents": [
+          "Nightcrawler Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2500151322102174575/6AF063366ED5692A895CC037C65889446850B79C/",
+        "sheet_sha256": "c00ad0075b8c7f8c651bf1ddfacb03880ceb2cd77a1ec390385f6a4df818c2ee",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "48001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Kurt Wagner, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "080285",
+        "object_path": [
+          "ObjectStates",
+          119,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 300,
+        "name": "Nightcrawler",
+        "parents": [
+          "Nightcrawler Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2500151322102174772/7DFC21174D50B46E77C229C60440E7A16F210EF0/",
+        "sheet_sha256": "9cfb43d335f9e7da3cde54db8f7e8c40cc8dac339b5d21ad4d9064d88f5216b6",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "49001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Magneto, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "4c08d2",
+        "object_path": [
+          "ObjectStates",
+          120,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "4",
+        "card_id": 400,
+        "name": "Magneto",
+        "parents": [
+          "Magneto Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32183803853591623/1D98E7DC00D45F2A66321C754FEC450B9057B927/",
+        "sheet_sha256": "9ac342215bc76bc3d50187a4a71d8dd8e1cf1c100346087c3cd45d616f283cfe",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "49001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Erik Lehnsherr, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "4c08d2",
+        "object_path": [
+          "ObjectStates",
+          120,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "4",
+        "card_id": 400,
+        "name": "Magneto",
+        "parents": [
+          "Magneto Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32183803853591666/FF3A46D7A265EAF1EE28D6D76182924A474A245C/",
+        "sheet_sha256": "dd9fefe461c7109e7e9d43bbe9cd1dfe6efcb94ea32eb73117b367b783b5986f",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "50001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Maria Hill, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b83ac5",
+        "object_path": [
+          "ObjectStates",
+          121,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9717",
+        "card_id": 971700,
+        "name": "Maria Hill",
+        "parents": [
+          "Maria Hill Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194128399687437/80C105C4E911CDD0ADCD2B3C9FA473448DF4EC05/",
+        "sheet_sha256": "75abe53f2e7adc702e5561af458778e14a0da32942c7f23ed99eefcd7a0f328a",
+        "columns": 2,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "50001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Maria Hill, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b83ac5",
+        "object_path": [
+          "ObjectStates",
+          121,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9717",
+        "card_id": 971700,
+        "name": "Maria Hill",
+        "parents": [
+          "Maria Hill Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194128399687625/949C32FD18CC67B43900899688B47D27E2B10A81/",
+        "sheet_sha256": "82586715151296cc72d4c1e9ae98063e6cc73ad85571dc6181e9bfe2b6f0fc9d",
+        "columns": 2,
+        "rows": 2,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "50034a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nick Fury, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "f1ec8a",
+        "object_path": [
+          "ObjectStates",
+          122,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9717",
+        "card_id": 971701,
+        "name": "Nick Fury",
+        "parents": [
+          "Nick Fury Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194128399687437/80C105C4E911CDD0ADCD2B3C9FA473448DF4EC05/",
+        "sheet_sha256": "75abe53f2e7adc702e5561af458778e14a0da32942c7f23ed99eefcd7a0f328a",
+        "columns": 2,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "50034b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Nick Fury, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "f1ec8a",
+        "object_path": [
+          "ObjectStates",
+          122,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "9717",
+        "card_id": 971701,
+        "name": "Nick Fury",
+        "parents": [
+          "Nick Fury Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/32194128399687625/949C32FD18CC67B43900899688B47D27E2B10A81/",
+        "sheet_sha256": "82586715151296cc72d4c1e9ae98063e6cc73ad85571dc6181e9bfe2b6f0fc9d",
+        "columns": 2,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "51001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Black Panther, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b406f1",
+        "object_path": [
+          "ObjectStates",
+          129,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Black Panther",
+        "parents": [
+          "Black Panther Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/15277460598347012541/A8D51D814E2BEBB18450680DE5E31D779E8F4C98/",
+        "sheet_sha256": "6afc77efd5b54f6d3dd5e3d63af5723928e376eee4c070df8ead80a582dfe6be",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "51001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Shuri, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b406f1",
+        "object_path": [
+          "ObjectStates",
+          129,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Black Panther",
+        "parents": [
+          "Black Panther Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/17863320650207557106/E35879B7D35B183BDDDF5C6ECBA321946D7D3B6E/",
+        "sheet_sha256": "188d80b8c7065dd21ef360f310f2aab0b90767e840a4ed422a4d37ea11fb748a",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "52001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Silk, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "67c10b",
+        "object_path": [
+          "ObjectStates",
+          130,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9",
+        "card_id": 900,
+        "name": "Silk",
+        "parents": [
+          "Silk Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/9466442747986302179/66055DC22805CD285AC1F03EDE0A85D77FACA51C/",
+        "sheet_sha256": "dbfd6cd7dfd20a0bec60a01d7fa13ae83e26968cb9b1661e72ab36af630b190e",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "52001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Cindy Moon, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "67c10b",
+        "object_path": [
+          "ObjectStates",
+          130,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "9",
+        "card_id": 900,
+        "name": "Silk",
+        "parents": [
+          "Silk Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/12922616895349160592/CDAA3F626D712B654A975407B275F4F094A3692E/",
+        "sheet_sha256": "f78039d85e6cd03f3ecbdc2d83775b772043b6c768a39be54f17e6821d8abe48",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "53001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Falcon, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "ef8de1",
+        "object_path": [
+          "ObjectStates",
+          131,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Falcon",
+        "parents": [
+          "Falcon Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/13038887263100127447/A855ED92B01802D403A9820214744A0D121FFF90/",
+        "sheet_sha256": "f2d9b0b29af773c6e5f8b1030e661cf79aadaff8fda7104cb5cfb5a838743996",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "53001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Sam Wilson, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "ef8de1",
+        "object_path": [
+          "ObjectStates",
+          131,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "6",
+        "card_id": 600,
+        "name": "Falcon",
+        "parents": [
+          "Falcon Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/17597873068887951548/D63B9FAFA1F367C6D2DB07E436E4D792ED6EAF4A/",
+        "sheet_sha256": "60aa9250d94524381a803586c6ffbb8fe9e41cd04c607c3d923fccbcea853a61",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 4
+    },
+    "54001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Winter Soldier, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "74f30d",
+        "object_path": [
+          "ObjectStates",
+          132,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Winter Soldier",
+        "parents": [
+          "Winter Soldier Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/13002533931698110725/BE5E34AA12870C9422EF57F5AD5E00F2A81AEF49/",
+        "sheet_sha256": "0d1bee54c1d1c92e7d8d6628965afc9ed5304a07d8f2a9601c14863edfcc8c86",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "54001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Bucky Barnes, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "74f30d",
+        "object_path": [
+          "ObjectStates",
+          132,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Winter Soldier",
+        "parents": [
+          "Winter Soldier Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/10524562010928251662/75068A8A4374F6B5A702D485F63E8BAC428C4044/",
+        "sheet_sha256": "506622b78adf7c0f94036c91adeecebca8dc5f990581903c054649fd60a67742",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "56001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Tigra, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9abf12",
+        "object_path": [
+          "ObjectStates",
+          136,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Tigra",
+        "parents": [
+          "Tigra Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/11810180460059795794/E5CB6936BACCF79F9FFAF989C7A73D43C4DB9372/",
+        "sheet_sha256": "f41e9b94f354ab431251813a48234c33ca0382f55cb66a95699eaa8fc5e50610",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "56001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Greer Nelson, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "9abf12",
+        "object_path": [
+          "ObjectStates",
+          136,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Tigra",
+        "parents": [
+          "Tigra Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/16404078906077260148/F581392B9E9CA8CA579F2C59C8D83AD9AB78704B/",
+        "sheet_sha256": "f9cb6af068a2d2679256f38fbe49ae867e062742d7ecd5cf641f8d831ae41ac6",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "56029a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Hulkling, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b66ad2",
+        "object_path": [
+          "ObjectStates",
+          135,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Hulkling",
+        "parents": [
+          "Hulkling Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/12311644102378673299/6B551DD1C6CC88B6946140011700B64EFCA1C8DF/",
+        "sheet_sha256": "4736f4ea9679b00377417c8576ac72778a013e0c9a85a6538eec7471dbc52476",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "56029b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Teddy Altman, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "b66ad2",
+        "object_path": [
+          "ObjectStates",
+          135,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Hulkling",
+        "parents": [
+          "Hulkling Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/11586596132641218436/EACE8064CDE8205C39E8D8AD9B6C81633B2BB12D/",
+        "sheet_sha256": "4c9d3f385b4e7ef0c579c6bea8b8278a97b5171f4c85eb1182ee40bd12dd3087",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "58001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Wonder Man, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "021c11",
+        "object_path": [
+          "ObjectStates",
+          140,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Wonder Man",
+        "parents": [
+          "Wonder Man Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/14319408344158612042/257A88F5BFA03DC6429AF35C90A32C3797DBE635/",
+        "sheet_sha256": "2f24e646a6b9f7987682434726483ff89e36dbcd6504745a72fd1dbd20177a5c",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "58001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Simon Williams, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "021c11",
+        "object_path": [
+          "ObjectStates",
+          140,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 100,
+        "name": "Wonder Man",
+        "parents": [
+          "Wonder Man Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/11276154195047779550/20D3B3068D055B53A6BF018AC5272E4C95002770/",
+        "sheet_sha256": "1dba06b2f51e026300aca6904cd8eaa0fc510519b17278b3b4c71387056d25ae",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 2
+    },
+    "59001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Hercules, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "f14d17",
+        "object_path": [
+          "ObjectStates",
+          139,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Hercules",
+        "parents": [
+          "Hercules Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/13246289975743098730/B2FCCAAC2F777A577BD2089DFE2C25A3E766A904/",
+        "sheet_sha256": "00d93754738f4b2024f2c1918a8c167f6c0f5a8c4e05bf9b1ac20ba0e9cf65af",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "59001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Hercules, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "f14d17",
+        "object_path": [
+          "ObjectStates",
+          139,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "2",
+        "card_id": 200,
+        "name": "Hercules",
+        "parents": [
+          "Hercules Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/10520975517312098517/9492597D10142542BD97BF013397A04EBBA9F3D6/",
+        "sheet_sha256": "cdaf9f8c404ca2454b651d22b34bfd377bf48c4eafc782dd7643a1a2ea723ea9",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3
+    },
+    "60001a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Daredevil, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "811c2d",
+        "object_path": [
+          "ObjectStates",
+          142,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Daredevil",
+        "parents": [
+          "Daredevil Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/17368414794687389300/B55C957CFCCAD9AEF2DDD6471E194ABB5DF51AF2/",
+        "sheet_sha256": "0074bdaf9117e9270258a322a257ce603cfe2605a10f21ea53f323ab86fa7581",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "60001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Matt Murdock, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "811c2d",
+        "object_path": [
+          "ObjectStates",
+          142,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "7",
+        "card_id": 700,
+        "name": "Daredevil",
+        "parents": [
+          "Daredevil Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/11177315018643662727/AF03E8D0852D650FA598CA73CDC757B5152DFA52/",
+        "sheet_sha256": "899a19b626862eb4b65dc09b02e93c2ca016247766be8461bef975f945beda33",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 5
+    },
+    "60037a": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Echo, Hero, matching printed name, ability and THW/ATK/DEF values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "50f30b",
+        "object_path": [
+          "ObjectStates",
+          141,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Echo",
+        "parents": [
+          "Echo Hero Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/13102548327338042657/5E1651712446B602517B69AE209ED25E332C1545/",
+        "sheet_sha256": "f7adb7e6766a38cbf1f43a53bd5a396e58dc605d8287b1d5a1090da56a8bbe82",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    },
+    "60037b": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean crop on identity contact sheets: Maya Lopez, AlterEgo, matching printed name, ability and REC values. Paired faces were reviewed together; no automatic approval from matching names.",
+      "source": {
+        "guid": "50f30b",
+        "object_path": [
+          "ObjectStates",
+          141,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "8",
+        "card_id": 800,
+        "name": "Echo",
+        "parents": [
+          "Echo Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/12945465672705550808/9648E9CC702F82D9C4AA63A6D9C9FB8BA345ABD5/",
+        "sheet_sha256": "f9c979979a502e78fa821b015ad51234da6a7c372b5f3dba82ba1ff192b1c047",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 1
+    }
+  },
+  "nonnumbered": {},
+  "review_evidence": {
+    "contact_sheets": [
+      "release-artifacts/artwork-identities/contacts/contact-0001.jpg",
+      "release-artifacts/artwork-identities/contacts/contact-0002.jpg",
+      "release-artifacts/artwork-identities/rest-contacts/contact-0001.jpg",
+      "release-artifacts/artwork-identities/rest-contacts/contact-0002.jpg",
+      "release-artifacts/artwork-identities/rest-contacts/contact-0003.jpg",
+      "release-artifacts/artwork-identities/rest-contacts/contact-0004.jpg",
+      "release-artifacts/artwork-identities/rest-contacts/contact-0005.jpg"
+    ],
+    "reviewed_date": "2026-10-11"
+  }
+}

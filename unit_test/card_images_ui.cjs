@@ -58,16 +58,26 @@ function image() {
     };
 }
 
-function response(name, retry = null, contentType = 'image/png') {
+function response(name, retry = null, contentType = 'image/png', state = null) {
     return {
         ok: true, headers: { get(key) {
-            return key === 'Content-Type' ? contentType : key === 'X-Card-Image-Retry-After' ? retry : null;
+            return key === 'Content-Type' ? contentType : key === 'X-Card-Image-Retry-After' ? retry : key === 'X-Card-Image-State' ? state : null;
         } },
         async blob() { return { name }; },
     };
 }
 
 (async () => {
+    const preparing = client();
+    preparing.replies.push(response('pending', '1', 'image/png', 'pending'),
+        response('pending-again', '1', 'image/png', 'pending'), response('finished'));
+    const preparingImage = image();
+    preparing.images.setImage(preparingImage, '21013');
+    await preparing.flush();
+    assert.equal(await preparing.retry(), 1100, 'Queued sheets should refresh promptly');
+    assert.equal(await preparing.retry(), 1100, 'Preparation must not grow outage backoff');
+    assert.equal(preparingImage.src, 'blob:finished');
+
     // Actual HTTP-200 placeholders must be replaced without a reload. Copies,
     // previews and CSS backgrounds share both the request and recovered bytes.
     const c = client();

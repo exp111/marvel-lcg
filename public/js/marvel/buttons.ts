@@ -17,6 +17,7 @@ import { CardAnimation } from './card_animation.js'
 import { ErrorDialog } from './error_dialog.js'
 import { Command } from './command.js'
 import { FullSearchPresentation } from './full_search_presentation.js'
+import { showArtworkPreparation } from '../module/artwork.js'
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -288,11 +289,6 @@ export class Button{
 
     static doLoadFile() {
         Button.openFile(".json", (data) => {
-            Game.setGameOver(false)
-            ErrorDialog.hideError()
-            HistoryLog.close()
-            UI.prompt.setPromptWait()
-
             let url = 'load_replay_data'; // URL for the POST request
 
             if( ButtonSetting.is_replay ) {
@@ -301,25 +297,35 @@ export class Button{
                 url += "?-2"
             }
 
-            fetch(url, {
+            const send = () => fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON
                 },
                 body: JSON.stringify({ data }) // Send the data as JSON
             })
-            .then(response => {
+            .then(async response => {
+                if (response.status === 409) {
+                    showArtworkPreparation(() => { void send(); });
+                    return null;
+                }
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json(); // Parse the JSON response
             })
             .then(responseData => {
+                if (responseData === null) return;
+                Game.setGameOver(false)
+                ErrorDialog.hideError()
+                HistoryLog.close()
+                UI.prompt.setPromptWait()
                 console.log('Success:', responseData);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+            void send();
         })
     }
 

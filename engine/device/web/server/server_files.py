@@ -14,6 +14,10 @@ class GameServerFiles(GameServerBase):
     def ImageResponse(self, card_id: str, image_bytes: bytes) -> web.Response:
         headers = dict(self.HeaderCache)
         retry_seconds = Cache.GetImageRetrySeconds(card_id)
+        image_state = Cache.GetImageState(card_id)
+        headers['X-Card-Image-State'] = image_state
+        if image_state == 'pending':
+            retry_seconds = 1
         if retry_seconds is not None:
             # A valid placeholder is still a failed download. Let the client
             # replace it automatically, and never cache it as finished artwork.

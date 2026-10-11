@@ -3,6 +3,7 @@ from io import BytesIO
 from pathlib import Path
 from types import SimpleNamespace
 import tempfile
+import hashlib
 import unittest
 from unittest.mock import Mock, patch
 
@@ -15,8 +16,8 @@ from engine.file.cache import Cache
 from engine.device.web.server.server_files import GameServerFiles
 
 
-PRIMARY = 'https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/{card_id:U}.jpg'
-BACKUP = 'https://marvelcdb.com/bundles/cards/{card_id}.jpg'
+PRIMARY = 'https://custom-primary.example.test/cards/{card_id:U}.jpg'
+BACKUP = 'https://custom-backup.example.test/cards/{card_id}.jpg'
 
 
 def image_bytes(format='JPEG', color='blue'):
@@ -39,8 +40,10 @@ class TestImageDownloadRecovery(unittest.TestCase):
         self.stack = ExitStack()
         self.addCleanup(self.stack.close)
         root = Path(self.stack.enter_context(tempfile.TemporaryDirectory()))
-        self.cache = root / 'cache'
-        self.cache.mkdir()
+        cache_root = root / 'cache'
+        provider_key = hashlib.sha256((PRIMARY + '\n' + BACKUP).encode()).hexdigest()[:16]
+        self.cache = cache_root / 'custom-sources' / provider_key
+        self.cache.mkdir(parents=True)
         self.now = 0
         self.art = image_bytes()
         self.placeholder = image_bytes(color='red')
@@ -49,7 +52,7 @@ class TestImageDownloadRecovery(unittest.TestCase):
         for variable, value in (
             (cache_module.IMAGE_FOLDERS, []),
             (cache_module.TEXTURE_FOLDER, str(root / 'textures')),
-            (cache_module.CACHE_FOLDER, str(self.cache)),
+            (cache_module.CACHE_FOLDER, str(cache_root)),
             (cache_module.IMAGE_SERVERS, [PRIMARY, BACKUP]),
             (cache_module.SAVE_EMPTY_IMAGE, True),
             (cache_module.BREAK_WHEN_LOAD_ONLINE_IMAGE, False),
@@ -59,6 +62,11 @@ class TestImageDownloadRecovery(unittest.TestCase):
         self.stack.enter_context(patch.object(cache_module.ImageCreator, 'CreateNoImage', return_value=self.placeholder))
         self.stack.enter_context(patch.object(cache_module.Log, 'Warn'))
         self.stack.enter_context(patch.object(cache_module.Log, 'DebugInfo'))
+        library = Mock()
+        library.get_image.return_value = None
+        library.status.return_value = {'state': 'error'}
+        library.image_state.return_value = 'error'
+        self.stack.enter_context(patch.object(Cache, 'GetArtworkLibrary', return_value=library))
         self.get = self.stack.enter_context(patch.object(cache_module.requests, 'get'))
 
     def test_timeout_falls_back_and_keeps_successful_artwork(self):

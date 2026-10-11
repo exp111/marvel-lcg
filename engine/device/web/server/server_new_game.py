@@ -11,12 +11,18 @@ from game.game_run.campaign_settings import CampaignSettings
 class GameServerNewGame(GameServerBase):
 
     async def new_debug(self, request: web.Request) -> web.Response:
+        blocked = self.ArtworkSelectionResponse('scene', self.game.scene)
+        if blocked is not None:
+            return blocked
         self.game.Restart()
         return web.json_response({'result': "New game created"})
 
     async def new_game(self, request: web.Request) -> web.Response:
         data = request.rel_url.query.get('data', "")
         new_game = Json.LoadsAs(data, NewGameDescriptor)
+        blocked = self.ArtworkSelectionResponse('new_game', new_game)
+        if blocked is not None:
+            return blocked
         try:
             CampaignSettings.UpdateForLaunch(new_game)
         except Exception as exc:
@@ -77,10 +83,18 @@ class GameServerNewGame(GameServerBase):
         })
 
     async def load_replay(self, request: web.Request) -> web.Response:
+        from game.scene.loader import SceneLoader
+        blocked = self.ArtworkSelectionResponse('scene', SceneLoader.Load(request.rel_url.query_string))
+        if blocked is not None:
+            return blocked
         self.game.LoadReplay(request.rel_url.query_string)
         return web.json_response({'result': "New game created"})
 
     async def resume_replay(self, request: web.Request) -> web.Response:
+        from game.scene.loader import SceneLoader
+        blocked = self.ArtworkSelectionResponse('scene', SceneLoader.Load(request.rel_url.query_string))
+        if blocked is not None:
+            return blocked
         self.game.session.Load(request.rel_url.query_string, -1, "Load")
         self.controller_manager.OnNewGame()
         return web.json_response({'result': "Saved game loaded"})
@@ -122,6 +136,9 @@ class GameServerNewGame(GameServerBase):
         # Log.Print("Received replay data:", replay_data)
 
         scene = Json.LoadsAs(replay_data, Scene)
+        blocked = self.ArtworkSelectionResponse('scene', scene)
+        if blocked is not None:
+            return blocked
         if step == 0:
             state = 'Replay'
         else:
@@ -200,6 +217,9 @@ class GameServerNewGame(GameServerBase):
 
     async def load_puzzle(self, request: web.Request) -> web.Response:
         puzzle = Json.LoadAs(request.rel_url.query_string, PuzzleData, check_sum="Warn")
+        blocked = self.ArtworkSelectionResponse('puzzle', puzzle)
+        if blocked is not None:
+            return blocked
         self.play_puzzle(puzzle)
         return web.json_response({'result': "New game created"})
 
@@ -208,6 +228,9 @@ class GameServerNewGame(GameServerBase):
 
         scene = Json.LoadsAs(request.rel_url.query_string, Scene)
         scene.UpdateVersion()
+        blocked = self.ArtworkSelectionResponse('scene', scene)
+        if blocked is not None:
+            return blocked
 
         self.game.session.LoadScene(scene, None, 'Replay')
         self.controller_manager.skip.SetSkipTo(0)
@@ -215,6 +238,9 @@ class GameServerNewGame(GameServerBase):
 
     async def new_puzzle(self, request: web.Request) -> web.Response:
         puzzle = Json.LoadsAs(request.rel_url.query_string, PuzzleData)
+        blocked = self.ArtworkSelectionResponse('puzzle', puzzle)
+        if blocked is not None:
+            return blocked
         self.play_puzzle(puzzle)
         return web.json_response({'result': "New game created"})
 

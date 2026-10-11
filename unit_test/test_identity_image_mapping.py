@@ -29,15 +29,12 @@ class TestIdentityImageMapping(unittest.TestCase):
         ("38001a", "38001b"),  # Rogue
     )
 
-    def test_cerebro_is_the_primary_image_source(self):
+    def test_stock_download_chain_is_no_longer_configured(self):
         project_root = Path(__file__).resolve().parents[1]
         launch = json.loads((project_root / "launch.json").read_text(encoding="utf-8"))
 
-        self.assertIn(
-            "cerebrodatastorage.blob.core.windows.net",
-            launch["image_servers"][0],
-        )
-        self.assertIn("marvelcdb.com", launch["image_servers"][1])
+        self.assertEqual(launch["image_servers"], [])
+        self.assertEqual(launch["artwork_folder"], "")
 
     def test_cerebro_identity_sides_are_swapped_to_match_game_data(self):
         cerebro = (
@@ -72,10 +69,8 @@ class TestIdentityImageMapping(unittest.TestCase):
             "https://cerebrodatastorage.blob.core.windows.net/"
             "cerebro-cards/official/{card_id:U}.jpg"
         )
-        response = Mock()
-        response.content = b"normalized hero image"
-        response.headers = {"Content-Type": "image/jpeg"}
-        response.raise_for_status.return_value = None
+        library = Mock()
+        library.get_image.return_value = b"reviewed hero image"
 
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -93,17 +88,15 @@ class TestIdentityImageMapping(unittest.TestCase):
                 patch.object(TEXTURE_FOLDER, "value", str(textures)),
                 patch.object(CACHE_FOLDER, "value", str(cache)),
                 patch.object(IMAGE_SERVERS, "value", [cerebro]),
-                patch("engine.file.cache.requests.get", return_value=response) as get,
+                patch("engine.file.cache.requests.get") as get,
+                patch.object(Cache, "GetArtworkLibrary", return_value=library),
                 patch.object(ImageLib, "TryRotateImage", side_effect=lambda data: data),
             ):
                 image = Cache.LoadImage("32001a")
 
-            self.assertEqual(image, b"normalized hero image")
-            self.assertIn("/32001B.jpg", get.call_args.args[0])
-            self.assertEqual(
-                (cache / "normalized-identity-sides" / "32001a.jpg").read_bytes(),
-                b"normalized hero image",
-            )
+            self.assertEqual(image, b"reviewed hero image")
+            get.assert_not_called()
+            library.get_image.assert_called_once_with("32001a")
             self.assertEqual(
                 (cache / "32001a.jpg").read_bytes(),
                 b"legacy alter-ego image",

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Card artwork · Marvel Champions</title>
+    <style>
+        :root { color-scheme: dark; font-family: Arial, sans-serif; background: #20242b; color: #e9edf3; }
+        body { margin: 0; padding: 48px 20px; }
+        main { max-width: 760px; margin: auto; }
+        h1 { margin-bottom: 12px; font-size: 30px; }
+        p { line-height: 1.55; color: #bbc7d8; }
+        .panel { background: #2c333e; border: 1px solid #495464; border-radius: 12px; padding: 24px; margin: 24px 0; }
+        h2 { font-size: 20px; margin-top: 0; }
+        progress { width: 100%; height: 22px; accent-color: #41b5eb; }
+        dl { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr; gap: 14px; font-size: 15px; }
+        dd { margin: 0; overflow-wrap: anywhere; }
+        dt { color: #bbc7d8; }
+        button, .button { font: inherit; padding: 10px 18px; border: 1px solid #77889f; border-radius: 6px; background: #344357; color: white; cursor: pointer; text-decoration: none; display: inline-block; }
+        button:disabled { opacity: .5; cursor: default; }
+        .primary { background: #0876a9; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        #errors { color: #ffd197; white-space: pre-wrap; overflow-wrap: anywhere; }
+        a { color: #80d5ff; }
+        small { color: #bbc7d8; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Prepare card artwork</h1>
+    <p>Artwork for every card supported by this build downloads automatically before your first game. It stays on the host computer for fast loading, offline play, and future updates.</p>
+    <p><strong>Currently unsupported packs: Jessica Jones and Luke Cage.</strong> Cards from these packs that have not yet been implemented lack both artwork and gameplay support.</p>
+    <section class="panel" aria-labelledby="state">
+        <h2 id="state" aria-live="polite">Checking artwork…</h2>
+        <progress id="progress" max="1" value="0" aria-label="Artwork preparation progress"></progress>
+        <p id="message">Connecting to the game host.</p>
+        <dl>
+            <dt>Cards ready</dt><dd id="cards">—</dd>
+            <dt>Packs ready</dt><dd id="packs">—</dd>
+            <dt>Download</dt><dd id="download">—</dd>
+            <dt>Stored artwork</dt><dd id="installed">—</dd>
+            <dt>Additional space needed</dt><dd id="required">—</dd>
+            <dt>Saved on host</dt><dd id="folder">—</dd>
+        </dl>
+        <p id="errors" role="alert" hidden></p>
+        <div class="actions">
+            <button id="pause" type="button" disabled>Pause</button>
+            <button id="resume" type="button" disabled>Resume</button>
+            <button id="retry" type="button" disabled>Retry failed downloads</button>
+            <button id="continue" class="primary" type="button" disabled>Continue</button>
+        </div>
+    </section>
+    <p><small>You can close the browser while the game host continues downloading. Closing the host pauses the download; it resumes when you reopen the game. Existing games stay open while new artwork is prepared.</small></p>
+    <a href="/credits">Credits</a> · <a href="/report">Diagnostics</a>
+</main>
+<script type="module">
+    import { startArtworkPage } from '/public/js/module/artwork.js';
+    startArtworkPage();
+</script>
+</body>
+</html>

@@ -3,6 +3,10 @@ import requests
 from math import ceil
 from time import monotonic
 from urllib.parse import urlsplit
+from pathlib import Path
+from threading import RLock
+import hashlib
+import sys
 from engine.lib import ImageCreator, ImageLib
 from engine.log import Log
 from engine.file import FileManager
@@ -18,6 +22,117 @@ SAVE_EMPTY_IMAGE = ConfigVariables.Bool('save_empty_image', True)
 BREAK_WHEN_LOAD_ONLINE_IMAGE = ConfigVariables.Bool('break_when_load_online_image', False)
 
 class Cache:
+
+    _artwork_library = None
+    _artwork_lock = RLock()
+    # Old launch.json files remain valid, but these stock services no longer
+    # participate in artwork delivery. Explicit non-stock providers still do.
+    STOCK_IMAGE_HOSTS = frozenset({
+        "cerebrodatastorage.blob.core.windows.net", "marvelcdb.com", "www.marvelcdb.com",
+    })
+
+    @staticmethod
+    def GetArtworkLibrary():
+        with Cache._artwork_lock:
+            if Cache._artwork_library is None:
+                from engine.file.artwork import load_artwork_library
+                app_root = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[2]
+                Cache._artwork_library = load_artwork_library(
+                    app_root / "data" / "artwork-manifest.json",
+                    legacy_roots=[Path(CACHE_FOLDER.value)],
+                )
+            return Cache._artwork_library
+
+    @staticmethod
+    def InitializeArtwork():
+        Cache.GetArtworkLibrary().start()
+
+    @staticmethod
+    def GetArtworkStatus():
+        return Cache.GetArtworkLibrary().status()
+
+    @staticmethod
+    def ArtworkReadyFor(card_ids):
+        return Cache.GetArtworkLibrary().ready_for(card_ids)
+
+    @staticmethod
+    def ArtworkReadyForSelection(kind, payload):
+        from engine.file.artwork_selection import required_images
+        from cards.database import CardsDB
+        from engine.lib import Json
+        library = Cache.GetArtworkLibrary()
+        if payload is None or not library.status().get("can_play", False):
+            return False
+        manifest = library.manifest.data
+        required = required_images(payload, manifest, kind=kind)
+        official = set().union(*(set(manifest.get(key, {}))
+                                 for key in ("cards", "aliases", "generated", "bundled")))
+        # Custom definitions already loaded by CardsDB retain their existing
+        # local/generated/provider artwork behavior. Do not infer that an
+        # unknown official-looking ID is custom merely because it is missing.
+        custom = set()
+        for path in CardsDB.cards_custom_files:
+            definition = Json.Load(path)
+            for pack in definition.values():
+                for card in pack:
+                    identifier = card.get("card_id")
+                    if identifier in CardsDB.papers:
+                        custom.add(identifier)
+                        if card.get("pic_id"):
+                            custom.add(card["pic_id"])
+        custom_servers = Cache.CustomImageServers()
+        for identifier in required:
+            if identifier in custom or library.ready_for([identifier]):
+                continue
+            if identifier in official:
+                if Cache.HasLocalImage(identifier):
+                    continue
+                if custom_servers and Cache.IsManagedImage(identifier):
+                    continue
+            return False
+        return True
+
+    @staticmethod
+    def HasLocalImage(card_id):
+        visited = set()
+        while card_id and card_id not in visited:
+            visited.add(card_id)
+            for folder in IMAGE_FOLDERS.value + [TEXTURE_FOLDER.value]:
+                for extension in (".webp", ".jpg", ".png"):
+                    path = Path(folder) / (card_id + extension)
+                    try:
+                        if path.is_file():
+                            ImageLib.TryRotateImage(path.read_bytes())
+                            return True
+                    except (OSError, ValueError):
+                        pass
+            card_id = Cache.link_pic.get(card_id)
+        return False
+
+    @staticmethod
+    def CustomImageServers():
+        return [site for site in IMAGE_SERVERS.value
+                if urlsplit(site).hostname not in Cache.STOCK_IMAGE_HOSTS]
+
+    @staticmethod
+    def IsManagedImage(card_id):
+        import re
+        return bool(re.fullmatch(r"\d{5}[a-z]?", card_id)) or card_id in Cache.SPECIAL_IMAGE_URLS
+
+    @staticmethod
+    def GetImageState(card_id):
+        card_id = card_id.lstrip("/")
+        visited = set()
+        while card_id in Cache.link_pic and card_id not in visited and card_id not in Cache.cache:
+            visited.add(card_id)
+            card_id = Cache.link_pic[card_id]
+        if card_id not in Cache.retry_after:
+            return "ready"
+        if Cache.IsManagedImage(card_id) and not Cache.CustomImageServers():
+            state = Cache.GetArtworkLibrary().image_state(card_id)
+            if state == "pending":
+                return "pending"
+        return "error"
 
     cache: Dict[str, bytes] = {}
     link_pic: Dict[str, str] = {}
@@ -134,7 +249,29 @@ class Cache:
             Cache.SetCache(file_name, image_data)
             return image_data
 
-        image_data = try_load_image_path(
+        managed = Cache.IsManagedImage(card_id)
+        custom_servers = Cache.CustomImageServers()
+        if managed and not custom_servers:
+            library = Cache.GetArtworkLibrary()
+            image_data = library.get_image(card_id)
+            if image_data:
+                # The library owns validation and revision selection. Avoid
+                # pinning an old revision in this process's legacy memory cache.
+                state = library.image_state(card_id)
+                if state == "ready":
+                    Cache.retry_after.pop(card_id, None)
+                else:
+                    # An earlier verified revision remains playable while its
+                    # replacement downloads, but open pages must keep polling.
+                    Cache.retry_after[card_id] = monotonic() + (1 if state == "pending" else Cache.RETRY_SECONDS)
+                return image_data
+
+        if managed and custom_servers:
+            # A provider change must not promote unverified stock cache bytes.
+            provider_key = hashlib.sha256("\n".join(custom_servers).encode()).hexdigest()[:16]
+            cache_file_name = f"custom-sources/{provider_key}/{cache_file_name}"
+
+        image_data = None if managed and not custom_servers else try_load_image_path(
             FileManager.JoinPath(CACHE_FOLDER.value, cache_file_name)
         )
         if image_data:
@@ -159,10 +296,8 @@ class Cache:
                 file.Write(data)
 
         remote_urls: List[str] = []
-        if card_id in Cache.SPECIAL_IMAGE_URLS:
-            remote_urls.append(Cache.SPECIAL_IMAGE_URLS[card_id])
-        elif IMAGE_SERVERS.value and check_is_card_id(card_id):
-            for site in IMAGE_SERVERS.value:
+        if custom_servers and check_is_card_id(card_id):
+            for site in custom_servers:
                 remote_card_id = Cache.GetRemoteCardId(site, card_id)
                 full_url = site.replace('{card_id}', remote_card_id)
                 full_url = full_url.replace('{card_id:U}', remote_card_id.upper())
@@ -217,6 +352,16 @@ class Cache:
                     ):
                         Cache.host_retry_after[host] = monotonic() + Cache.RETRY_SECONDS
 
+        if managed and custom_servers:
+            # Explicit providers keep their precedence over stock artwork.
+            # A provider outage can still display verified local artwork while
+            # retaining a retry header for the user's chosen provider.
+            image_data = Cache.GetArtworkLibrary().get_image(card_id)
+            if image_data:
+                Cache.SetCache(file_name, image_data)
+                Cache.retry_after[file_name] = monotonic() + Cache.RETRY_SECONDS
+                return image_data
+
         # raise Exception(f"Failed to load {file_name} from the internet")
         image_data = ImageCreator.CreateNoImage(
             card_id,
@@ -224,9 +369,10 @@ class Cache:
         )
         # Never write failed remote downloads as artwork: they must be able to
         # recover when the provider or connection returns.
-        if SAVE_EMPTY_IMAGE.value and not remote_urls:
+        if SAVE_EMPTY_IMAGE.value and not remote_urls and not managed:
             save_to_file(cache_file_name, "jpg", image_data)
         Cache.SetCache(file_name, image_data)
-        if remote_urls:
-            Cache.retry_after[file_name] = monotonic() + Cache.RETRY_SECONDS
+        if remote_urls or managed:
+            delay = 1 if managed and not custom_servers and Cache.GetArtworkLibrary().image_state(card_id) == "pending" else Cache.RETRY_SECONDS
+            Cache.retry_after[file_name] = monotonic() + delay
         return image_data

@@ -84,6 +84,7 @@ export class CardImages {
 
     private static async download(entry: ImageEntry): Promise<void> {
         let retrySeconds = 30;
+        let pending = false;
         try {
             const response = await fetch(entry.source, { cache: 'no-store' });
             if (!response.ok || !response.headers.get('Content-Type')?.startsWith('image/')) {
@@ -97,20 +98,24 @@ export class CardImages {
             if (oldUrl) URL.revokeObjectURL(oldUrl);
 
             const retryHeader = response.headers.get('X-Card-Image-Retry-After');
+            const state = response.headers.get('X-Card-Image-State');
+            pending = state === 'pending';
             const retry = Number(retryHeader);
-            if (retryHeader === null || !Number.isFinite(retry) || retry <= 0) {
+            if (!pending && state !== 'error' && (retryHeader === null || !Number.isFinite(retry) || retry <= 0)) {
                 entry.complete = true;
                 entry.bindings.clear();
                 return;
             }
-            retrySeconds = retry;
+            retrySeconds = Number.isFinite(retry) && retry > 0 ? retry : (pending ? 1 : 30);
         } catch {
             if (!this.prune(entry)) return;
         }
         // An extended outage should not hammer the image providers. The first
         // retry honors the server cooldown; repeated failures back off to 5 min.
-        entry.failures++;
-        const delay = Math.max(retrySeconds, Math.min(300, 30 * 2 ** (entry.failures - 1)));
+        if (pending) entry.failures = 0;
+        else entry.failures++;
+        const delay = pending ? Math.max(1, retrySeconds)
+            : Math.max(retrySeconds, Math.min(300, 30 * 2 ** (entry.failures - 1)));
         entry.timer = window.setTimeout(() => {
             entry.timer = undefined;
             if (this.prune(entry)) void this.download(entry);

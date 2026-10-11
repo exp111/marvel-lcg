@@ -16,7 +16,7 @@ v1.3.3 adds a complete local replay library with playback that stops at the reco
 - A new optional **Show Deck During Full Search** setting, allowing players to inspect the complete searched deck or discard pile while still preserving random searches and shuffles.
 - A dedicated Fear No Evil campaign setup interface for tracking scenario outcomes, Underlings, campaign cards, rewards, removed allies and Persona supports, and randomized scenario progression.
 
-Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, or custom decks you want to retain. You may copy `assets/cache` to reuse downloaded card artwork and avoid downloading it again. Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public` or `data` folders into the new installation.
+Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, custom decks, and explicit local artwork overrides you want to retain. Artwork-enabled builds automatically reuse the persistent user artwork library across installations; see the [artwork migration instructions](docs/install_guide.md#6-card-images). Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public` or `data` folders into the new installation.
 
 See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/install_guide.md) for details.
 
@@ -44,7 +44,7 @@ Verify the downloaded archive with its accompanying `.sha256` file.
 
 - [GitHub releases](https://github.com/sdolle1775/marvel-lcg/releases)
 - [Release build and publishing guide](docs/release_guide.md)
-- Standard card artwork is downloaded from the image servers configured in `launch.json` and cached locally. Downloaded card images are not included in the main release archive.
+- The new source implementation prepares reviewed artwork packs in a persistent user library, separate from the application archive. See the [artwork installation and migration instructions](docs/install_guide.md#6-card-images). The published v1.3.3 executable retains its original artwork downloader until a new application release is published.
 - The release build includes the small sounds, card backs, status cards, placeholders, and set textures required by the interface.
 
 ## Documentation

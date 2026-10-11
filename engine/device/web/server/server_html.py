@@ -10,6 +10,9 @@ class GameServerHTML(GameServerBase):
         super().__init__()
 
         self.AddHtmlSecurity('/main', './public/main.html')
+        self.AddHtmlSecurity('/artwork', './public/artwork.html')
+        self.AddAwaitGetSecurity('/get_artwork_status', self.artwork_status)
+        self.AddPostSecurity('/artwork_action', self.artwork_action)
         self.AddHtmlSecurity('/deck', './public/deck.html')
         self.AddHtmlSecurity('/cards', './public/cards.html')
         self.AddHtmlSecurity('/scene', './public/scene.html')

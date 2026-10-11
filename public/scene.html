@@ -2368,6 +2368,11 @@ p:has(#timeout_text) {
             ajax.open("GET", `new?data=${encoded}`, true);
             ajax.onreadystatechange = function () {
                 if( this.readyState == 4 ) {
+                    if (this.status === 409) {
+                        import('/public/js/module/artwork.js').then(module => module.showArtworkPreparation(() => doCreateNewGame(mode)));
+                        return;
+                    }
+                    if (this.status !== 200) return;
                     const length = heroes_jsons.length
                     enableFirstJoinButtons(length)
 
