@@ -1,4 +1,13 @@
-# Unreleased
+# Marvel Champions Digital v1.3.3.1
+
+Application version: **1.3.3.1r**
+Windows file version: **1.3.3.1**
+
+This hotfix replaces unreliable on-demand card-image downloads with a **reviewed, persistent local artwork library**. The host prepares the complete supported collection before first play, so prepared cards load locally during games, deck editing and browsing. The library survives application updates and is shared with LAN and Cloudflare players through the host.
+
+The application ZIP remains separate from the artwork: the initial collection contains **4,060 images in 72 packs**, a download of **1,818,830,230 bytes (about 1.7 GiB)**. This is a first-time preparation step, not a 1.7 GiB addition to each application release. Existing verified collections are reused; subsequent artwork updates fetch only missing or changed packs.
+
+This release includes all changes since v1.3.3. The previous v1.3 release descriptions follow below.
 
 ## Persistent card artwork ([#134](https://github.com/sdolle1775/marvel-lcg/issues/134))
 
@@ -10,6 +19,23 @@
 - Pending images refresh quickly on open pages, including corrected revisions, without discarding deck selections. Browsers receive artwork from the game host, including over LAN and Cloudflare; prepared gameplay requires no artwork-provider connection.
 - Added maintainer import, visual-review, coverage and hosted-pack release checks. An incomplete catalog blocks release and cannot claim first-time preparation is complete. Standard scans remain separate from the executable; the Python 3.12.13, pinned-dependency, verified-bootloader, one-folder, UPX-disabled release workflow is retained.
 - Saves, replay serialization, game commands, rules, decks, campaigns, sounds, card backs, Storm weather and sparkles keep their existing behavior and locations. Published v1.3.3 release files remain unchanged.
+
+## Setup and response choices ([#133](https://github.com/sdolle1775/marvel-lcg/issues/133))
+
+- Added **Other → Remove Standard Set Restriction**, **off by default**. Turning it on allows any combination of packs in the Standard Sets row, including mixing Standard I/II/III and Expert I/II or selecting none. Turning it off restores normal restrictions. Required modular sets retain their normal behavior.
+- With Auto Target enabled, an existing prompt with one eligible Response, Forced Response, Interrupt or Forced Interrupt is preselected, but still needs **OK**. Auto Activate does not confirm these prompts. Optional effects can still be passed; target and payment choices remain manual unless the engine identifies an exact required one-of-one target.
+- Effects that the engine already resolves without displaying a prompt retain their existing behavior. This change does not add new confirmation windows or change timing rules.
+
+## Installing and maintaining artwork
+
+1. Extract the application ZIP into a **new folder**. Copy and overwrite `campaign_settings.json` from the old installation to preserve campaign setup choices, and copy personal saves, replays, custom decks and intentional artwork overrides you want to keep. Keep `marvel-lcg.exe` beside `_internal`; do not copy old application files over the new build.
+2. Launch the host and let **Card artwork** prepare the collection. On Windows the default library is `%LOCALAPPDATA%\Marvel Champions Digital\artwork`. Keep this folder when updating or moving the application. A custom `artwork_folder` in `launch.json` must point to the same library in each installation.
+3. Interrupted downloads resume after restarting the host. Use **Resume** after pausing or **Retry failed downloads** after correcting a reported network/storage problem. Completed artwork is preserved; clearing the library is unnecessary.
+4. Open **Card artwork** from the main menu for status and instructions on updating, moving, backing up or repairing the library. Personal `assets/pics` / `image_folders` overrides still take priority. Artwork storage is separate from game progress.
+
+Jessica Jones and Luke Cage cards that are not yet implemented remain unsupported for both artwork and gameplay. A complete artwork download does not add those cards to the game engine.
+
+Original game development: **Irefrixs Team**. Community build maintenance: **Sam (sdolle1775)**. Artwork scans: **Unicorn Snuggler and the contributors credited in the Workshop collection**, with source details in `ATTRIBUTION.md`.
 
 ---
 

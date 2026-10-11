@@ -23,6 +23,9 @@
         #errors { color: #ffd197; white-space: pre-wrap; overflow-wrap: anywhere; }
         a { color: #80d5ff; }
         small { color: #bbc7d8; }
+        details { margin: 16px 0; }
+        summary { cursor: pointer; font-weight: bold; line-height: 1.5; }
+        code { overflow-wrap: anywhere; }
     </style>
 </head>
 <body>
@@ -51,6 +54,25 @@
         </div>
     </section>
     <p><small>You can close the browser while the game host continues downloading. Closing the host pauses the download; it resumes when you reopen the game. Existing games stay open while new artwork is prepared.</small></p>
+    <section class="panel" aria-labelledby="maintenance">
+        <h2 id="maintenance">Keeping your artwork library</h2>
+        <p>The first download is about 1.7 GiB, separate from the application ZIP. Keep the library in the <strong>Saved on host</strong> folder shown above: new installations reuse it automatically. Only the host needs the full library, including for LAN and Cloudflare games.</p>
+        <details>
+            <summary>Updating the game and artwork</summary>
+            <p>Extract each application update into a new folder. Leave your artwork library in place; the new build checks it and downloads only missing or changed packs. Return here using <strong>Card artwork</strong> on the main menu to check progress.</p>
+            <p>Artwork and game progress are stored separately. Copy your saves, replays, custom decks and <code>campaign_settings.json</code> from the old installation when updating. Copy any personal artwork overrides you want to keep, too.</p>
+        </details>
+        <details>
+            <summary>Interrupted downloads or missing images</summary>
+            <p>Use <strong>Resume</strong> after pausing. If a download fails, check the error above, restore the internet connection or free the required space, then choose <strong>Retry failed downloads</strong>. Keep completed artwork; you do not need to clear the library.</p>
+            <p>Restarting the host checks the stored artwork and prepares any missing or damaged files again. If an image looks wrong, check for a personal override in <code>assets/pics</code> or your configured <code>image_folders</code>; those take priority over managed artwork. Jessica Jones and Luke Cage cards without gameplay support are not repaired by downloading again.</p>
+        </details>
+        <details>
+            <summary>Moving or backing up the library</summary>
+            <p>Close all running copies of the host before copying the entire artwork folder. To use a different location, set <code>"artwork_folder": "D:/MarvelArtwork"</code> in <code>launch.json</code> in every installation that should share it. An empty value uses the default user location.</p>
+            <p>Keep the library's files and subfolders together. Do not rename or edit its managed image files. Use <code>assets/pics</code> for personal replacements; <code>cache_folder</code> is a separate legacy setting. Deleting the managed library means downloading it again.</p>
+        </details>
+    </section>
     <a href="/credits">Credits</a> · <a href="/report">Diagnostics</a>
 </main>
 <script type="module">

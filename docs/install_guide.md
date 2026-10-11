@@ -88,7 +88,7 @@ automatically. Close any older running copy of the game first because port
 
 ### 6. Card images
 
-The new artwork system prepares the complete reviewed collection before first
+Starting with **v1.3.3.1**, the artwork system prepares the complete reviewed collection before first
 play. The **Card artwork** page opens automatically, shows download and storage
 requirements, and provides Pause, Resume and Retry controls. Keep the host
 application open while downloading. Closing and reopening the host resumes
@@ -128,11 +128,40 @@ remain available; copied stock Cerebro and MarvelCDB settings are ignored.
 Sounds, card backs, Storm weather and sparkles remain bundled. This change does
 not relocate saves, decks, campaign settings, statistics or replays.
 
-The published **v1.3.3 executable still uses the previous download system**.
-These instructions describe the new source implementation. A build reporting
-**Artwork catalog is incomplete** cannot finish first-time preparation: its
-reviewed image catalog has not yet passed the release gate. Retrying or deleting
-your files cannot fix an incomplete catalog.
+#### Maintaining the local artwork library
+
+- **Updating:** Extract the new application into a new folder and leave the artwork
+  library in place. Reuse the same `artwork_folder` override if you configured one.
+  The host checks the library at startup and downloads missing or changed packs.
+  No manual artwork database update is needed. Open **Card artwork** on the main
+  menu to see progress and maintenance help.
+- **Recovering downloads:** Use **Resume** after pausing. For failures, read the
+  displayed error, restore connectivity, free space or fix folder permissions,
+  then use **Retry failed downloads**. Completed files are kept. Restarting the
+  host checks stored images again and prepares missing or damaged files.
+- **Backing up or moving:** Close every running copy of the host. Copy the entire
+  artwork folder, including its subfolders, to the new location, then set
+  `artwork_folder` in each installation's `launch.json` to that same location.
+  Keep the original until the new location reports ready. Do not rename or edit
+  managed image files; use `assets/pics` for intentional replacements.
+- **Wrong images:** Check `assets/pics` and other configured `image_folders`
+  first, because these personal overrides take priority. Old `assets/cache`
+  contents do not certify a scan as reviewed. Do not erase the managed library
+  to fix an individual image: removing it requires downloading it again.
+- **Unsupported cards:** Jessica Jones and Luke Cage cards that have not been
+  implemented lack both artwork and gameplay support. Importing them from
+  MarvelCDB or retrying preparation does not add support.
+
+Only the host needs the full collection. Remote players receive the images they
+view from the host; Cloudflare multiplayer still needs its normal internet
+connection. Artwork backup does not back up game progress: keep your saves,
+replays, custom decks and `campaign_settings.json` separately.
+
+The **v1.3.3 executable still uses the previous download system**. These library
+instructions apply to v1.3.3.1 and later. A build reporting **Artwork catalog is
+incomplete** cannot finish first-time preparation: its reviewed image catalog
+has not passed the release gate. Retrying or deleting your files cannot fix an
+incomplete catalog; use a complete application build.
 
 ## Updating the development build
 

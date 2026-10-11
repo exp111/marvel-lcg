@@ -4,7 +4,15 @@ This community-maintained build is based on [Marvel LCG Digital](https://irefrix
 
 The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
 
-## Latest release: v1.3.3
+## Prepared hotfix: v1.3.3.1
+
+v1.3.3.1 replaces on-demand card-image downloads with a verified, persistent local artwork library. The application ZIP stays small: the host prepares the approximately **1.7 GiB** collection separately before first play, then reuses it across restarts and application updates. LAN and Cloudflare players receive images from the host. Open **Card artwork** on the main menu for progress, recovery controls and library maintenance instructions.
+
+The hotfix also adds the default-off **Remove Standard Set Restriction** option and preselects sole eligible response prompts while still requiring confirmation. See the [hotfix notes and earlier release descriptions](PATCH_NOTES.md) and [installation and artwork maintenance guide](docs/install_guide.md#6-card-images).
+
+### Latest published application release: v1.3.3
+
+The v1.3.3.1 hotfix is prepared locally; its application release has not been published yet.
 
 [Download Community Build v1.3.3 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.3).
 
@@ -22,7 +30,7 @@ See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/ins
 
 ## Windows packaging
 
-v1.3.3 uses the v1.3.2 release environment: Python 3.12.13, the same pinned dependencies and verified locally compiled bootloader, PyInstaller's one-folder package with an embedded Python module archive, and UPX disabled. The one-folder layout avoids extracting the executable into a temporary directory at startup.
+v1.3.3.1 uses the established v1.3.2/v1.3.3 release environment: Python 3.12.13, the same pinned dependencies and verified locally compiled bootloader, PyInstaller's one-folder package with an embedded Python module archive, and UPX disabled. The one-folder layout avoids extracting the executable into a temporary directory at startup.
 
 Verify the downloaded archive with its accompanying `.sha256` file.
 
@@ -44,7 +52,7 @@ Verify the downloaded archive with its accompanying `.sha256` file.
 
 - [GitHub releases](https://github.com/sdolle1775/marvel-lcg/releases)
 - [Release build and publishing guide](docs/release_guide.md)
-- The new source implementation prepares reviewed artwork packs in a persistent user library, separate from the application archive. See the [artwork installation and migration instructions](docs/install_guide.md#6-card-images). The published v1.3.3 executable retains its original artwork downloader until a new application release is published.
+- v1.3.3.1 prepares reviewed artwork packs in a persistent user library, separate from the application archive. See the [artwork installation and maintenance instructions](docs/install_guide.md#6-card-images). The published v1.3.3 executable retains its original artwork downloader.
 - The release build includes the small sounds, card backs, status cards, placeholders, and set textures required by the interface.
 
 ## Documentation
