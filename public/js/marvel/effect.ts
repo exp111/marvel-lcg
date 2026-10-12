@@ -741,10 +741,11 @@ export class Effect {
                 selected.automatic_submit = false
                 const [minimum, maximum] = selected.target_num_range
                 const targets = selected.all_legal_targets
-                selected.selected_targets = minimum == 1 && maximum == 1 &&
-                    targets.length == 1 && selected.automatic_targets.includes(targets[0]) &&
+                selected.selected_targets = minimum > 0 && minimum == maximum &&
+                    targets.length == minimum &&
+                    targets.every(target => selected.automatic_targets.includes(target)) &&
                     !selected.is_search && selected.full_search_display_targets.length == 0
-                    ? [targets[0]] : []
+                    ? [...targets] : []
                 SelectStep.setTargets(maximum > 0)
                 Effect.updateHighLight()
                 return

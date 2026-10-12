@@ -54,8 +54,13 @@ if (fixture) {
     vm.runInContext(`
         const option = JSON.parse(fixtures.ask.options_json)[0];
         prepare(fixtures.ask, fixtures.cards);
+        ClientPreferences.showDeckDuringFullSearch = () => !!fixtures.full_search;
         render();
         assert.equal(Effect.select_effect_obj.id, option.id);
+        if (fixtures.expected_targets) {
+            assert.deepEqual(Array.from(Effect.select_effect_obj.selected_targets), Array.from(fixtures.expected_targets),
+                'All mandatory targets are preselected without clicking individual cards');
+        }
         assert.equal(BtnOk.btn_ok_div.disabled, false);
         if (fixtures.accept) {
             if (Effect.isForcedTimingChoice()) {
@@ -100,6 +105,17 @@ if (fixture) {
                     assert.deepEqual(Array.from(submissions[0].targets), targets);
                 }
             }
+            // Selecting every required target still waits for an explicit OK.
+            const all = {...base, all_legal_targets: [11, 12], target_num_range: [2, 2],
+                         automatic_targets: [11, 12]};
+            for (const fullSearch of [false, true]) {
+                ClientPreferences.showDeckDuringFullSearch = () => fullSearch;
+                prepare(ask(type, [all]), cards);
+                render();
+                assert.deepEqual(Array.from(Effect.select_effect_obj.selected_targets), [11, 12]);
+                confirm(all);
+                assert.deepEqual(Array.from(submissions[0].targets), [11, 12]);
+            }
             // One card is not one choice: preserve distinct triggering conditions.
             for (const second of [{...base, id: 2, choice_id: 'trigger-2'}, {...base, choice_id: 'trigger-2'},
                                   {...base, id: 2, bind_id: 12, choice_id: 'trigger-2'}]) {
@@ -138,6 +154,17 @@ if (fixture) {
                     Button.doBtnOk();
                     assert.equal(submissions.length, 0);
                 }
+            }
+            for (const change of [
+                {target_num_range: [1, 2]}, {automatic_targets: []},
+                {automatic_targets: [11]}, {is_search: true},
+                {full_search_display_targets: [11, 12]},
+            ]) {
+                prepare(ask(type, [{...all, ...change}]), cards);
+                render();
+                assert.equal(Effect.select_effect_obj.selected_targets.length, 0,
+                    'Variable quantities and manual searches must remain a choice');
+                assert.equal(BtnOk.btn_ok_div.disabled, true);
             }
             // Preselection respects Auto Target, blacklist and replay settings.
             for (const setting of ['manual', 'blacklist', 'replay']) {

@@ -13,7 +13,7 @@ def GetAbilities() -> Sequence['Ability']:
             message.SetBeInstead(effect)
             return
 
-        def pay(targets: Sequence['CardFace']) -> None:
+        def pay(targets: Sequence['CardFace'], resources: 'Resources') -> None:
             Faces.RemoveCountersOn([this], 1, 'drain', effect)
 
         def remain_exhausted(targets: Sequence['CardFace']) -> None:
