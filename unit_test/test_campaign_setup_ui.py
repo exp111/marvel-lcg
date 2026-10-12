@@ -1,4 +1,6 @@
 from pathlib import Path
+import shutil
+import subprocess
 import unittest
 
 
@@ -15,12 +17,14 @@ class TestCampaignSetupUI(unittest.TestCase):
         self.assertIn("SetHero(j, i)", html)
         self.assertGreaterEqual(html.count("updateCampaignPlayerRows()"), 3)
 
-    def test_required_encounter_set_buttons_cannot_be_deselected(self):
-        html = (
-            Path(__file__).resolve().parents[1] / "public" / "scene.html"
-        ).read_text(encoding="utf-8")
-
-        self.assertIn("if( div.classList.contains('lock') )", html)
+    def test_difficulty_set_restriction_toggle(self):
+        node = shutil.which("node")
+        if not node:
+            self.skipTest("Node is required for the setup UI regression")
+        root = Path(__file__).resolve().parents[1]
+        result = subprocess.run([node, str(root / "unit_test/encounter_set_restriction_ui.cjs")],
+                                cwd=root, capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_set_aside_villain_can_supply_the_scenario_selector_image(self):
         html = (

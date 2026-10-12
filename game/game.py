@@ -149,7 +149,12 @@ class Game:
             scene = SceneLoader.Load(save_file, nullable=True)
             if not scene:
                 scene = SceneLoader.NewScene("rhino", None, ["spider_man"], -1)
-            self.session.SetScene(scene, 'Load')
+            from engine.file import Cache
+            if Cache._artwork_library is not None and not Cache.ArtworkReadyForSelection("scene", scene):
+                Log.Warn("ARTWORK", "Prepare card artwork before loading the startup save. The save has not been changed.")
+                self.state.WaitUntilGameStart()
+            else:
+                self.session.SetScene(scene, 'Load')
         else:
             # Wait for new game
             self.state.WaitUntilGameStart()

@@ -74,6 +74,10 @@ class Engine:
             from cards.database import CardsDB
             CardsDB.Initialize()
 
+            if DEVICE.value == "web" and not Engine.in_unit_test:
+                from engine.file import Cache
+                Cache.InitializeArtwork()
+
             if Build.release:
                 EDITOR.value = False
 
@@ -142,6 +146,9 @@ class Engine:
     def Shutdown():
         Log.Print("\n--- Engine Shutdown ---")
         Engine.game.Shutdown()
+        from engine.file import Cache
+        if Cache._artwork_library is not None:
+            Cache._artwork_library.shutdown()
 
         if EDITOR.value:
             from editor.editor import Editor

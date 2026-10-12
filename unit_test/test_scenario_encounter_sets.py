@@ -1,8 +1,14 @@
 import json
 from pathlib import Path
 import unittest
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
 from engine import Engine  # noqa: F401 - establishes the project's import order
+from engine.lib import Json, Ver
+from game.game_run.game_new import NewGameDescriptor
+from game.game_run.game_session import GameSession
+from game.scene.scene import Scene
 from game.scene.loader import SceneLoader
 
 
@@ -55,6 +61,74 @@ class TestScenarioEncounterSets(unittest.TestCase):
         )
 
         self.assertEqual(merged, ["prelates", "standard_iii", "expert_ii"])
+
+    def test_opt_out_can_remove_either_or_both_difficulty_sets_only(self):
+        for selected, expected in (
+            ([], ["prelates"]),
+            (["standard_iii"], ["prelates", "standard_iii"]),
+            (["expert_ii"], ["prelates", "expert_ii"]),
+            (["standard", "standard_iii", "expert", "expert_ii", "dark_riders"],
+             ["prelates", "standard", "standard_iii", "expert", "expert_ii", "dark_riders"]),
+            (["standard", "standard_ii", "standard_iii", "standard_ii", "expert", "expert_ii", "prelates"],
+             ["prelates", "standard", "standard_ii", "standard_iii", "expert", "expert_ii"]),
+        ):
+            with self.subTest(selected=selected):
+                self.assertEqual(SceneLoader.MergeEncounterSets(
+                    ["prelates", "standard", "expert"], selected,
+                    remove_standard_set_restriction=True,
+                ), expected)
+
+    def test_restriction_requires_explicit_boolean_opt_out(self):
+        for enabled in (False, None, "false", "true", 1):
+            with self.subTest(enabled=enabled):
+                self.assertEqual(SceneLoader.MergeEncounterSets(
+                    ["standard", "expert"], [],
+                    remove_standard_set_restriction=enabled,
+                ), ["standard", "expert"])
+
+    def test_launch_and_save_keep_expert_villain_without_difficulty_sets(self):
+        campaign_json = (self.project_root / "data/scenarios/rhino_expert.json").read_text()
+        payload = dict(campaign_json=campaign_json, encounter_set_names=["bomb_scare"],
+                       hero_json=[], seed=133, timeout=0, challenges=[], rules=[], campaign_log={})
+        # Old clients omit the new field: their existing restriction must remain.
+        for enabled in (None, False, True):
+            with self.subTest(enabled=enabled), patch.object(Ver, "version", Ver("1.3.3"), create=True):
+                request = dict(payload)
+                if enabled is not None:
+                    request["remove_standard_set_restriction"] = enabled
+                descriptor = Json.LoadsAs(json.dumps(request), NewGameDescriptor)
+                self.assertEqual(descriptor.remove_standard_set_restriction, enabled is True)
+                session = GameSession(SimpleNamespace(state=Mock()))
+                session.NewGame(descriptor)
+                scene = session.scene
+                expected = ["bomb_scare"] if enabled else ["standard", "expert", "bomb_scare"]
+                self.assertEqual(scene.campaign.encounter_sets, expected)
+                self.assertEqual(scene.campaign.villain, ["01095", "01096"])
+                self.assertTrue(scene.campaign.expert)
+                saved = Json.Dumps(scene)
+                self.assertNotIn("remove_standard_set_restriction", saved)
+                restored = Json.LoadsAs(saved, Scene)
+                restored.UpdateVersion()
+                self.assertEqual(restored.campaign.encounter_sets, expected)
+
+    def test_unspecified_selection_keeps_scenario_defaults_even_with_opt_out(self):
+        campaign_json = (self.project_root / "data/scenarios/rhino_expert.json").read_text()
+        with patch.object(Ver, "version", Ver("1.3.3"), create=True):
+            scene = SceneLoader.NewFromJson(campaign_json, None, [], 133, [], {},
+                                           remove_standard_set_restriction=True)
+        self.assertEqual(scene.campaign.encounter_sets, ["standard", "expert", "bomb_scare"])
+
+    def test_combined_difficulty_sets_survive_launch_and_save(self):
+        selected = ["standard", "standard_ii", "standard_iii", "expert", "expert_ii", "bomb_scare"]
+        campaign_json = (self.project_root / "data/scenarios/rhino_expert.json").read_text()
+        with patch.object(Ver, "version", Ver("1.3.3"), create=True):
+            scene = SceneLoader.NewFromJson(campaign_json, selected, [], 133, [], {},
+                                           remove_standard_set_restriction=True)
+            self.assertEqual(scene.campaign.encounter_sets, selected)
+            restored = Json.LoadsAs(Json.Dumps(scene), Scene)
+            restored.UpdateVersion()
+        self.assertEqual(restored.campaign.encounter_sets, selected)
+        self.assertEqual(restored.campaign.villain, ["01095", "01096"])
 
     def test_all_scenarios_preserve_valid_required_encounter_sets(self):
         sets_info = json.loads(

@@ -76,6 +76,9 @@ $requiredPaths = @(
     "main.py",
     "launch.json",
     "data\cards.json",
+    "data\artwork-manifest.json",
+    "packaging\artwork\reviewed-mapping.json",
+    "packaging\verify_artwork_release.py",
     "public\marvel.html",
     "assets\sounds",
     "assets\textures",
@@ -138,6 +141,13 @@ if ($CustomBootloader) {
 $typescript = Get-Command "tsc.cmd" -ErrorAction SilentlyContinue
 if (-not $typescript) {
     throw "TypeScript compiler tsc.cmd was not found. Install TypeScript with npm install -g typescript."
+}
+
+# Artwork must be complete and its immutable assets reachable before an app
+# archive referring to them can be distributed. This never publishes a release.
+& $python (Join-Path $projectRoot "packaging\verify_artwork_release.py") --verify-hosted
+if ($LASTEXITCODE -ne 0) {
+    throw "Artwork release preflight failed. Review and publish verified artwork packs before building the application."
 }
 
 if ($PreflightOnly) {
@@ -254,9 +264,11 @@ Application version: $applicationVersion
 Source commit: $commit
 Packaging variant: $packagingVariant
 
-Included assets: sounds and interface textures
-Excluded assets: downloaded card cache and optional offline card-image pack
-Card artwork is retrieved using the image servers configured in launch.json.
+Included assets: sounds, interface textures, and the verified artwork manifest
+Excluded assets: downloaded card artwork and optional local artwork overrides
+The complete reviewed artwork collection downloads automatically before first play.
+Verified artwork stays in the persistent user library and is reused across installations.
+Explicit local artwork and custom image providers configured in launch.json remain supported.
 "@
 Set-Content -LiteralPath (Join-Path $stageRoot "RELEASE-MANIFEST.txt") -Value $manifest -Encoding UTF8
 

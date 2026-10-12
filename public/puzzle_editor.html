@@ -322,6 +322,11 @@ Use ";" for multiple card
                 }
             });
 
+            if (response.status === 409) {
+                const artwork = await import('/public/js/module/artwork.js');
+                artwork.showArtworkPreparation(() => playPuzzleData(show_id));
+                return;
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "source_pin": {
+    "schema_version": 1,
+    "workshop_id": "2665262903",
+    "workshop_title": "Marvel Champions High-Resolution Scans",
+    "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+    "workshop_updated_unix": 1786823585,
+    "snapshot": {
+      "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+      "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+      "bytes": 6537002,
+      "encoding": "bson"
+    },
+    "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+  },
+  "mappings": {},
+  "nonnumbered": {
+    "shatter_the_illusion": {
+      "disposition": "mapped",
+      "reviewed": true,
+      "reason": "Official Shatter the Illusion reminder reverse; the reviewed Workshop crop is recorded in review-scenarios.json."
+    },
+    "2401_the_ground_is_lava": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2402_two_for_one": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2403_magnets_and_metal": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2404_teamwork_makes_the_dream_work": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2405_form_flippers": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2406_flower_power": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2407_breakin_and_takin": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2408_absorbing_the_elements": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2409_gene_pool_party": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2410_need_for_speed": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2411_whose_show_is_it_anyway": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2412_wrath_of_the_mad_titan": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2413_complete_the_collection": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2414_symbiote_smackdown": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2415_fickle_crowds": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2416_everyday_heroes": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2417_mystic_mayhem": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2418_lock_and_load": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2419_lone_wolf": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2420_field_study": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2421_battle_of_the_bots": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2422_not_easy_being_green": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2423_the_wreckoning": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2424_absolutely_zero_tolerance": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "2425_boss_rush": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Intentional monthly Challenge text from data/cards.json, rendered by ImageCreator.CreateNoImage. There is no required printed card-scan face."
+    },
+    "confused": {
+      "disposition": "builtin",
+      "reviewed": true,
+      "reason": "Existing bundled assets/textures/confused.webp; preserved unchanged, verified present. It is outside managed card-scan downloads."
+    },
+    "controlled_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "encounter": {
+      "disposition": "builtin",
+      "reviewed": true,
+      "reason": "Existing bundled assets/textures/encounter.webp; preserved unchanged, verified present. It is outside managed card-scan downloads."
+    },
+    "enthralled_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "karma_controlled_ally": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id encounter is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "kingpin_black_cat_ally": {
+      "disposition": "generated",
+      "reviewed": true,
+      "reason": "Synthetic treatment face for Kingpin Black Cat control transfer, not a separate printed card. Existing TreatAsAlly workflow retains the source minion artwork; standalone browse uses generated text."
+    },
+    "minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "phoenix_controlled_ally": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id encounter is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "player": {
+      "disposition": "builtin",
+      "reviewed": true,
+      "reason": "Existing bundled assets/textures/player.webp; preserved unchanged, verified present. It is outside managed card-scan downloads."
+    },
+    "pool_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "possessed_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "redemption_redeemed_ally": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id encounter is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "regressed_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "reluctant_foe_elite_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "rule_a": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "rule_b": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "stunned": {
+      "disposition": "builtin",
+      "reviewed": true,
+      "reason": "Existing bundled assets/textures/stunned.webp; preserved unchanged, verified present. It is outside managed card-scan downloads."
+    },
+    "tough": {
+      "disposition": "builtin",
+      "reviewed": true,
+      "reason": "Existing bundled assets/textures/tough.webp; preserved unchanged, verified present. It is outside managed card-scan downloads."
+    },
+    "ultron_facedown_drone": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "undead_minion": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id player is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    },
+    "wild": {
+      "disposition": "alias",
+      "reviewed": true,
+      "reason": "Explicit database pic_id encounter is preserved. This synthetic/helper face deliberately uses an existing card back; ability_link is not involved."
+    }
+  }
+}

@@ -414,6 +414,10 @@ function doReplay(file_name, is_replay, resume=false) {
     }
     ajax.open("GET", cmd, true);
     ajax.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 409) {
+            import('/public/js/module/artwork.js').then(module => module.showArtworkPreparation(() => doReplay(file_name, is_replay, resume)));
+            return;
+        }
         if( this.readyState == 4 && this.status == 200 ) {
             console.log('ok')
             cmd = ".?hot_seat&3d_scene"

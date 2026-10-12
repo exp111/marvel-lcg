@@ -1,0 +1,2 @@
+# Optional maintainer-only native PDF image extraction; excluded from the game.
+PyMuPDF==1.28.2

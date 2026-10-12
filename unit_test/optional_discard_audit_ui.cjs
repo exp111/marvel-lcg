@@ -35,6 +35,10 @@ vm.runInContext(`
                                      'An optional discard count must start at zero');
                     }
                     if (accept) {
+                        if (Effect.select_effect_obj.id === -1) {
+                            Effect.onCardClick(element(option.bind_id), false);
+                        }
+                        assert.equal(submissions.length, 0, 'Selecting the response still requires confirmation');
                         const desired = option.all_legal_targets.slice(0, option.target_num_range[1]);
                         for (const target of desired) {
                             if (!Effect.select_effect_obj.selected_targets.includes(target)) {
@@ -42,7 +46,11 @@ vm.runInContext(`
                             }
                         }
                         Button.doBtnOk();
-                        assert.equal(submissions.length, 1);
+                        assert.equal(submissions.length, 1, JSON.stringify({
+                            event: fixture.ask.event_name, ability: fixture.ask.ability_type,
+                            name: option.name, autoTarget, autoActivate,
+                            step: SelectStep.getStep(), selected: Effect.select_effect_obj.id,
+                        }));
                         assert.equal(submissions[0].id, optionId);
                         assert.equal(submissions[0].targets.length, desired.length);
                     } else {

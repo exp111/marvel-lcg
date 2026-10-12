@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "workshop_id": "2665262903",
+  "workshop_title": "Marvel Champions High-Resolution Scans",
+  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+  "workshop_updated_unix": 1786823585,
+  "snapshot": {
+    "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+    "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+    "bytes": 6537002,
+    "encoding": "bson"
+  },
+  "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+}

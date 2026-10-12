@@ -1,0 +1,1714 @@
+{
+  "schema_version": 1,
+  "source_pin": {
+    "schema_version": 1,
+    "workshop_id": "2665262903",
+    "workshop_title": "Marvel Champions High-Resolution Scans",
+    "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+    "workshop_updated_unix": 1786823585,
+    "snapshot": {
+      "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+      "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+      "bytes": 6537002,
+      "encoding": "bson"
+    },
+    "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+  },
+  "mappings": {
+    "30014": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "a2deca",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          8
+        ],
+        "deck_key": "9718",
+        "card_id": 971817,
+        "name": "Even the Odds",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463086877/3400BD9659B91A01BDB40EDB2EDE7EBAF9653416/",
+        "sheet_sha256": "f6bfe0e40947e8f2359d77b6874c89fb5f4eb15ced42a2f7296f0c636c34acb0",
+        "columns": 8,
+        "rows": 3,
+        "index": 17
+      },
+      "rotation": 0,
+      "expected": "Even the Odds Event"
+    },
+    "31001b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "a65e7d",
+        "object_path": [
+          "ObjectStates",
+          72,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9716",
+        "card_id": 971600,
+        "name": "SP//dr Suit",
+        "parents": [
+          "SP//dr Hero Pack",
+          "SP//dr's Identity Cards"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463064620/FA298173E156D499E2FA45B025E35F1B2071E56A/",
+        "sheet_sha256": "498f95660b4ef0e6e4edca2a1f1b5d7398608839b19b63844e5cdd2edfb2e434",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "expected": "* SP//dr Suit Support"
+    },
+    "31002b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "5c2697",
+        "object_path": [
+          "ObjectStates",
+          72,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "9717",
+        "card_id": 971700,
+        "name": "Peni Parker",
+        "parents": [
+          "SP//dr Hero Pack",
+          "SP//dr's Identity Cards"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1897721393463077825/C3D646922B4EE8EC059EE9D16560D4EB18CCE86F/",
+        "sheet_sha256": "40cd7c34dc9c3df377ad2fbf469e31d965934f5375c271c98ce73bc8d0d21ed0",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "expected": "* SP//dr Upgrade"
+    },
+    "32014": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "37bd68",
+        "object_path": [
+          "ObjectStates",
+          43,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          29
+        ],
+        "deck_key": "9725",
+        "card_id": 972503,
+        "name": "Powerful Punch",
+        "parents": [
+          "Protection Aspect Cards",
+          "Protection Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 3
+      },
+      "rotation": 0,
+      "expected": "Powerful Punch Event"
+    },
+    "32058": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "5ca6ae",
+        "object_path": [
+          "ObjectStates",
+          144,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "49",
+        "card_id": 4902,
+        "name": "Hellfire Pawn",
+        "parents": [
+          "Shadowcat Hero Pack",
+          "Shadowcat's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451039084/AC6EB0541F15A62C4417EAD314208C51717882B4/",
+        "sheet_sha256": "efe91b86e03ce3e3e04faf785d2356f7e2ffe9074dfa334dc3e6165fb3134c75",
+        "columns": 3,
+        "rows": 2,
+        "index": 2
+      },
+      "rotation": 0,
+      "expected": "Hellfire Pawn Minion"
+    },
+    "32088b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "8b282b",
+        "object_path": [
+          "ObjectStates",
+          82,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "29",
+        "card_id": 2901,
+        "name": "Mutants at the Mall",
+        "parents": [
+          "Project Wideawake Scenario Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450994470/102A6C7D9B07439894E9209A9B16789E82D31D43/",
+        "sheet_sha256": "5b94225642a9c6405bf87419912f0688cdbaf5214d73f74104820e6d152fe431",
+        "columns": 2,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "expected": "* Jubilee Ally"
+    },
+    "32147": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "60801b",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          17
+        ],
+        "deck_key": "14",
+        "card_id": 1404,
+        "name": "Magneto's Helmet",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 4
+      },
+      "rotation": 0,
+      "expected": "* Magneto's Helmet Attachment"
+    },
+    "32148": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "a628be",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          16
+        ],
+        "deck_key": "14",
+        "card_id": 1405,
+        "name": "Magneto's Armor",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 5
+      },
+      "rotation": 0,
+      "expected": "* Magneto's Armor Attachment"
+    },
+    "32149": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "0e2c37",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          15
+        ],
+        "deck_key": "14",
+        "card_id": 1406,
+        "name": "Magnetic Bubble",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 6
+      },
+      "rotation": 0,
+      "expected": "Magnetic Bubble Attachment"
+    },
+    "32150": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "123358",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          14
+        ],
+        "deck_key": "14",
+        "card_id": 1407,
+        "name": "Wrapped in Metal",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 7
+      },
+      "rotation": 0,
+      "expected": "Wrapped in Metal Attachment"
+    },
+    "32151": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "b7f4fc",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          13
+        ],
+        "deck_key": "14",
+        "card_id": 1408,
+        "name": "Master of Magnetism",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 8
+      },
+      "rotation": 0,
+      "expected": "Master of Magnetism Treachery"
+    },
+    "32153": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "eb1c0f",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          8
+        ],
+        "deck_key": "14",
+        "card_id": 1413,
+        "name": "Electromagnetic Blast",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 13
+      },
+      "rotation": 0,
+      "expected": "Electromagnetic Blast Treachery"
+    },
+    "32154": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "7cbf36",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          6
+        ],
+        "deck_key": "14",
+        "card_id": 1415,
+        "name": "Metal Shards",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 15
+      },
+      "rotation": 0,
+      "expected": "Metal Shards Treachery"
+    },
+    "32155": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "16be15",
+        "object_path": [
+          "ObjectStates",
+          78,
+          "ContainedObjects",
+          0,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "14",
+        "card_id": 1417,
+        "name": "Magnetic Missile",
+        "parents": [
+          "Magneto Scenario Pack"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450967504/60FA8C604A0DE24EC04212E0584B6F51838F5120/",
+        "sheet_sha256": "c47c50bcd9cd51949c5e5038f1bc278b8d913116082820ddafd7e9be76e28800",
+        "columns": 5,
+        "rows": 4,
+        "index": 17
+      },
+      "rotation": 0,
+      "expected": "Magnetic Missile Treachery"
+    },
+    "32172b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "cd0cb7",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          3,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "3",
+        "card_id": 301,
+        "name": "Enemy of My Enemy",
+        "parents": [
+          "Campaign and Market Cards",
+          "Mutant Genesis Campaign and Role Cards",
+          "Mutant Genesis Campaign"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392450927995/45095F3772336D993491712A968CDF3971EE57CA/",
+        "sheet_sha256": "7e71d3c9bed4b655a2542861517575b8228bb61e49acf1f62d184f14717e95c6",
+        "columns": 3,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "expected": "* Magneto Ally"
+    },
+    "34002b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "91f0e1",
+        "object_path": [
+          "ObjectStates",
+          74,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "43",
+        "card_id": 4300,
+        "name": "Phoenix Force",
+        "parents": [
+          "Phoenix Hero Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451030593/9527A631F4B4514ABBE314BE8245A4252AC44A60/",
+        "sheet_sha256": "7872bc9e9af17b47ca121df4b46e4e0e087cefa001a08039804cb4df849dc7b5",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "expected": "Phoenix Force Upgrade"
+    },
+    "38016": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "f9a6f6",
+        "object_path": [
+          "ObjectStates",
+          43,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          27
+        ],
+        "deck_key": "9726",
+        "card_id": 972622,
+        "name": "Not Today!",
+        "parents": [
+          "Protection Aspect Cards",
+          "Protection Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939655971/C0C5C09238A5B80D7707C1CB60F8780A0E8F8B12/",
+        "sheet_sha256": "dc32fd841aa6218f666b6425a00461137f521aca4fcc514895cc75833ce853a4",
+        "columns": 9,
+        "rows": 3,
+        "index": 22
+      },
+      "rotation": 0,
+      "expected": "Not Today! Event"
+    },
+    "38025": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "4f949d",
+        "object_path": [
+          "ObjectStates",
+          89,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "1",
+        "card_id": 111,
+        "name": "Mystique",
+        "parents": [
+          "Rogue Hero Pack",
+          "Rogue's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2058745292939651220/1A8F6A2E88786D65A7ED8279D9A8E71C7262263D/",
+        "sheet_sha256": "a90e310b1c188703e6559abe77cbc583ae00860637b203fe5b271da794be0dbf",
+        "columns": 8,
+        "rows": 3,
+        "index": 11
+      },
+      "rotation": 0,
+      "expected": "* Mystique Minion"
+    },
+    "39071": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "e13ae7",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9",
+        "card_id": 900,
+        "name": "Longshot",
+        "parents": [
+          "Campaign and Market Cards",
+          "MojoMania Campaign Cards"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1924753791406005971/835146F91C7D90E6B45DF6E3B4DFE7A68BBE3A2B/",
+        "sheet_sha256": "776da33051c00ac1ee3e5d37b90a1685942682136ad4aa01fa07841bf93cff5e",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "expected": "* Longshot Ally"
+    },
+    "40034": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "8941f2",
+        "object_path": [
+          "ObjectStates",
+          91,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "9732",
+        "card_id": 973202,
+        "name": "Telekinetic Force Field",
+        "parents": [
+          "Cable Hero Pack",
+          "Cable's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431390810/0A6F414CAE42693C815B794EA182CEA5D44582B6/",
+        "sheet_sha256": "66ee3245e9bedc103ad88a523afd23f200ff31d74dfb48b6dba9e0937583c9da",
+        "columns": 4,
+        "rows": 3,
+        "index": 2
+      },
+      "rotation": 0,
+      "expected": "Telekinetic Force Field Attachment"
+    },
+    "40035": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "2463b9",
+        "object_path": [
+          "ObjectStates",
+          91,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "9732",
+        "card_id": 973203,
+        "name": "Mind Scan",
+        "parents": [
+          "Cable Hero Pack",
+          "Cable's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431390810/0A6F414CAE42693C815B794EA182CEA5D44582B6/",
+        "sheet_sha256": "66ee3245e9bedc103ad88a523afd23f200ff31d74dfb48b6dba9e0937583c9da",
+        "columns": 4,
+        "rows": 3,
+        "index": 3
+      },
+      "rotation": 0,
+      "expected": "Mind Scan Treachery"
+    },
+    "40036": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "98ac04",
+        "object_path": [
+          "ObjectStates",
+          91,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9732",
+        "card_id": 973204,
+        "name": "Telekinetic Blast",
+        "parents": [
+          "Cable Hero Pack",
+          "Cable's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431390810/0A6F414CAE42693C815B794EA182CEA5D44582B6/",
+        "sheet_sha256": "66ee3245e9bedc103ad88a523afd23f200ff31d74dfb48b6dba9e0937583c9da",
+        "columns": 4,
+        "rows": 3,
+        "index": 4
+      },
+      "rotation": 0,
+      "expected": "Telekinetic Blast Treachery"
+    },
+    "40105b": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "b8758e",
+        "object_path": [
+          "ObjectStates",
+          92,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "9739",
+        "card_id": 973908,
+        "name": "Hope's Captor",
+        "parents": [
+          "On the Run Scenario Pack"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2062139566431477763/83A145C88B47FB19E1A754DA50B5183EE8F941C4/",
+        "sheet_sha256": "8204af8b25de59028973c6e17e055a6fe1bbf957afc835ec5e35cfd2668cc84a",
+        "columns": 6,
+        "rows": 2,
+        "index": 8
+      },
+      "rotation": 0,
+      "expected": "Hope's Captor Attachment"
+    },
+    "41026": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "96e15e",
+        "object_path": [
+          "ObjectStates",
+          98,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "18",
+        "card_id": 1801,
+        "name": "Chimera",
+        "parents": [
+          "Psylocke Hero Pack",
+          "Psylocke's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006077398/48EDDCC009567006D88BA62F8ED9116BA065333C/",
+        "sheet_sha256": "4aa3380628c750864041dfc65742fd5eea151cdb33a4f4dd44ab4e9cde3bc2d5",
+        "columns": 6,
+        "rows": 2,
+        "index": 1
+      },
+      "rotation": 0,
+      "expected": "* Chimera Minion"
+    },
+    "42016": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "a6c1c9",
+        "object_path": [
+          "ObjectStates",
+          43,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          45
+        ],
+        "deck_key": "22",
+        "card_id": 2220,
+        "name": "Taunt",
+        "parents": [
+          "Protection Aspect Cards",
+          "Protection Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006083049/CD8F0049E3B2932EB4E68BE141CA88FAFE34A505/",
+        "sheet_sha256": "8093f23c3e87b424f5e686c5fe9a5a39cf631c8b2003103aa7ee2788a81616c8",
+        "columns": 8,
+        "rows": 4,
+        "index": 20
+      },
+      "rotation": 0,
+      "expected": "Taunt Event"
+    },
+    "42025": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "b700e8",
+        "object_path": [
+          "ObjectStates",
+          97,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "18",
+        "card_id": 1806,
+        "name": "Harpoon",
+        "parents": [
+          "Angel Hero Pack",
+          "Angel's Nemesis Set"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006077398/48EDDCC009567006D88BA62F8ED9116BA065333C/",
+        "sheet_sha256": "4aa3380628c750864041dfc65742fd5eea151cdb33a4f4dd44ab4e9cde3bc2d5",
+        "columns": 6,
+        "rows": 2,
+        "index": 6
+      },
+      "rotation": 0,
+      "expected": "* Harpoon Minion"
+    },
+    "42029": {
+      "reviewed": true,
+      "review_note": "Visually inspected corrected scoped source: printed title, original set/printing, type, rules and exact face match; clean upright native scan.",
+      "source": {
+        "guid": "0880b6",
+        "object_path": [
+          "ObjectStates",
+          44,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "22",
+        "card_id": 2226,
+        "name": "Bombs Away",
+        "parents": [
+          "Aggression Aspect Cards",
+          "Aggression Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2128571377006083049/CD8F0049E3B2932EB4E68BE141CA88FAFE34A505/",
+        "sheet_sha256": "8093f23c3e87b424f5e686c5fe9a5a39cf631c8b2003103aa7ee2788a81616c8",
+        "columns": 8,
+        "rows": 4,
+        "index": 26
+      },
+      "rotation": 0,
+      "expected": "Bombs Away Event"
+    },
+    "45166b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "9c1900",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "12",
+        "card_id": 1200,
+        "name": "Liberate the Seattle Core",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Mission Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798079035669/1B38A7C25A6C8223D493B9EA55D83420142F01A1/",
+        "sheet_sha256": "5b61c95de418b2b89198e7529c0b6506dd599c84b20238829da87d8feede85b4",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 180,
+      "expected": "Liberate the Seattle Core SideScheme "
+    },
+    "45167b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "e73fb3",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "10",
+        "card_id": 1008,
+        "name": "Evacuate Survivors",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Mission Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078898231/B803BB56C9B53195AF12BA9062152DF46732A76D/",
+        "sheet_sha256": "3ba36998cee48fd08f54b27486d6f4acd2e0dd05863a2ddc1a6b2dda5cd0e758",
+        "columns": 7,
+        "rows": 2,
+        "index": 8
+      },
+      "rotation": 180,
+      "expected": "Evacuate Survivors SideScheme "
+    },
+    "45168b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "ccb5fc",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "10",
+        "card_id": 1009,
+        "name": "Sabotage the Sea Wall",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Mission Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078898231/B803BB56C9B53195AF12BA9062152DF46732A76D/",
+        "sheet_sha256": "3ba36998cee48fd08f54b27486d6f4acd2e0dd05863a2ddc1a6b2dda5cd0e758",
+        "columns": 7,
+        "rows": 2,
+        "index": 9
+      },
+      "rotation": 180,
+      "expected": "Sabotage the Sea Wall SideScheme "
+    },
+    "45169b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "ac004a",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "10",
+        "card_id": 1010,
+        "name": "Find Lost Mutants",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Mission Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078898231/B803BB56C9B53195AF12BA9062152DF46732A76D/",
+        "sheet_sha256": "3ba36998cee48fd08f54b27486d6f4acd2e0dd05863a2ddc1a6b2dda5cd0e758",
+        "columns": 7,
+        "rows": 2,
+        "index": 10
+      },
+      "rotation": 180,
+      "expected": "Find Lost Mutants SideScheme "
+    },
+    "45170b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "afc6c8",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          6,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "10",
+        "card_id": 1011,
+        "name": "Protect the Professor",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Mission Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078898231/B803BB56C9B53195AF12BA9062152DF46732A76D/",
+        "sheet_sha256": "3ba36998cee48fd08f54b27486d6f4acd2e0dd05863a2ddc1a6b2dda5cd0e758",
+        "columns": 7,
+        "rows": 2,
+        "index": 11
+      },
+      "rotation": 180,
+      "expected": "Protect the Professor SideScheme "
+    },
+    "45171b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "ec731c",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "11",
+        "card_id": 1107,
+        "name": "Mission Team",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 7
+      },
+      "rotation": 0,
+      "expected": "Mission Team Support G"
+    },
+    "45179b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "611ba9",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "11",
+        "card_id": 1108,
+        "name": "Mister Sinister",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Overseer Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 8
+      },
+      "rotation": 0,
+      "expected": "* Mister Sinister Minion "
+    },
+    "45180b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "ffc0f8",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          3
+        ],
+        "deck_key": "11",
+        "card_id": 1109,
+        "name": "The Shadow King",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Overseer Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 9
+      },
+      "rotation": 0,
+      "expected": "* The Shadow King Minion "
+    },
+    "45181b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "6b9f93",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "11",
+        "card_id": 1110,
+        "name": "Abyss",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Overseer Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 10
+      },
+      "rotation": 0,
+      "expected": "* Abyss Minion "
+    },
+    "45182b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "cc783a",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "11",
+        "card_id": 1111,
+        "name": "Sugar Man",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Overseer Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 11
+      },
+      "rotation": 0,
+      "expected": "* Sugar Man Minion "
+    },
+    "45183b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "9b91fd",
+        "object_path": [
+          "ObjectStates",
+          63,
+          "ContainedObjects",
+          9,
+          "ContainedObjects",
+          1,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "11",
+        "card_id": 1112,
+        "name": "Mikhail Rasputin",
+        "parents": [
+          "Campaign and Market Cards",
+          "Age of Apocalypse Campaign Cards",
+          "Overseer Campaign Set"
+        ],
+        "face": "back",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2527155798078900630/A486E184D638F405A84FD0961F8624DB458E1D6B/",
+        "sheet_sha256": "bdac421db123e4c11921b725c68847c95690042a32c28e71f75da527bf255ae6",
+        "columns": 5,
+        "rows": 3,
+        "index": 12
+      },
+      "rotation": 0,
+      "expected": "* Mikhail Rasputin Minion "
+    },
+    "47007a": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "b41564",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          9
+        ],
+        "deck_key": "3",
+        "card_id": 304,
+        "name": "Firecracker",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 4
+      },
+      "rotation": 0,
+      "expected": "Firecracker Event Y"
+    },
+    "47007b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "8abbe6",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          8
+        ],
+        "deck_key": "3",
+        "card_id": 305,
+        "name": "Firecracker",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 5
+      },
+      "rotation": 0,
+      "expected": "Firecracker Event B"
+    },
+    "47007c": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "b20522",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          7
+        ],
+        "deck_key": "3",
+        "card_id": 306,
+        "name": "Firecracker",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 6
+      },
+      "rotation": 0,
+      "expected": "Firecracker Event R"
+    },
+    "47008a": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "ec89d6",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          6
+        ],
+        "deck_key": "3",
+        "card_id": 307,
+        "name": "Flash of Light",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 7
+      },
+      "rotation": 0,
+      "expected": "Flash of Light Event Y"
+    },
+    "47008b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "25840f",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          5
+        ],
+        "deck_key": "3",
+        "card_id": 308,
+        "name": "Flash of Light",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 8
+      },
+      "rotation": 0,
+      "expected": "Flash of Light Event B"
+    },
+    "47008c": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "4236be",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          4
+        ],
+        "deck_key": "3",
+        "card_id": 309,
+        "name": "Flash of Light",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 9
+      },
+      "rotation": 0,
+      "expected": "Flash of Light Event R"
+    },
+    "47010a": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "991601",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          2
+        ],
+        "deck_key": "3",
+        "card_id": 311,
+        "name": "Plasmoid Energy",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 11
+      },
+      "rotation": 0,
+      "expected": "Plasmoid Energy Resource YB"
+    },
+    "47010b": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "48e491",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          1
+        ],
+        "deck_key": "3",
+        "card_id": 312,
+        "name": "Plasmoid Energy",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 12
+      },
+      "rotation": 0,
+      "expected": "Plasmoid Energy Resource RY"
+    },
+    "47010c": {
+      "reviewed": true,
+      "review_note": "Visually inspected exact reverse/variant: title, finished mission or Overseer stats, and Jubilee resource icons match game record. Clean scan; landscape backs normalized title-left.",
+      "source": {
+        "guid": "34f738",
+        "object_path": [
+          "ObjectStates",
+          118,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "3",
+        "card_id": 313,
+        "name": "Plasmoid Energy",
+        "parents": [
+          "Jubilee Hero Pack",
+          "Jubilee's Hero Deck"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2522662979048462463/C4FAA6D15AC33F66110B192A6FEC1D64C5C37BBA/",
+        "sheet_sha256": "693ec9535bfd462f2030574c9dea4fb038a8a45523d1a4ac3ce162d8a9d55987",
+        "columns": 5,
+        "rows": 3,
+        "index": 13
+      },
+      "rotation": 0,
+      "expected": "Plasmoid Energy Resource RB"
+    },
+    "48021": {
+      "reviewed": true,
+      "review_note": "Inspected native710x1030 crop: clean Gambit basic ally, yellow resource, Marvel2024FFG and printed21 clearly visible at bottom-right. Correct Nightcrawler printing.",
+      "source": {
+        "guid": "3cd868",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          5,
+          "ContainedObjects",
+          17
+        ],
+        "deck_key": "2",
+        "card_id": 972422,
+        "name": "Gambit",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Allies"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/2500151322102173241/41C4A70FDFD84CC54892EC0A093B07DD14E6E7B0/",
+        "sheet_sha256": "f3604318f818dc8da1431075096e140eb2e0df8e533b47d061859ada3152e8ad",
+        "columns": 9,
+        "rows": 3,
+        "index": 22
+      },
+      "rotation": 0,
+      "proposal_basis": "exact name; requires visual confirmation",
+      "candidate_count": 3,
+      "expected": "Gambit Basic Ally Nightcrawler 21"
+    }
+  },
+  "nonnumbered": {
+    "2401_the_ground_is_lava": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2402_two_for_one": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2403_magnets_and_metal": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2404_teamwork_makes_the_dream_work": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2405_form_flippers": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2406_flower_power": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2407_breakin_and_takin": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2408_absorbing_the_elements": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2409_gene_pool_party": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2410_need_for_speed": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2411_whose_show_is_it_anyway": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2412_wrath_of_the_mad_titan": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2413_complete_the_collection": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2414_symbiote_smackdown": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2415_fickle_crowds": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2416_everyday_heroes": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2417_mystic_mayhem": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2418_lock_and_load": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2419_lone_wolf": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2420_field_study": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2421_battle_of_the_bots": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2422_not_easy_being_green": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2423_the_wreckoning": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2424_absolutely_zero_tolerance": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "2425_boss_rush": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "confused": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "controlled_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "encounter": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "enthralled_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "karma_controlled_ally": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "kingpin_black_cat_ally": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "phoenix_controlled_ally": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "player": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "pool_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "possessed_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "redemption_redeemed_ally": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "regressed_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "reluctant_foe_elite_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "rule_a": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "rule_b": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "shatter_the_illusion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "stunned": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "tough": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "ultron_facedown_drone": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "undead_minion": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    },
+    "wild": {
+      "disposition": "pending",
+      "reviewed": false,
+      "reason": ""
+    }
+  }
+}

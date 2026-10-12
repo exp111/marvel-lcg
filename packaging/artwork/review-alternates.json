@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "source_pin": {
+    "schema_version": 1,
+    "workshop_id": "2665262903",
+    "workshop_title": "Marvel Champions High-Resolution Scans",
+    "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2665262903",
+    "workshop_updated_unix": 1786823585,
+    "snapshot": {
+      "url": "https://cdn.steamusercontent.com/ugc/15159463904363798481/B898EC36C47C784E50A16EB355DB3BE597CD684F/",
+      "sha256": "b702c9e70a7759509f96cd342fbde3bf822fd7b86f77e045583568fcf0762b11",
+      "bytes": 6537002,
+      "encoding": "bson"
+    },
+    "attribution": "Scans by Unicorn Snuggler and the contributors credited in the Workshop objects. Card content belongs to its respective owners."
+  },
+  "mappings": {
+    "90001": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Ronan modular PDF page 0 rendered complete, including vector rules text, at300DPI derived from native747x1058px image placed179.28x253.92pt; cropbox177.134x251.575pt. Approved Kree Fanatic 1/7 minion (not scenario villain).",
+      "source": {
+        "kind": "pdf_page",
+        "source_id": "ffg-ronan-modular-set",
+        "sheet_url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+        "file_sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+        "sheet_sha256": "c647611458bdbeefabcd336c5293b835ff1e65958cc0a70f837171a609a8c7fb",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0,
+        "pdf_page": 0,
+        "render_dpi": 300
+      },
+      "rotation": 0
+    },
+    "90002": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Ronan modular PDF page 1 rendered complete, including vector rules text, at300DPI derived from native747x1058px image placed179.28x253.92pt; cropbox177.134x251.575pt. Approved Kree Fanatic 2/7 side scheme, titleLEFT orientation.",
+      "source": {
+        "kind": "pdf_page",
+        "source_id": "ffg-ronan-modular-set",
+        "sheet_url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+        "file_sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+        "sheet_sha256": "160964b3370cbc5a7f94dd6b5122819a743adcd79f854891b0ac790c4c7d8204",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0,
+        "pdf_page": 1,
+        "render_dpi": 300
+      },
+      "rotation": 0
+    },
+    "90003": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Ronan modular PDF page 2 rendered complete, including vector rules text, at300DPI derived from native747x1058px image placed179.28x253.92pt; cropbox177.134x251.575pt. Approved Kree Fanatic 3/7 attachment.",
+      "source": {
+        "kind": "pdf_page",
+        "source_id": "ffg-ronan-modular-set",
+        "sheet_url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+        "file_sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+        "sheet_sha256": "72a6f674efff8c9a4c86e5ffa70b44b8755a15a628bf4686622642c501312cc0",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0,
+        "pdf_page": 2,
+        "render_dpi": 300
+      },
+      "rotation": 0
+    },
+    "90004": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Ronan modular PDF page 3 rendered complete, including vector rules text, at300DPI derived from native747x1058px image placed179.28x253.92pt; cropbox177.134x251.575pt. Approved Kree Fanatic 4/7 treachery.",
+      "source": {
+        "kind": "pdf_page",
+        "source_id": "ffg-ronan-modular-set",
+        "sheet_url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+        "file_sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+        "sheet_sha256": "fb4445c9f1070195a6227e84901cfa4a600336202bc3d0d22043a03f6d30d31a",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0,
+        "pdf_page": 3,
+        "render_dpi": 300
+      },
+      "rotation": 0
+    },
+    "90005": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Ronan modular PDF page 5 rendered complete, including vector rules text, at300DPI derived from native747x1058px image placed179.28x253.92pt; cropbox177.134x251.575pt. Approved Kree Fanatic 6/7 treachery.",
+      "source": {
+        "kind": "pdf_page",
+        "source_id": "ffg-ronan-modular-set",
+        "sheet_url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+        "file_sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+        "sheet_sha256": "433f6bdd91448b180c594094ac0c27f0b036cb73779c01716b8ae0130352e20e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0,
+        "pdf_page": 5,
+        "render_dpi": 300
+      },
+      "rotation": 0
+    },
+    "62022": {
+      "reviewed": true,
+      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Unbreakable article linked original300x419px PNG, Basic cost2 physicalresource printed#22.",
+      "source": {
+        "kind": "image",
+        "source_id": "ffg-dynamic-duo",
+        "sheet_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/mc62_luke-cage_dynamic-duo.png",
+        "file_sha256": "c8d5b6ce8ffb1cec51dc8bf24d8bc6ba0d4da8b7c40cca017a98526aee701495",
+        "sheet_sha256": "c8d5b6ce8ffb1cec51dc8bf24d8bc6ba0d4da8b7c40cca017a98526aee701495",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0
+    },
+    "61028": {
+      "reviewed": true,
+      "review_note": "Visually inspected clean complete English Second Chance card, native1048x738 source, printedBasic#28 mentalresource cost0 and3perplayerthreat. FFG-provided preview shared by Skilled Investigator; article explicitly credits FFG and Olivia for the supplied card reveals. No added watermark. Landscape source rotated90degrees counterclockwise so scheme title isLEFT before gameCSS rotation.",
+      "source": {
+        "kind": "image",
+        "source_id": "ffg-second-chance-preview",
+        "sheet_url": "https://skilledinvestigator.com/wp-content/uploads/2026/07/Jessica-Jones-Hero-Pack-29-5.png",
+        "file_sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
+        "sheet_sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90
+    }
+  },
+  "nonnumbered": {},
+  "alternate_sources": {
+    "ffg-ronan-modular-set": {
+      "url": "https://images-cdn.fantasyflightgames.com/filer_public/12/42/1242eccb-60ab-4a30-a099-a76f702cdbb5/ronan_modular_set.pdf",
+      "sha256": "56c1e0f54c8a39e9265ef05187156ddf711d8ac8ca9899aa32f94545d0308062",
+      "bytes": 9856010,
+      "kind": "pdf_page"
+    },
+    "ffg-dynamic-duo": {
+      "url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/mc62_luke-cage_dynamic-duo.png",
+      "sha256": "c8d5b6ce8ffb1cec51dc8bf24d8bc6ba0d4da8b7c40cca017a98526aee701495",
+      "bytes": 242880,
+      "kind": "image"
+    },
+    "ffg-second-chance-preview": {
+      "url": "https://skilledinvestigator.com/wp-content/uploads/2026/07/Jessica-Jones-Hero-Pack-29-5.png",
+      "sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
+      "bytes": 764222,
+      "kind": "image"
+    }
+  }
+}

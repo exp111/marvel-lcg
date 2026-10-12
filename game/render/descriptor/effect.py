@@ -34,8 +34,9 @@ class EffectDescriptor:
     # Exact one-of-one targets are outcomes, not player choices.  The client
     # can submit the selected ability without opening a target-selection step.
     automatic_targets: List[int] = field(default_factory=list)
-    # Most exact one-of-one outcomes can be submitted immediately. Optional
-    # Interrupts, Responses, optional ability choices, and basic defense
+    # Most exact one-of-one outcomes can be submitted immediately.
+    # Interrupt/Response prompts (including forced), optional ability choices,
+    # and basic defense
     # declarations are exceptions: keep the sole target preselected, but let
     # the player explicitly confirm or cancel.
     automatic_submit: bool = True

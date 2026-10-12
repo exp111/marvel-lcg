@@ -600,19 +600,15 @@ class Effect(Object):
             ]
         # A deterministic target can be preselected without deciding whether
         # the player wants to use an optional printed Interrupt or Response.
-        # Keep those targets selected, but wait for an explicit OK/cancel
-        # decision. Forced triggers are mandatory and retain the streamlined
-        # submit.
-        is_optional_trigger = (
-            (self.ability.flags.is_interrupt or self.ability.flags.is_response) and
-            not self.ability.flags.is_forced
-        )
+        # Keep those targets selected, but wait for an explicit confirmation.
+        # Forced trigger prompts also require OK, although they cannot be passed.
+        is_trigger = self.ability.flags.is_interrupt or self.ability.flags.is_response
         is_basic_defense = (
             self.ability.type == AbilityType.BasicPower and
             self.ability.IsFunction("DEF")
         )
         automatic_submit = not (
-            is_optional_trigger or
+            is_trigger or
             is_basic_defense
         )
 
