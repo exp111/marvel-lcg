@@ -19,7 +19,8 @@ class TestFormChangeLifecycle(unittest.TestCase):
         initialize_database()
 
     def run_commands(self, identity, commands, *, scheme=None, timing='v18_timing',
-                     expert=False, scenario='rhino', accept_form_responses=False):
+                     expert=False, scenario='rhino', accept_form_responses=False,
+                     expected_loss=False):
         scene = SceneLoader.NewScene(scenario, None, [identity], 106115)
         scene.rules = ['v16_all', timing]
         scene.campaign.expert = expert
@@ -81,7 +82,12 @@ class TestFormChangeLifecycle(unittest.TestCase):
         errors.assert_not_called()
         warnings.assert_not_called()
         notices.assert_not_called()
-        self.assertEqual(devices.stopped_prompt.event_name, 'WhenPlayerInTurn')
+        if expected_loss:
+            self.assertEqual(game.world.game_over.reason, 'Players Lost')
+            self.assertFalse(game.world.game_over.players_won)
+        else:
+            self.assertIsNotNone(devices.stopped_prompt)
+            self.assertEqual(devices.stopped_prompt.event_name, 'WhenPlayerInTurn')
         self.assertEqual(game.world.event_manager.timing_occurrences, [])
         return game.world, snapshots, entries
 
@@ -190,6 +196,125 @@ class TestFormChangeLifecycle(unittest.TestCase):
         self.assertEqual(collector.health, collector.printed_health)
         self.assertEqual(snapshots[-1]['threat'], snapshots[0]['threat'] - 3)
         self.assertEqual(entries, [])
+
+    def test_campaign_environments_initialize_counters_when_earned(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            for card_id, counter in (('40190', 'assembly'), ('40191', 'safehouse'),
+                                     ('40192', 'pouch'), ('40193', 'prep')):
+                with self.subTest(timing=timing, card_id=card_id):
+                    world, _, entries = self.run_commands('captain_marvel', [
+                        f'puzzle.PutIntoPlay("{card_id}a,{card_id}b")',
+                        f'hero.RemoveThreatFromSchemes([puzzle.FindOrCreateFace("{card_id}a")], '
+                        '"All", DebugRule(hero))',
+                    ], timing=timing)
+                    environment = next(face for face in world.FindCardsOnField()
+                                       if face.paper.card_id == card_id + 'b')
+                    self.assertEqual(environment.GetCounters(counter), 1)
+                    self.assertEqual(entries, [card_id + 'a'])
+
+    def test_campaign_environments_initialize_counters_once_when_already_earned(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            for card_id, counter in (('40190', 'assembly'), ('40191', 'safehouse'),
+                                     ('40192', 'pouch'), ('40193', 'prep')):
+                with self.subTest(timing=timing, card_id=card_id):
+                    world, _, entries = self.run_commands('captain_marvel', [
+                        f'puzzle.PutIntoPlay("{card_id}b,{card_id}a")',
+                    ], timing=timing)
+                    environment = next(face for face in world.FindCardsOnField()
+                                       if face.paper.card_id == card_id + 'b')
+                    self.assertEqual(environment.GetCounters(counter), 1)
+                    self.assertEqual(entries, [card_id + 'b'])
+
+    def test_prepared_defenses_modifier_activates_after_campaign_scheme_flips(self):
+        world, snapshots, entries = self.run_commands('captain_marvel', [
+            'puzzle.ChangeFormFor(0, "Hero")',
+            'puzzle.PutIntoPlay("40195a,40195b")',
+            'hero.RemoveThreatFromSchemes([puzzle.FindOrCreateFace("40195a")], '
+            '"All", DebugRule(hero))',
+            'puzzle.ChangeFormFor(0, "Identity")',
+            'puzzle.ChangeFormFor(0, "Hero")',
+        ])
+        self.assertEqual(snapshots[3]['defense'], snapshots[1]['defense'] + 1)
+        self.assertEqual(snapshots[5]['defense'], snapshots[3]['defense'])
+        self.assertEqual(world.GetFirstPlayer().GetIdentity().retaliate, 1)
+        self.assertEqual(entries, ['40195a'])
+
+    def test_spdr_swapping_identity_preserves_state_without_entries(self):
+        setup = [
+            'puzzle.PutIntoPlay("05023")',
+            'puzzle.Damage(hero, 3)',
+            'hero.GainStatus("Stunned", DebugRule(hero))',
+            'hero.GainStatus("Confused", DebugRule(hero))',
+            'hero.GainStatus("Tough", DebugRule(hero))',
+            'puzzle.Counter(hero, "charge", 2)',
+        ]
+        for timing in ('v18_timing', 'no_v18_timing'):
+            with self.subTest(timing=timing):
+                _, snapshots, entries = self.run_commands('sp_dr', setup + [
+                    'puzzle.ChangeFormFor(0, "Identity")',
+                ] * 6, timing=timing)
+                stable = snapshots[len(setup):]
+                self.assertEqual([s['face'] for s in stable],
+                                 ['31002a', '31001a', '31002a', '31001a',
+                                  '31002a', '31001a', '31002a'])
+                for state in stable:
+                    for key in ('health', 'max_health', 'stunned', 'confused', 'tough', 'counters'):
+                        self.assertEqual(state[key], stable[0][key], key)
+                self.assertEqual(entries, ['05023'])
+
+    def test_second_symbiote_environment_ends_venom_goblin_game(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            for first, second in (('27117', '27118'), ('27118', '27119'),
+                                  ('27119', '27117')):
+                with self.subTest(timing=timing, first=first, second=second):
+                    world, snapshots, entries = self.run_commands('captain_marvel', [
+                        f'hero.PlaceThreatOnSchemes([puzzle.FindOrCreateFace("{first}a")], '
+                        '20, DebugRule(hero))',
+                        f'hero.PlaceThreatOnSchemes([puzzle.FindOrCreateFace("{second}a")], '
+                        '20, DebugRule(hero))',
+                    ], scenario='venom_goblin', timing=timing, expected_loss=True)
+                    self.assertEqual(len(snapshots), 2)
+                    self.assertEqual(sorted(face.paper.card_id for face in world.FindCardsOnField()
+                                            if face.HasTrait('SYMBIOTE') and face.paper.type == 'Environment'),
+                                     sorted([first + 'b', second + 'b']))
+                    self.assertEqual(entries, [])
+
+    def test_black_swan_gets_toughness_when_scheme_flips_to_minion(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            with self.subTest(timing=timing):
+                world, _, entries = self.run_commands('captain_marvel', [
+                    'puzzle.PutIntoPlay("21182a,21182b")',
+                    'hero.RemoveThreatFromSchemes([puzzle.FindOrCreateFace("21182a")], '
+                    '"All", DebugRule(hero))',
+                ], timing=timing)
+                swan = world.FindCardsOnField(name='Black Swan')[0]
+                self.assertIs(swan.GetEngagedPlayer(), world.GetFirstPlayer())
+                self.assertTrue(swan.IsTough())
+                self.assertEqual(entries, ['21182a'])
+
+    def test_rescued_strong_inhuman_gets_toughness(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            with self.subTest(timing=timing):
+                world, _, _ = self.run_commands('captain_marvel', [
+                    'puzzle.Counter("Holding Cell", "lock", -2)',
+                ] * 4, scenario='modok', timing=timing)
+                allies = world.GetFirstPlayer().GetControlAllies()
+                self.assertEqual(len(allies), 4)
+                strong = next(ally for ally in allies if ally.paper.card_id == '50108b')
+                self.assertEqual(strong.health, 7)
+                self.assertTrue(strong.IsTough())
+
+    def test_apocalypse_new_stage_gets_toughness_after_flip(self):
+        for timing in ('v18_timing', 'no_v18_timing'):
+            with self.subTest(timing=timing):
+                world, _, _ = self.run_commands('captain_marvel', [
+                    'hero.PlaceThreatOnSchemes(world.area_schemes_main.Get(), 20, DebugRule(hero))',
+                    'puzzle.Damage("Apocalypse", 1)',
+                    'hero.PlaceThreatOnSchemes(world.area_schemes_main.Get(), 20, DebugRule(hero))',
+                ], scenario='apocalypse', timing=timing)
+                villain = world.scenario.area_villain.Get()[0]
+                self.assertEqual(villain.paper.card_id, '45102b')
+                self.assertTrue(villain.IsTough())
 
 
 if __name__ == '__main__':

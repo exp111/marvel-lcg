@@ -96,8 +96,8 @@ class AbilityFactoryCardMove:
                           include_face_changes: bool=False,
                           conditions: ConditionsType[Message.WhenCardEnterPlay]=[],
                           ) -> 'Ability':
-        # Continuous-effect helpers opt in to refreshing on face changes.
-        # Printed entry abilities and keywords use actual entries only.
+        # Continuous effects and specific face-initialization rules opt in.
+        # Ordinary printed entry responses still use actual entries only.
         def check_which_card(effect: 'Effect', message: 'Message.WhenCardEnterPlay') -> bool:
             return Condition.CheckWhichCard(which_card, message.trigger, effect)
 

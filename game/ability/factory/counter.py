@@ -5,13 +5,17 @@ class AbilityFactoryCounter:
     @staticmethod
     def ThisEnterPlayWithCounters(counters: int|str,
                                   name: 'CardFace.COUNTER',
+                                  *,
+                                  include_face_changes: bool=False,
                                   ) -> 'Ability':
+        # Opt in only for faces whose printed setup must also run on a flip,
+        # such as Risky Business and earned campaign environments.
         from game.card.face.attribute.can_place_counter import CanPlaceCounter
         from game.ability.factory import AbilityFactory
         from game.operate.faces import Faces
         from game.operate.worlds import Worlds
 
-        def with_counters(effect: 'Effect', message: 'Message.AfterCardEnterPlay') -> None:
+        def with_counters(effect: 'Effect', message: 'Message.AfterCardEnterPlay|Message.AfterCardFaceActivated') -> None:
             this = effect.this.CastTo(CanPlaceCounter)
             if isinstance(counters, int):
                 new_counters = counters
@@ -22,7 +26,8 @@ class AbilityFactoryCounter:
         return AbilityFactory.AfterCardEnterPlay(
             AbilityType.NonKeyword,
             "This",
-            with_counters
+            with_counters,
+            include_face_changes=include_face_changes,
         )
 
     ################################################################################

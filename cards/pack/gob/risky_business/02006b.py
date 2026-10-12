@@ -21,6 +21,7 @@ def GetAbilities() -> Sequence['Ability']:
         AbilityFactory.ThisEnterPlayWithCounters(
             "2*",
             'madness',
+            include_face_changes=True,
         ),
         AbilityFactory.IfThereIsNoCounterHere(
             'madness',

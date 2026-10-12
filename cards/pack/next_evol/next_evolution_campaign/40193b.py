@@ -20,7 +20,7 @@ def GetAbilities() -> Sequence['Ability']:
                 upgrade.PutIntoPlay(player, effect)
 
     return [
-        AbilityFactory.ThisEnterPlayWithCounters(1, 'prep'),
+        AbilityFactory.ThisEnterPlayWithCounters(1, 'prep', include_face_changes=True),
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.Action,
             mission_prepped,
