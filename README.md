@@ -75,5 +75,12 @@ This game runs Python card scripts. Do not install or run third-party card scrip
 
 ## Screenshots
 
-![](/docs/assets/image-1.jpg)
-![](/docs/assets/image-2.jpg)
+**Main menu — Community Build v1.3.3.1r**
+
+![Current main menu with game setup, replay library, deck editor, card browser, and artwork controls](/docs/assets/image-1.jpg)
+
+**Two-player hotseat — round six**
+
+Daredevil and Echo face Typhoid Mary in The Raft Breakout, with both players' upgrades and supports in play.
+
+![Two-player hotseat game showing Daredevil and Echo's developed board against Typhoid Mary](/docs/assets/image-2.jpg)
