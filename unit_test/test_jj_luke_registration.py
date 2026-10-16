@@ -1,11 +1,15 @@
 """Normal catalog, starter-deck launch and artwork coverage for the two packs."""
 import asyncio
 import contextlib
+import hashlib
 import io
 import json
 from pathlib import Path
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
+
+from PIL import Image
 
 from engine import Engine
 from engine.file import Cache, FileManager
@@ -93,6 +97,26 @@ class TestPackRegistration(unittest.TestCase):
         listing=response.text
         for _,slug,_,_ in HEROES:
             self.assertIn(slug+".json",listing)
+
+    def test_pack_thumbnails_serve_reviewed_transparent_artwork(self):
+        from engine.device.web.server.server_files import GameServerFiles
+        server = object.__new__(GameServerFiles)
+        server.HeaderCache = {}
+        metadata = json.loads((ROOT / "packaging/artwork/collections/jessica-jones-luke-cage/pack-textures.json").read_text())
+        with patch.object(Cache, "cache", {}):
+            for texture in metadata["textures"]:
+                with self.subTest(texture=texture["path"]):
+                    file = ROOT / texture["path"]
+                    response = server.handle_sets_image(SimpleNamespace(path="/sets/" + file.stem))
+                    self.assertEqual(response.content_type, "image/webp")
+                    self.assertEqual(response.body, file.read_bytes())
+                    self.assertEqual(hashlib.sha256(response.body).hexdigest(), texture["sha256"])
+                    with Image.open(io.BytesIO(response.body)) as image:
+                        self.assertEqual(list(image.size), texture["dimensions"])
+                        self.assertEqual(image.mode, "RGBA")
+                        self.assertEqual(image.getchannel("A").getextrema(), (0, 255))
+                        for point in ((0, 0), (image.width-1, 0), (0, image.height-1), (image.width-1, image.height-1)):
+                            self.assertEqual(image.getpixel(point)[3], 0)
 
     def run_normal_game(self, heroes, through_round=False):
         scene=SceneLoader.NewScene("rhino",None,heroes,610620)

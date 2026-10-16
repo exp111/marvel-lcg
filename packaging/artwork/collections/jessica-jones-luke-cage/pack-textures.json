@@ -2,28 +2,28 @@
   "date": "2026-10-16",
   "textures": [
     {
-      "path": "assets/textures/sets/61. Jessica Jones.jpg",
-      "source_page": "https://store.asmodee.com/products/marvel-champions-the-card-game-jessica-jones-hero-pack",
-      "source_url": "https://store.asmodee.com/cdn/shop/files/MC61-image0_2000_535x.jpg?v=1780060010",
-      "sha256": "7bba41af755805bc3b82d754a55fd77790dd74af677e8b437e4018091bc68a31",
+      "path": "assets/textures/sets/61. Jessica Jones.webp",
+      "source_page": "https://www.fantasyflightgames.com/product/jessica-jones/",
+      "source_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/image-converter/2026/09/mc61-image0500.webp",
+      "sha256": "27817d7c89b156ee8a8fa669a050d71c977caeeb0bf7da8a3e98a655ba353576",
       "dimensions": [
-        535,
-        535
+        500,
+        500
       ],
-      "bytes": 48101,
-      "preparation": "Exact publisher-provided storefront thumbnail bytes; no local image editing."
+      "bytes": 31296,
+      "preparation": "Exact publisher-provided transparent WebP bytes; no local image editing. Replaces the white-background storefront JPEG."
     },
     {
-      "path": "assets/textures/sets/62. Luke Cage.jpg",
-      "source_page": "https://store.asmodee.com/products/marvel-champions-the-card-game-luke-cage-hero-pack",
-      "source_url": "https://store.asmodee.com/cdn/shop/files/MC62-image0_2000_535x.jpg?v=1781621806",
-      "sha256": "8a7028db29282aa29de2c25594541ff8f4ed2d27b8004241bfd8bdfc684ed87a",
+      "path": "assets/textures/sets/62. Luke Cage.webp",
+      "source_page": "https://www.fantasyflightgames.com/product/luke-cage/",
+      "source_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/image-converter/2026/09/mc62-image0500.webp",
+      "sha256": "ee0b27b9bf2c3c6334fc2dafc0ae12f32bc94964ff04fcbe423c206e79da29cb",
       "dimensions": [
-        535,
-        535
+        500,
+        500
       ],
-      "bytes": 56704,
-      "preparation": "Exact publisher-provided storefront thumbnail bytes; no local image editing."
+      "bytes": 33872,
+      "preparation": "Exact publisher-provided transparent WebP bytes; no local image editing. Replaces the white-background storefront JPEG."
     }
   ]
 }
