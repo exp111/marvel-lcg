@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "enabled_in_normal_play",
+  "registration": {
+    "reviewed_faces": 81,
+    "new_catalog_faces": 79,
+    "existing_fear_no_evil_faces": [
+      "61028",
+      "62022"
+    ],
+    "starter_decks": [
+      "deck/starter/jessica_jones.json",
+      "deck/starter/luke_cage.json"
+    ],
+    "starter_deck_size": 40,
+    "nemesis_sets": [
+      "data/nemesis/jessica_jones_nemesis.json",
+      "data/nemesis/luke_cage_nemesis.json"
+    ],
+    "historical_reviews": [
+      "gameplay-review.json",
+      "player-card-gameplay-review.json"
+    ]
+  },
+  "validation": {
+    "result": "passed",
+    "gameplay_tests": 376,
+    "registration_and_artwork_tests": 115,
+    "gameplay_run": ".venv-release\\Scripts\\python.exe -X utf8 -m unittest unit_test.test_jj_luke_first_pass unit_test.test_jj_engine_support unit_test.test_jj_hero_gameplay unit_test.test_luke_hero_gameplay unit_test.test_jj_luke_nemesis_gameplay unit_test.test_jj_luke_multiplayer_gameplay unit_test.test_form_change_lifecycle unit_test.test_overkill_damage_modifiers unit_test.test_bulletproof_belle_boost_damage unit_test.test_resource_cost_reduction unit_test.test_kingpin_side_scheme_reveals unit_test.test_fear_no_evil_player_cards unit_test.test_fear_no_evil_modular_sets unit_test.test_wonder_man_jarvis unit_test.test_thwart_target_restrictions unit_test.test_attached_identity_restrictions unit_test.test_attached_health_flip unit_test.test_optional_choice_confirmation unit_test.test_end_phase_hand_limit unit_test.test_v18_timing_integration unit_test.test_purple_man_obligation_readiness unit_test.test_sense_enemy_defeat unit_test.test_attack_defender_player unit_test.test_victory_defeat unit_test.test_jj_player_cards_gameplay unit_test.test_luke_player_cards_gameplay unit_test.test_jj_luke_shared_player_gameplay -q",
+    "registration_and_artwork_run": ".venv-release\\Scripts\\python.exe -X utf8 -m unittest unit_test.test_jj_luke_registration unit_test.test_artwork_importer unit_test.test_artwork_integration unit_test.test_artwork_release_gate unit_test.test_artwork_web unit_test.test_artwork_library unit_test.test_artwork_network -v",
+    "normal_launch": "Both actual starter decks complete a first round with default rules; two-player setup offers removal of the duplicate unique signature ally. No experimental card injection is used.",
+    "limitations": "Deterministic headless gameplay, not exhaustive manual browser/campaign/multi-villain coverage."
+  },
+  "artwork": {
+    "catalog_id": "artwork-2026-10-16-1",
+    "release_url": "https://github.com/sdolle1775/marvel-lcg/releases/tag/artwork-2026-10-16-1",
+    "images": 4139,
+    "archives": 75,
+    "reused_archives": 72,
+    "new_archive_bytes": 36897821,
+    "original_scans": 75,
+    "reprint_matches": 6,
+    "verification": "All 75 archives verified offline, including full image decoding. Three new public archives and the hosted catalog re-downloaded without authentication and hash-verified. Normal ArtworkLibrary reports ready for all 81 faces locally.",
+    "application_release": "Published executable remains unchanged; source build contains normal-play support."
+  }
+}

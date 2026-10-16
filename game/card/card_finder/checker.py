@@ -154,7 +154,10 @@ def Check(self: 'CardFinder', face: 'CardFace', effect: 'Effect|None'=None) -> b
         if effect.this.paper.card_id == face.paper.card_id:
             return False
         initiator = effect.GetInitiator()
-        return self.canbe_play == face.CanPlayBy(initiator)
+        # Playability is one filter; still check printed resources, traits,
+        # and any remaining restrictions (for example, Suggestion).
+        if self.canbe_play != face.CanPlayBy(initiator):
+            return False
     if self.canbe_exhaust != None:
         if self.canbe_exhaust != face.CanExhaust():
             return False

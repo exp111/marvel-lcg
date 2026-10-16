@@ -1,4 +1,4 @@
-"""Maintainer-only, reproducible Workshop artwork preparation.
+"""Maintainer-only, reproducible card artwork preparation.
 
 Workshop saves are data: Lua, XML, and object scripts are never executed. Runtime
 clients consume the resulting immutable catalog/packs, never this importer.
@@ -40,7 +40,7 @@ SOURCE_HOSTS = frozenset({
     "steamusercontent-a.akamaihd.net", "steamuserimages-a.akamaihd.net",
     "cdn.steamusercontent.com", "images.steamusercontent.com",
 })
-ALTERNATE_HOSTS = frozenset({"images-cdn.fantasyflightgames.com", "images.fantasyflightgames.com", "marvelcdb.com", "cdn.svc.asmodee.net", "skilledinvestigator.com"})
+ALTERNATE_HOSTS = frozenset({"images-cdn.fantasyflightgames.com", "images.fantasyflightgames.com", "marvelcdb.com", "cdn.svc.asmodee.net", "skilledinvestigator.com", "hallofheroeslcg.com"})
 SAFE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}$")
 NUMBERED_ID = re.compile(r"^\d{5}[a-z]?$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -97,6 +97,9 @@ def alternate_url(url: str) -> str:
         raise ValueError("Asmodee alternate sources must be published Fantasy Flight Games uploads")
     if parsed.hostname == "skilledinvestigator.com" and not parsed.path.startswith("/wp-content/uploads/2026/07/"):
         raise ValueError("Skilled Investigator alternatives are limited to the reviewed July 2026 FFG reveal uploads")
+    if parsed.hostname == "hallofheroeslcg.com" and not re.fullmatch(
+            r"/wp-content/uploads/\d{4}/(?:0[1-9]|1[0-2])/[A-Za-z0-9_-]+\.(?:jpg|jpeg|png|webp)", parsed.path):
+        raise ValueError("Hall of Heroes alternatives must be original image uploads")
     return url
 
 
@@ -411,6 +414,8 @@ def coverage(mapping: dict, cards_path: Path) -> dict:
 
 
 def validate_source(entry: dict, snapshot: dict, require_review=True, require_hash=True, alternate_sources=None):
+    if entry.get("encoding", "default") not in ("default", "preserve"):
+        raise ValueError("Unsupported artwork encoding")
     source = entry["source"]
     if source.get("kind", "workshop") != "workshop":
         pin = (alternate_sources or {}).get(source.get("source_id"))
@@ -483,7 +488,7 @@ def alternate_image_bytes(raw, kind, page=None, xref=None, render_dpi=300):
 
 
 def stage_alternate(mapping, identifier, source_id, url, path, expected_hash, cache,
-                    kind="image", page=None, xref=None, crop=None, render_dpi=300):
+                    kind="image", page=None, xref=None, crop=None, render_dpi=300, preserve_original=False):
     safe_id(identifier)
     safe_id(source_id)
     alternate_url(url)
@@ -515,6 +520,8 @@ def stage_alternate(mapping, identifier, source_id, url, path, expected_hash, ca
     if crop is not None:
         source["pixel_crop"] = list(crop)
     mapping["mappings"][identifier] = {"reviewed": False, "review_note": "", "source": source, "rotation": 0}
+    if preserve_original:
+        mapping["mappings"][identifier]["encoding"] = "preserve"
     return mapping
 
 
@@ -657,10 +664,13 @@ def extract(entry: dict, sheet_path: Path) -> tuple[bytes, int, int, str]:
         with Image.open(BytesIO(data)) as image:
             if image.width * image.height > MAX_PIXELS or image.format not in ("JPEG", "PNG", "WEBP"):
                 raise ValueError("Unsupported source image")
-            return encode_crop(entry, image)
+            return encode_crop(entry, image, data)
 
 
-def encode_crop(entry, image):
+def encode_crop(entry, image, original_bytes=None):
+    encoding = entry.get("encoding", "default")
+    if encoding not in ("default", "preserve"):
+        raise ValueError("Unsupported artwork encoding")
     source = entry["source"]
     columns, rows, index = source["columns"], source["rows"], source["index"]
     if any(type(n) is not int for n in (columns, rows, index)) or not (
@@ -690,7 +700,14 @@ def encode_crop(entry, image):
             elif "transparency" in crop.info:
                 with crop.convert("RGBA") as rgba, rgba.getchannel("A") as alpha:
                     transparent = alpha.getextrema()[0] < 255
-            if transparent:
+            if (encoding == "preserve" and original_bytes is not None
+                    and tuple(bounds) == (0, 0, image.width, image.height)
+                    and entry["rotation"] == 0 and image.format in ("JPEG", "PNG")):
+                # Full originals retain their exact bytes. Rotations/crops below
+                # use PNG so preparing orientation never adds JPEG loss.
+                output.write(original_bytes)
+                extension = "jpg" if image.format == "JPEG" else "png"
+            elif transparent or encoding == "preserve":
                 crop.save(output, format="PNG", optimize=True)
                 extension = "png"
             else:
@@ -726,7 +743,7 @@ def iter_extracted(entries, sheets):
                     raise ValueError("Unsupported source image")
                 sheet.load()
                 for identifier, entry in items:
-                    yield identifier, encode_crop(entry, sheet)
+                    yield identifier, encode_crop(entry, sheet, raw)
 
 
 def content_dependencies(cards_path: Path, records: dict, groups: dict, aliases: dict,
@@ -882,7 +899,11 @@ def build(mapping: dict, cards_path: Path, snapshot: dict, sheets: Path, output:
                "provenance": {"source_pin": mapping.get("source_pin"),
                               "alternate_sources": mapping.get("alternate_sources", {}),
                               "mapping_sha256": digest(json.dumps(mapping, sort_keys=True).encode()),
-                              "cards_sha256": digest(cards_path.read_bytes()), "encoder": "JPEG95 4:4:4 / PNG; native dimensions"}}
+                              "cards_sha256": digest(cards_path.read_bytes()),
+                              "encoder": ("Original JPEG/PNG bytes or lossless PNG transforms where encoding=preserve; "
+                                          "otherwise JPEG95 4:4:4 / PNG; native dimensions"
+                                          if any(e.get("encoding") == "preserve" for e in accepted.values())
+                                          else "JPEG95 4:4:4 / PNG; native dimensions")}}
     manifest_path = output / "catalog.json"
     if len((json.dumps(catalog, ensure_ascii=False, indent=2) + "\n").encode("utf-8")) > MAX_MANIFEST_BYTES:
         raise ValueError("Catalog exceeds the runtime 16 MiB manifest limit")
@@ -1020,6 +1041,8 @@ def main(argv=None):
     alternate.add_argument("--xref", type=int)
     alternate.add_argument("--crop", nargs=4, type=int)
     alternate.add_argument("--render-dpi", type=int, default=300)
+    alternate.add_argument("--preserve-original", action="store_true",
+                           help="Keep original JPEG/PNG bytes; encode any crop/rotation losslessly as PNG")
     alternate.add_argument("--output-mapping", type=Path, required=True)
     for command in ("inspect", "build"):
         sub = commands.add_parser(command)
@@ -1060,7 +1083,8 @@ def main(argv=None):
             raise ValueError(f"{len(failures)} source sheets failed; successful pins saved; rerun to resume")
     elif args.command == "stage-alternate":
         mapping = stage_alternate(read_json(args.mapping), args.id, args.source_id, args.url,
-                                  args.file, args.sha256, args.cache, args.kind, args.page, args.xref, args.crop, args.render_dpi)
+                                  args.file, args.sha256, args.cache, args.kind, args.page, args.xref, args.crop,
+                                  args.render_dpi, args.preserve_original)
         write_json(args.output_mapping, mapping)
     else:
         pin = read_json(args.pin)

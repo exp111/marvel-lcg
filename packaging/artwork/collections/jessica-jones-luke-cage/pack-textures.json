@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-16",
+  "textures": [
+    {
+      "path": "assets/textures/sets/61. Jessica Jones.jpg",
+      "source_page": "https://store.asmodee.com/products/marvel-champions-the-card-game-jessica-jones-hero-pack",
+      "source_url": "https://store.asmodee.com/cdn/shop/files/MC61-image0_2000_535x.jpg?v=1780060010",
+      "sha256": "7bba41af755805bc3b82d754a55fd77790dd74af677e8b437e4018091bc68a31",
+      "dimensions": [
+        535,
+        535
+      ],
+      "bytes": 48101,
+      "preparation": "Exact publisher-provided storefront thumbnail bytes; no local image editing."
+    },
+    {
+      "path": "assets/textures/sets/62. Luke Cage.jpg",
+      "source_page": "https://store.asmodee.com/products/marvel-champions-the-card-game-luke-cage-hero-pack",
+      "source_url": "https://store.asmodee.com/cdn/shop/files/MC62-image0_2000_535x.jpg?v=1781621806",
+      "sha256": "8a7028db29282aa29de2c25594541ff8f4ed2d27b8004241bfd8bdfc684ed87a",
+      "dimensions": [
+        535,
+        535
+      ],
+      "bytes": 56704,
+      "preparation": "Exact publisher-provided storefront thumbnail bytes; no local image editing."
+    }
+  ]
+}

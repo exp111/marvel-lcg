@@ -104,7 +104,7 @@ class CardFactory:
                         play_count = len(face.ability.Find(func_name="Play"))
                         if play_count == 1:
                             pass
-                        elif face.paper.card_id in ["30004", "26008", "18015", "42003", "42004", "27003", "13003", "13006", "46009"]:
+                        elif face.paper.card_id in ["30004", "26008", "18015", "42003", "42004", "27003", "13003", "13006", "46009", "61019"]:
                             assert play_count == 2, f"{face.paper.card_id=}"
                         elif face.paper.card_id in ["09032", "09033", "09034", "09035", "09036"]:
                             assert play_count == 0, f"{face.paper.card_id=}"

@@ -1,0 +1,2279 @@
+{
+  "schema_version": 1,
+  "status": "enabled_in_normal_play",
+  "date": "2026-10-16",
+  "summary": {
+    "first_pass_script": 70,
+    "reused_script": 8,
+    "native_resource": 3
+  },
+  "face_count": 81,
+  "method": "Translated printed rules text into the repository's existing ability factories, selectors, costs and timing events. Reprints reuse their existing scripts. Comparison scripts below are ranked by shared rules API calls as review pointers; they do not imply identical card rules or full validation.",
+  "loading": {
+    "metadata": "data/cards.json",
+    "harness": "game/test/jj_luke_harness.py",
+    "instructions": "Normal CardsDB initialization and SceneLoader.NewScene use these packs directly. Select Jessica Jones or Luke Cage from the normal hero or starter-deck menu. The test harness also uses the normal catalog and decks.",
+    "decks": [
+      "deck/starter/jessica_jones.json",
+      "deck/starter/luke_cage.json"
+    ],
+    "deck_note": "Each starter has 15 deck cards from the hero set plus 25 player cards; Jessica also starts with permanent Alias Investigations. The experimental directory retains the original review snapshots, not a separate runtime catalog."
+  },
+  "validation": {
+    "result": "passed",
+    "test_count": 376,
+    "new_pack_test_count": 21,
+    "regression_test_count": 173,
+    "regression_modules": [
+      "unit_test.test_form_change_lifecycle",
+      "unit_test.test_overkill_damage_modifiers",
+      "unit_test.test_bulletproof_belle_boost_damage",
+      "unit_test.test_resource_cost_reduction",
+      "unit_test.test_kingpin_side_scheme_reveals",
+      "unit_test.test_fear_no_evil_player_cards",
+      "unit_test.test_fear_no_evil_modular_sets",
+      "unit_test.test_wonder_man_jarvis",
+      "unit_test.test_thwart_target_restrictions",
+      "unit_test.test_attached_identity_restrictions",
+      "unit_test.test_attached_health_flip",
+      "unit_test.test_optional_choice_confirmation",
+      "unit_test.test_end_phase_hand_limit",
+      "unit_test.test_v18_timing_integration",
+      "unit_test.test_purple_man_obligation_readiness",
+      "unit_test.test_sense_enemy_defeat",
+      "unit_test.test_attack_defender_player",
+      "unit_test.test_victory_defeat"
+    ],
+    "first_pass_tests": "unit_test/test_jj_luke_first_pass.py",
+    "run": ".venv-release\\Scripts\\python.exe -X utf8 -m unittest unit_test.test_jj_luke_first_pass unit_test.test_jj_engine_support unit_test.test_jj_hero_gameplay unit_test.test_luke_hero_gameplay unit_test.test_jj_luke_nemesis_gameplay unit_test.test_jj_luke_multiplayer_gameplay unit_test.test_form_change_lifecycle unit_test.test_overkill_damage_modifiers unit_test.test_bulletproof_belle_boost_damage unit_test.test_resource_cost_reduction unit_test.test_kingpin_side_scheme_reveals unit_test.test_fear_no_evil_player_cards unit_test.test_fear_no_evil_modular_sets unit_test.test_wonder_man_jarvis unit_test.test_thwart_target_restrictions unit_test.test_attached_identity_restrictions unit_test.test_attached_health_flip unit_test.test_optional_choice_confirmation unit_test.test_end_phase_hand_limit unit_test.test_v18_timing_integration unit_test.test_purple_man_obligation_readiness unit_test.test_sense_enemy_defeat unit_test.test_attack_defender_player unit_test.test_victory_defeat unit_test.test_jj_player_cards_gameplay unit_test.test_luke_player_cards_gameplay unit_test.test_jj_luke_shared_player_gameplay -q",
+    "coverage": "All 81 pack faces have targeted gameplay coverage: the previous 39 hero/obligation/nemesis faces plus all 42 player-card faces. 76 new player gameplay tests, 127 previous pack tests and 173 existing regression tests pass after correcting one old test's explicit defense choice.",
+    "limits": "Headless solo/two-player gameplay; manual browser gameplay and exhaustive campaign/multi-villain combinations are outside this validation.",
+    "engine_support_test_count": 18,
+    "engine_support_tests": "unit_test/test_jj_engine_support.py",
+    "gameplay_test_count": 88,
+    "gameplay_test_modules": [
+      "unit_test.test_jj_hero_gameplay",
+      "unit_test.test_luke_hero_gameplay",
+      "unit_test.test_jj_luke_nemesis_gameplay",
+      "unit_test.test_jj_luke_multiplayer_gameplay"
+    ],
+    "gameplay_report": "data/experimental/jj_luke/gameplay-review.json",
+    "player_gameplay_test_count": 76,
+    "player_gameplay_test_modules": [
+      "unit_test.test_jj_player_cards_gameplay",
+      "unit_test.test_luke_player_cards_gameplay",
+      "unit_test.test_jj_luke_shared_player_gameplay"
+    ],
+    "player_gameplay_report": "data/experimental/jj_luke/player-card-gameplay-review.json",
+    "normal_play_report": "data/experimental/jj_luke/normal-play-review.json"
+  },
+  "rules_reference": "https://hallofheroeslcg.com/wp-content/uploads/2026/08/mc62_rulesheet-web.pdf",
+  "cards": [
+    {
+      "card_id": "61001a",
+      "name": "Jessica Jones",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61001a.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitUseBasicPower"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/50023.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitUseBasicPower"
+          ]
+        },
+        {
+          "path": "cards/pack/bp/black_panther_shuri/51001a.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitUseBasicPower"
+          ]
+        }
+      ],
+      "review_note": "Basic-power responses add evidence only to the initiating player's Alias Investigations.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61001a",
+      "gameplay_review": "gameplay-review.json#61001a"
+    },
+    {
+      "card_id": "61001b",
+      "name": "Jessica Jones",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61001b.py",
+      "rules_apis": [
+        "AbilityFactory.PlayersCannotChangeForms",
+        "AbilityFactory.SetupPutIntoPlay",
+        "AbilityFactory.WhenInYourPlayTurn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/nick_fury/50034b.py",
+          "shared_apis": [
+            "AbilityFactory.SetupPutIntoPlay",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/mut_gen/shadowcat/32030b.py",
+          "shared_apis": [
+            "AbilityFactory.SetupPutIntoPlay",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "review_note": "Setup creates Alias Investigations; Incognito Mode prevents returning to alter-ego for the phase.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61001b",
+      "gameplay_review": "gameplay-review.json#61001b"
+    },
+    {
+      "card_id": "61002",
+      "name": "Alias Investigations",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61002.py",
+      "rules_apis": [
+        "AbilityFactory.AfterSchemeBeDefeated",
+        "CostFunc.Exhaust",
+        "Faces.DefeatUnits",
+        "Faces.PlaceCountersOn",
+        "Worlds.FindVillain"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/standard_iii/45077.py",
+          "shared_apis": [
+            "Faces.PlaceCountersOn",
+            "Worlds.FindVillain"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/maria_hill/50011.py",
+          "shared_apis": [
+            "CostFunc.Exhaust",
+            "Faces.PlaceCountersOn"
+          ]
+        }
+      ],
+      "review_note": "Evidence is optional to spend after the counter placement; test multiplayer and multi-villain stage-defeat edge cases before release.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61002",
+      "gameplay_review": "gameplay-review.json#61002"
+    },
+    {
+      "card_id": "61003",
+      "name": "Luke Cage",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61003.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.DealDamage",
+        "CostFunc.Exhaust",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man/12010.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/core/iron_man/01030.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.DealDamage",
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61003",
+      "gameplay_review": "gameplay-review.json#61003"
+    },
+    {
+      "card_id": "61004",
+      "name": "\"Big Mistake\"",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61004.py",
+      "rules_apis": [
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/angel/42005.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/45051.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61004",
+      "gameplay_review": "gameplay-review.json#61004"
+    },
+    {
+      "card_id": "61005",
+      "name": "Breakthrough",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61005.py",
+      "rules_apis": [
+        "AbilityFactory.AfterCounterPlacedOn",
+        "Faces.ReadyAll",
+        "Faces.ShuffleAllTo"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/sm/ghost_spider/27001b.py",
+          "shared_apis": [
+            "Faces.ReadyAll",
+            "Faces.ShuffleAllTo"
+          ]
+        },
+        {
+          "path": "cards/pack/sm/ghost_spider/27008.py",
+          "shared_apis": [
+            "Faces.ReadyAll",
+            "Faces.ShuffleAllTo"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61005",
+      "gameplay_review": "gameplay-review.json#61005"
+    },
+    {
+      "card_id": "61006",
+      "name": "Snooping Around",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61006.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Worlds.DiscardEncounterTopCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/gmw/the_market/16159.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Worlds.DiscardEncounterTopCard"
+          ]
+        },
+        {
+          "path": "cards/pack/deadpool/44058.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Worlds.DiscardEncounterTopCard"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61006",
+      "gameplay_review": "gameplay-review.json#61006"
+    },
+    {
+      "card_id": "61007",
+      "name": "Piecing It All Together",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61007.py",
+      "rules_apis": [
+        "AbilityFactory.WhenSchemeBeDefeated"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/four_horsemen/45086.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/four_horsemen/45087.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated"
+          ]
+        }
+      ],
+      "review_note": "The metadata opts this scheme out of the player side-scheme limit.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61007",
+      "gameplay_review": "gameplay-review.json#61007"
+    },
+    {
+      "card_id": "61008",
+      "name": "Calling in Favors",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61008.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Counter",
+        "CostFunc.Exhaust",
+        "Search.PlayerCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/50018.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "CostFunc.Exhaust"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/50019.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61008",
+      "gameplay_review": "gameplay-review.json#61008"
+    },
+    {
+      "card_id": "61009",
+      "name": "4K Digital Camcorder",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61009.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Exhaust",
+        "Faces.DiscardAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/drs/doctor_strange/09002.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.DiscardAll"
+          ]
+        },
+        {
+          "path": "cards/pack/ironheart/ironheart/29011.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.DiscardAll"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61009",
+      "gameplay_review": "gameplay-review.json#61009",
+      "review_note": "Use an explicit Minion/ELITE/affordability selector and pay evidence as a cost before discarding the minion."
+    },
+    {
+      "card_id": "61010",
+      "name": "Circumstantial Evidence",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61010.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitDefeatedUnit",
+        "CostFunc.Exhaust"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/core/01063.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefeatedUnit",
+            "CostFunc.Exhaust"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/45043.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefeatedUnit",
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61010",
+      "gameplay_review": "gameplay-review.json#61010",
+      "review_note": "Respond to the generic enemy-defeated event; discard still does not count as defeat."
+    },
+    {
+      "card_id": "61011",
+      "name": "Leather Jacket",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61011.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitDefendAgainstAttack",
+        "AbilityFactory.GiveKeywordToAttached"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/trors/hydra_campaign/04161b.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefendAgainstAttack",
+            "AbilityFactory.GiveKeywordToAttached"
+          ]
+        },
+        {
+          "path": "cards/pack/psylocke/psylocke/41009.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefendAgainstAttack",
+            "AbilityFactory.GiveKeywordToAttached"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61011",
+      "gameplay_review": "gameplay-review.json#61011"
+    },
+    {
+      "card_id": "61012",
+      "name": "\"Now I'm Ticked Off!\"",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61012.py",
+      "rules_apis": [
+        "AbilityFactory.AfterEnemyActivationEnd",
+        "Faces.DiscardAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/four_horsemen/45085b.py",
+          "shared_apis": [
+            "AbilityFactory.AfterEnemyActivationEnd"
+          ]
+        },
+        {
+          "path": "cards/pack/deadpool/deadpool_nemesis/44036.py",
+          "shared_apis": [
+            "AbilityFactory.AfterEnemyActivationEnd"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61012",
+      "gameplay_review": "gameplay-review.json#61012"
+    },
+    {
+      "card_id": "61013",
+      "name": "Reluctant Flier",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61013.py",
+      "rules_apis": [
+        "AbilityFactory.WhenUnitWouldTakeDamage",
+        "CostFunc.Discard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/nick_fury/50042.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage",
+            "CostFunc.Discard"
+          ]
+        },
+        {
+          "path": "cards/pack/bkw/08032.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage",
+            "CostFunc.Discard"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61013",
+      "gameplay_review": "gameplay-review.json#61013"
+    },
+    {
+      "card_id": "61014",
+      "name": "Stakeout",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61014.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitDefeatedScheme",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "AbilityFactory.WhenUnitThwartScheme"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42016.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/angel/angel/42001b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "review_note": "The +2 thwart and evidence reward are tied to the same thwart occurrence. Covered by an actual basic-thwart test.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61014",
+      "gameplay_review": "gameplay-review.json#61014"
+    },
+    {
+      "card_id": "61015",
+      "name": "Captain Marvel",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61015.py",
+      "rules_apis": [
+        "AbilityFactory.AfterCardEnterPlay",
+        "AbilityFactory.ForChoiceAbility",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/warm/23013.py",
+          "shared_apis": [
+            "AbilityFactory.AfterCardEnterPlay",
+            "AbilityFactory.ForChoiceAbility",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/50054.py",
+          "shared_apis": [
+            "AbilityFactory.AfterCardEnterPlay",
+            "AbilityFactory.ForChoiceAbility",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61015",
+      "player_gameplay_review": "player-card-gameplay-review.json#61015"
+    },
+    {
+      "card_id": "61016",
+      "name": "Spider-Woman",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61016.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitThwartEnd",
+        "AbilityFactory.ForChoiceAbility",
+        "CostFunc.Discard",
+        "Faces.PlaceCountersOn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/next_evol/40051.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitThwartEnd",
+            "AbilityFactory.ForChoiceAbility"
+          ]
+        },
+        {
+          "path": "cards/pack/bp/black_panther_shuri/51011.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "CostFunc.Discard"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61016",
+      "player_gameplay_review": "player-card-gameplay-review.json#61016"
+    },
+    {
+      "card_id": "61017",
+      "name": "Squirrel Girl",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61017.py",
+      "rules_apis": [
+        "AbilityFactory.AfterPlayerPlayedCard",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Counter",
+        "Faces.PlaceCountersOn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/sm/shield_tech/27182a.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "Faces.PlaceCountersOn"
+          ]
+        },
+        {
+          "path": "cards/pack/sm/shield_tech/27182b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "Faces.PlaceCountersOn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61017",
+      "player_gameplay_review": "player-card-gameplay-review.json#61017"
+    },
+    {
+      "card_id": "61018",
+      "name": "Lay Down the Law",
+      "pack": "jj",
+      "status": "reused_script",
+      "ability_link": "12031",
+      "script": "cards/pack/ant/12031.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61018",
+      "player_gameplay_review": "player-card-gameplay-review.json#61018"
+    },
+    {
+      "card_id": "61019",
+      "name": "Strategy Session",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61019.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Search.PlayerCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/45017_.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Search.PlayerCard"
+          ]
+        },
+        {
+          "path": "cards/pack/cyclops/cyclops/33001b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Search.PlayerCard"
+          ]
+        }
+      ],
+      "review_note": "Two separately gated Play abilities provide alter-ego and hero modes, following existing multi-mode events.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61019",
+      "player_gameplay_review": "player-card-gameplay-review.json#61019"
+    },
+    {
+      "card_id": "61020",
+      "name": "Run Them to Ground",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61020.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61020",
+      "review_note": "Implemented and tested: skip the entire next villain phase, including its start/end events; immediately deal one facedown encounter card to each player; block villain damage until the next villain phase actually begins. End-of-round effects still resolve. Multiple requests to skip the same next phase do not queue extra skips.",
+      "rules_apis": [
+        "Phase.SkipNextVillainPhase",
+        "Players.ForEachPlayer",
+        "Player.DealEncounterCards",
+        "AbilityFactory.WhenUnitWouldTakeDamage",
+        "AbilityFactory.WhenVillainPhaseBegin"
+      ],
+      "focused_tests": "unit_test/test_jj_engine_support.py",
+      "player_gameplay_review": "player-card-gameplay-review.json#61020"
+    },
+    {
+      "card_id": "61021",
+      "name": "Lay the Trap",
+      "pack": "jj",
+      "status": "reused_script",
+      "ability_link": "41016",
+      "script": "cards/pack/psylocke/41016.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61021",
+      "player_gameplay_review": "player-card-gameplay-review.json#61021"
+    },
+    {
+      "card_id": "61022",
+      "name": "Determination",
+      "pack": "jj",
+      "status": "reused_script",
+      "ability_link": "21052",
+      "script": "cards/pack/mts/21052.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61022",
+      "player_gameplay_review": "player-card-gameplay-review.json#61022"
+    },
+    {
+      "card_id": "61023",
+      "name": "Grapnel Launcher",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61023.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61023",
+      "review_note": "Implemented and tested: copy the hero's native basic-thwart ability, waive only its ordinary exhaustion cost, retain additional costs and normal basic-power responses, apply +1 THW for that thwart, and ignore patrol/crisis only for that ability. Confusion replaces the thwart normally. Ready/exhausted state, costs and modifiers are checked for cleanup.",
+      "rules_apis": [
+        "CanThwart.CanMakeGrantedBasicThwart",
+        "CanThwart.MakeGrantedBasicThwart",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Discard"
+      ],
+      "focused_tests": "unit_test/test_jj_engine_support.py",
+      "player_gameplay_review": "player-card-gameplay-review.json#61023"
+    },
+    {
+      "card_id": "61024",
+      "name": "Entrapment",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61024.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitSchemeEnd",
+        "CostFunc.Custom",
+        "CostFunc.Discard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/bp/51021.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitSchemeEnd",
+            "CostFunc.Discard"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/nick_fury_nemesis/50062.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitSchemeEnd"
+          ]
+        }
+      ],
+      "review_note": "Changing to hero form is paid before discarding the upgrade and dealing damage. Both successful and blocked form-change costs are tested.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61024",
+      "player_gameplay_review": "player-card-gameplay-review.json#61024"
+    },
+    {
+      "card_id": "61025",
+      "name": "Hellcat",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61025.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Faces.DiscardAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/magik/45036.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.DiscardAll"
+          ]
+        },
+        {
+          "path": "cards/pack/trors/04013.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.DiscardAll"
+          ]
+        }
+      ],
+      "review_note": "Review the delayed discard if Hellcat leaves and re-enters play during the same phase.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61025",
+      "player_gameplay_review": "player-card-gameplay-review.json#61025"
+    },
+    {
+      "card_id": "61026",
+      "name": "Joys of Life",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61026.py",
+      "rules_apis": [
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Exhaust",
+        "Faces.ReadyAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/warm/war_machine/23007.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.ReadyAll"
+          ]
+        },
+        {
+          "path": "cards/pack/fne/daredevil/60018.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.ReadyAll"
+          ]
+        }
+      ],
+      "review_note": "Alliance uses the existing shared-payment machinery; multiplayer exhaustion choices need playtesting.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61026",
+      "player_gameplay_review": "player-card-gameplay-review.json#61026"
+    },
+    {
+      "card_id": "61027",
+      "name": "Unbreakable Bond",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61027.py",
+      "rules_apis": [
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/angel/42005.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/45051.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61027",
+      "player_gameplay_review": "player-card-gameplay-review.json#61027"
+    },
+    {
+      "card_id": "61028",
+      "name": "Second Chance",
+      "pack": "jj",
+      "status": "reused_script",
+      "script": "cards/pack/fne/61028.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61028",
+      "player_gameplay_review": "player-card-gameplay-review.json#61028"
+    },
+    {
+      "card_id": "61029",
+      "name": "Defend Our City",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61029.py",
+      "rules_apis": [
+        "AbilityFactory.CanPlayThisSchemeCard",
+        "AbilityFactory.ReduceCostToPlayFaceWhen",
+        "AbilityFactory.WhenSchemeBeDefeated",
+        "Players.ForEachPlayer",
+        "Search.PlayerCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/hercules/59028.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisSchemeCard",
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Players.ForEachPlayer",
+            "Search.PlayerCard"
+          ]
+        },
+        {
+          "path": "cards/pack/next_evol/40018.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Players.ForEachPlayer",
+            "Search.PlayerCard"
+          ]
+        }
+      ],
+      "review_note": "Prerequisite checks the identity's current DEFENDER trait. Review the Team-Up discount across multiple players and out-of-play source cleanup.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61029",
+      "player_gameplay_review": "player-card-gameplay-review.json#61029"
+    },
+    {
+      "card_id": "61030",
+      "name": "Work-Life Balance",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61030.py",
+      "rules_apis": [
+        "AbilityFactory.AdditionalCostToChangeForm",
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Discard",
+        "CostFunc.RemoveFromGame",
+        "Faces.DiscardAll",
+        "Faces.GiveStatus",
+        "Faces.RemoveAllFromGame"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/cw/standard_pvp/56128b.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.RemoveFromGame",
+            "Faces.DiscardAll",
+            "Faces.RemoveAllFromGame"
+          ]
+        },
+        {
+          "path": "cards/pack/mut_gen/colossus/32009.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Discard",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61030",
+      "gameplay_review": "gameplay-review.json#61030"
+    },
+    {
+      "card_id": "61031",
+      "name": "Purple Man",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61031.py",
+      "rules_apis": [
+        "AbilityFactory.ThisSetKeyword",
+        "OnEvent.CardKeyword"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/fne/hammerhead/60091.py",
+          "shared_apis": [
+            "AbilityFactory.ThisSetKeyword",
+            "OnEvent.CardKeyword"
+          ]
+        },
+        {
+          "path": "cards/pack/mut_gen/mystique/32080.py",
+          "shared_apis": [
+            "AbilityFactory.ThisSetKeyword",
+            "OnEvent.CardKeyword"
+          ]
+        }
+      ],
+      "review_note": "Dynamic printed-X values use other characters' current ATK, SCH and THW. Test multiple interacting variable-stat minions before release.",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61031",
+      "gameplay_review": "gameplay-review.json#61031"
+    },
+    {
+      "card_id": "61032",
+      "name": "Indomitable Will",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61032.py",
+      "rules_apis": [
+        "AbilityFactory.AfterCardEnterPlay",
+        "AbilityFactory.WhenThisRevealed",
+        "Faces.PlaceCountersOn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/fne/the_raft_breakout/60145.py",
+          "shared_apis": [
+            "AbilityFactory.AfterCardEnterPlay",
+            "AbilityFactory.WhenThisRevealed",
+            "Faces.PlaceCountersOn"
+          ]
+        },
+        {
+          "path": "cards/pack/sm/sandman/27063.py",
+          "shared_apis": [
+            "AbilityFactory.WhenThisRevealed",
+            "Faces.PlaceCountersOn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61032",
+      "gameplay_review": "gameplay-review.json#61032"
+    },
+    {
+      "card_id": "61033a",
+      "name": "Suggestion ([energy])",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61033a.py",
+      "rules_apis": [],
+      "comparison_scripts": [],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61033a",
+      "gameplay_review": "gameplay-review.json#61033a",
+      "review_note": "Continue applying the remaining finder restrictions after the playability check. Apply 2 threat if no selected card was played, including an unavailable payment."
+    },
+    {
+      "card_id": "61033b",
+      "name": "Suggestion ([mental])",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61033b.py",
+      "rules_apis": [],
+      "comparison_scripts": [],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61033b",
+      "gameplay_review": "gameplay-review.json#61033b",
+      "review_note": "Continue applying the remaining finder restrictions after the playability check. Apply 2 threat if no selected card was played, including an unavailable payment."
+    },
+    {
+      "card_id": "61033c",
+      "name": "Suggestion ([physical])",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61033c.py",
+      "rules_apis": [],
+      "comparison_scripts": [],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61033c",
+      "gameplay_review": "gameplay-review.json#61033c",
+      "review_note": "Continue applying the remaining finder restrictions after the playability check. Apply 2 threat if no selected card was played, including an unavailable payment."
+    },
+    {
+      "card_id": "61034",
+      "name": "Innate Aggression",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61034.py",
+      "rules_apis": [
+        "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man_nemesis/12026.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/aim_science/50085.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61034",
+      "player_gameplay_review": "player-card-gameplay-review.json#61034"
+    },
+    {
+      "card_id": "61035",
+      "name": "Shakedown",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61035.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitDefeatedUnit",
+        "AbilityFactory.CanPlayThisUpgradeCard",
+        "AbilityFactory.ForChoiceAbility",
+        "CostFunc.Exhaust"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/falcon/53023.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.ForChoiceAbility",
+            "CostFunc.Exhaust"
+          ]
+        },
+        {
+          "path": "cards/pack/fne/daredevil/60018.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.ForChoiceAbility",
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61035",
+      "player_gameplay_review": "player-card-gameplay-review.json#61035"
+    },
+    {
+      "card_id": "61036",
+      "name": "Innate Perception",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61036.py",
+      "rules_apis": [
+        "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man_nemesis/12026.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/aim_science/50085.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61036",
+      "player_gameplay_review": "player-card-gameplay-review.json#61036"
+    },
+    {
+      "card_id": "61037",
+      "name": "Innate Inspiration",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61037.py",
+      "rules_apis": [
+        "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man_nemesis/12026.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        },
+        {
+          "path": "cards/pack/aos/aim_science/50085.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61037",
+      "player_gameplay_review": "player-card-gameplay-review.json#61037"
+    },
+    {
+      "card_id": "61038",
+      "name": "Echo",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61038.py",
+      "rules_apis": [
+        "AbilityFactory.WhenUnitWouldTakeDamage"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/challenges/2402_two_for_one.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage"
+          ]
+        },
+        {
+          "path": "cards/pack/core/spider_man/01003.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61038",
+      "player_gameplay_review": "player-card-gameplay-review.json#61038"
+    },
+    {
+      "card_id": "61039",
+      "name": "Lay Low",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61039.py",
+      "rules_apis": [
+        "AbilityFactory.WhenSchemeBeDefeated",
+        "Players.ForEachPlayer",
+        "Worlds.GetOnFieldAlterEgos"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42017.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Players.ForEachPlayer"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/savage_land/45132.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Players.ForEachPlayer"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61039",
+      "player_gameplay_review": "player-card-gameplay-review.json#61039"
+    },
+    {
+      "card_id": "61040",
+      "name": "Mitigated Threat",
+      "pack": "jj",
+      "status": "first_pass_script",
+      "script": "cards/pack/jj/61040.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/61040",
+      "review_note": "Implemented and tested: attach to a card and suppress all acceleration, amplify, crisis and hazard icons, including subsequently gained icons. Suppression stacks and restores correctly on discard, blanking or reattachment. At round end every player may pay one resource from their own resources; any declined payment discards the upgrade after every player has been asked. Upkeep still resolves after a skipped villain phase.",
+      "rules_apis": [
+        "AbilityFactory.CanPlayThisUpgradeCard",
+        "AbilityFactory.AttachedCardLosesIcons",
+        "AbilityFactory.WhenRoundEnd",
+        "Players.ForEachPlayer",
+        "Player.AskSpendResources"
+      ],
+      "focused_tests": "unit_test/test_jj_engine_support.py",
+      "player_gameplay_review": "player-card-gameplay-review.json#61040"
+    },
+    {
+      "card_id": "62001a",
+      "name": "Luke Cage",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62001a.py",
+      "rules_apis": [
+        "AbilityFactory.AfterStatusDiscardFrom"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/mut_gen/colossus/32004.py",
+          "shared_apis": [
+            "AbilityFactory.AfterStatusDiscardFrom"
+          ]
+        },
+        {
+          "path": "cards/pack/mut_gen/colossus/32006.py",
+          "shared_apis": [
+            "AbilityFactory.AfterStatusDiscardFrom"
+          ]
+        }
+      ],
+      "review_note": "Multiple Tough cards survive form changes. Each Tough discarded in hero form causes separate unpreventable damage; Tough does not prevent or get removed by that damage.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62001a",
+      "gameplay_review": "gameplay-review.json#62001a"
+    },
+    {
+      "card_id": "62001b",
+      "name": "Luke Cage",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62001b.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Search.PlayerCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/45017_.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Search.PlayerCard"
+          ]
+        },
+        {
+          "path": "cards/pack/cyclops/cyclops/33001b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Search.PlayerCard"
+          ]
+        }
+      ],
+      "review_note": "Uses the same unlimited-Tough and lost-piercing mechanics as the hero face; Burstein Process search is once per phase.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62001b",
+      "gameplay_review": "gameplay-review.json#62001b"
+    },
+    {
+      "card_id": "62002",
+      "name": "Jessica Jones",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62002.py",
+      "rules_apis": [
+        "AbilityFactory.ThisGainKeyword",
+        "OnEvent.Status"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ironheart/ironheart_nemesis/29030.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword",
+            "OnEvent.Status"
+          ]
+        },
+        {
+          "path": "cards/pack/fne/the_getaway/60130.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62002",
+      "gameplay_review": "gameplay-review.json#62002"
+    },
+    {
+      "card_id": "62003",
+      "name": "Harlem's Hero",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62003.py",
+      "rules_apis": [
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Faces.GiveStatus",
+        "Faces.ReadyAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/mut_gen/colossus/32009.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus",
+            "Faces.ReadyAll"
+          ]
+        },
+        {
+          "path": "cards/pack/ironheart/ironheart/29007.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus",
+            "Faces.ReadyAll"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62003",
+      "gameplay_review": "gameplay-review.json#62003"
+    },
+    {
+      "card_id": "62004",
+      "name": "Knuckle Sandwich",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62004.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42016.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/angel/angel/42001b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62004",
+      "gameplay_review": "gameplay-review.json#62004"
+    },
+    {
+      "card_id": "62005",
+      "name": "\"Stand with Me!\"",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62005.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/angel/42003.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/magik/45038.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62005",
+      "gameplay_review": "gameplay-review.json#62005"
+    },
+    {
+      "card_id": "62006",
+      "name": "\"Sweet Christmas!\"",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62006.py",
+      "rules_apis": [
+        "AbilityFactory.ReduceCostToPlayThis",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Worlds.GetOnFieldMinions",
+        "Worlds.GetVillains"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/hercules/hercules/59009.py",
+          "shared_apis": [
+            "AbilityFactory.ReduceCostToPlayThis",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/hercules/hercules/59011.py",
+          "shared_apis": [
+            "AbilityFactory.ReduceCostToPlayThis",
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "review_note": "Tough reduces the cost. Damage targets villains and minions engaged with this player; review singular-villain selection in multi-villain scenarios.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62006",
+      "gameplay_review": "gameplay-review.json#62006"
+    },
+    {
+      "card_id": "62007",
+      "name": "Fogwell's Gym",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62007.py",
+      "rules_apis": [
+        "AbilityFactory.AfterStatusDiscardFrom",
+        "CostFunc.Exhaust",
+        "Faces.ReadyAll"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/core/iron_man/01035.py",
+          "shared_apis": [
+            "CostFunc.Exhaust",
+            "Faces.ReadyAll"
+          ]
+        },
+        {
+          "path": "cards/pack/deadpool/44030.py",
+          "shared_apis": [
+            "CostFunc.Exhaust",
+            "Faces.ReadyAll"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62007",
+      "gameplay_review": "gameplay-review.json#62007"
+    },
+    {
+      "card_id": "62008",
+      "name": "Burstein Process",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62008.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Exhaust",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man/12010.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/trors/hawkeye/04005.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62008",
+      "gameplay_review": "gameplay-review.json#62008"
+    },
+    {
+      "card_id": "62009",
+      "name": "Cruisin' for a Bruisin'",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62009.py",
+      "rules_apis": [
+        "AbilityFactory.AfterYouPlayThisFromHand",
+        "AbilityFactory.CanPlayThisUpgradeCard",
+        "AbilityFactory.UnitAttackGainKeyword",
+        "AbilityFactory.WhenUnitWouldAttackUnit"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/cyclops/33032.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.WhenUnitWouldAttackUnit"
+          ]
+        },
+        {
+          "path": "cards/pack/cyclops/33033.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.WhenUnitWouldAttackUnit"
+          ]
+        }
+      ],
+      "review_note": "Only attacks by the attached enemy gain damage and overkill; unrelated damage abilities do not gain the attack bonus.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62009",
+      "gameplay_review": "gameplay-review.json#62009"
+    },
+    {
+      "card_id": "62010",
+      "name": "Metal Bracer",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62010.py",
+      "rules_apis": [
+        "AbilityFactory.GiveKeywordToAttached",
+        "AbilityFactory.WhenFaceWouldDealDamage",
+        "CostFunc.Exhaust"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/core/iron_man/01039.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToAttached",
+            "CostFunc.Exhaust"
+          ]
+        },
+        {
+          "path": "cards/pack/cw/hulkling/56032.py",
+          "shared_apis": [
+            "AbilityFactory.GiveKeywordToAttached",
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "review_note": "Damage reduction occurs in the would-deal window before Tough; unpreventable damage is excluded.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62010",
+      "gameplay_review": "gameplay-review.json#62010"
+    },
+    {
+      "card_id": "62011",
+      "name": "Power Man",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62011.py",
+      "rules_apis": [
+        "AbilityFactory.AfterStatusDiscardFrom",
+        "CostFunc.Exhaust"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/mut_gen/colossus/32006.py",
+          "shared_apis": [
+            "AbilityFactory.AfterStatusDiscardFrom",
+            "CostFunc.Exhaust"
+          ]
+        },
+        {
+          "path": "cards/pack/angel/42014.py",
+          "shared_apis": [
+            "CostFunc.Exhaust"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62011",
+      "gameplay_review": "gameplay-review.json#62011"
+    },
+    {
+      "card_id": "62012",
+      "name": "Iron Fist",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62012.py",
+      "rules_apis": [
+        "AbilityFactory.WhenUnitWouldTakeDamage"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/challenges/2402_two_for_one.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage"
+          ]
+        },
+        {
+          "path": "cards/pack/core/spider_man/01003.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldTakeDamage"
+          ]
+        }
+      ],
+      "review_note": "Prevention currently runs in the would-take-damage window while defending. Review changes to Iron Fist's ATK between defense declaration and damage.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62012",
+      "player_gameplay_review": "player-card-gameplay-review.json#62012"
+    },
+    {
+      "card_id": "62013",
+      "name": "Misty Knight",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62013.py",
+      "rules_apis": [
+        "AbilityFactory.ThisGainKeyword",
+        "OnEvent.Status"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ironheart/ironheart_nemesis/29030.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword",
+            "OnEvent.Status"
+          ]
+        },
+        {
+          "path": "cards/pack/fne/the_getaway/60130.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62013",
+      "player_gameplay_review": "player-card-gameplay-review.json#62013"
+    },
+    {
+      "card_id": "62014",
+      "name": "Valkyrie",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62014.py",
+      "rules_apis": [
+        "AbilityFactory.WhenUnitWouldBeDefeated",
+        "CostFunc.Discard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/valk/valkyrie/25008.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldBeDefeated",
+            "CostFunc.Discard"
+          ]
+        },
+        {
+          "path": "cards/pack/fne/sense_deck/60002.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitWouldBeDefeated",
+            "CostFunc.Discard"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62014",
+      "player_gameplay_review": "player-card-gameplay-review.json#62014"
+    },
+    {
+      "card_id": "62015",
+      "name": "Take a Stand",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62015.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitDefendAgainstAttack"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42013.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefendAgainstAttack"
+          ]
+        },
+        {
+          "path": "cards/pack/core/01077.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitDefendAgainstAttack"
+          ]
+        }
+      ],
+      "review_note": "Snapshots controlled allies at resolution. The bonus survives villain-phase end and expires at the end of the next player phase.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62015",
+      "player_gameplay_review": "player-card-gameplay-review.json#62015"
+    },
+    {
+      "card_id": "62016",
+      "name": "Innovation",
+      "pack": "luke_cage",
+      "status": "reused_script",
+      "ability_link": "21058",
+      "script": "cards/pack/mts/21058.py",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62016",
+      "player_gameplay_review": "player-card-gameplay-review.json#62016"
+    },
+    {
+      "card_id": "62017",
+      "name": "The Power of Leadership",
+      "pack": "luke_cage",
+      "status": "reused_script",
+      "ability_link": "01072",
+      "script": "cards/pack/core/01072.py",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62017",
+      "player_gameplay_review": "player-card-gameplay-review.json#62017"
+    },
+    {
+      "card_id": "62018",
+      "name": "Defensive Formation",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62018.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "CostFunc.Counter",
+        "CostFunc.Exhaust",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/50020.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/silk/52020.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "CostFunc.Counter",
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62018",
+      "player_gameplay_review": "player-card-gameplay-review.json#62018"
+    },
+    {
+      "card_id": "62019",
+      "name": "Righteous Purpose",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62019.py",
+      "rules_apis": [
+        "AbilityFactory.CanPlayThisUpgradeCard",
+        "AbilityFactory.GiveKeywordToInPlayWhenApplyThis",
+        "OnEvent.Health"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/fne/60053.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.GiveKeywordToInPlayWhenApplyThis"
+          ]
+        },
+        {
+          "path": "cards/pack/gmw/16016.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "OnEvent.Health"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62019",
+      "player_gameplay_review": "player-card-gameplay-review.json#62019"
+    },
+    {
+      "card_id": "62020",
+      "name": "Hulk",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62020.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitAttackEnd",
+        "AbilityFactory.ThisGainKeyword",
+        "Faces.PlaceCountersOn",
+        "OnEvent.Counter"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/12011.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword",
+            "Faces.PlaceCountersOn",
+            "OnEvent.Counter"
+          ]
+        },
+        {
+          "path": "cards/pack/drax/drax/19001a.py",
+          "shared_apis": [
+            "AbilityFactory.ThisGainKeyword",
+            "Faces.PlaceCountersOn",
+            "OnEvent.Counter"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62020",
+      "player_gameplay_review": "player-card-gameplay-review.json#62020"
+    },
+    {
+      "card_id": "62021",
+      "name": "She-Hulk",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62021.py",
+      "rules_apis": [
+        "AbilityFactory.AfterCardEnterPlay",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/core/01083.py",
+          "shared_apis": [
+            "AbilityFactory.AfterCardEnterPlay",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/core/captain_marvel/01011.py",
+          "shared_apis": [
+            "AbilityFactory.AfterCardEnterPlay",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62021",
+      "player_gameplay_review": "player-card-gameplay-review.json#62021"
+    },
+    {
+      "card_id": "62022",
+      "name": "Dynamic Duo",
+      "pack": "luke_cage",
+      "status": "reused_script",
+      "script": "cards/pack/fne/62022.py",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62022",
+      "player_gameplay_review": "player-card-gameplay-review.json#62022"
+    },
+    {
+      "card_id": "62023",
+      "name": "Power Man and Iron Fist",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62023.py",
+      "rules_apis": [
+        "AbilityFactory.ForChoiceAbility",
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/cw/tigra/56009.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/jubilee/jubilee/47008a.py",
+          "shared_apis": [
+            "AbilityFactory.ForChoiceAbility",
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62023",
+      "player_gameplay_review": "player-card-gameplay-review.json#62023"
+    },
+    {
+      "card_id": "62024",
+      "name": "Unbreakable Bond",
+      "pack": "luke_cage",
+      "status": "reused_script",
+      "ability_link": "61027",
+      "script": "cards/pack/jj/61027.py",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62024",
+      "player_gameplay_review": "player-card-gameplay-review.json#62024"
+    },
+    {
+      "card_id": "62025",
+      "name": "Energy",
+      "pack": "luke_cage",
+      "status": "native_resource",
+      "implementation": "Printed resource icons and deck limit in cards.json; no bespoke ability needed.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62025",
+      "player_gameplay_review": "player-card-gameplay-review.json#62025"
+    },
+    {
+      "card_id": "62026",
+      "name": "Genius",
+      "pack": "luke_cage",
+      "status": "native_resource",
+      "implementation": "Printed resource icons and deck limit in cards.json; no bespoke ability needed.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62026",
+      "player_gameplay_review": "player-card-gameplay-review.json#62026"
+    },
+    {
+      "card_id": "62027",
+      "name": "Strength",
+      "pack": "luke_cage",
+      "status": "native_resource",
+      "implementation": "Printed resource icons and deck limit in cards.json; no bespoke ability needed.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62027",
+      "player_gameplay_review": "player-card-gameplay-review.json#62027"
+    },
+    {
+      "card_id": "62028",
+      "name": "Internal Injury",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62028.py",
+      "rules_apis": [
+        "AbilityFactory.AfterPhaseEnd",
+        "AbilityFactory.AfterUnitUseBasicPower"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aos/50023.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitUseBasicPower"
+          ]
+        },
+        {
+          "path": "cards/pack/bp/black_panther_shuri/51001a.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitUseBasicPower"
+          ]
+        }
+      ],
+      "review_note": "Uses the new unpreventable property, rather than only bypassing Tough.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62028",
+      "gameplay_review": "gameplay-review.json#62028"
+    },
+    {
+      "card_id": "62029",
+      "name": "Cottonmouth",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62029.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitAttackEnd",
+        "AbilityFactory.WhenCardBecomeBoost",
+        "Worlds.GetPlayersIdentities"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/fne/protection_racket/60140.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitAttackEnd",
+            "AbilityFactory.WhenCardBecomeBoost"
+          ]
+        },
+        {
+          "path": "cards/pack/core/masters_of_evil/01131.py",
+          "shared_apis": [
+            "AbilityFactory.AfterUnitAttackEnd",
+            "AbilityFactory.WhenCardBecomeBoost"
+          ]
+        }
+      ],
+      "review_note": "The initial attack plus two forced attacks resolve separately; the response triggers only once per phase.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62029",
+      "gameplay_review": "gameplay-review.json#62029"
+    },
+    {
+      "card_id": "62030",
+      "name": "Venomous Whispers",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62030.py",
+      "rules_apis": [
+        "AbilityFactory.UnitCannotBeAttacked",
+        "AbilityFactory.WhenCardBecomeBoost",
+        "AbilityFactory.WhenSchemeBeDefeated",
+        "Faces.GiveStatus",
+        "Worlds.DiscardEncounterCardsUntil"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/aoa/dystopian_nightmare/45074.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/cw/cloak_dagger/56198.py",
+          "shared_apis": [
+            "AbilityFactory.WhenSchemeBeDefeated",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62030",
+      "gameplay_review": "gameplay-review.json#62030",
+      "review_note": "Read the activation recipient from the boost message."
+    },
+    {
+      "card_id": "62031",
+      "name": "Augmented Jaws",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62031.py",
+      "rules_apis": [
+        "AbilityFactory.AttachToFaceWhenPutIntoPlay",
+        "AbilityFactory.PlayerActionToDiscardThis",
+        "AbilityFactory.WhenUnitWouldAttackUnit"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/core/rhino/01100.py",
+          "shared_apis": [
+            "AbilityFactory.AttachToFaceWhenPutIntoPlay",
+            "AbilityFactory.PlayerActionToDiscardThis"
+          ]
+        },
+        {
+          "path": "cards/pack/gmw/galactic_artifacts/16122.py",
+          "shared_apis": [
+            "AbilityFactory.AttachToFaceWhenPutIntoPlay",
+            "AbilityFactory.PlayerActionToDiscardThis"
+          ]
+        }
+      ],
+      "review_note": "All Tough cards are discarded before the attached enemy's attack; each discarded card can trigger Luke's forced response.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62031",
+      "gameplay_review": "gameplay-review.json#62031"
+    },
+    {
+      "card_id": "62032",
+      "name": "Asp",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62032.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitSchemeEnd",
+        "AbilityFactory.WhenCardBecomeBoost",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/cyclops/cyclops_nemesis/33028.py",
+          "shared_apis": [
+            "AbilityFactory.WhenCardBecomeBoost",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/thor/thor_nemesis/06029.py",
+          "shared_apis": [
+            "AbilityFactory.WhenCardBecomeBoost",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62032",
+      "gameplay_review": "gameplay-review.json#62032",
+      "review_note": "Read the activation recipient from the boost message."
+    },
+    {
+      "card_id": "62033",
+      "name": "Sidewinder",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62033.py",
+      "rules_apis": [
+        "AbilityFactory.WhenUnitBeingAttack",
+        "Worlds.DiscardEncounterTopCard"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/valk/valkyrie/25011.py",
+          "shared_apis": [
+            "AbilityFactory.WhenUnitBeingAttack"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/blue_moon/45144.py",
+          "shared_apis": [
+            "Worlds.DiscardEncounterTopCard"
+          ]
+        }
+      ],
+      "review_note": "A discarded encounter card with a boost ability moves Sidewinder into the attacking player's dealt encounter cards.",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62033",
+      "gameplay_review": "gameplay-review.json#62033"
+    },
+    {
+      "card_id": "62034",
+      "name": "Size Advantage",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62034.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42016.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        },
+        {
+          "path": "cards/pack/angel/angel/42001b.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62034",
+      "player_gameplay_review": "player-card-gameplay-review.json#62034"
+    },
+    {
+      "card_id": "62035",
+      "name": "Observe",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62035.py",
+      "rules_apis": [
+        "AbilityFactory.WhenInYourPlayTurn",
+        "Faces.GiveStatus",
+        "Worlds.FindVillain"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/angel/42003.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/aoa/magik/45038.py",
+          "shared_apis": [
+            "AbilityFactory.WhenInYourPlayTurn",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62035",
+      "player_gameplay_review": "player-card-gameplay-review.json#62035"
+    },
+    {
+      "card_id": "62036",
+      "name": "Toughen Up",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62036.py",
+      "rules_apis": [
+        "AbilityFactory.AfterUnitUseBasicPower",
+        "CostFunc.Exhaust",
+        "Faces.GiveStatus"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/ant/ant_man/12010.py",
+          "shared_apis": [
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        },
+        {
+          "path": "cards/pack/jubilee/47029.py",
+          "shared_apis": [
+            "CostFunc.Exhaust",
+            "Faces.GiveStatus"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62036",
+      "player_gameplay_review": "player-card-gameplay-review.json#62036"
+    },
+    {
+      "card_id": "62037",
+      "name": "Black Belt",
+      "pack": "luke_cage",
+      "status": "first_pass_script",
+      "script": "cards/pack/luke_cage/62037.py",
+      "rules_apis": [
+        "AbilityFactory.CanPlayThisUpgradeCard",
+        "AbilityFactory.GiveKeywordToAttached"
+      ],
+      "comparison_scripts": [
+        {
+          "path": "cards/pack/angel/42032.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.GiveKeywordToAttached"
+          ]
+        },
+        {
+          "path": "cards/pack/ant/12018.py",
+          "shared_apis": [
+            "AbilityFactory.CanPlayThisUpgradeCard",
+            "AbilityFactory.GiveKeywordToAttached"
+          ]
+        }
+      ],
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "artwork_mapping": "packaging/artwork/collections/jessica-jones-luke-cage/reviewed-mapping.json#mappings/62037",
+      "player_gameplay_review": "player-card-gameplay-review.json#62037"
+    }
+  ]
+}

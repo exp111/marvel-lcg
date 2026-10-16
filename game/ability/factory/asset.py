@@ -3,6 +3,15 @@ from . import *
 class AbilityFactoryAsset:
 
     @staticmethod
+    def AttachedCardLosesIcons(*icons: 'CardFace.IGNORE_KEY') -> List['Ability']:
+        """Suppress all copies, including icons gained later, while attached."""
+        def apply(effect: 'Effect', face: 'CardFace', diff: int):
+            for icon in icons:
+                face.SetIgnoreKeyword(diff, icon, effect)
+
+        return AbilityFactoryAsset.GiveKeywordToAttached(apply=apply)
+
+    @staticmethod
     def GiveKeywordToAttached(
         card_finder: CardFinder|Literal["Character", "You"]|Type['TC']|None=None,
         *,

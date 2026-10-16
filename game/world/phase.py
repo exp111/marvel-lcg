@@ -21,6 +21,16 @@ class Phase:
 
     def __init__(self) -> None:
         self.state = Phase.State.Initialize
+        self.skip_next_villain_phase = False
+
+    def SkipNextVillainPhase(self):
+        # Multiple effects that skip the same next phase do not queue extra skips.
+        self.skip_next_villain_phase = True
+
+    def ConsumeVillainPhaseSkip(self) -> bool:
+        skip = self.skip_next_villain_phase
+        self.skip_next_villain_phase = False
+        return skip
 
     def SetState(self, state: 'State'):
         self.state = state

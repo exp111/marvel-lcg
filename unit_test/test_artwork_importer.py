@@ -117,6 +117,7 @@ class TestArtworkImporter(unittest.TestCase):
         accepted = (
             "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/card.png",
             "https://skilledinvestigator.com/wp-content/uploads/2026/07/Jessica-Jones-Hero-Pack-29-5.png",
+            "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001a.jpg",
         )
         for url in accepted:
             self.assertEqual(artwork.alternate_url(url), url)
@@ -125,9 +126,49 @@ class TestArtworkImporter(unittest.TestCase):
             "https://skilledinvestigator.com/wp-content/uploads/2026/09/card.png",
             "https://skilledinvestigator.com/wp-content/uploads/2026/07/card.png?redirect=1",
             "https://skilledinvestigator.com@evil.test/wp-content/uploads/2026/07/card.png",
+            "https://hallofheroeslcg.com/jessica-jones/",
+            "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001a.jpg?w=300",
+            "https://hallofheroeslcg.com/wp-content/uploads/2026/10/../card.jpg",
+            "https://hallofheroeslcg.com/wp-content/uploads/2026/10/%2e%2e/card.jpg",
         ):
             with self.assertRaises(ValueError):
                 artwork.alternate_url(url)
+
+    def test_preserved_originals_and_lossless_rotation_build_and_verify(self):
+        original = BytesIO()
+        self.sheet.save(original, format="JPEG", quality=89)
+        raw = original.getvalue()
+        path = self.root / "original.jpg"
+        path.write_bytes(raw)
+        for identifier, rotation in (("10001", 0), ("10002", 90)):
+            artwork.stage_alternate(
+                self.mapping, identifier, "hoh-test",
+                "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001a.jpg",
+                path, artwork.digest(raw), self.sheets, preserve_original=True)
+            entry = self.mapping["mappings"][identifier]
+            entry.update(reviewed=True, review_note="Reviewed fixture", rotation=rotation)
+        catalog = self.build()
+        artwork.verify(catalog, self.root / "output")
+        self.assertEqual(catalog["cards"]["10001"]["sha256"], artwork.digest(raw))
+        rotated = catalog["cards"]["10002"]
+        self.assertEqual((rotated["width"], rotated["height"], rotated["format"]), (300, 400, "png"))
+        with zipfile.ZipFile(self.root / "output" / (rotated["pack_id"] + ".zip")) as archive:
+            result = archive.read(f"cards/{rotated['sha256']}.png")
+        with Image.open(BytesIO(raw)) as source, Image.open(BytesIO(result)) as target:
+            self.assertEqual(target.tobytes(), source.rotate(90, expand=True).tobytes())
+
+    def test_preservation_does_not_bypass_crop_or_size_limits(self):
+        self.approve()
+        entry = deepcopy(self.mapping["mappings"]["10002"])
+        entry["encoding"] = "preserve"
+        raw, width, height, format = artwork.extract(entry, self.sheets / self.sha)
+        self.assertEqual((width, height, format), (200, 300, "png"))
+        with Image.open(BytesIO(raw)) as cropped:
+            self.assertEqual(cropped.tobytes(), self.sheet.crop((200, 0, 400, 300)).tobytes())
+        entry["source"].update(columns=1, rows=1, index=0)
+        with patch.object(artwork, "MAX_IMAGE_BYTES", len(self.raw) - 1):
+            with self.assertRaisesRegex(ValueError, "16 MiB"):
+                artwork.extract(entry, self.sheets / self.sha)
 
     def test_card_encoding_enforces_runtime_limits_without_resizing(self):
         entry = deepcopy(self.mapping["mappings"]["10001"])

@@ -64311,5 +64311,1359 @@
         }
 
     ],
-    "checksum": "af1adec02fb26425982129de159007b45c4430cc8c460ad2c77f4c4d6b078a06"
+    "jj": [
+        {
+            "card_id": "61001a",
+            "type": "Hero",
+            "name": "* Jessica Jones",
+            "subtitle": "",
+            "desc": {
+                "HP": "11",
+                "ATK": "2",
+                "THW": "3",
+                "DEF": "1",
+                "HS": "5"
+            },
+            "traits": [
+                "DEFENDER"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "[star] <i>Gather Evidence</i> — <b>Response</b>: After you use a basic power, place 1 evidence counter on Alias Investigations."
+        },
+        {
+            "card_id": "61001b",
+            "type": "AlterEgo",
+            "name": "* Jessica Jones",
+            "subtitle": "",
+            "desc": {
+                "HP": "11",
+                "REC": "4",
+                "HS": "6"
+            },
+            "traits": [
+                "CIVILIAN"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<i>Incognito Mode</i> — <b>Action</b>: Change to hero form. You cannot change back to alter-ego form this phase.\n<b>Setup</b>: Put the Alias Investigations support into play."
+        },
+        {
+            "card_id": "61002",
+            "type": "Support",
+            "name": "* Alias Investigations",
+            "subtitle": "",
+            "desc": {
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero",
+                "Permanent": "1"
+            },
+            "traits": [
+                "LOCATION"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "Permanent.\n<b>Response</b>: After a side scheme is defeated, exhaust this card → place 2 evidence counters here. Then, you may remove evidence counters from here equal to the villain's remaining hit points to defeat the villain's current stage."
+        },
+        {
+            "card_id": "61003",
+            "type": "Ally",
+            "name": "* Luke Cage",
+            "subtitle": "",
+            "desc": {
+                "Cost": "3",
+                "HP": "3",
+                "ATK": "2**",
+                "THW": "2**",
+                "RES": "G",
+                "MaxPerDeck": "1",
+                "Class": "Hero",
+                "Toughness": "1"
+            },
+            "traits": [
+                "DEFENDER"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "Toughness.\n<b>Action</b>: Exhaust Luke Cage and deal 1 damage to him → give him a tough status card."
+        },
+        {
+            "card_id": "61004",
+            "type": "Event",
+            "name": "\"Big Mistake\"",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "2",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ATTACK"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy. You may remove 1 evidence counter from Alias Investigations to deal 2 additional damage and for this attack to gain either overkill or piercing."
+        },
+        {
+            "card_id": "61005",
+            "type": "Event",
+            "name": "Breakthrough",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [],
+            "set_name": "Jessica Jones",
+            "text": "<b>Response</b>: After an evidence counter is placed on Alias Investigations, ready your identity. Shuffle this card into your deck."
+        },
+        {
+            "card_id": "61006",
+            "type": "Event",
+            "name": "Snooping Around",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "Y",
+                "Class": "Hero"
+            },
+            "traits": [
+                "THWART"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Alter-Ego Action</b> <i>(thwart)</i>: Remove 4 threat from a scheme and place 2 evidence counters on Alias Investigations. Discard the top card of the encounter deck. If that card is a minion or side scheme, reveal it."
+        },
+        {
+            "card_id": "61007",
+            "type": "PlayerSideScheme",
+            "name": "* Piecing It All Together",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "StartingThreat": "6",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero",
+                "IgnoresPlayerSideSchemeLimit": "1"
+            },
+            "traits": [],
+            "set_name": "Jessica Jones",
+            "text": "This scheme does not count against the player side scheme limit.\n<b>When Defeated</b>: The defeating player draws 3 cards."
+        },
+        {
+            "card_id": "61008",
+            "type": "Support",
+            "name": "Calling in Favors",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [],
+            "set_name": "Jessica Jones",
+            "text": "<b>Alter-Ego Action</b>: Remove 2 evidence counters from Alias Investigations and exhaust Calling in Favors → search your deck for an ally and play it as if it were in your hand, reducing its resource cost by 2. <i>(Shuffle.)</i>"
+        },
+        {
+            "card_id": "61009",
+            "type": "Upgrade",
+            "name": "4K Digital Camcorder",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ITEM"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Alter-Ego Action</b>: Exhaust this card and choose a non-[[Elite]] minion. Remove X evidence counters from Alias Investigations, where X is equal to 2 less than that minion's remaining hit points → discard that minion."
+        },
+        {
+            "card_id": "61010",
+            "type": "Upgrade",
+            "name": "Circumstantial Evidence",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "Y",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ITEM"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Response</b>: After an enemy is defeated, exhaust Circumstantial Evidence → place 1 evidence counter on Alias Investigations."
+        },
+        {
+            "card_id": "61011",
+            "type": "Upgrade",
+            "name": "Leather Jacket",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ITEM"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "Jessica Jones gets +2 DEF.\n<b>Response</b>: After you defend, place 1 evidence counter on Alias Investigations."
+        },
+        {
+            "card_id": "61012",
+            "type": "Upgrade",
+            "name": "\"Now I'm Ticked Off!\"",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Forced Response</b> <i>(attack)</i>: After the villain activates against a player, if you are in alter-ego form, change to hero form. Deal 5 damage to the villain and each minion engaged with that player. Discard this card."
+        },
+        {
+            "card_id": "61013",
+            "type": "Upgrade",
+            "name": "Reluctant Flier",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "Y",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "AERIAL",
+                "PREPARATION"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Hero Interrupt</b> <i>(defense)</i>: When you would take at least 3 damage from an attack, discard this card → prevent all of that attack's damage. Take 1 damage."
+        },
+        {
+            "card_id": "61014",
+            "type": "Upgrade",
+            "name": "Stakeout",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "TACTIC"
+            ],
+            "set_name": "Jessica Jones",
+            "text": "<b>Action</b>: If this card is in your play area, attach it to a non-permanent encounter side scheme.\n<b>Interrupt</b>: When a character thwarts attached scheme, that thwart removes 2 additional threat. If that thwart defeats attached scheme, place 2 evidence counters on Alias Investigations."
+        },
+        {
+            "card_id": "61015",
+            "type": "Ally",
+            "name": "* Captain Marvel",
+            "subtitle": "Carol Danvers",
+            "desc": {
+                "Cost": "4",
+                "HP": "3",
+                "ATK": "3**",
+                "THW": "2*",
+                "RES": "Y",
+                "MaxPerDeck": "1",
+                "Class": "Justice"
+            },
+            "traits": [
+                "AERIAL",
+                "AVENGER"
+            ],
+            "set_name": "",
+            "text": "<b>Response</b>: After Captain Marvel enters play, discard the top 4 cards of your deck. If you discard a printed [energy] resource, remove 2 threat from a scheme. If you discard more than one printed [energy] resource, also confuse an enemy."
+        },
+        {
+            "card_id": "61016",
+            "type": "Ally",
+            "name": "* Spider-Woman",
+            "subtitle": "Mattie Franklin",
+            "desc": {
+                "Cost": "4",
+                "HP": "3",
+                "ATK": "2**",
+                "THW": "2**",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Justice"
+            },
+            "traits": [
+                "WEB-WARRIOR"
+            ],
+            "set_name": "",
+            "text": "<b>Response</b>: After a character you control thwarts, place 1 limb counter here (to a maximum of 8). You may discard Spider-Woman to deal 1 damage to an enemy for each limb counter here."
+        },
+        {
+            "card_id": "61017",
+            "type": "Ally",
+            "name": "* Squirrel Girl",
+            "subtitle": "Doreen Green",
+            "desc": {
+                "Cost": "2",
+                "HP": "2",
+                "ATK": "1*",
+                "THW": "1*",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Justice"
+            },
+            "traits": [
+                "AVENGER"
+            ],
+            "set_name": "",
+            "text": "<b>Response</b>: After you play Squirrel Girl from your hand, place 1 squirrel counter here for each card in your hand (to a maximum of 4).\n<b>Action</b>: Remove 1 squirrel counter from here → remove 1 threat from a scheme."
+        },
+        {
+            "card_id": "61018",
+            "type": "Event",
+            "name": "Lay Down the Law",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "B",
+                "Class": "Justice"
+            },
+            "traits": [
+                "THWART"
+            ],
+            "set_name": "",
+            "text": "<b>Hero Response</b> <i>(thwart)</i>: After you change form, remove 3 threat from a scheme (4 threat instead if you paid for this card using a [mental] resource).",
+            "ability_link": "12031"
+        },
+        {
+            "card_id": "61019",
+            "type": "Event",
+            "name": "Strategy Session",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "Y",
+                "Class": "Justice"
+            },
+            "traits": [
+                "TACTIC",
+                "THWART"
+            ],
+            "set_name": "",
+            "text": "<b>Alter-Ego Action</b>: Choose a player to search their deck for a player side scheme and add it to their hand.\n<b>Hero Action</b> <i>(thwart)</i>: Remove 3 threat from a player side scheme."
+        },
+        {
+            "card_id": "61020",
+            "type": "PlayerSideScheme",
+            "name": "* Run Them to Ground",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "StartingThreat": "4*",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Justice",
+                "Victory": "0"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: Resolve each of the following:\n• Skip the next villain phase.\n• Deal each player 1 facedown encounter card <i>(immediately)</i>.\n• The villain cannot take damage until the start of the next <i>(unskipped)</i> villain phase."
+        },
+        {
+            "card_id": "61021",
+            "type": "PlayerSideScheme",
+            "name": "* Lay the Trap",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "StartingThreat": "3*",
+                "RES": "Y",
+                "MaxPerDeck": "1",
+                "Class": "Justice",
+                "Victory": "0"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: The player who defeated this scheme deals 5[per_hero] damage to the villain.",
+            "ability_link": "41016"
+        },
+        {
+            "card_id": "61022",
+            "type": "Resource",
+            "name": "Determination",
+            "subtitle": "",
+            "desc": {
+                "RES": "G",
+                "MaxPerDeck": "1",
+                "Class": "Justice"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck.\n<b>Hero Response</b>: After you spend this card, remove 1 threat from the main scheme.",
+            "ability_link": "21052"
+        },
+        {
+            "card_id": "61023",
+            "type": "Upgrade",
+            "name": "Grapnel Launcher",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "Y",
+                "Class": "Justice",
+                "Restricted": "1"
+            },
+            "traits": [
+                "ITEM"
+            ],
+            "set_name": "",
+            "text": "Restricted.\n<b>Hero Action</b>: Discard this card → make a basic thwart without exhausting <i>(even if you are exhausted)</i>. For this thwart, your hero gets +1 THW and ignores the patrol keyword and any crisis icons <i>([crisis])</i> in play."
+        },
+        {
+            "card_id": "61024",
+            "type": "Upgrade",
+            "name": "Entrapment",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "B",
+                "Class": "Justice",
+                "MaxPerUnit": "1"
+            },
+            "traits": [
+                "PREPARATION"
+            ],
+            "set_name": "",
+            "text": "Max 1 per player.\n<b>Alter-Ego Response</b> <i>(attack)</i>: After the villain schemes, change to hero form and discard this card → deal damage to the villain equal to the amount of threat placed by that activation."
+        },
+        {
+            "card_id": "61025",
+            "type": "Ally",
+            "name": "* Hellcat",
+            "subtitle": "Patsy Walker",
+            "desc": {
+                "Cost": "4",
+                "HP": "3",
+                "ATK": "2*",
+                "THW": "2*",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic"
+            },
+            "traits": [
+                "DEFENDER",
+                "MARTIAL ARTIST"
+            ],
+            "set_name": "",
+            "text": "If your identity has the [[Defender]] trait, this card gains: \"<b>Action</b>: Put Hellcat into play from your hand. At the end of the phase, discard her.\""
+        },
+        {
+            "card_id": "61026",
+            "type": "Event",
+            "name": "Joys of Life",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "Y",
+                "Class": "Basic",
+                "Alliance": "1"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Alliance.\n<b>Action</b>: Choose:\n• Exhaust a [[Civilian]] alter-ego → ready a hero or ally.\n• Exhaust a hero or ally → ready a [[Civilian]] alter-ego."
+        },
+        {
+            "card_id": "61027",
+            "type": "Event",
+            "name": "Unbreakable Bond",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "TeamUp": "Jessica Jones;Luke Cage"
+            },
+            "traits": [
+                "THWART"
+            ],
+            "set_name": "",
+            "text": "Team-Up <i>(Jessica Jones and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b>: <i>(thwart)</i>: Remove 3 threat from a scheme. Heal a total of 3 damage from among Jessica Jones and Luke Cage."
+        },
+        {
+            "card_id": "61029",
+            "type": "PlayerSideScheme",
+            "name": "* Defend Our City",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "StartingThreat": "3*",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "Victory": "0",
+                "Hinder": "1*"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "[star] Hinder 1[per_hero].\nPrerequisite ([[Defender]]). Victory 0.\n<b>When Defeated</b>: Each player may search their deck and discard pile for a Team-Up card and add it to their hand. Until the end of the phase, reduce the cost to play each Team-Up card by 1."
+        },
+        {
+            "card_id": "61030",
+            "type": "Obligation",
+            "name": "Work-Life Balance",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "GiveTo": "Jessica Jones"
+            },
+            "traits": [],
+            "set_name": "Jessica Jones",
+            "text": "<b><i>Give to the Jessica Jones player.</i></b>\nAs an additional cost to change forms, discard 1 card from your hand.\n<b>Alter-Ego Action</b>: Choose:\n• Remove an ally you control from the game → remove this card from the game.\n• Confuse your identity → discard this card."
+        },
+        {
+            "card_id": "61031",
+            "type": "Minion",
+            "name": "* Purple Man",
+            "subtitle": "",
+            "desc": {
+                "HP": "6",
+                "Boost": "3",
+                "Nemesis": "Jessica Jones",
+                "ATK": "0",
+                "SCH": "0"
+            },
+            "traits": [
+                "PSIONIC"
+            ],
+            "set_name": "Jessica Jones Nemesis",
+            "text": "[star] Purple Man's SCH is equal to the highest SCH or THW among characters in play. His ATK is equal to the highest ATK among characters in play."
+        },
+        {
+            "card_id": "61032",
+            "type": "SideScheme",
+            "name": "Indomitable Will",
+            "subtitle": "",
+            "desc": {
+                "Boost": "1",
+                "StartingThreat": "2*",
+                "Hinder": "3*"
+            },
+            "traits": [],
+            "set_name": "Jessica Jones Nemesis",
+            "text": "[star] Hinder 3[per_hero].\n<b>When Revealed</b>: Place 2 pheromone counters on each Suggestion obligation in play.\n<b>Forced Response</b>: After a Suggestion obligation enters play, place 2 <i>(additional)</i> pheromone counters on it."
+        },
+        {
+            "card_id": "61033a",
+            "type": "Obligation",
+            "name": "Suggestion ([energy])",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "Uses": "3,pheromone",
+                "GiveTo": ""
+            },
+            "traits": [],
+            "set_name": "Jessica Jones Nemesis",
+            "text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [energy] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme."
+        },
+        {
+            "card_id": "61033b",
+            "type": "Obligation",
+            "name": "Suggestion ([mental])",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "Uses": "3,pheromone",
+                "GiveTo": ""
+            },
+            "traits": [],
+            "set_name": "Jessica Jones Nemesis",
+            "text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [mental] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme."
+        },
+        {
+            "card_id": "61033c",
+            "type": "Obligation",
+            "name": "Suggestion ([physical])",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "Uses": "3,pheromone",
+                "GiveTo": ""
+            },
+            "traits": [],
+            "set_name": "Jessica Jones Nemesis",
+            "text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [physical] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme."
+        },
+        {
+            "card_id": "61034",
+            "type": "Upgrade",
+            "name": "Innate Aggression",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "MaxPerDeck": "1",
+                "Class": "Aggression",
+                "Starting": "1"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "",
+            "text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nYour hero gets +1 ATK."
+        },
+        {
+            "card_id": "61035",
+            "type": "Upgrade",
+            "name": "Shakedown",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "Class": "Aggression",
+                "MaxPerUnit": "1"
+            },
+            "traits": [
+                "TACTIC"
+            ],
+            "set_name": "",
+            "text": "Play under any player's control. Max 1 per player.\n<b>Response</b>: After you attack and exactly defeat a minion, exhaust this card → remove threat from a scheme equal to that minion's base SCH."
+        },
+        {
+            "card_id": "61036",
+            "type": "Upgrade",
+            "name": "Innate Perception",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "MaxPerDeck": "1",
+                "Class": "Justice",
+                "Starting": "1"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "",
+            "text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nYour hero gets +1 THW."
+        },
+        {
+            "card_id": "61037",
+            "type": "Upgrade",
+            "name": "Innate Inspiration",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "MaxPerDeck": "1",
+                "Class": "Leadership",
+                "Starting": "1"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "",
+            "text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nEach ally you control gets +1 hit point."
+        },
+        {
+            "card_id": "61038",
+            "type": "Ally",
+            "name": "* Echo",
+            "subtitle": "Maya Lopez",
+            "desc": {
+                "Cost": "3",
+                "HP": "3",
+                "ATK": "1*",
+                "THW": "1*",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Protection"
+            },
+            "traits": [
+                "DEFENDER",
+                "MARTIAL ARTIST"
+            ],
+            "set_name": "",
+            "text": "Reduce the amount of damage Echo takes from each enemy attack by your hero's DEF."
+        },
+        {
+            "card_id": "61039",
+            "type": "PlayerSideScheme",
+            "name": "* Lay Low",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "StartingThreat": "3*",
+                "RES": "Y",
+                "MaxPerDeck": "1",
+                "Class": "Protection",
+                "Victory": "0"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Victory 0.\n<b>When Defeated</b>: Each player may change to alter-ego form. Heal damage from each alter-ego equal to its REC."
+        },
+        {
+            "card_id": "61040",
+            "type": "Upgrade",
+            "name": "Mitigated Threat",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "R",
+                "Class": "Protection"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "",
+            "text": "Attach to a card. Attached card loses each [acceleration], [amplify], [crisis], and [hazard] icon.\n<b>Forced Response</b>: At the end of the round, each player may spend 1 resource of any type. If any player does not, discard this card."
+        }
+    ],
+    "luke_cage": [
+        {
+            "card_id": "62001a",
+            "type": "Hero",
+            "name": "* Luke Cage",
+            "subtitle": "",
+            "desc": {
+                "HP": "10",
+                "ATK": "2",
+                "THW": "2",
+                "DEF": "1",
+                "HS": "5"
+            },
+            "traits": [
+                "DEFENDER"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<i>Unbreakable Skin</i> — Luke Cage can have any number of tough status cards. Attacks against Luke Cage lose piercing.\n<b>Forced Response</b>: After a tough status card is discarded from Luke Cage, he takes 1 unpreventable damage <i>(ignoring tough)</i>."
+        },
+        {
+            "card_id": "62001b",
+            "type": "AlterEgo",
+            "name": "* Luke Cage",
+            "subtitle": "",
+            "desc": {
+                "HP": "10",
+                "REC": "4",
+                "HS": "6"
+            },
+            "traits": [
+                "CIVILIAN"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<i>Unbreakable Skin</i> — Luke Cage can have any number of tough status cards. Attacks against Luke Cage lose piercing.\n<b>Action</b>: Search your deck and discard pile for the Burstein Process upgrade and add it to your hand. (Limit once per phase.)"
+        },
+        {
+            "card_id": "62002",
+            "type": "Ally",
+            "name": "* Jessica Jones",
+            "subtitle": "",
+            "desc": {
+                "Cost": "3",
+                "HP": "3",
+                "ATK": "2*",
+                "THW": "1*",
+                "RES": "G",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "DEFENDER"
+            ],
+            "set_name": "Luke Cage",
+            "text": "[star] Jessica Jones gets +1 THW for each tough status card on your identity (to a maximum of +4 THW)."
+        },
+        {
+            "card_id": "62003",
+            "type": "Event",
+            "name": "Harlem's Hero",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "2",
+                "Class": "Hero"
+            },
+            "traits": [
+                "SKILL"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Hero Action</b>: Give Luke Cage a tough status card. For each tough status card on Luke Cage, choose a character you control and ready it."
+        },
+        {
+            "card_id": "62004",
+            "type": "Event",
+            "name": "Knuckle Sandwich",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ATTACK"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy. You may discard a tough status card from Luke Cage to return this event to your hand."
+        },
+        {
+            "card_id": "62005",
+            "type": "Event",
+            "name": "\"Stand with Me!\"",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "B",
+                "MaxPerDeck": "2",
+                "Class": "Hero"
+            },
+            "traits": [
+                "THWART"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Hero Action</b> <i>(thwart)</i>: Give Luke Cage a tough status card. Remove 1 threat from a scheme for each tough status card on Luke Cage (to a maximum of 5)."
+        },
+        {
+            "card_id": "62006",
+            "type": "Event",
+            "name": "\"Sweet Christmas!\"",
+            "subtitle": "",
+            "desc": {
+                "Cost": "5",
+                "RES": "Y",
+                "MaxPerDeck": "2",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ATTACK"
+            ],
+            "set_name": "Luke Cage",
+            "text": "[star] Reduce the cost to play this card by 1 for each tough status card on Luke Cage.\n<b>Hero Action</b> <i>(attack)</i>: Deal 5 damage to the villain and each minion engaged with you."
+        },
+        {
+            "card_id": "62007",
+            "type": "Support",
+            "name": "* Fogwell's Gym",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "LOCATION"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Response</b>: After a tough status card is discarded from a [[Defender]] character, exhaust Fogwell's gym → ready that character."
+        },
+        {
+            "card_id": "62008",
+            "type": "Upgrade",
+            "name": "* Burstein Process",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Alter-Ego Action</b>: Exhaust Burstein Process → give Luke Cage a tough status card (2 tough status cards instead if he has none)."
+        },
+        {
+            "card_id": "62009",
+            "type": "Upgrade",
+            "name": "Cruisin' for a Bruisin'",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "R",
+                "MaxPerDeck": "2",
+                "Class": "Hero",
+                "MaxPerUnit": "1"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "Luke Cage",
+            "text": "Attach to a minion. Max 1 per minion.\nAttacks against attached minion deal 2 additional damage and gain overkill.\n<b>Response</b>: After you play this card, engage attached minion."
+        },
+        {
+            "card_id": "62010",
+            "type": "Upgrade",
+            "name": "Metal Bracer",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "B",
+                "MaxPerDeck": "2",
+                "Class": "Hero"
+            },
+            "traits": [
+                "ARMOR",
+                "ITEM"
+            ],
+            "set_name": "Luke Cage",
+            "text": "Luke Cage gets retaliate 1.\n<b>Hero Interrupt</b>: When any amount of damage would be dealt to Luke Cage, exhaust Metal Bracer → reduce that damage by 1."
+        },
+        {
+            "card_id": "62011",
+            "type": "Upgrade",
+            "name": "* Power Man",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Hero"
+            },
+            "traits": [
+                "TITLE"
+            ],
+            "set_name": "Luke Cage",
+            "text": "<b>Hero Response</b>: After a tough status card is discarded from Luke Cage, exhaust Power Man → draw a card."
+        },
+        {
+            "card_id": "62012",
+            "type": "Ally",
+            "name": "* Iron Fist",
+            "subtitle": "Danny Rand",
+            "desc": {
+                "Cost": "3",
+                "HP": "3",
+                "ATK": "2*",
+                "THW": "1*",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Leadership"
+            },
+            "traits": [
+                "DEFENDER",
+                "MARTIAL ARTIST"
+            ],
+            "set_name": "",
+            "text": "<b>Interrupt</b>: When Iron Fist defends against an enemy attack, prevent damage from that attack equal to Iron Fist's ATK."
+        },
+        {
+            "card_id": "62013",
+            "type": "Ally",
+            "name": "* Misty Knight",
+            "subtitle": "",
+            "desc": {
+                "Cost": "3",
+                "HP": "2",
+                "ATK": "1*",
+                "THW": "1*",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Leadership",
+                "Toughness": "1"
+            },
+            "traits": [
+                "DEFENDER",
+                "MARTIAL ARTIST"
+            ],
+            "set_name": "",
+            "text": "Toughness.\n[star] Misty Knight gets +2 ATK and +2 THW while she has a tough status card."
+        },
+        {
+            "card_id": "62014",
+            "type": "Ally",
+            "name": "* Valkyrie",
+            "subtitle": "Brunnhilde",
+            "desc": {
+                "Cost": "3",
+                "HP": "3",
+                "ATK": "2*",
+                "THW": "1*",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Leadership",
+                "Toughness": "1"
+            },
+            "traits": [
+                "ASGARD",
+                "DEFENDER"
+            ],
+            "set_name": "",
+            "text": "Toughness.\n<b>Interrupt</b>: When another ally would be defeated, discard Valkyrie <i>(from play)</i> → instead heal that ally until they have 1 hit point remaining."
+        },
+        {
+            "card_id": "62015",
+            "type": "Event",
+            "name": "Take a Stand",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "Y",
+                "Class": "Leadership"
+            },
+            "traits": [
+                "TACTIC"
+            ],
+            "set_name": "",
+            "text": "<b>Hero Response</b>: After your hero defends, each ally you control gets +1 THW and +1 ATK until the end of the player phase."
+        },
+        {
+            "card_id": "62016",
+            "type": "Resource",
+            "name": "Innovation",
+            "subtitle": "",
+            "desc": {
+                "RES": "G",
+                "MaxPerDeck": "1",
+                "Class": "Leadership"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck.\n<b>Hero Response</b>: After you spend this card, heal 1 damage from an ally you control.",
+            "ability_link": "21058"
+        },
+        {
+            "card_id": "62017",
+            "type": "Resource",
+            "name": "The Power of Leadership",
+            "subtitle": "",
+            "desc": {
+                "RES": "G",
+                "MaxPerDeck": "2",
+                "Class": "Leadership"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 2 per deck.\nDouble the number of resources this card generates while paying for a Leadership <i>(blue)</i> card.",
+            "ability_link": "01072"
+        },
+        {
+            "card_id": "62018",
+            "type": "Support",
+            "name": "Defensive Formation",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "Y",
+                "Class": "Leadership",
+                "Uses": "3,block"
+            },
+            "traits": [
+                "TACTIC"
+            ],
+            "set_name": "",
+            "text": "Uses (3 block counters).\n<b>Action</b>: Exhaust this card and remove 1 block counter from it → give a [[Defender]] ally a tough status card."
+        },
+        {
+            "card_id": "62019",
+            "type": "Support",
+            "name": "Righteous Purpose",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "Y",
+                "Class": "Leadership",
+                "MaxPerUnit": "1"
+            },
+            "traits": [
+                "MAXIM"
+            ],
+            "set_name": "",
+            "text": "Play under any player's control. Max 1 per player.\nEach character you control that has exactly 1 hit point remaining gets +2 THW and +2 ATK."
+        },
+        {
+            "card_id": "62020",
+            "type": "Ally",
+            "name": "* Hulk",
+            "subtitle": "Bruce Banner",
+            "desc": {
+                "Cost": "4",
+                "HP": "5",
+                "ATK": "2**",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "THW": "-1"
+            },
+            "traits": [
+                "DEFENDER",
+                "GAMMA"
+            ],
+            "set_name": "",
+            "text": "Hulk gets +1 ATK for each rage counter here.\n<b>Response</b>: After the villain attacks you, place 1 rage counter here."
+        },
+        {
+            "card_id": "62021",
+            "type": "Ally",
+            "name": "* She-Hulk",
+            "subtitle": "Jennifer Walters",
+            "desc": {
+                "Cost": "4",
+                "HP": "3",
+                "ATK": "2**",
+                "THW": "2**",
+                "RES": "B",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "Toughness": "1"
+            },
+            "traits": [
+                "DEFENDER",
+                "GAMMA"
+            ],
+            "set_name": "",
+            "text": "Toughness.\n<b>Response</b>: After She-Hulk enters play, give your identity a tough status card."
+        },
+        {
+            "card_id": "62023",
+            "type": "Event",
+            "name": "Power Man and Iron Fist",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "TeamUp": "Iron Fist;Luke Cage"
+            },
+            "traits": [
+                "ATTACK"
+            ],
+            "set_name": "",
+            "text": "Team-Up <i>(Iron Fist and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b> <i>(attack)</i>: Deal 2 damage to an enemy and give a tough status card to a character."
+        },
+        {
+            "card_id": "62024",
+            "type": "Event",
+            "name": "Unbreakable Bond",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "R",
+                "MaxPerDeck": "1",
+                "Class": "Basic",
+                "TeamUp": "Jessica Jones;Luke Cage"
+            },
+            "traits": [
+                "THWART"
+            ],
+            "set_name": "",
+            "text": "Team-Up <i>(Jessica Jones and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b>: <i>(thwart)</i>: Remove 3 threat from a scheme. Heal a total of 3 damage from among Jessica Jones and Luke Cage.",
+            "ability_link": "61027"
+        },
+        {
+            "card_id": "62025",
+            "type": "Resource",
+            "name": "Energy",
+            "subtitle": "",
+            "desc": {
+                "RES": "YY",
+                "MaxPerDeck": "1",
+                "Class": "Basic"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        },
+        {
+            "card_id": "62026",
+            "type": "Resource",
+            "name": "Genius",
+            "subtitle": "",
+            "desc": {
+                "RES": "BB",
+                "MaxPerDeck": "1",
+                "Class": "Basic"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        },
+        {
+            "card_id": "62027",
+            "type": "Resource",
+            "name": "Strength",
+            "subtitle": "",
+            "desc": {
+                "RES": "RR",
+                "MaxPerDeck": "1",
+                "Class": "Basic"
+            },
+            "traits": [],
+            "set_name": "",
+            "text": "Max 1 per deck."
+        },
+        {
+            "card_id": "62028",
+            "type": "Obligation",
+            "name": "Internal Injury",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "GiveTo": "Luke Cage"
+            },
+            "traits": [],
+            "set_name": "Luke Cage",
+            "text": "<b><i>Give to the Luke Cage player.</i></b>\n<b>Forced Response</b>: After the player phase ends, take 3 unpreventable damage <i>(ignoring tough status cards)</i>.\n<b>Alter-Ego Response</b>: After you recover, remove Internal Injury from the game."
+        },
+        {
+            "card_id": "62029",
+            "type": "Minion",
+            "name": "* Cottonmouth",
+            "subtitle": "",
+            "desc": {
+                "HP": "5",
+                "ATK": "1",
+                "SCH": "2",
+                "Boost": "0",
+                "Nemesis": "Luke Cage"
+            },
+            "traits": [
+                "SERPENT SOCIETY"
+            ],
+            "set_name": "Luke Cage Nemesis",
+            "text": "[star] <b>Forced Response</b>: After Cottonmouth attacks, he attacks the same character 2 additional times. (Limit once per phase.)\n<i>(Luke Cage's nemesis minion.)</i>\n<hr />\n[star] <b>Boost</b>: Deal this card to the Luke Cage player as a facedown encounter card."
+        },
+        {
+            "card_id": "62030",
+            "type": "SideScheme",
+            "name": "Venomous Whispers",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "StartingThreat": "3*"
+            },
+            "traits": [],
+            "set_name": "Luke Cage Nemesis",
+            "text": "Each [[Serpent Society]] minion cannot be attacked.\n<b>When Defeated</b>: The defeating player discards cards from the top of the encounter deck until a [[Serpent Society]] minion is discarded and reveals that minion.\n<hr />\n[star] <b>Boost</b>: You are confused."
+        },
+        {
+            "card_id": "62031",
+            "type": "Attachment",
+            "name": "Augmented Jaws",
+            "subtitle": "",
+            "desc": {
+                "Boost": "2",
+                "ATK+": "1"
+            },
+            "traits": [
+                "WEAPON"
+            ],
+            "set_name": "Luke Cage Nemesis",
+            "text": "Attach to Cottonmouth. Otherwise, attach to the villain.\n[star] <b>Forced Interrupt</b>: When attached enemy attacks a character, discard each tough status card from that character.\n<b>Hero Action</b>: Spend [mental] [mental] resources → discard this card."
+        },
+        {
+            "card_id": "62032",
+            "type": "Minion",
+            "name": "* Asp",
+            "subtitle": "",
+            "desc": {
+                "HP": "4",
+                "ATK": "2",
+                "SCH": "1",
+                "Boost": "2"
+            },
+            "traits": [
+                "SERPENT SOCIETY"
+            ],
+            "set_name": "Luke Cage Nemesis",
+            "text": "[star] <b>Forced Response</b>: After Asp schemes against you, you are stunned.\n<hr />\n[star] <b>Boost</b>: You are stunned."
+        },
+        {
+            "card_id": "62033",
+            "type": "Minion",
+            "name": "* Sidewinder",
+            "subtitle": "",
+            "desc": {
+                "HP": "3",
+                "ATK": "2",
+                "SCH": "1",
+                "Boost": "2",
+                "Quickstrike": "1"
+            },
+            "traits": [
+                "SERPENT SOCIETY"
+            ],
+            "set_name": "Luke Cage Nemesis",
+            "text": "Quickstrike.\n<b>Forced Interrupt</b>: When Sidewinder is attacked, discard the top card of the encounter deck. If the discarded card has a \"<b>Boost</b>\" ability, deal Sidewinder to the attacking player as a facedown encounter card."
+        },
+        {
+            "card_id": "62034",
+            "type": "Event",
+            "name": "Size Advantage",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "Y",
+                "Class": "Aggression"
+            },
+            "traits": [
+                "ATTACK"
+            ],
+            "set_name": "",
+            "text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy (6 damage instead if you have the [[Giant]] trait or more remaining hit points than that enemy)."
+        },
+        {
+            "card_id": "62035",
+            "type": "Event",
+            "name": "Observe",
+            "subtitle": "",
+            "desc": {
+                "Cost": "1",
+                "RES": "Y",
+                "Class": "Justice"
+            },
+            "traits": [
+                "TACTIC"
+            ],
+            "set_name": "",
+            "text": "<b>Hero Action</b>: The villain schemes. Give your hero a tough status card."
+        },
+        {
+            "card_id": "62036",
+            "type": "Upgrade",
+            "name": "Toughen Up",
+            "subtitle": "",
+            "desc": {
+                "Cost": "2",
+                "RES": "R",
+                "Class": "Protection"
+            },
+            "traits": [
+                "CONDITION"
+            ],
+            "set_name": "",
+            "text": "<b>Response</b>: After you recover, if your remaining hit points are equal to or greater than your base hit points, exhaust Toughen Up → give your identity a tough status card."
+        },
+        {
+            "card_id": "62037",
+            "type": "Upgrade",
+            "name": "Black Belt",
+            "subtitle": "",
+            "desc": {
+                "Cost": "0",
+                "RES": "R",
+                "Class": "Basic",
+                "MaxPerUnit": "1"
+            },
+            "traits": [
+                "TITLE"
+            ],
+            "set_name": "",
+            "text": "Play only if any player controls a [[Martial Artist]] card.\nAttach to a friendly character. Max 1 per character.\nAttached character gets +1 hit point and gains the [[Martial Artist]] trait."
+        }
+    ],
+    "checksum": "7b55fe23169091dfce8ef4950c2f04f1d50ee4def6a5765853aa16b3f87dd0c7"
 }

@@ -627,6 +627,8 @@ class SenderDamage:
             return self.property.is_from_overkill
 
         def IncreaseDamage(self, value: int, by_effect: 'Effect') -> None:
+            if value < 0 and self.property.unpreventable:
+                return
             from game.message import Message
             self.property.damage += value
             Message.WhenDamageUpdated_Text(value, by_effect)
@@ -737,6 +739,7 @@ class SenderDamage:
             self.cannot_have_more_than_sustained = None
             self.property: Final = property
             self.total_prevent_damage = 0
+            self.be_prevent = False
 
             if self.would_atk_message:
                 if self.would_atk_message.be_prevent:
@@ -787,18 +790,24 @@ class SenderDamage:
             Message.WhenDamageUpdated_Text(value, by_effect)
 
         def ReduceDamage(self, value: int, by_effect: 'Effect'):
+            if self.property.unpreventable:
+                return
             assert value >= 0 # Fix "24039"
             from game.message import Message
             self.property.damage -= value
             Message.WhenDamageUpdated_Text(-1 * value, by_effect)
 
         def ReduceDamageTo(self, value: int, by_effect: 'Effect'):
+            if self.property.unpreventable:
+                return
             from game.message import Message
             diff = self.property.damage - value
             self.property.damage = value
             Message.WhenDamageUpdated_Text(-1 * diff, by_effect)
 
         def PreventAllDamageInternal(self):
+            if self.property.unpreventable:
+                return 0
             from game.card.face.card_type import Minion
             from game.card.face.card_type import Ally
             if self.would_deal_damage_message.would_attack_unit_message and \
@@ -815,6 +824,8 @@ class SenderDamage:
             return prevent_damage
 
         def PreventDamage(self, value: int|Literal["All"], by_effect: 'Effect') -> int:
+            if self.property.unpreventable:
+                return 0
             from game.message import Message
             if value == "All":
                 prevent_damage = self.PreventAllDamageInternal()
@@ -834,10 +845,14 @@ class SenderDamage:
                     self.PreventDamage(prevent_damage, by_effect)
 
         def SetCannotHaveMoreThanSustained(self, value: int, by_effect: 'Effect'):
+            if self.property.unpreventable:
+                return
             assert self.cannot_have_more_than_sustained == None
             self.cannot_have_more_than_sustained = value
 
         def SetAtLeastHealth(self, value: int, by_effect: 'Effect'):
+            if self.property.unpreventable:
+                return
             assert self.cannot_have_more_than_sustained == None
             value = self.trigger.max_health - value
             self.cannot_have_more_than_sustained = value

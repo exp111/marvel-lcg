@@ -131,6 +131,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
 
         'rebirth', 'labor', 'civilian', 'stamina',
         'support', 'grip', 'spot', 'stilt', 'threat',
+        'evidence', 'pheromone', 'limb', 'squirrel', 'block',
     ]
 
     COUNTER_LIST: List[COUNTER] = Types.LiteralToList(COUNTER)
@@ -257,6 +258,7 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
         if diff == 0:
             return
 
+        previous_value = self.GetKeyword(keyword)
         face = by_effect.this
         if keyword in self.ignore_keywords:
             if face in self.ignore_keywords[keyword]:
@@ -272,7 +274,9 @@ class CardFace(ModelName, ModelTrait, ModelAction, ModelOnEvent, ModelGain, Mode
             if self.ignore_keywords[keyword] == {}:
                 del self.ignore_keywords[keyword]
 
-        # Send.WhenCardKeywordUpdated(self, diff, keyword, by_effect)
+        value_change = self.GetKeyword(keyword) - previous_value
+        if value_change:
+            Message.WhenCardKeywordUpdated(self, value_change, keyword, by_effect).Send()
 
     @final
     def GetKeyword(self, keyword: "CardFace.KEY") -> int:

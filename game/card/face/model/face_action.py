@@ -36,6 +36,7 @@ class ModelAction(ModelBase):
                     end_event: 'Type[Message2]|None'=None,
                     # check_condition: Callable[['Effect'], bool] = lambda effect: True,
                     until_next_villain_phase_begin: bool=False,
+                    until_player_phase_end: bool=False,
                     *,
                     # end_at: Callable[['Effect', Callable[[], Any]], Any]|None=None,
                     # *,
@@ -317,7 +318,7 @@ class ModelAction(ModelBase):
             create_effect(
                 Message.WhenPhaseEnd,
                 lambda effect, message:
-                    True,
+                    not until_player_phase_end or message.phase_name == "Player",
             )
         elif end_event == Message.WhenRoundEnd:
             create_effect(
@@ -339,7 +340,7 @@ class ModelAction(ModelBase):
                     AbilityType.Temp0,
                     "Villain",
                     lost_gained_unit,
-                    round_id=round_id
+                    conditions=[lambda effect, message: message.round_id >= round_id]
                 )
             )
 
