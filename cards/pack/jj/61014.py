@@ -21,7 +21,7 @@ def GetAbilities():
     return [
         AbilityFactory.WhenInYourPlayTurn(AbilityType.Action, stakeout,
             conditions=[lambda effect, message: effect.this.GetBindFace() == effect.GetInitiator().GetIdentity()])
-            .SetTarget(EncounterSideScheme, check_fn=lambda effect, face: not face.permanent),
+            .SetTarget(CardFinder(card_type=EncounterSideScheme, is_permanent=False)),
         AbilityFactory.WhenUnitThwartScheme(AbilityType.Interrupt, Unit2, thwart,
             which_card_be_thwart="AttachedScheme"),
     ]

@@ -121,6 +121,36 @@ class TestJessicaHeroGameplay(Gameplay, unittest.TestCase):
         self.assertNotIn("01107", s[-1]["side_schemes"])
         self.assertEqual(s[-1]["evidence"], 4)
 
+    def test_second_chance_can_be_played_with_unattached_stakeout(self):
+        for multiplayer, threat in ((False, 3), (True, 6)):
+            with self.subTest(multiplayer=multiplayer):
+                s = self.play(['puzzle.PutIntoPlay("61014")',
+                    *self.hand("61028"), self.use("61028", "Play")],
+                    configure_scene=self.two_players if multiplayer else None)[-1]
+                self.assertEqual(self.face(s, "61028")["threat"], threat)
+                self.assertIn("61014", s["controlled"])
+                self.assertNotIn("61028", s["hand"])
+                self.assertNotIn(("61014", "Action"), s["actions"])
+
+    def test_stakeout_only_targets_non_permanent_encounter_side_schemes(self):
+        def attach(prompt):
+            options = [o for o in prompt.options
+                       if self.card_id(o) == "61014" and o["name"] == "Action"]
+            self.assertEqual(len(options), 1)
+            self.assertEqual(len(options[0]["all_legal_targets"]), 1)
+            return self.descriptor(options[0], "01107")
+
+        s = self.play(['puzzle.PutIntoPlay("61028")',
+            'puzzle.PutIntoPlay("01108")',
+            'puzzle.FindOrCreateFace("01108").GainPermanent(1,DebugRule(hero))',
+            'puzzle.PutIntoPlay("61014")',
+            'puzzle.PutIntoPlay("01107")', attach])
+        self.assertNotIn(("61014", "Action"), s[-3]["actions"])
+        stakeout = next(c.face for c in self.last_game.world.object_manager.card_dict.values()
+                        if c.face.paper.card_id == "61014")
+        self.assertEqual(stakeout.GetBindFace().paper.card_id, "01107")
+        self.assertNotIn(("61014", "Action"), s[-1]["actions"])
+
     def test_alias_threshold_spends_evidence_to_advance_villain_stage(self):
         for spend in (False, True):
             with self.subTest(spend=spend):

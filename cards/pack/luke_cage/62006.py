@@ -4,7 +4,8 @@ from . import *
 def GetAbilities():
     def christmas(effect,message):
         player=effect.GetInitiator()
-        enemies=[*Worlds.GetVillains(effect),*Worlds.GetOnFieldMinions(effect,CardFinder(engaged_with=player))]
+        villain=Worlds.ChooseVillain(effect)
+        enemies=([villain] if villain else []) + list(Worlds.GetOnFieldMinions(effect,CardFinder(engaged_with=player)))
         effect.this.DealDamage(enemies,5,effect)
     return [
         AbilityFactory.ReduceCostToPlayThis(lambda effect: effect.GetInitiator().GetIdentity().tough),

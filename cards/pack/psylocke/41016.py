@@ -10,8 +10,7 @@ def GetAbilities() -> Sequence['Ability']:
 
         player = message.GetDefeatingPlayer()
 
-        villains = Worlds.GetVillains(effect)
-        face = player.AskChooseFace(villains, effect)
+        face = Worlds.ChooseVillain(effect, player=player)
         if face:
             player.GetIdentity().DealDamage([face], "5*", effect)
 

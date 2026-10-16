@@ -8,9 +8,13 @@ def GetAbilities():
         effect.world.phase.SkipNextVillainPhase()
         Players.ForEachPlayer(effect, lambda player: player.DealEncounterCards(1, effect))
 
+        villain = Worlds.ChooseVillain(effect)
+        if villain is None:
+            return
         immunity = effect.this.effect.RegisterTemp(
             AbilityFactory.WhenUnitWouldTakeDamage(
-                AbilityType.Temp0, Villain,
+                AbilityType.Temp0, CardFinder(card_type=Villain,
+                    check_face_fn=lambda face: face.card == villain.card),
                 lambda effect, message: message.SetBeInstead(effect),
             ),
             unregister_after_exec=False,
