@@ -9,5 +9,5 @@ def GetAbilities():
         AbilityFactory.WhenUnitWouldAttackUnit(AbilityType.NonKeyword,None,"AttachedEnemy",
             lambda effect,message: message.IncreaseDamage(2,effect)),
         AbilityFactory.UnitAttackGainKeyword(None,"AttachedEnemy",overkill=True),
-        AbilityFactory.AfterYouPlayThisFromHand(AbilityType.Response,engage),
+        AbilityFactory.AfterPlayerPlayedCard(AbilityType.Response,"You","This",engage),
     ]

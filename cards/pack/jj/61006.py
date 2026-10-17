@@ -12,4 +12,5 @@ def GetAbilities():
             if Minion.IsType(face) or EncounterSideScheme.IsType(face):
                 face.Reveal(effect.GetInitiator(), effect)
     return [AbilityFactory.WhenInYourPlayTurn(AbilityType.AlterEgoAction, snoop)
-            .SetPlay().SetLabel("thwart").SetTarget(Scheme2)]
+            .SetPlay().SetLabel("thwart").SetTarget(Scheme2)
+            .SetHasNoTargetEffect()]

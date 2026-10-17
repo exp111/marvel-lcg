@@ -4,7 +4,8 @@ from . import *
 def GetAbilities():
     def investigate(effect,message):
         this=effect.this.CastTo(Support)
-        Faces.PlaceCountersOn([this],2,"evidence",effect)
+        if Faces.PlaceCountersOn([this],2,"evidence",effect) < 2:
+            return
         villain=Worlds.ChooseVillain(effect, CardFinder(card_type=Villain,
             check_face_fn=lambda face: 0 < face.health <= this.GetCounters("evidence")))
         if villain:

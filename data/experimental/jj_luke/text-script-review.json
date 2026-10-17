@@ -1,0 +1,954 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "face_count": 81,
+  "pack_counts": {
+    "jj": 43,
+    "luke_cage": 38
+  },
+  "method": "Compared all 81 runtime text/metadata records with the reviewed text snapshot and read each script, shared helper or reprint implementation. Checked timing, costs, forms, ownership, targets, partial resolution, then/may/each wording, quantities, limits, lifetimes and keywords. Cross-checked nine changed originals against cached card scans; the second Bond printing shares its script.",
+  "rules_reference": {
+    "path": "../Rules Reference v1.8/mc_rulesreference_v18_compressed.pdf",
+    "sections": [
+      "Ability",
+      "And",
+      "Initiating Abilities",
+      "Target",
+      "Then",
+      "Thwart",
+      "Tough"
+    ]
+  },
+  "fixes": {
+    "61002": "Require evidence placement before the then-clause can defeat a villain.",
+    "61006": "Allow evidence and encounter effects when no threat can be removed.",
+    "61012": "Filter enemies that cannot legally be attacked before resolving area damage.",
+    "61026": "Reject play when neither exhaust/ready choice is legal.",
+    "61027": "Allow healing without threat; allocate total healing before resolving each character once.",
+    "62005": "Allow tough gain when no threat can be removed.",
+    "62006": "Respect Guard and cannot-be-attacked effects; reject no-target play except when stunned.",
+    "62009": "Remove the unprinted from-hand limitation from the play response.",
+    "62012": "Trigger prevention when defending and retain its ATK value through attack resolution.",
+    "62024": "Inherits the 61027 corrections."
+  },
+  "shared_engine_fix": "MainScheme.CanBeThwartBy rejects crisis-blocked schemes while preserving explicit ignore-crisis effects.",
+  "regression_tests": "unit_test/test_jj_luke_text_accuracy.py",
+  "new_test_count": 16,
+  "validation": {
+    "status": "passed",
+    "modules_file": "release-artifacts/jj-luke-text-test-modules.json",
+    "comprehensive_log": "release-artifacts/jj-luke-text-comprehensive.log",
+    "tests": 492,
+    "seconds": 235.685,
+    "python": "3.12.13",
+    "extra_iron_fist_overkill_cases": 2,
+    "extra_cases_log": "release-artifacts/jj-luke-text-iron-fist-overkill.log",
+    "original_save": {
+      "result": "passed",
+      "recorded_inputs": 50,
+      "round": 3,
+      "player": 1,
+      "sha256_unchanged": "7791381b07ec0f2febc830ead748805f87259a7f743e328b43288bd3a69a57af",
+      "log": "release-artifacts/jj-luke-text-save-replay.log"
+    }
+  },
+  "limits": "A clause-level review plus deterministic headless gameplay coverage, not an exhaustive proof across every scenario and deck combination. Cruisin's existing as-if-in-hand play path already worked; its response filter was aligned with the broader printed trigger.",
+  "cards": [
+    {
+      "card_id": "61001a",
+      "pack": "jj",
+      "name": "* Jessica Jones",
+      "sources": [
+        "cards/pack/jj/61001a.py"
+      ],
+      "review": "Basic-power response; evidence destination and optional timing.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61001b",
+      "pack": "jj",
+      "name": "* Jessica Jones",
+      "sources": [
+        "cards/pack/jj/61001b.py"
+      ],
+      "review": "Setup permanent support; hero change and phase-long alter-ego restriction.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61002",
+      "pack": "jj",
+      "name": "* Alias Investigations",
+      "sources": [
+        "cards/pack/jj/61002.py"
+      ],
+      "review": "Exhaustion cost; two evidence; then-clause requires completed placement; optional exact remaining-HP spend and chosen villain stage.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "61003",
+      "pack": "jj",
+      "name": "* Luke Cage",
+      "sources": [
+        "cards/pack/jj/61003.py"
+      ],
+      "review": "Toughness; exhaustion and dealt-damage costs; tough legality and lethal-cost behavior.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61004",
+      "pack": "jj",
+      "name": "\"Big Mistake\"",
+      "sources": [
+        "cards/pack/jj/61004.py"
+      ],
+      "review": "Hero attack; base damage; optional evidence cost; additional damage and chosen keyword modify the same attack.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61005",
+      "pack": "jj",
+      "name": "Breakthrough",
+      "sources": [
+        "cards/pack/jj/61005.py"
+      ],
+      "review": "Evidence placement response; ready and shuffle are independent effects; own Alias and nonzero placement.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61006",
+      "pack": "jj",
+      "name": "Snooping Around",
+      "sources": [
+        "cards/pack/jj/61006.py"
+      ],
+      "review": "Alter-ego thwart; four threat, two evidence, encounter discard and conditional reveal; partial resolution without removable threat.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "61007",
+      "pack": "jj",
+      "name": "* Piecing It All Together",
+      "sources": [
+        "cards/pack/jj/61007.py"
+      ],
+      "review": "Side-scheme-limit exemption; defeating-player draw ownership and quantity.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61008",
+      "pack": "jj",
+      "name": "Calling in Favors",
+      "sources": [
+        "cards/pack/jj/61008.py"
+      ],
+      "review": "Alter-ego restriction; evidence and exhaustion costs; deck-only ally search; play as if in hand with discount; shuffle.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61009",
+      "pack": "jj",
+      "name": "4K Digital Camcorder",
+      "sources": [
+        "cards/pack/jj/61009.py"
+      ],
+      "review": "Non-Elite minion; remaining-HP-minus-two cost; discard differs from defeat; evidence affordability.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61010",
+      "pack": "jj",
+      "name": "Circumstantial Evidence",
+      "sources": [
+        "cards/pack/jj/61010.py"
+      ],
+      "review": "Any enemy defeat; exhaustion cost and one evidence; nondamage defeat response.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61011",
+      "pack": "jj",
+      "name": "Leather Jacket",
+      "sources": [
+        "cards/pack/jj/61011.py"
+      ],
+      "review": "Jessica DEF modifier; after-you-defend timing; one evidence.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61012",
+      "pack": "jj",
+      "name": "\"Now I'm Ticked Off!\"",
+      "sources": [
+        "cards/pack/jj/61012.py"
+      ],
+      "review": "Forced attack after a villain activation against any player; own alter-ego condition; independent form change, legal attack targets and discard.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "61013",
+      "pack": "jj",
+      "name": "Reluctant Flier",
+      "sources": [
+        "cards/pack/jj/61013.py"
+      ],
+      "review": "Hero defense interrupt at at-least-three attack damage; discard cost; prevention then separate one damage.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61014",
+      "pack": "jj",
+      "name": "Stakeout",
+      "sources": [
+        "cards/pack/jj/61014.py"
+      ],
+      "review": "Play-area attachment action; non-permanent encounter scheme only; character thwart bonus and same-thwart defeat reward.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61015",
+      "pack": "jj",
+      "name": "* Captain Marvel",
+      "sources": [
+        "cards/pack/jj/61015.py"
+      ],
+      "review": "Enter-play response; four discarded cards; count printed energy icons; separate threat-removal and confuse conditions.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61016",
+      "pack": "jj",
+      "name": "* Spider-Woman",
+      "sources": [
+        "cards/pack/jj/61016.py"
+      ],
+      "review": "Controlled-character thwart; limb cap eight; optional discard cost and damage equal to counters.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61017",
+      "pack": "jj",
+      "name": "* Squirrel Girl",
+      "sources": [
+        "cards/pack/jj/61017.py"
+      ],
+      "review": "Play-from-hand response; remaining hand size and four-counter cap; spend one squirrel to remove one threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61018",
+      "pack": "jj",
+      "name": "Lay Down the Law",
+      "sources": [
+        "cards/pack/ant/12031.py"
+      ],
+      "review": "Reused Lay Down the Law; hero-form response after change; mental payment changes three to four threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61019",
+      "pack": "jj",
+      "name": "Strategy Session",
+      "sources": [
+        "cards/pack/jj/61019.py"
+      ],
+      "review": "Separate alter-ego search and hero thwart; chosen player owns search; hero branch targets player side schemes.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61020",
+      "pack": "jj",
+      "name": "* Run Them to Ground",
+      "sources": [
+        "cards/pack/jj/61020.py"
+      ],
+      "review": "Victory; next villain phase skipped; immediate encounters; chosen-villain damage immunity ends at next actual villain phase.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61021",
+      "pack": "jj",
+      "name": "* Lay the Trap",
+      "sources": [
+        "cards/pack/psylocke/41016.py"
+      ],
+      "review": "Reused Lay the Trap; defeating player chooses villain; five damage per starting player; Wrecking Crew active-villain restriction.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61022",
+      "pack": "jj",
+      "name": "Determination",
+      "sources": [
+        "cards/pack/mts/21052.py"
+      ],
+      "review": "Reused Determination; hero response after spending; one threat from main scheme; max one per deck.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61023",
+      "pack": "jj",
+      "name": "Grapnel Launcher",
+      "sources": [
+        "cards/pack/jj/61023.py"
+      ],
+      "review": "Restricted; discard cost; granted basic thwart without exhaustion; plus one THW and explicit patrol/crisis bypass.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61024",
+      "pack": "jj",
+      "name": "Entrapment",
+      "sources": [
+        "cards/pack/jj/61024.py"
+      ],
+      "review": "Alter-ego response after villain schemes; successful form change and discard are costs; attack damage equals placed threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61025",
+      "pack": "jj",
+      "name": "* Hellcat",
+      "sources": [
+        "cards/pack/jj/61025.py"
+      ],
+      "review": "Identity Defender condition; free put-into-play from hand; phase-end discard is scoped to that play instance.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61026",
+      "pack": "jj",
+      "name": "Joys of Life",
+      "sources": [
+        "cards/pack/jj/61026.py"
+      ],
+      "review": "Alliance; both reciprocal exhaustion-cost choices; Civilian alter-ego restriction; at least one legal cost/ready pair before play.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "61027",
+      "pack": "jj",
+      "name": "Unbreakable Bond",
+      "sources": [
+        "cards/pack/jj/61027.py"
+      ],
+      "review": "Team-Up; three threat and independent distributed healing; total allocation resolves once per healed character; no-effect play rejected.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "61028",
+      "pack": "jj",
+      "name": "* Second Chance",
+      "sources": [
+        "cards/pack/fne/61028.py",
+        "cards/pack/jj/61028.py"
+      ],
+      "review": "Reused Second Chance; each player independently opts in; all own identity-specific discarded cards shuffled into own deck.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61029",
+      "pack": "jj",
+      "name": "* Defend Our City",
+      "sources": [
+        "cards/pack/jj/61029.py"
+      ],
+      "review": "Identity Defender prerequisite; hinder scaling and victory; each-player Team-Up search; phase-limited Team-Up cost reduction.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61030",
+      "pack": "jj",
+      "name": "Work-Life Balance",
+      "sources": [
+        "cards/pack/jj/61030.py"
+      ],
+      "review": "Additional hand-discard cost for form changes; alter-ego removal branches; ally removal and successful confusion costs.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61031",
+      "pack": "jj",
+      "name": "* Purple Man",
+      "sources": [
+        "cards/pack/jj/61031.py"
+      ],
+      "review": "Dynamic maximum SCH/THW and ATK among characters; excludes self-recursive stat calculation; updates after changes.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61032",
+      "pack": "jj",
+      "name": "Indomitable Will",
+      "sources": [
+        "cards/pack/jj/61032.py"
+      ],
+      "review": "Hinder; reveal adds two pheromones to every Suggestion; forced enter-play response adds two more to new obligations.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61033a",
+      "pack": "jj",
+      "name": "Suggestion ([energy])",
+      "sources": [
+        "cards/pack/jj/61033a.py"
+      ],
+      "review": "Uses three pheromones; forced action exhaustion/counter costs; printed energy resource; normal payment or two main-scheme threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61033b",
+      "pack": "jj",
+      "name": "Suggestion ([mental])",
+      "sources": [
+        "cards/pack/jj/61033b.py"
+      ],
+      "review": "Uses three pheromones; forced action exhaustion/counter costs; printed mental resource; normal payment or two main-scheme threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61033c",
+      "pack": "jj",
+      "name": "Suggestion ([physical])",
+      "sources": [
+        "cards/pack/jj/61033c.py"
+      ],
+      "review": "Uses three pheromones; forced action exhaustion/counter costs; printed physical resource; normal payment or two main-scheme threat.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61034",
+      "pack": "jj",
+      "name": "Innate Aggression",
+      "sources": [
+        "cards/pack/jj/61034.py"
+      ],
+      "review": "Native Starting keyword; optional opening-hand inclusion; own hero-only ATK modifier.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61035",
+      "pack": "jj",
+      "name": "Shakedown",
+      "sources": [
+        "cards/pack/jj/61035.py"
+      ],
+      "review": "Any-player control; max one per player; own exact attack defeat; base SCH amount and exhaustion cost.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61036",
+      "pack": "jj",
+      "name": "Innate Perception",
+      "sources": [
+        "cards/pack/jj/61036.py"
+      ],
+      "review": "Native Starting keyword; optional opening-hand inclusion; own hero-only THW modifier.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61037",
+      "pack": "jj",
+      "name": "Innate Inspiration",
+      "sources": [
+        "cards/pack/jj/61037.py"
+      ],
+      "review": "Native Starting keyword; optional opening-hand inclusion; own allies gain one hit point.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61038",
+      "pack": "jj",
+      "name": "* Echo",
+      "sources": [
+        "cards/pack/jj/61038.py"
+      ],
+      "review": "Constant reduction for each enemy attack; current controller hero DEF; no hero DEF in alter-ego form.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61039",
+      "pack": "jj",
+      "name": "* Lay Low",
+      "sources": [
+        "cards/pack/jj/61039.py"
+      ],
+      "review": "Each-player optional alter-ego change; all resulting alter-egos heal REC, including those already in alter-ego form.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "61040",
+      "pack": "jj",
+      "name": "Mitigated Threat",
+      "sources": [
+        "cards/pack/jj/61040.py"
+      ],
+      "review": "Attach to any card; remove all four specified icon types; each-player optional resource upkeep; discard if any declines or cannot pay.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62001a",
+      "pack": "luke_cage",
+      "name": "* Luke Cage",
+      "sources": [
+        "cards/pack/luke_cage/62001a.py"
+      ],
+      "review": "Unlimited tough and loss of incoming piercing; each discarded tough triggers one unpreventable damage ignoring tough.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62001b",
+      "pack": "luke_cage",
+      "name": "* Luke Cage",
+      "sources": [
+        "cards/pack/luke_cage/62001b.py"
+      ],
+      "review": "Same tough/piercing constant abilities; deck/discard Burstein search once per phase; hero-only damage response absent.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62002",
+      "pack": "luke_cage",
+      "name": "* Jessica Jones",
+      "sources": [
+        "cards/pack/luke_cage/62002.py"
+      ],
+      "review": "THW scales with identity tough count; bonus capped at four; dynamic status updates.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62003",
+      "pack": "luke_cage",
+      "name": "Harlem's Hero",
+      "sources": [
+        "cards/pack/luke_cage/62003.py"
+      ],
+      "review": "Give tough first; repeat ready choice for each resulting tough; own characters only.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62004",
+      "pack": "luke_cage",
+      "name": "Knuckle Sandwich",
+      "sources": [
+        "cards/pack/luke_cage/62004.py"
+      ],
+      "review": "Hero attack three; optional tough discard and return event; stun replaces the whole attack ability.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62005",
+      "pack": "luke_cage",
+      "name": "\"Stand with Me!\"",
+      "sources": [
+        "cards/pack/luke_cage/62005.py"
+      ],
+      "review": "Give tough before counting; remove one threat per tough capped at five; tough still resolves without removable threat.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "62006",
+      "pack": "luke_cage",
+      "name": "\"Sweet Christmas!\"",
+      "sources": [
+        "cards/pack/luke_cage/62006.py"
+      ],
+      "review": "Tough-based cost reduction; one chosen legal villain and all own engaged legal minions; Guard and cannot-be-attacked restrictions.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "62007",
+      "pack": "luke_cage",
+      "name": "* Fogwell's Gym",
+      "sources": [
+        "cards/pack/luke_cage/62007.py"
+      ],
+      "review": "Any Defender character tough discard; exhaust support to ready that character; target must be readyable.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62008",
+      "pack": "luke_cage",
+      "name": "* Burstein Process",
+      "sources": [
+        "cards/pack/luke_cage/62008.py"
+      ],
+      "review": "Alter-ego restriction; exhaustion cost; two tough only when none before resolving, otherwise one.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62009",
+      "pack": "luke_cage",
+      "name": "Cruisin' for a Bruisin'",
+      "sources": [
+        "cards/pack/luke_cage/62009.py"
+      ],
+      "review": "Minion attachment and max-one restriction; attack-only additional damage and overkill; response to play from any origin, not put-into-play.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "62010",
+      "pack": "luke_cage",
+      "name": "Metal Bracer",
+      "sources": [
+        "cards/pack/luke_cage/62010.py"
+      ],
+      "review": "Luke retaliate; hero interrupt reduces dealt damage by one after exhaust; unpreventable damage cannot be reduced.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62011",
+      "pack": "luke_cage",
+      "name": "* Power Man",
+      "sources": [
+        "cards/pack/luke_cage/62011.py"
+      ],
+      "review": "Hero response after Luke tough discard; exhaustion cost; draw one card.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62012",
+      "pack": "luke_cage",
+      "name": "* Iron Fist",
+      "sources": [
+        "cards/pack/luke_cage/62012.py"
+      ],
+      "review": "Interrupt when defending, before boosts; snapshot current ATK; establish prevention before tough; expire at the end of that attack.",
+      "status": "corrected",
+      "scan_cross_checked": true
+    },
+    {
+      "card_id": "62013",
+      "pack": "luke_cage",
+      "name": "* Misty Knight",
+      "sources": [
+        "cards/pack/luke_cage/62013.py"
+      ],
+      "review": "Toughness; plus two ATK/THW only while tough; consequential damage remains native.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62014",
+      "pack": "luke_cage",
+      "name": "* Valkyrie",
+      "sources": [
+        "cards/pack/luke_cage/62014.py"
+      ],
+      "review": "Toughness; another ally defeat replacement; discard Valkyrie as cost; heal until one HP remains.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62015",
+      "pack": "luke_cage",
+      "name": "Take a Stand",
+      "sources": [
+        "cards/pack/luke_cage/62015.py"
+      ],
+      "review": "Hero response after own hero defends; current controlled allies gain ATK/THW until next player-phase end.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62016",
+      "pack": "luke_cage",
+      "name": "Innovation",
+      "sources": [
+        "cards/pack/mts/21058.py"
+      ],
+      "review": "Reused Innovation; hero response after spending; one damage healed from controlled ally; max one per deck.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62017",
+      "pack": "luke_cage",
+      "name": "The Power of Leadership",
+      "sources": [
+        "cards/pack/core/01072.py"
+      ],
+      "review": "Reused Power of Leadership; double resources only for Leadership cards; max two per deck.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62018",
+      "pack": "luke_cage",
+      "name": "Defensive Formation",
+      "sources": [
+        "cards/pack/luke_cage/62018.py"
+      ],
+      "review": "Uses three block; exhaustion and counter cost; Defender ally tough; last-use discard and other players' allies.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62019",
+      "pack": "luke_cage",
+      "name": "Righteous Purpose",
+      "sources": [
+        "cards/pack/luke_cage/62019.py"
+      ],
+      "review": "Any-player control; max one per player; exactly-one-HP threshold; current controlled characters and dynamic stat updates.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62020",
+      "pack": "luke_cage",
+      "name": "* Hulk",
+      "sources": [
+        "cards/pack/luke_cage/62020.py"
+      ],
+      "review": "No basic THW; ATK scales with rage; response only after villain attacks this player.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62021",
+      "pack": "luke_cage",
+      "name": "* She-Hulk",
+      "sources": [
+        "cards/pack/luke_cage/62021.py"
+      ],
+      "review": "Toughness; enter-play response gives controller's identity tough.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62022",
+      "pack": "luke_cage",
+      "name": "Dynamic Duo",
+      "sources": [
+        "cards/pack/fne/62022.py",
+        "cards/pack/luke_cage/62022.py"
+      ],
+      "review": "Reused Dynamic Duo; Team-Up search and named ally search; add together and shuffle after searches.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62023",
+      "pack": "luke_cage",
+      "name": "Power Man and Iron Fist",
+      "sources": [
+        "cards/pack/luke_cage/62023.py"
+      ],
+      "review": "Team-Up; attack two plus independent tough to a character; no friendly-only restriction; status replacement applies to entire attack.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62024",
+      "pack": "luke_cage",
+      "name": "Unbreakable Bond",
+      "sources": [
+        "cards/pack/jj/61027.py"
+      ],
+      "review": "Linked Unbreakable Bond printing; same partial-resolution and total-healing fixes as 61027.",
+      "status": "corrected",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62025",
+      "pack": "luke_cage",
+      "name": "Energy",
+      "sources": [
+        "game/card/face/card_type/resource.py",
+        "data/cards.json"
+      ],
+      "review": "Native double energy resource and max-one-per-deck metadata.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62026",
+      "pack": "luke_cage",
+      "name": "Genius",
+      "sources": [
+        "game/card/face/card_type/resource.py",
+        "data/cards.json"
+      ],
+      "review": "Native double mental resource and max-one-per-deck metadata.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62027",
+      "pack": "luke_cage",
+      "name": "Strength",
+      "sources": [
+        "game/card/face/card_type/resource.py",
+        "data/cards.json"
+      ],
+      "review": "Native double physical resource and max-one-per-deck metadata.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62028",
+      "pack": "luke_cage",
+      "name": "Internal Injury",
+      "sources": [
+        "cards/pack/luke_cage/62028.py"
+      ],
+      "review": "Luke obligation; player-phase-end three unpreventable damage ignoring tough; alter-ego basic recovery removes from game.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62029",
+      "pack": "luke_cage",
+      "name": "* Cottonmouth",
+      "sources": [
+        "cards/pack/luke_cage/62029.py"
+      ],
+      "review": "After-attack forced response; two further attacks on the same surviving character; once per phase; boost dealt to Luke player.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62030",
+      "pack": "luke_cage",
+      "name": "Venomous Whispers",
+      "sources": [
+        "cards/pack/luke_cage/62030.py"
+      ],
+      "review": "Serpent Society minions cannot be attacked; defeating-player encounter discard/reveal; confuse boost.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62031",
+      "pack": "luke_cage",
+      "name": "Augmented Jaws",
+      "sources": [
+        "cards/pack/luke_cage/62031.py"
+      ],
+      "review": "Cottonmouth attachment or active-villain fallback; attack bonus; all tough discarded from attacked character; mental-mental hero-action cost.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62032",
+      "pack": "luke_cage",
+      "name": "* Asp",
+      "sources": [
+        "cards/pack/luke_cage/62032.py"
+      ],
+      "review": "After scheme against player, stun that identity; boost stuns attacked player.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62033",
+      "pack": "luke_cage",
+      "name": "* Sidewinder",
+      "sources": [
+        "cards/pack/luke_cage/62033.py"
+      ],
+      "review": "Quickstrike; interrupt when attacked; discard encounter top; boost-ability check; deal Sidewinder itself to attacking player.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62034",
+      "pack": "luke_cage",
+      "name": "Size Advantage",
+      "sources": [
+        "cards/pack/luke_cage/62034.py"
+      ],
+      "review": "Hero attack; three or six damage based on Giant or strictly greater remaining HP.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62035",
+      "pack": "luke_cage",
+      "name": "Observe",
+      "sources": [
+        "cards/pack/luke_cage/62035.py"
+      ],
+      "review": "Chosen villain schemes; independent hero tough even when confuse replaces scheme.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62036",
+      "pack": "luke_cage",
+      "name": "Toughen Up",
+      "sources": [
+        "cards/pack/luke_cage/62036.py"
+      ],
+      "review": "Response after basic recovery; remaining HP compared with base HP; exhaustion cost and tough validity.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    },
+    {
+      "card_id": "62037",
+      "pack": "luke_cage",
+      "name": "Black Belt",
+      "sources": [
+        "cards/pack/luke_cage/62037.py"
+      ],
+      "review": "Any controlled Martial Artist satisfies play prerequisite; friendly attachment; max one per character; trait and HP modifiers.",
+      "status": "reviewed_no_additional_mismatch_found",
+      "scan_cross_checked": false
+    }
+  ]
+}

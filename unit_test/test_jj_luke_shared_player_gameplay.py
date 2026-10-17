@@ -25,10 +25,14 @@ class TestSharedPlayerCards(Gameplay, unittest.TestCase):
                 self.assertEqual(s["hand"],[])
 
     def test_unbreakable_bond_distributes_healing_between_characters(self):
-        heal=iter(("61001a","61003","61001a"))
         def choose(prompt):
-            options=[o for o in prompt.options if o["name"]=="Heal_1_damage"]
-            if options: return self.descriptor(options[0],next(heal))
+            options=[o for o in prompt.options if o["name"]=="Distribute_3_healing"]
+            if options:
+                hero=self.descriptor(options[0],"61001a").targets[0]
+                ally=self.descriptor(options[0],"61003").targets[0]
+                result=self.descriptor(options[0])
+                result.targets=[hero,ally,hero]
+                return result
             return NotImplemented
         s=self.play(['puzzle.ChangeFormFor(0,"Hero")','puzzle.PutIntoPlay("61003")',
             'puzzle.Damage("61003",1)','puzzle.Damage("61003",2)','puzzle.Damage(hero,4)',
