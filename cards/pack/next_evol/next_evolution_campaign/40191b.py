@@ -11,7 +11,7 @@ def GetAbilities() -> Sequence['Ability']:
         card.face.PutIntoPlay(Worlds.GetFirstPlayer(effect), effect, under_control=True)
 
     return [
-        AbilityFactory.ThisEnterPlayWithCounters(1, 'safehouse'),
+        AbilityFactory.ThisEnterPlayWithCounters(1, 'safehouse', include_face_changes=True),
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.Action,
             safehouse_established,

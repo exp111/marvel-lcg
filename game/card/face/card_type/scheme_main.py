@@ -229,6 +229,9 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
             if self.card.GetOwner() != effect.GetInitiator():
                 return False
 
+        if Worlds.GetCrisisFacesAffectingMainScheme(self) and not effect.IsIgnoreKeyword('Crisis', effect):
+            return False
+
         main_scheme = Worlds.FindMainScheme(self)
         if main_scheme == self:
             if MainScheme.GetPatrolFaces(effect) != []:

@@ -1,0 +1,11 @@
+{
+    "version": "0.5.9",
+    "name": "Jessica Jones Nemesis",
+    "encounters": [
+        "61031",
+        "61032",
+        "61033a",
+        "61033b",
+        "61033c"
+    ]
+}

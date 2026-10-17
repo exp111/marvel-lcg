@@ -1,0 +1,423 @@
+{
+  "jj": [
+    {
+      "card_id": "61001a",
+      "name": "Jessica Jones",
+      "type": "Hero"
+    },
+    {
+      "card_id": "61001b",
+      "name": "Jessica Jones",
+      "type": "Alter-Ego"
+    },
+    {
+      "card_id": "61002",
+      "name": "Alias Investigations",
+      "type": "Support"
+    },
+    {
+      "card_id": "61003",
+      "name": "Luke Cage",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61004",
+      "name": "\"Big Mistake\"",
+      "type": "Event"
+    },
+    {
+      "card_id": "61005",
+      "name": "Breakthrough",
+      "type": "Event"
+    },
+    {
+      "card_id": "61006",
+      "name": "Snooping Around",
+      "type": "Event"
+    },
+    {
+      "card_id": "61007",
+      "name": "Piecing It All Together",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61008",
+      "name": "Calling in Favors",
+      "type": "Support"
+    },
+    {
+      "card_id": "61009",
+      "name": "4K Digital Camcorder",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61010",
+      "name": "Circumstantial Evidence",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61011",
+      "name": "Leather Jacket",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61012",
+      "name": "\"Now I'm Ticked Off!\"",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61013",
+      "name": "Reluctant Flier",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61014",
+      "name": "Stakeout",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61015",
+      "name": "Captain Marvel",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61016",
+      "name": "Spider-Woman",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61017",
+      "name": "Squirrel Girl",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61018",
+      "name": "Lay Down the Law",
+      "type": "Event"
+    },
+    {
+      "card_id": "61019",
+      "name": "Strategy Session",
+      "type": "Event"
+    },
+    {
+      "card_id": "61020",
+      "name": "Run Them to Ground",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61021",
+      "name": "Lay the Trap",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61022",
+      "name": "Determination",
+      "type": "Resource"
+    },
+    {
+      "card_id": "61023",
+      "name": "Grapnel Launcher",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61024",
+      "name": "Entrapment",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61025",
+      "name": "Hellcat",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61026",
+      "name": "Joys of Life",
+      "type": "Event"
+    },
+    {
+      "card_id": "61027",
+      "name": "Unbreakable Bond",
+      "type": "Event"
+    },
+    {
+      "card_id": "61028",
+      "name": "Second Chance",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61029",
+      "name": "Defend Our City",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61030",
+      "name": "Work-Life Balance",
+      "type": "Obligation"
+    },
+    {
+      "card_id": "61031",
+      "name": "Purple Man",
+      "type": "Minion"
+    },
+    {
+      "card_id": "61032",
+      "name": "Indomitable Will",
+      "type": "Side Scheme"
+    },
+    {
+      "card_id": "61033a",
+      "name": "Suggestion ([energy])",
+      "type": "Obligation"
+    },
+    {
+      "card_id": "61033b",
+      "name": "Suggestion ([mental])",
+      "type": "Obligation"
+    },
+    {
+      "card_id": "61033c",
+      "name": "Suggestion ([physical])",
+      "type": "Obligation"
+    },
+    {
+      "card_id": "61034",
+      "name": "Innate Aggression",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61035",
+      "name": "Shakedown",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61036",
+      "name": "Innate Perception",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61037",
+      "name": "Innate Inspiration",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "61038",
+      "name": "Echo",
+      "type": "Ally"
+    },
+    {
+      "card_id": "61039",
+      "name": "Lay Low",
+      "type": "Player Side Scheme"
+    },
+    {
+      "card_id": "61040",
+      "name": "Mitigated Threat",
+      "type": "Upgrade"
+    }
+  ],
+  "luke_cage": [
+    {
+      "card_id": "62001a",
+      "name": "Luke Cage",
+      "type": "Hero"
+    },
+    {
+      "card_id": "62001b",
+      "name": "Luke Cage",
+      "type": "Alter-Ego"
+    },
+    {
+      "card_id": "62002",
+      "name": "Jessica Jones",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62003",
+      "name": "Harlem's Hero",
+      "type": "Event"
+    },
+    {
+      "card_id": "62004",
+      "name": "Knuckle Sandwich",
+      "type": "Event"
+    },
+    {
+      "card_id": "62005",
+      "name": "\"Stand with Me!\"",
+      "type": "Event"
+    },
+    {
+      "card_id": "62006",
+      "name": "\"Sweet Christmas!\"",
+      "type": "Event"
+    },
+    {
+      "card_id": "62007",
+      "name": "Fogwell's Gym",
+      "type": "Support"
+    },
+    {
+      "card_id": "62008",
+      "name": "Burstein Process",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "62009",
+      "name": "Cruisin' for a Bruisin'",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "62010",
+      "name": "Metal Bracer",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "62011",
+      "name": "Power Man",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "62012",
+      "name": "Iron Fist",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62013",
+      "name": "Misty Knight",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62014",
+      "name": "Valkyrie",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62015",
+      "name": "Take a Stand",
+      "type": "Event"
+    },
+    {
+      "card_id": "62016",
+      "name": "Innovation",
+      "type": "Resource"
+    },
+    {
+      "card_id": "62017",
+      "name": "The Power of Leadership",
+      "type": "Resource"
+    },
+    {
+      "card_id": "62018",
+      "name": "Defensive Formation",
+      "type": "Support"
+    },
+    {
+      "card_id": "62019",
+      "name": "Righteous Purpose",
+      "type": "Support"
+    },
+    {
+      "card_id": "62020",
+      "name": "Hulk",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62021",
+      "name": "She-Hulk",
+      "type": "Ally"
+    },
+    {
+      "card_id": "62022",
+      "name": "Dynamic Duo",
+      "type": "Event"
+    },
+    {
+      "card_id": "62023",
+      "name": "Power Man and Iron Fist",
+      "type": "Event"
+    },
+    {
+      "card_id": "62024",
+      "name": "Unbreakable Bond",
+      "type": "Event"
+    },
+    {
+      "card_id": "62025",
+      "name": "Energy",
+      "type": "Resource"
+    },
+    {
+      "card_id": "62026",
+      "name": "Genius",
+      "type": "Resource"
+    },
+    {
+      "card_id": "62027",
+      "name": "Strength",
+      "type": "Resource"
+    },
+    {
+      "card_id": "62028",
+      "name": "Internal Injury",
+      "type": "Obligation"
+    },
+    {
+      "card_id": "62029",
+      "name": "Cottonmouth",
+      "type": "Minion"
+    },
+    {
+      "card_id": "62030",
+      "name": "Venomous Whispers",
+      "type": "Side Scheme"
+    },
+    {
+      "card_id": "62031",
+      "name": "Augmented Jaws",
+      "type": "Attachment"
+    },
+    {
+      "card_id": "62032",
+      "name": "Asp",
+      "type": "Minion"
+    },
+    {
+      "card_id": "62033",
+      "name": "Sidewinder",
+      "type": "Minion"
+    },
+    {
+      "card_id": "62034",
+      "name": "Size Advantage",
+      "type": "Event"
+    },
+    {
+      "card_id": "62035",
+      "name": "Observe",
+      "type": "Event"
+    },
+    {
+      "card_id": "62036",
+      "name": "Toughen Up",
+      "type": "Upgrade"
+    },
+    {
+      "card_id": "62037",
+      "name": "Black Belt",
+      "type": "Upgrade"
+    }
+  ],
+  "_provenance": {
+    "jj": {
+      "url": "https://raw.githubusercontent.com/quincarter/marvel-champions-digital-game/main/packages/content/raw/marvelcdb/jj.json",
+      "sha256": "47a78e8a21768870b37dcc2742eca1459132b9dc2f5efd9a2f784a855dc66c33",
+      "purpose": "Card codes, titles and face inventory only; no game implementation."
+    },
+    "luke_cage": {
+      "url": "https://raw.githubusercontent.com/quincarter/marvel-champions-digital-game/main/packages/content/raw/marvelcdb/luke_cage.json",
+      "sha256": "f18fcd283598f74f0a6349be5f20a6a278bb9f170463900612c6edaf4a6d571c",
+      "purpose": "Card codes, titles and face inventory only; no game implementation."
+    }
+  }
+}

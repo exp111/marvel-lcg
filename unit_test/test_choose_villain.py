@@ -11,7 +11,7 @@ class TestChooseVillain(unittest.TestCase):
         self.player = MagicMock()
         self.effect = MagicMock()
         self.effect.GetInitiator.return_value = self.player
-        self.effect.world.GetScenario.return_value.name = "The Tower Defense"
+        self.effect.world.scene.campaign.name = "The Tower Defense"
 
     def test_returns_only_villain_without_prompting(self):
         villain = MagicMock(name="Proxima")
@@ -49,9 +49,21 @@ class TestChooseVillain(unittest.TestCase):
         get_villains.assert_called_once_with(self.effect, finder)
         self.player.AskChooseFace.assert_not_called()
 
+    def test_explicit_player_chooses_instead_of_effect_owner(self):
+        villains = [MagicMock(name="Proxima"), MagicMock(name="Corvus")]
+        defeating_player = MagicMock()
+        defeating_player.AskChooseFace.return_value = villains[1]
+        with patch.object(Worlds, "GetVillains", return_value=villains):
+            result = Worlds.ChooseVillain(self.effect, player=defeating_player)
+        self.assertIs(result, villains[1])
+        self.player.AskChooseFace.assert_not_called()
+        defeating_player.AskChooseFace.assert_called_once_with(
+            villains, self.effect, prompt="Choose a villain")
+
     def test_wrecking_crew_uses_only_the_active_villain(self):
         active_villain = MagicMock(name="Wrecker")
-        self.effect.world.GetScenario.return_value.name = "The Wrecking Crew"
+        self.effect.world.scene.campaign.name = "The Wrecking Crew"
+        self.effect.world.GetScenario.return_value.name = "Scenario"
 
         with patch.object(Worlds, "FindVillain", return_value=active_villain), patch.object(
             Worlds,

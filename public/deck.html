@@ -480,6 +480,9 @@ function add_card(e, card_id, allow_update=false) {
 }
 
 function showDeckCards() {
+    // Starter decks and imported decks may omit these optional card lists.
+    hero_data['set_aside'] ??= []
+    hero_data['side_deck'] ??= []
     if( !('aspect' in hero_data) ) {
         hero_data['aspect'] = ""
     }
@@ -489,9 +492,6 @@ function showDeckCards() {
     document.querySelector(`#hero_deck`).value = hero_data['hero_deck'].join("; ")  //  + "; "
     document.querySelector(`#slots`).value = hero_data['player_deck'].join("; ")    //  + "; "
     document.querySelector(`#set_aside`).value = hero_data['set_aside'].join("; ")  //  + "; "
-    if( !('side_deck' in hero_data) ) {
-        hero_data['side_deck'] = []
-    }
     document.querySelector(`#side_deck`).value = hero_data['side_deck'].join("; ")  //  + "; "
 
     let e

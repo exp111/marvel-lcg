@@ -14,7 +14,7 @@ class HasToughness(HasAttribute):
     def GetAbilities(self) -> List['Ability']:
         def give_tough(
             effect: 'Effect',
-            message: 'Message.AfterCardEnterPlay',
+            message: 'Message.AfterCardEnterPlay|Message.AfterCardFaceActivated',
         ) -> None:
             from game.effect.rule import Toughness
             from game.operate.faces import Faces
@@ -24,7 +24,10 @@ class HasToughness(HasAttribute):
         return [
             Ability(
                 AbilityType.ForcedResponse,
-                Message.AfterCardEnterPlay,
+                # Newly exposed characters (e.g. Strong Inhuman, Black Swan,
+                # and the next Apocalypse stage) still initialize Toughness.
+                # This must not broadcast an entry to other cards' responses.
+                Message.AfterCardEnterPlay|Message.AfterCardFaceActivated,
                 [
                     lambda effect, message:
                         bool(effect.world.rule.v18_timing) and
@@ -42,6 +45,16 @@ class HasToughness(HasAttribute):
         from game.effect.rule import Toughness
         from game.operate.faces import Faces
         if super().OnWhenCardEnterPlay(message):
+            if self.IsToughness() and not bool(self.card.world.rule.v18_timing):
+                Faces.GiveStatus([self], "Tough", Toughness(self))
+            return True
+        return False
+
+    @override
+    def OnWhenCardFaceActivated(self, message: 'Message.WhenCardFaceActivated') -> bool:
+        from game.effect.rule import Toughness
+        from game.operate.faces import Faces
+        if super().OnWhenCardFaceActivated(message):
             if self.IsToughness() and not bool(self.card.world.rule.v18_timing):
                 Faces.GiveStatus([self], "Tough", Toughness(self))
             return True

@@ -1,3 +1,12 @@
+# Unreleased
+
+## Jessica Jones and Luke Cage
+
+- Enabled both complete hero packs in normal play, with their 40-card Justice and Leadership starter decks, obligations, nemesis sets and all player cards.
+- Added engine support for thwart redirection, basic thwarting without exhausting, Mitigated Threat, stacked Tough status cards and unpreventable damage. Both packs have targeted solo and multiplayer gameplay coverage.
+- Activated reviewed artwork for all 81 card faces: 75 Hall of Heroes originals and six documented reprint matches. The published artwork update reuses the existing library and downloads about 37 MB of new or changed packs.
+- Validated 376 gameplay tests and 115 registration/artwork checks, including normal starter-deck launches through a complete round. These changes are in the source build; the published v1.3.3.1 executable is unchanged.
+
 # Marvel Champions Digital v1.3.3.1
 
 Application version: **1.3.3.1r**

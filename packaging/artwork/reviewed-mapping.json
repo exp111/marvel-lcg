@@ -107,35 +107,49 @@
     },
     "62022": {
       "reviewed": true,
-      "review_note": "Visually inspected full printed card: clean English title, rules, stats, resources and printed set number match game record. Official FFG native artwork; no added watermark. FFG Unbreakable article linked original300x419px PNG, Basic cost2 physicalresource printed#22.",
+      "review_note": "Visually reviewed October Hall of Heroes original for 62022, Dynamic Duo, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
       "source": {
         "kind": "image",
-        "source_id": "ffg-dynamic-duo",
-        "sheet_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/2026/08/mc62_luke-cage_dynamic-duo.png",
-        "file_sha256": "c8d5b6ce8ffb1cec51dc8bf24d8bc6ba0d4da8b7c40cca017a98526aee701495",
-        "sheet_sha256": "c8d5b6ce8ffb1cec51dc8bf24d8bc6ba0d4da8b7c40cca017a98526aee701495",
+        "source_id": "hoh-2026-10-62022",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62022.jpg",
+        "file_sha256": "0ff1acb82e4125a22694e53868513d849d85ead1f8277d178900d9e8077f5482",
+        "sheet_sha256": "0ff1acb82e4125a22694e53868513d849d85ead1f8277d178900d9e8077f5482",
         "face": "front",
         "columns": 1,
         "rows": 1,
         "index": 0
       },
-      "rotation": 0
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Dynamic Duo",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
     },
     "61028": {
       "reviewed": true,
-      "review_note": "Visually inspected clean complete English Second Chance card, native1048x738 source, printedBasic#28 mentalresource cost0 and3perplayerthreat. FFG-provided preview shared by Skilled Investigator; article explicitly credits FFG and Olivia for the supplied card reveals. No added watermark. Landscape source rotated90degrees counterclockwise so scheme title isLEFT before gameCSS rotation.",
+      "review_note": "Visually reviewed October Hall of Heroes original for 61028, Second Chance, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
       "source": {
         "kind": "image",
-        "source_id": "ffg-second-chance-preview",
-        "sheet_url": "https://skilledinvestigator.com/wp-content/uploads/2026/07/Jessica-Jones-Hero-Pack-29-5.png",
-        "file_sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
-        "sheet_sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
+        "source_id": "hoh-2026-10-61028",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61028.jpg",
+        "file_sha256": "4f7a4a6304c6c5968c728cd8f85badab472234128c242e8b88848a7054cae74d",
+        "sheet_sha256": "4f7a4a6304c6c5968c728cd8f85badab472234128c242e8b88848a7054cae74d",
         "face": "front",
         "columns": 1,
         "rows": 1,
         "index": 0
       },
-      "rotation": 90
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Second Chance",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
     },
     "01001a": {
       "reviewed": true,
@@ -125636,6 +125650,1873 @@
       "rotation": 0,
       "proposal_basis": "exact name; requires visual confirmation",
       "candidate_count": 3
+    },
+    "61001a": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61001a, Jessica Jones, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61001a",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001a.jpg",
+        "file_sha256": "61056a7089559173139c9ba235bc9484846012ad8dd95011d2b471cbdeef6f8e",
+        "sheet_sha256": "61056a7089559173139c9ba235bc9484846012ad8dd95011d2b471cbdeef6f8e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Jessica Jones",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61001b": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61001b, Jessica Jones, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61001b",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001b.jpg",
+        "file_sha256": "b73fe7a925dddf92862fd389c551fb1a65355353bd9eda9047b3064824e35321",
+        "sheet_sha256": "b73fe7a925dddf92862fd389c551fb1a65355353bd9eda9047b3064824e35321",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Jessica Jones",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61002": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61002, Alias Investigations, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61002",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61002.jpg",
+        "file_sha256": "565b6a9d0f5753576a44d40e6dd4caaf229b845227b3bda38a1d1b44d8468611",
+        "sheet_sha256": "565b6a9d0f5753576a44d40e6dd4caaf229b845227b3bda38a1d1b44d8468611",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Alias Investigations",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61003": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61003, Luke Cage, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61003",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61003.jpg",
+        "file_sha256": "78ce6018cc2dccbf7bdd459b8764b07c4bfce6725f43404f09b7610adc20e154",
+        "sheet_sha256": "78ce6018cc2dccbf7bdd459b8764b07c4bfce6725f43404f09b7610adc20e154",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Luke Cage",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61004": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61004, \"Big Mistake\", on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61004",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61004.jpg",
+        "file_sha256": "fc9de01e3bb097d856f7c6080997ac7badb8624fe844d539fd96ab2daab34e04",
+        "sheet_sha256": "fc9de01e3bb097d856f7c6080997ac7badb8624fe844d539fd96ab2daab34e04",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "\"Big Mistake\"",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61005": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61005, Breakthrough, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61005",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61005.jpg",
+        "file_sha256": "b58effb88f26c24e6f1ca64582c68d44717b7cbead4280ba7d3d67ee67d1cf74",
+        "sheet_sha256": "b58effb88f26c24e6f1ca64582c68d44717b7cbead4280ba7d3d67ee67d1cf74",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Breakthrough",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61006": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61006, Snooping Around, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61006",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61006.jpg",
+        "file_sha256": "5bf001bc2034086238b7a869c942b5e6214b7c6e647ac73e1ff8e0e5a5c6bc49",
+        "sheet_sha256": "5bf001bc2034086238b7a869c942b5e6214b7c6e647ac73e1ff8e0e5a5c6bc49",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Snooping Around",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61007": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61007, Piecing It All Together, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61007",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61007.jpg",
+        "file_sha256": "c0b310032e2d690baf1a449c71852f024afc514ae5fca44c5140a1ddc45d3443",
+        "sheet_sha256": "c0b310032e2d690baf1a449c71852f024afc514ae5fca44c5140a1ddc45d3443",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Piecing It All Together",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61008": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61008, Calling in Favors, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61008",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61008.jpg",
+        "file_sha256": "c0fa06889afac3d4c6741e912cdbfd150a59e1c7feccb99eb836ed17322312e8",
+        "sheet_sha256": "c0fa06889afac3d4c6741e912cdbfd150a59e1c7feccb99eb836ed17322312e8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Calling in Favors",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61009": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61009, 4K Digital Camcorder, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61009",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61009.jpg",
+        "file_sha256": "2f8f4877b8193b053c90ab020b7186dd641d0c57b1c6a0c44ade380f2e2797f1",
+        "sheet_sha256": "2f8f4877b8193b053c90ab020b7186dd641d0c57b1c6a0c44ade380f2e2797f1",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "4K Digital Camcorder",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61010": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61010, Circumstantial Evidence, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61010",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61010.jpg",
+        "file_sha256": "9770e60f218a83601a545f5d3411626b934d801a6aff2630c2b04c2ece28cff6",
+        "sheet_sha256": "9770e60f218a83601a545f5d3411626b934d801a6aff2630c2b04c2ece28cff6",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Circumstantial Evidence",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61011": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61011, Leather Jacket, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61011",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61011.jpg",
+        "file_sha256": "0a2f42049732bc681bf8b0d9d6051a761397403b85172a49448d22ae050e6c10",
+        "sheet_sha256": "0a2f42049732bc681bf8b0d9d6051a761397403b85172a49448d22ae050e6c10",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Leather Jacket",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61012": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61012, \"Now I'm Ticked Off!\", on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61012",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61012.jpg",
+        "file_sha256": "b18d9c8121d62f90663975766c3e82a4ddec35c718101e12105b22eedc55f1b7",
+        "sheet_sha256": "b18d9c8121d62f90663975766c3e82a4ddec35c718101e12105b22eedc55f1b7",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "\"Now I'm Ticked Off!\"",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61013": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61013, Reluctant Flier, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61013",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61013.jpg",
+        "file_sha256": "2f18e18782681cd00c4fda624c2edbc420e4f0e41fe68494944686c660f1ed87",
+        "sheet_sha256": "2f18e18782681cd00c4fda624c2edbc420e4f0e41fe68494944686c660f1ed87",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Reluctant Flier",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61014": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61014, Stakeout, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61014",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61014.jpg",
+        "file_sha256": "dbb51a2a41854734b67b1e8fe1efae0be9bc58d4b5fb17590be6401e23a57a42",
+        "sheet_sha256": "dbb51a2a41854734b67b1e8fe1efae0be9bc58d4b5fb17590be6401e23a57a42",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Stakeout",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61015": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61015, Captain Marvel, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61015",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61015.jpg",
+        "file_sha256": "828a677434de9981277c9a9ae627997c9dbbf957e5e03ce301adf924bb3bc047",
+        "sheet_sha256": "828a677434de9981277c9a9ae627997c9dbbf957e5e03ce301adf924bb3bc047",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Captain Marvel",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61016": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61016, Spider-Woman, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61016",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61016.jpg",
+        "file_sha256": "9c87862f364ae8ddfd4c35b4febd29ddfb6a0fd83a53dbf8daf7166ae124ba28",
+        "sheet_sha256": "9c87862f364ae8ddfd4c35b4febd29ddfb6a0fd83a53dbf8daf7166ae124ba28",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Spider-Woman",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61017": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61017, Squirrel Girl, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61017",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61017.jpg",
+        "file_sha256": "8719d776150a80a0e184569a6491929fd8e997ed80fe6c42f64e8eaa91e578cd",
+        "sheet_sha256": "8719d776150a80a0e184569a6491929fd8e997ed80fe6c42f64e8eaa91e578cd",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Squirrel Girl",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61018": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 12031 scan for Lay Down the Law; title, type, cost/resource and rules match reprint 61018. MarvelCDB duplicate_of_code confirms 12031. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Reuses the existing library extraction and encoding unchanged.",
+      "source": {
+        "guid": "fcbba3",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          4,
+          "ContainedObjects",
+          19
+        ],
+        "deck_key": "9635",
+        "card_id": 963521,
+        "name": "Lay Down the Law",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Events"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908640055579/50699939779428E0A9588CF6B145BAAA006842E0/",
+        "sheet_sha256": "bb49556aa8262b86ab07a06a124a772c0d6cee43d2ef9780a2b462f0cb6d9326",
+        "columns": 10,
+        "rows": 5,
+        "index": 21
+      },
+      "rotation": 0,
+      "expected": "Lay Down the Law",
+      "matched_card_id": "12031"
+    },
+    "61019": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61019, Strategy Session, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61019",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61019.jpg",
+        "file_sha256": "2af2fd9e14782a8b69006a8ce23ee2c793034d7e94f78f75efe4fdee280d5bf5",
+        "sheet_sha256": "2af2fd9e14782a8b69006a8ce23ee2c793034d7e94f78f75efe4fdee280d5bf5",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Strategy Session",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61020": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61020, Run Them to Ground, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61020",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61020.jpg",
+        "file_sha256": "7cd64c9d52307f23a8ef560f628119d3ff1dd5e610f8864e2cb2d6ee00b3df5e",
+        "sheet_sha256": "7cd64c9d52307f23a8ef560f628119d3ff1dd5e610f8864e2cb2d6ee00b3df5e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Run Them to Ground",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61021": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61021, Lay the Trap, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61021",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61021.jpg",
+        "file_sha256": "8844ac14b4d22a8339f9e39bbfd4dd0c02728d5d0f77e7922b245a80807193d8",
+        "sheet_sha256": "8844ac14b4d22a8339f9e39bbfd4dd0c02728d5d0f77e7922b245a80807193d8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Lay the Trap",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61022": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 21052 scan for Determination; title, type, cost/resource and rules match reprint 61022. MarvelCDB duplicate_of_code confirms 21052. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Reuses the existing library extraction and encoding unchanged.",
+      "source": {
+        "guid": "97816d",
+        "object_path": [
+          "ObjectStates",
+          42,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          0
+        ],
+        "deck_key": "9635",
+        "card_id": 963541,
+        "name": "Determination",
+        "parents": [
+          "Justice Aspect Cards",
+          "Justice Aspect Resources"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1861671908640055579/50699939779428E0A9588CF6B145BAAA006842E0/",
+        "sheet_sha256": "bb49556aa8262b86ab07a06a124a772c0d6cee43d2ef9780a2b462f0cb6d9326",
+        "columns": 10,
+        "rows": 5,
+        "index": 41
+      },
+      "rotation": 0,
+      "expected": "Determination",
+      "matched_card_id": "21052"
+    },
+    "61023": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61023, Grapnel Launcher, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61023",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61023.jpg",
+        "file_sha256": "8865236574db9bd522ccc661abdfbd65ad16b6ba95ec9f80311065f98f67f2b3",
+        "sheet_sha256": "8865236574db9bd522ccc661abdfbd65ad16b6ba95ec9f80311065f98f67f2b3",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Grapnel Launcher",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61024": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61024, Entrapment, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61024",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61024.jpg",
+        "file_sha256": "998d95ffa00b3c0310a927fafd4fead1f97b6d1be014691037c3fe4a39a9e5ba",
+        "sheet_sha256": "998d95ffa00b3c0310a927fafd4fead1f97b6d1be014691037c3fe4a39a9e5ba",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Entrapment",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61025": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61025, Hellcat, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61025",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61025.jpg",
+        "file_sha256": "f7f32fa96823ad2a243f55698221a1297ae5982fff2c6992eec7a91236a2dc28",
+        "sheet_sha256": "f7f32fa96823ad2a243f55698221a1297ae5982fff2c6992eec7a91236a2dc28",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Hellcat",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61026": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61026, Joys of Life, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61026",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61026.jpg",
+        "file_sha256": "c431d44b3e3fccb2fd7400e4a0d81667a08ebc4608afde9888375468af1f0706",
+        "sheet_sha256": "c431d44b3e3fccb2fd7400e4a0d81667a08ebc4608afde9888375468af1f0706",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Joys of Life",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61027": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61027, Unbreakable Bond, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61027",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61027.jpg",
+        "file_sha256": "5495e594479a170207600c43bc069413ac61aa022560375a6b4081647956d148",
+        "sheet_sha256": "5495e594479a170207600c43bc069413ac61aa022560375a6b4081647956d148",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Unbreakable Bond",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61029": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61029, Defend Our City, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61029",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61029.jpg",
+        "file_sha256": "b682075574d015bff3cc3d1ddbab6aa71cfff4009a8307f48bb22db22b2135a9",
+        "sheet_sha256": "b682075574d015bff3cc3d1ddbab6aa71cfff4009a8307f48bb22db22b2135a9",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Defend Our City",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61030": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61030, Work-Life Balance, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61030",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61030.jpg",
+        "file_sha256": "bf8d8267b487cb2f691484038910b33bb2832d38e20b94e303a1c97db5e9429c",
+        "sheet_sha256": "bf8d8267b487cb2f691484038910b33bb2832d38e20b94e303a1c97db5e9429c",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Work-Life Balance",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61031": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61031, Purple Man, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61031",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61031.jpg",
+        "file_sha256": "055a9fdeaef3e4e810529c382468f90ee9c08033d3062262d45cff438cad3599",
+        "sheet_sha256": "055a9fdeaef3e4e810529c382468f90ee9c08033d3062262d45cff438cad3599",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Purple Man",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61032": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61032, Indomitable Will, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61032",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61032.jpg",
+        "file_sha256": "2f7e7e79faac4ed08de97781516f180edab2a23bd53202699f0500fa1a9866ed",
+        "sheet_sha256": "2f7e7e79faac4ed08de97781516f180edab2a23bd53202699f0500fa1a9866ed",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Indomitable Will",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61033a": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61033a, Suggestion ([energy]), on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61033a",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033a.jpg",
+        "file_sha256": "744917cbaeab29fde48c3f1dd9e777209c2b2204100d55f508e024df1367e112",
+        "sheet_sha256": "744917cbaeab29fde48c3f1dd9e777209c2b2204100d55f508e024df1367e112",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Suggestion ([energy])",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61033b": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61033b, Suggestion ([mental]), on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61033b",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033b.jpg",
+        "file_sha256": "3a3bca68864cb0bfe4cca91f1d31db7fb0cde830170c865098c755f0b958bd12",
+        "sheet_sha256": "3a3bca68864cb0bfe4cca91f1d31db7fb0cde830170c865098c755f0b958bd12",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Suggestion ([mental])",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61033c": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61033c, Suggestion ([physical]), on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61033c",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033c.jpg",
+        "file_sha256": "610de352ec1ab1c537f3ba9d0270315c378b5bb33d0246427cc184478e3edf4e",
+        "sheet_sha256": "610de352ec1ab1c537f3ba9d0270315c378b5bb33d0246427cc184478e3edf4e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Suggestion ([physical])",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61034": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61034, Innate Aggression, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61034",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61034.jpg",
+        "file_sha256": "9807aa93d4f60213fc17b3c4de91b1cb5b2fa20f2a7e301ff1f4b0e0d834fbd8",
+        "sheet_sha256": "9807aa93d4f60213fc17b3c4de91b1cb5b2fa20f2a7e301ff1f4b0e0d834fbd8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Innate Aggression",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61035": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61035, Shakedown, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61035",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61035.jpg",
+        "file_sha256": "5072e371c6a53ac31d2cab2dc8511a3301c4dd8b2a18ba3273f69dab5ff4bb65",
+        "sheet_sha256": "5072e371c6a53ac31d2cab2dc8511a3301c4dd8b2a18ba3273f69dab5ff4bb65",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Shakedown",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61036": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61036, Innate Perception, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61036",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61036.jpg",
+        "file_sha256": "57521a9e3884951fa3ea6096cbc706dfc926b721ca542fb9060c70017f0e2ff0",
+        "sheet_sha256": "57521a9e3884951fa3ea6096cbc706dfc926b721ca542fb9060c70017f0e2ff0",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Innate Perception",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61037": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61037, Innate Inspiration, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61037",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61037.jpg",
+        "file_sha256": "bac0f4fa254384653969535a1eb6d7e05dbfb6c77a9122f556c9881fc493dc5c",
+        "sheet_sha256": "bac0f4fa254384653969535a1eb6d7e05dbfb6c77a9122f556c9881fc493dc5c",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Innate Inspiration",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61038": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61038, Echo, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61038",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61038.jpg",
+        "file_sha256": "4f5e69bc7d7bb434595f91168e1d04e71c3805ab430a54b8b20affc32a547c40",
+        "sheet_sha256": "4f5e69bc7d7bb434595f91168e1d04e71c3805ab430a54b8b20affc32a547c40",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Echo",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "61039": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61039, Lay Low, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61039",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61039.jpg",
+        "file_sha256": "76c232f2a4f4ca8a6b04f9aa260834156e3d411c23e09fdc4791b9bff57df251",
+        "sheet_sha256": "76c232f2a4f4ca8a6b04f9aa260834156e3d411c23e09fdc4791b9bff57df251",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Lay Low",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "61040": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 61040, Mitigated Threat, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61040",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61040.jpg",
+        "file_sha256": "9d7588fd6f18236d4b858954827007b94631b12caf1770296c006ae4a8114fe5",
+        "sheet_sha256": "9d7588fd6f18236d4b858954827007b94631b12caf1770296c006ae4a8114fe5",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Mitigated Threat",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62001a": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62001a, Luke Cage, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62001a",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62001a.jpg",
+        "file_sha256": "1cdb3fff72fd57134a9ab78aa8cd073e029edeb3c0047297ae2e081f685f33a7",
+        "sheet_sha256": "1cdb3fff72fd57134a9ab78aa8cd073e029edeb3c0047297ae2e081f685f33a7",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Luke Cage",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62001b": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62001b, Luke Cage, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62001b",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62001b.jpg",
+        "file_sha256": "1d08fd34f392bf2cfcc6ea9f696a3e6169170e3a46ce86fce37e3e2cad4a274a",
+        "sheet_sha256": "1d08fd34f392bf2cfcc6ea9f696a3e6169170e3a46ce86fce37e3e2cad4a274a",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Luke Cage",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62002": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62002, Jessica Jones, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62002",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62002.jpg",
+        "file_sha256": "ce7bb62f7f8a113c0adfdb4c74f71cd237278e38719eac74ba6155fe903e46c8",
+        "sheet_sha256": "ce7bb62f7f8a113c0adfdb4c74f71cd237278e38719eac74ba6155fe903e46c8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Jessica Jones",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62003": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62003, Harlem's Hero, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62003",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62003.jpg",
+        "file_sha256": "7715e1b3f3a90700361c76cf965e3c2915588b6a5bb3524faa7fd33c6db71487",
+        "sheet_sha256": "7715e1b3f3a90700361c76cf965e3c2915588b6a5bb3524faa7fd33c6db71487",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Harlem's Hero",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62004": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62004, Knuckle Sandwich, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62004",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62004.jpg",
+        "file_sha256": "13d0b93d26c33ff643fc1395f5003e5a0db0c07eba6ddb29bb63a6ce376f31b3",
+        "sheet_sha256": "13d0b93d26c33ff643fc1395f5003e5a0db0c07eba6ddb29bb63a6ce376f31b3",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Knuckle Sandwich",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62005": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62005, \"Stand with Me!\", on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62005",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62005.jpg",
+        "file_sha256": "c33fb587ba2a32677c6e725548f67e81e82c10a172dc270c7626b4bc50be6430",
+        "sheet_sha256": "c33fb587ba2a32677c6e725548f67e81e82c10a172dc270c7626b4bc50be6430",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "\"Stand with Me!\"",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62006": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62006, \"Sweet Christmas!\", on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62006",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62006.jpg",
+        "file_sha256": "eb8ddf8dedae8943a5a036a35759057e292c6087021d2cc950f19ddf57582881",
+        "sheet_sha256": "eb8ddf8dedae8943a5a036a35759057e292c6087021d2cc950f19ddf57582881",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "\"Sweet Christmas!\"",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62007": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62007, Fogwell's Gym, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62007",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62007.jpg",
+        "file_sha256": "c0d71167f51fb53555583f0f235525c604f5544a37587be0b72236271dcdd00d",
+        "sheet_sha256": "c0d71167f51fb53555583f0f235525c604f5544a37587be0b72236271dcdd00d",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Fogwell's Gym",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62008": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62008, Burstein Process, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62008",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62008.jpg",
+        "file_sha256": "2014887616c16342c10f4de4fea8e04234e9e64b0797da660b0643de0ac890d6",
+        "sheet_sha256": "2014887616c16342c10f4de4fea8e04234e9e64b0797da660b0643de0ac890d6",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Burstein Process",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62009": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62009, Cruisin' for a Bruisin', on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62009",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62009.jpg",
+        "file_sha256": "b5fab6896d29d6890aa36ffa57c32e5d82009912c980417e82cfe2bd860248d2",
+        "sheet_sha256": "b5fab6896d29d6890aa36ffa57c32e5d82009912c980417e82cfe2bd860248d2",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Cruisin' for a Bruisin'",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62010": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62010, Metal Bracer, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62010",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62010.jpg",
+        "file_sha256": "950e805ab5d263c36390e7cf1fbb2c6512b959d028da809f5fbc2ec26a8f7f38",
+        "sheet_sha256": "950e805ab5d263c36390e7cf1fbb2c6512b959d028da809f5fbc2ec26a8f7f38",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Metal Bracer",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62011": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62011, Power Man, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62011",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62011.jpg",
+        "file_sha256": "828d6db5c5c70f8642d6be681497da93ca0f42d78ed68c4e306c3b9b64dd075c",
+        "sheet_sha256": "828d6db5c5c70f8642d6be681497da93ca0f42d78ed68c4e306c3b9b64dd075c",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Power Man",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62012": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62012, Iron Fist, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62012",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62012.jpg",
+        "file_sha256": "74fa49a2b79256b54db88c155fe4a3b90bc93e7c6408b9851e3290e25f3b2c4d",
+        "sheet_sha256": "74fa49a2b79256b54db88c155fe4a3b90bc93e7c6408b9851e3290e25f3b2c4d",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Iron Fist",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62013": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62013, Misty Knight, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62013",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62013.jpg",
+        "file_sha256": "e5d21f917f82b1ae2fd700b8f425db7c60295c5272efc49d407a15c34aeb887b",
+        "sheet_sha256": "e5d21f917f82b1ae2fd700b8f425db7c60295c5272efc49d407a15c34aeb887b",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Misty Knight",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62014": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62014, Valkyrie, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62014",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62014.jpg",
+        "file_sha256": "0e65a59c61ed598c6371b8db4535b96f88ce8b029ceb44f53edb2f714cd36b51",
+        "sheet_sha256": "0e65a59c61ed598c6371b8db4535b96f88ce8b029ceb44f53edb2f714cd36b51",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Valkyrie",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62015": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62015, Take a Stand, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62015",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62015.jpg",
+        "file_sha256": "3cdf351130850d76c2d4f4a2adda4c67bc6a4c6f7798fe1f6f910c7344b7dbd8",
+        "sheet_sha256": "3cdf351130850d76c2d4f4a2adda4c67bc6a4c6f7798fe1f6f910c7344b7dbd8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Take a Stand",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62016": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62016, Innovation, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62016",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62016.jpg",
+        "file_sha256": "3b546369cc6f9f3f3677066e4ecf876102185851a490fe2b838689205b0fcc10",
+        "sheet_sha256": "3b546369cc6f9f3f3677066e4ecf876102185851a490fe2b838689205b0fcc10",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Innovation",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62017": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62017, The Power of Leadership, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62017",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62017.jpg",
+        "file_sha256": "ec29338faa02f014dfb1fe2c4ce0422e38a8914e0ef4e4d85ba2a9c2a898a746",
+        "sheet_sha256": "ec29338faa02f014dfb1fe2c4ce0422e38a8914e0ef4e4d85ba2a9c2a898a746",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "The Power of Leadership",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62018": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62018, Defensive Formation, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62018",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62018.jpg",
+        "file_sha256": "371e46b9e8fff3dee21c58aac597e6ede812b8973874c95ef3f3cb340d617b56",
+        "sheet_sha256": "371e46b9e8fff3dee21c58aac597e6ede812b8973874c95ef3f3cb340d617b56",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Defensive Formation",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62019": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62019, Righteous Purpose, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62019",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62019.jpg",
+        "file_sha256": "6f03d043a49865925a8d96986893993aabce2e3283b46cb3343d883897716583",
+        "sheet_sha256": "6f03d043a49865925a8d96986893993aabce2e3283b46cb3343d883897716583",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Righteous Purpose",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62020": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62020, Hulk, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62020",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62020.jpg",
+        "file_sha256": "9360ba7cce2bd40bb049105819c009e16d1867c9fc40862c048bb4c1871ee710",
+        "sheet_sha256": "9360ba7cce2bd40bb049105819c009e16d1867c9fc40862c048bb4c1871ee710",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Hulk",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62021": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62021, She-Hulk, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62021",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62021.jpg",
+        "file_sha256": "3662a01adfb4e0c176b15daa011f7fd35a30b9f9191f2bac9306aa50c1503877",
+        "sheet_sha256": "3662a01adfb4e0c176b15daa011f7fd35a30b9f9191f2bac9306aa50c1503877",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "She-Hulk",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62023": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62023, Power Man and Iron Fist, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62023",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62023.jpg",
+        "file_sha256": "6f3af23afca089e956eb12538745a4e1af23d0023f69f2aa8c475828a4fd1f2e",
+        "sheet_sha256": "6f3af23afca089e956eb12538745a4e1af23d0023f69f2aa8c475828a4fd1f2e",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Power Man and Iron Fist",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62024": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 61027 scan for Unbreakable Bond; title, type, cost/resource and rules match reprint 62024. MarvelCDB duplicate_of_code confirms 61027. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-61027",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61027.jpg",
+        "file_sha256": "5495e594479a170207600c43bc069413ac61aa022560375a6b4081647956d148",
+        "sheet_sha256": "5495e594479a170207600c43bc069413ac61aa022560375a6b4081647956d148",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Unbreakable Bond",
+      "source_page": "https://hallofheroeslcg.com/jessica-jones/",
+      "native_dimensions": [
+        710,
+        1030
+      ],
+      "matched_card_id": "61027"
+    },
+    "62025": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 01088 scan for Energy; title, type, cost/resource and rules match reprint 62025. MarvelCDB duplicate_of_code confirms 01088. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Existing library uses the 2022 resource illustration, not the original Core Set illustration. Reuses the existing library extraction and encoding unchanged.",
+      "source": {
+        "guid": "f51ad1",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          1,
+          "States",
+          "2"
+        ],
+        "deck_key": "9765",
+        "card_id": 976511,
+        "name": "Energy",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Resources",
+          "Energy"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 11
+      },
+      "rotation": 0,
+      "expected": "Energy",
+      "matched_card_id": "01088"
+    },
+    "62026": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 01089 scan for Genius; title, type, cost/resource and rules match reprint 62026. MarvelCDB duplicate_of_code confirms 01089. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Existing library uses the 2022 resource illustration, not the original Core Set illustration. Reuses the existing library extraction and encoding unchanged.",
+      "source": {
+        "guid": "9172ae",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          3,
+          "States",
+          "2"
+        ],
+        "deck_key": "9764",
+        "card_id": 976412,
+        "name": "Genius",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Resources",
+          "Genius"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 12
+      },
+      "rotation": 0,
+      "expected": "Genius",
+      "matched_card_id": "01089"
+    },
+    "62027": {
+      "reviewed": true,
+      "review_note": "Visually reviewed existing 01090 scan for Strength; title, type, cost/resource and rules match reprint 62027. MarvelCDB duplicate_of_code confirms 01090. Existing printed edition/set number is retained; no relabeling or image alteration. Complete frame and no visible watermark. Existing library uses the 2022 resource illustration, not the original Core Set illustration. Reuses the existing library extraction and encoding unchanged.",
+      "source": {
+        "guid": "f36dbe",
+        "object_path": [
+          "ObjectStates",
+          41,
+          "ContainedObjects",
+          2,
+          "ContainedObjects",
+          4,
+          "States",
+          "2"
+        ],
+        "deck_key": "9763",
+        "card_id": 976313,
+        "name": "Strength",
+        "parents": [
+          "Basic Aspect Cards",
+          "Basic Aspect Resources",
+          "Strength"
+        ],
+        "face": "front",
+        "sheet_url": "https://steamusercontent-a.akamaihd.net/ugc/1829048392451316670/F9ABCA43F35A24986536ED86AFEF422B1BE47152/",
+        "sheet_sha256": "7d1658a2ff7f871eefc7f03fd3dbad0d66dd6b08795b154ae6254821936f54e9",
+        "columns": 5,
+        "rows": 5,
+        "index": 13
+      },
+      "rotation": 0,
+      "expected": "Strength",
+      "matched_card_id": "01090"
+    },
+    "62028": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62028, Internal Injury, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62028",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62028.jpg",
+        "file_sha256": "3217c1671eb69fc2cdde55255f2753273688a8730c26a068a5698d309d3149be",
+        "sheet_sha256": "3217c1671eb69fc2cdde55255f2753273688a8730c26a068a5698d309d3149be",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Internal Injury",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62029": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62029, Cottonmouth, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62029",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62029.jpg",
+        "file_sha256": "6f36020f15e27976ad49e1cf348e4788fcf73afbc0c7606ee162d3156f3e315c",
+        "sheet_sha256": "6f36020f15e27976ad49e1cf348e4788fcf73afbc0c7606ee162d3156f3e315c",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Cottonmouth",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62030": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62030, Venomous Whispers, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Landscape original rotated 90 degrees counterclockwise; title is on the LEFT before game CSS rotation. Lossless PNG retains decoded source pixels.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62030",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62030.jpg",
+        "file_sha256": "6c9b774c45ef8d63ab4344c32fc9c96e0580423c6e8b61a670cc209b610ec621",
+        "sheet_sha256": "6c9b774c45ef8d63ab4344c32fc9c96e0580423c6e8b61a670cc209b610ec621",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve",
+      "expected": "Venomous Whispers",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        1030,
+        710
+      ]
+    },
+    "62031": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62031, Augmented Jaws, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62031",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62031.jpg",
+        "file_sha256": "d55a595aeb5c9542e2fad29c00180f4b1c49d7fff7aa9d5448861fedf3af7738",
+        "sheet_sha256": "d55a595aeb5c9542e2fad29c00180f4b1c49d7fff7aa9d5448861fedf3af7738",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Augmented Jaws",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62032": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62032, Asp, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62032",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62032.jpg",
+        "file_sha256": "8ad28983b54165ea221867508e44c1886bdc555a1cf373acc4971389b3001b6c",
+        "sheet_sha256": "8ad28983b54165ea221867508e44c1886bdc555a1cf373acc4971389b3001b6c",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Asp",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62033": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62033, Sidewinder, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62033",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62033.jpg",
+        "file_sha256": "a83d41899aab1600c143ebcb346b54899388719dd7a17e30282839cdce7d6791",
+        "sheet_sha256": "a83d41899aab1600c143ebcb346b54899388719dd7a17e30282839cdce7d6791",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Sidewinder",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62034": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62034, Size Advantage, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62034",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62034.jpg",
+        "file_sha256": "a09c9f6ffdf186143d72bb61b243fd175db7645f964864e5e761f7593ec66428",
+        "sheet_sha256": "a09c9f6ffdf186143d72bb61b243fd175db7645f964864e5e761f7593ec66428",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Size Advantage",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62035": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62035, Observe, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62035",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62035.jpg",
+        "file_sha256": "ff0221475ea48447822f2e6a8089c016df05e4db82eb9dc17d8fceab773236b1",
+        "sheet_sha256": "ff0221475ea48447822f2e6a8089c016df05e4db82eb9dc17d8fceab773236b1",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Observe",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62036": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62036, Toughen Up, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62036",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62036.jpg",
+        "file_sha256": "8908ea6bb061b7b383d7df6e51c59b1147bd3911b76b602b324dbcd508eca4a8",
+        "sheet_sha256": "8908ea6bb061b7b383d7df6e51c59b1147bd3911b76b602b324dbcd508eca4a8",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Toughen Up",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
+    },
+    "62037": {
+      "reviewed": true,
+      "review_note": "Visually reviewed October Hall of Heroes original for 62037, Black Belt, on the pack contact sheets: printed title, type, visible stats/resources, card number and face match; complete borders and no visible preview watermark. Original bytes re-fetched and matched against the source hashes used for the contact sheets. Original JPEG bytes retained unchanged.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-2026-10-62037",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62037.jpg",
+        "file_sha256": "cc331c86ff46b1d3498adb7d7827e1641058fd4ff015ec86306fd3fc5a7f9888",
+        "sheet_sha256": "cc331c86ff46b1d3498adb7d7827e1641058fd4ff015ec86306fd3fc5a7f9888",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 0,
+      "encoding": "preserve",
+      "expected": "Black Belt",
+      "source_page": "https://hallofheroeslcg.com/luke-cage/",
+      "native_dimensions": [
+        710,
+        1030
+      ]
     }
   },
   "nonnumbered": {
@@ -125892,6 +127773,456 @@
       "url": "https://skilledinvestigator.com/wp-content/uploads/2026/07/Jessica-Jones-Hero-Pack-29-5.png",
       "sha256": "ad85d9f4e953b83dadf6f16bf26de5508a45237b72507a8d2e2b6e304c66cc6e",
       "bytes": 764222,
+      "kind": "image"
+    },
+    "hoh-2026-10-61001a": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001a.jpg",
+      "sha256": "61056a7089559173139c9ba235bc9484846012ad8dd95011d2b471cbdeef6f8e",
+      "bytes": 336504,
+      "kind": "image"
+    },
+    "hoh-2026-10-61001b": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61001b.jpg",
+      "sha256": "b73fe7a925dddf92862fd389c551fb1a65355353bd9eda9047b3064824e35321",
+      "bytes": 352034,
+      "kind": "image"
+    },
+    "hoh-2026-10-61002": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61002.jpg",
+      "sha256": "565b6a9d0f5753576a44d40e6dd4caaf229b845227b3bda38a1d1b44d8468611",
+      "bytes": 356972,
+      "kind": "image"
+    },
+    "hoh-2026-10-61003": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61003.jpg",
+      "sha256": "78ce6018cc2dccbf7bdd459b8764b07c4bfce6725f43404f09b7610adc20e154",
+      "bytes": 347827,
+      "kind": "image"
+    },
+    "hoh-2026-10-61004": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61004.jpg",
+      "sha256": "fc9de01e3bb097d856f7c6080997ac7badb8624fe844d539fd96ab2daab34e04",
+      "bytes": 335082,
+      "kind": "image"
+    },
+    "hoh-2026-10-61005": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61005.jpg",
+      "sha256": "b58effb88f26c24e6f1ca64582c68d44717b7cbead4280ba7d3d67ee67d1cf74",
+      "bytes": 351421,
+      "kind": "image"
+    },
+    "hoh-2026-10-61006": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61006.jpg",
+      "sha256": "5bf001bc2034086238b7a869c942b5e6214b7c6e647ac73e1ff8e0e5a5c6bc49",
+      "bytes": 350793,
+      "kind": "image"
+    },
+    "hoh-2026-10-61007": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61007.jpg",
+      "sha256": "c0b310032e2d690baf1a449c71852f024afc514ae5fca44c5140a1ddc45d3443",
+      "bytes": 315246,
+      "kind": "image"
+    },
+    "hoh-2026-10-61008": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61008.jpg",
+      "sha256": "c0fa06889afac3d4c6741e912cdbfd150a59e1c7feccb99eb836ed17322312e8",
+      "bytes": 329028,
+      "kind": "image"
+    },
+    "hoh-2026-10-61009": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61009.jpg",
+      "sha256": "2f8f4877b8193b053c90ab020b7186dd641d0c57b1c6a0c44ade380f2e2797f1",
+      "bytes": 323625,
+      "kind": "image"
+    },
+    "hoh-2026-10-61010": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61010.jpg",
+      "sha256": "9770e60f218a83601a545f5d3411626b934d801a6aff2630c2b04c2ece28cff6",
+      "bytes": 367330,
+      "kind": "image"
+    },
+    "hoh-2026-10-61011": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61011.jpg",
+      "sha256": "0a2f42049732bc681bf8b0d9d6051a761397403b85172a49448d22ae050e6c10",
+      "bytes": 337051,
+      "kind": "image"
+    },
+    "hoh-2026-10-61012": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61012.jpg",
+      "sha256": "b18d9c8121d62f90663975766c3e82a4ddec35c718101e12105b22eedc55f1b7",
+      "bytes": 364021,
+      "kind": "image"
+    },
+    "hoh-2026-10-61013": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61013.jpg",
+      "sha256": "2f18e18782681cd00c4fda624c2edbc420e4f0e41fe68494944686c660f1ed87",
+      "bytes": 358178,
+      "kind": "image"
+    },
+    "hoh-2026-10-61014": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61014.jpg",
+      "sha256": "dbb51a2a41854734b67b1e8fe1efae0be9bc58d4b5fb17590be6401e23a57a42",
+      "bytes": 350476,
+      "kind": "image"
+    },
+    "hoh-2026-10-61015": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61015.jpg",
+      "sha256": "828a677434de9981277c9a9ae627997c9dbbf957e5e03ce301adf924bb3bc047",
+      "bytes": 320076,
+      "kind": "image"
+    },
+    "hoh-2026-10-61016": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61016.jpg",
+      "sha256": "9c87862f364ae8ddfd4c35b4febd29ddfb6a0fd83a53dbf8daf7166ae124ba28",
+      "bytes": 350073,
+      "kind": "image"
+    },
+    "hoh-2026-10-61017": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61017.jpg",
+      "sha256": "8719d776150a80a0e184569a6491929fd8e997ed80fe6c42f64e8eaa91e578cd",
+      "bytes": 338182,
+      "kind": "image"
+    },
+    "hoh-2026-10-61019": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61019.jpg",
+      "sha256": "2af2fd9e14782a8b69006a8ce23ee2c793034d7e94f78f75efe4fdee280d5bf5",
+      "bytes": 323211,
+      "kind": "image"
+    },
+    "hoh-2026-10-61020": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61020.jpg",
+      "sha256": "7cd64c9d52307f23a8ef560f628119d3ff1dd5e610f8864e2cb2d6ee00b3df5e",
+      "bytes": 318996,
+      "kind": "image"
+    },
+    "hoh-2026-10-61021": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61021.jpg",
+      "sha256": "8844ac14b4d22a8339f9e39bbfd4dd0c02728d5d0f77e7922b245a80807193d8",
+      "bytes": 310284,
+      "kind": "image"
+    },
+    "hoh-2026-10-61023": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61023.jpg",
+      "sha256": "8865236574db9bd522ccc661abdfbd65ad16b6ba95ec9f80311065f98f67f2b3",
+      "bytes": 327796,
+      "kind": "image"
+    },
+    "hoh-2026-10-61024": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61024.jpg",
+      "sha256": "998d95ffa00b3c0310a927fafd4fead1f97b6d1be014691037c3fe4a39a9e5ba",
+      "bytes": 325564,
+      "kind": "image"
+    },
+    "hoh-2026-10-61025": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61025.jpg",
+      "sha256": "f7f32fa96823ad2a243f55698221a1297ae5982fff2c6992eec7a91236a2dc28",
+      "bytes": 325785,
+      "kind": "image"
+    },
+    "hoh-2026-10-61026": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61026.jpg",
+      "sha256": "c431d44b3e3fccb2fd7400e4a0d81667a08ebc4608afde9888375468af1f0706",
+      "bytes": 318483,
+      "kind": "image"
+    },
+    "hoh-2026-10-61027": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61027.jpg",
+      "sha256": "5495e594479a170207600c43bc069413ac61aa022560375a6b4081647956d148",
+      "bytes": 306423,
+      "kind": "image"
+    },
+    "hoh-2026-10-61028": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61028.jpg",
+      "sha256": "4f7a4a6304c6c5968c728cd8f85badab472234128c242e8b88848a7054cae74d",
+      "bytes": 318172,
+      "kind": "image"
+    },
+    "hoh-2026-10-61029": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61029.jpg",
+      "sha256": "b682075574d015bff3cc3d1ddbab6aa71cfff4009a8307f48bb22db22b2135a9",
+      "bytes": 325324,
+      "kind": "image"
+    },
+    "hoh-2026-10-61030": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61030.jpg",
+      "sha256": "bf8d8267b487cb2f691484038910b33bb2832d38e20b94e303a1c97db5e9429c",
+      "bytes": 351487,
+      "kind": "image"
+    },
+    "hoh-2026-10-61031": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61031.jpg",
+      "sha256": "055a9fdeaef3e4e810529c382468f90ee9c08033d3062262d45cff438cad3599",
+      "bytes": 297061,
+      "kind": "image"
+    },
+    "hoh-2026-10-61032": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61032.jpg",
+      "sha256": "2f7e7e79faac4ed08de97781516f180edab2a23bd53202699f0500fa1a9866ed",
+      "bytes": 327312,
+      "kind": "image"
+    },
+    "hoh-2026-10-61033a": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033a.jpg",
+      "sha256": "744917cbaeab29fde48c3f1dd9e777209c2b2204100d55f508e024df1367e112",
+      "bytes": 333622,
+      "kind": "image"
+    },
+    "hoh-2026-10-61033b": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033b.jpg",
+      "sha256": "3a3bca68864cb0bfe4cca91f1d31db7fb0cde830170c865098c755f0b958bd12",
+      "bytes": 345394,
+      "kind": "image"
+    },
+    "hoh-2026-10-61033c": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61033c.jpg",
+      "sha256": "610de352ec1ab1c537f3ba9d0270315c378b5bb33d0246427cc184478e3edf4e",
+      "bytes": 341351,
+      "kind": "image"
+    },
+    "hoh-2026-10-61034": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61034.jpg",
+      "sha256": "9807aa93d4f60213fc17b3c4de91b1cb5b2fa20f2a7e301ff1f4b0e0d834fbd8",
+      "bytes": 311592,
+      "kind": "image"
+    },
+    "hoh-2026-10-61035": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61035.jpg",
+      "sha256": "5072e371c6a53ac31d2cab2dc8511a3301c4dd8b2a18ba3273f69dab5ff4bb65",
+      "bytes": 287908,
+      "kind": "image"
+    },
+    "hoh-2026-10-61036": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61036.jpg",
+      "sha256": "57521a9e3884951fa3ea6096cbc706dfc926b721ca542fb9060c70017f0e2ff0",
+      "bytes": 336059,
+      "kind": "image"
+    },
+    "hoh-2026-10-61037": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61037.jpg",
+      "sha256": "bac0f4fa254384653969535a1eb6d7e05dbfb6c77a9122f556c9881fc493dc5c",
+      "bytes": 372581,
+      "kind": "image"
+    },
+    "hoh-2026-10-61038": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61038.jpg",
+      "sha256": "4f5e69bc7d7bb434595f91168e1d04e71c3805ab430a54b8b20affc32a547c40",
+      "bytes": 310179,
+      "kind": "image"
+    },
+    "hoh-2026-10-61039": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61039.jpg",
+      "sha256": "76c232f2a4f4ca8a6b04f9aa260834156e3d411c23e09fdc4791b9bff57df251",
+      "bytes": 327741,
+      "kind": "image"
+    },
+    "hoh-2026-10-61040": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/61040.jpg",
+      "sha256": "9d7588fd6f18236d4b858954827007b94631b12caf1770296c006ae4a8114fe5",
+      "bytes": 351082,
+      "kind": "image"
+    },
+    "hoh-2026-10-62001a": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62001a.jpg",
+      "sha256": "1cdb3fff72fd57134a9ab78aa8cd073e029edeb3c0047297ae2e081f685f33a7",
+      "bytes": 370181,
+      "kind": "image"
+    },
+    "hoh-2026-10-62001b": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62001b.jpg",
+      "sha256": "1d08fd34f392bf2cfcc6ea9f696a3e6169170e3a46ce86fce37e3e2cad4a274a",
+      "bytes": 365194,
+      "kind": "image"
+    },
+    "hoh-2026-10-62002": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62002.jpg",
+      "sha256": "ce7bb62f7f8a113c0adfdb4c74f71cd237278e38719eac74ba6155fe903e46c8",
+      "bytes": 327105,
+      "kind": "image"
+    },
+    "hoh-2026-10-62003": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62003.jpg",
+      "sha256": "7715e1b3f3a90700361c76cf965e3c2915588b6a5bb3524faa7fd33c6db71487",
+      "bytes": 360728,
+      "kind": "image"
+    },
+    "hoh-2026-10-62004": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62004.jpg",
+      "sha256": "13d0b93d26c33ff643fc1395f5003e5a0db0c07eba6ddb29bb63a6ce376f31b3",
+      "bytes": 362488,
+      "kind": "image"
+    },
+    "hoh-2026-10-62005": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62005.jpg",
+      "sha256": "c33fb587ba2a32677c6e725548f67e81e82c10a172dc270c7626b4bc50be6430",
+      "bytes": 351889,
+      "kind": "image"
+    },
+    "hoh-2026-10-62006": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62006.jpg",
+      "sha256": "eb8ddf8dedae8943a5a036a35759057e292c6087021d2cc950f19ddf57582881",
+      "bytes": 342802,
+      "kind": "image"
+    },
+    "hoh-2026-10-62007": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62007.jpg",
+      "sha256": "c0d71167f51fb53555583f0f235525c604f5544a37587be0b72236271dcdd00d",
+      "bytes": 335889,
+      "kind": "image"
+    },
+    "hoh-2026-10-62008": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62008.jpg",
+      "sha256": "2014887616c16342c10f4de4fea8e04234e9e64b0797da660b0643de0ac890d6",
+      "bytes": 309372,
+      "kind": "image"
+    },
+    "hoh-2026-10-62009": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62009.jpg",
+      "sha256": "b5fab6896d29d6890aa36ffa57c32e5d82009912c980417e82cfe2bd860248d2",
+      "bytes": 330843,
+      "kind": "image"
+    },
+    "hoh-2026-10-62010": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62010.jpg",
+      "sha256": "950e805ab5d263c36390e7cf1fbb2c6512b959d028da809f5fbc2ec26a8f7f38",
+      "bytes": 346942,
+      "kind": "image"
+    },
+    "hoh-2026-10-62011": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62011.jpg",
+      "sha256": "828d6db5c5c70f8642d6be681497da93ca0f42d78ed68c4e306c3b9b64dd075c",
+      "bytes": 328910,
+      "kind": "image"
+    },
+    "hoh-2026-10-62012": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62012.jpg",
+      "sha256": "74fa49a2b79256b54db88c155fe4a3b90bc93e7c6408b9851e3290e25f3b2c4d",
+      "bytes": 335713,
+      "kind": "image"
+    },
+    "hoh-2026-10-62013": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62013.jpg",
+      "sha256": "e5d21f917f82b1ae2fd700b8f425db7c60295c5272efc49d407a15c34aeb887b",
+      "bytes": 338184,
+      "kind": "image"
+    },
+    "hoh-2026-10-62014": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62014.jpg",
+      "sha256": "0e65a59c61ed598c6371b8db4535b96f88ce8b029ceb44f53edb2f714cd36b51",
+      "bytes": 339898,
+      "kind": "image"
+    },
+    "hoh-2026-10-62015": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62015.jpg",
+      "sha256": "3cdf351130850d76c2d4f4a2adda4c67bc6a4c6f7798fe1f6f910c7344b7dbd8",
+      "bytes": 316179,
+      "kind": "image"
+    },
+    "hoh-2026-10-62016": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62016.jpg",
+      "sha256": "3b546369cc6f9f3f3677066e4ecf876102185851a490fe2b838689205b0fcc10",
+      "bytes": 371752,
+      "kind": "image"
+    },
+    "hoh-2026-10-62017": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62017.jpg",
+      "sha256": "ec29338faa02f014dfb1fe2c4ce0422e38a8914e0ef4e4d85ba2a9c2a898a746",
+      "bytes": 342508,
+      "kind": "image"
+    },
+    "hoh-2026-10-62018": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62018.jpg",
+      "sha256": "371e46b9e8fff3dee21c58aac597e6ede812b8973874c95ef3f3cb340d617b56",
+      "bytes": 365991,
+      "kind": "image"
+    },
+    "hoh-2026-10-62019": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62019.jpg",
+      "sha256": "6f03d043a49865925a8d96986893993aabce2e3283b46cb3343d883897716583",
+      "bytes": 342367,
+      "kind": "image"
+    },
+    "hoh-2026-10-62020": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62020.jpg",
+      "sha256": "9360ba7cce2bd40bb049105819c009e16d1867c9fc40862c048bb4c1871ee710",
+      "bytes": 335466,
+      "kind": "image"
+    },
+    "hoh-2026-10-62021": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62021.jpg",
+      "sha256": "3662a01adfb4e0c176b15daa011f7fd35a30b9f9191f2bac9306aa50c1503877",
+      "bytes": 301005,
+      "kind": "image"
+    },
+    "hoh-2026-10-62022": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62022.jpg",
+      "sha256": "0ff1acb82e4125a22694e53868513d849d85ead1f8277d178900d9e8077f5482",
+      "bytes": 371795,
+      "kind": "image"
+    },
+    "hoh-2026-10-62023": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62023.jpg",
+      "sha256": "6f3af23afca089e956eb12538745a4e1af23d0023f69f2aa8c475828a4fd1f2e",
+      "bytes": 302308,
+      "kind": "image"
+    },
+    "hoh-2026-10-62028": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62028.jpg",
+      "sha256": "3217c1671eb69fc2cdde55255f2753273688a8730c26a068a5698d309d3149be",
+      "bytes": 325558,
+      "kind": "image"
+    },
+    "hoh-2026-10-62029": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62029.jpg",
+      "sha256": "6f36020f15e27976ad49e1cf348e4788fcf73afbc0c7606ee162d3156f3e315c",
+      "bytes": 346675,
+      "kind": "image"
+    },
+    "hoh-2026-10-62030": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62030.jpg",
+      "sha256": "6c9b774c45ef8d63ab4344c32fc9c96e0580423c6e8b61a670cc209b610ec621",
+      "bytes": 337892,
+      "kind": "image"
+    },
+    "hoh-2026-10-62031": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62031.jpg",
+      "sha256": "d55a595aeb5c9542e2fad29c00180f4b1c49d7fff7aa9d5448861fedf3af7738",
+      "bytes": 335903,
+      "kind": "image"
+    },
+    "hoh-2026-10-62032": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62032.jpg",
+      "sha256": "8ad28983b54165ea221867508e44c1886bdc555a1cf373acc4971389b3001b6c",
+      "bytes": 308628,
+      "kind": "image"
+    },
+    "hoh-2026-10-62033": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62033.jpg",
+      "sha256": "a83d41899aab1600c143ebcb346b54899388719dd7a17e30282839cdce7d6791",
+      "bytes": 328165,
+      "kind": "image"
+    },
+    "hoh-2026-10-62034": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62034.jpg",
+      "sha256": "a09c9f6ffdf186143d72bb61b243fd175db7645f964864e5e761f7593ec66428",
+      "bytes": 354103,
+      "kind": "image"
+    },
+    "hoh-2026-10-62035": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62035.jpg",
+      "sha256": "ff0221475ea48447822f2e6a8089c016df05e4db82eb9dc17d8fceab773236b1",
+      "bytes": 290257,
+      "kind": "image"
+    },
+    "hoh-2026-10-62036": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62036.jpg",
+      "sha256": "8908ea6bb061b7b383d7df6e51c59b1147bd3911b76b602b324dbcd508eca4a8",
+      "bytes": 331625,
+      "kind": "image"
+    },
+    "hoh-2026-10-62037": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62037.jpg",
+      "sha256": "cc331c86ff46b1d3498adb7d7827e1641058fd4ff015ec86306fd3fc5a7f9888",
+      "bytes": 358221,
       "kind": "image"
     }
   },

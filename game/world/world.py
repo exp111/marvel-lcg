@@ -738,15 +738,18 @@ class World(WorldAction, WorldFind):
             if self.is_game_over:
                 return
 
-            phase_begin("Villain")
-            if self.is_game_over:
-                return
-            self.VillainPhase()
-            if self.is_game_over:
-                return
-            phase_end("Villain")
-            if self.is_game_over:
-                return
+            # A skipped phase never begins or ends. End-of-round effects still
+            # resolve, and effects awaiting the next villain phase keep waiting.
+            if not self.phase.ConsumeVillainPhaseSkip():
+                phase_begin("Villain")
+                if self.is_game_over:
+                    return
+                self.VillainPhase()
+                if self.is_game_over:
+                    return
+                phase_end("Villain")
+                if self.is_game_over:
+                    return
 
             end_round()
 

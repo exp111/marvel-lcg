@@ -167,7 +167,9 @@ class AbilityFactoryFriend:
                     this_can_thwart,
                     *conditions
                 ],
-            ).SetFuncName("THW").SetCostFunc(CostFunc.Exhaust("This"))
+            ).SetFuncName("THW")
+            ability.basic_power_exhaust_cost = CostFunc.Exhaust("This")
+            ability.SetCostFunc(ability.basic_power_exhaust_cost)
 
             if canbe_divided:
                 ability.SetTarget(Scheme2,

@@ -18,7 +18,7 @@ def GetAbilities() -> Sequence['Ability']:
             set_be_instead,
             conditions=[
                 lambda effect, message:
-                    not message.property.ignore_tough
+                    not message.property.ignore_tough and not message.property.unpreventable
             ]
         )
     ]

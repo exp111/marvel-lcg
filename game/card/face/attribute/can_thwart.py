@@ -62,6 +62,54 @@ class HasThwart(HasAttribute):
 #
 class CanThwart(CardFace):
 
+    def GrantedBasicThwartAbilities(self, *, ignore_keywords: Sequence[str]=()) -> List['Ability']:
+        """Reuse this character's basic thwart, including divided targets and costs."""
+        from copy import copy
+        from game.message import Message
+
+        abilities = []
+        for effect in self.effect.Find(func_name="THW"):
+            original = effect.ability
+            ability = copy(original)
+            ability.when = Message.WhenPlayerChooseAbility
+            ability.is_choose = True
+            ability.ignore = copy(original.ignore)
+            ability.ignore.ability = ability
+            ability.ignore.keyword = dict(original.ignore.keyword)
+            ability.SetIgnoreKeyword(*ignore_keywords)
+            ability.cost_funcs = [cost for cost in effect.cost_func.GetAll()
+                                  if cost is not original.basic_power_exhaust_cost]
+            abilities.append(ability)
+        return abilities
+
+    def CanMakeGrantedBasicThwart(self, by_effect: 'Effect', *, ignore_keywords: Sequence[str]=()) -> bool:
+        from game.effect.effect import Effect
+        from game.message import Message
+
+        player = by_effect.GetInitiator()
+        message = Message.WhenPlayerChooseAbility(player, by_effect, (1, 1), False)
+        for ability in self.GrantedBasicThwartAbilities(ignore_keywords=ignore_keywords):
+            effect = Effect(self, ability, world=by_effect.world)
+            effect.context.initiator = player
+            effect.context.ask_player = player
+            effect.context.bind_message = message
+            if effect.checker.CheckCondition(message, player):
+                return True
+        return False
+
+    def MakeGrantedBasicThwart(self, by_effect: 'Effect', *, thwart_bonus: int=0,
+                              ignore_keywords: Sequence[str]=()) -> None:
+        """Resolve a basic thwart without its normal exhaust cost, then clean up."""
+        abilities = self.GrantedBasicThwartAbilities(ignore_keywords=ignore_keywords)
+        if not abilities:
+            return
+        this = self.CastTo(HasThwart)
+        this.GainThwart(thwart_bonus, by_effect)
+        try:
+            by_effect.GetInitiator().ChooseAbilities(by_effect, *abilities)
+        finally:
+            this.GainThwart(-thwart_bonus, by_effect)
+
     @override
     def OnRemoveSchemeThreat(self, schemes: List['Scheme2'], value: int, by_effect: 'Effect') -> int|None:
 

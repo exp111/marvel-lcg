@@ -31,7 +31,7 @@ def GetAbilities() -> Sequence['Ability']:
         Players.ForEachPlayer(effect, search_for_ally)
 
     return [
-        AbilityFactory.ThisEnterPlayWithCounters(1, 'assembly'),
+        AbilityFactory.ThisEnterPlayWithCounters(1, 'assembly', include_face_changes=True),
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.Action,
             team_assembled,

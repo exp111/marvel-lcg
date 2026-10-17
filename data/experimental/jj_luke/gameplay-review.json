@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "passed_experimental_headless_gameplay",
+  "scope": {
+    "identity_and_signature_faces": 27,
+    "obligation_and_nemesis_faces": 12,
+    "total_faces": 39
+  },
+  "method": "Deterministic solo and two-player Rhino scenarios using the actual game loop, controllers, messages, costs, resource payments, rendered target choices, status cards and response windows. Puzzle commands establish controlled board/deck states; card rules are not mocked. Includes complete villain phases and round transitions.",
+  "printed_text_source": "Local experimental card metadata transcribed from the pack references; the exact text checked is included per card below.",
+  "validation": {
+    "result": "passed",
+    "distinct_tests": 300,
+    "newly_added_gameplay_tests": 88,
+    "previous_pack_tests": 39,
+    "existing_regression_tests": 173,
+    "runs": [
+      {
+        "tests": 297,
+        "result": "OK",
+        "log": "release-artifacts/jj-luke-full-gameplay-regression.log"
+      },
+      {
+        "tests": 5,
+        "newly_added_tests": 3,
+        "updated_tests_rechecked": 2,
+        "result": "OK",
+        "log": "release-artifacts/round-gameplay-test.log"
+      }
+    ],
+    "counting": "Counts unittest test methods once, not repeated runs or parameterized subcases.",
+    "reproduce": ".venv-release\\Scripts\\python.exe -X utf8 -m unittest unit_test.test_jj_luke_first_pass unit_test.test_jj_engine_support unit_test.test_jj_hero_gameplay unit_test.test_luke_hero_gameplay unit_test.test_jj_luke_nemesis_gameplay unit_test.test_jj_luke_multiplayer_gameplay unit_test.test_form_change_lifecycle unit_test.test_overkill_damage_modifiers unit_test.test_bulletproof_belle_boost_damage unit_test.test_resource_cost_reduction unit_test.test_kingpin_side_scheme_reveals unit_test.test_fear_no_evil_player_cards unit_test.test_fear_no_evil_modular_sets unit_test.test_wonder_man_jarvis unit_test.test_thwart_target_restrictions unit_test.test_attached_identity_restrictions unit_test.test_attached_health_flip unit_test.test_optional_choice_confirmation unit_test.test_end_phase_hand_limit unit_test.test_v18_timing_integration unit_test.test_purple_man_obligation_readiness unit_test.test_sense_enemy_defeat unit_test.test_attack_defender_player unit_test.test_victory_defeat -q",
+    "test_modules": [
+      "unit_test.test_jj_luke_first_pass",
+      "unit_test.test_jj_engine_support",
+      "unit_test.test_jj_hero_gameplay",
+      "unit_test.test_luke_hero_gameplay",
+      "unit_test.test_jj_luke_nemesis_gameplay",
+      "unit_test.test_jj_luke_multiplayer_gameplay"
+    ],
+    "regression_modules": [
+      "unit_test.test_form_change_lifecycle",
+      "unit_test.test_overkill_damage_modifiers",
+      "unit_test.test_bulletproof_belle_boost_damage",
+      "unit_test.test_resource_cost_reduction",
+      "unit_test.test_kingpin_side_scheme_reveals",
+      "unit_test.test_fear_no_evil_player_cards",
+      "unit_test.test_fear_no_evil_modular_sets",
+      "unit_test.test_wonder_man_jarvis",
+      "unit_test.test_thwart_target_restrictions",
+      "unit_test.test_attached_identity_restrictions",
+      "unit_test.test_attached_health_flip",
+      "unit_test.test_optional_choice_confirmation",
+      "unit_test.test_end_phase_hand_limit",
+      "unit_test.test_v18_timing_integration",
+      "unit_test.test_purple_man_obligation_readiness",
+      "unit_test.test_sense_enemy_defeat",
+      "unit_test.test_attack_defender_player",
+      "unit_test.test_victory_defeat"
+    ]
+  },
+  "fixes": [
+    {
+      "cards": [
+        "61009"
+      ],
+      "issue": "Camcorder offered targets without enough evidence because a prebuilt finder bypassed the extra filters.",
+      "change": "Use an explicit Minion/ELITE/affordability selector and pay evidence as a cost before discarding the minion."
+    },
+    {
+      "cards": [
+        "61010"
+      ],
+      "issue": "Circumstantial Evidence only observed damage-caused defeats, missing Alias Investigations.",
+      "change": "Respond to the generic enemy-defeated event; discard still does not count as defeat."
+    },
+    {
+      "cards": [
+        "62030",
+        "62032"
+      ],
+      "issue": "Boost effects asserted while looking up a player initiator on an encounter-owned effect.",
+      "change": "Read the activation recipient from the boost message."
+    },
+    {
+      "cards": [
+        "61033a",
+        "61033b",
+        "61033c"
+      ],
+      "issue": "The shared card finder returned early after checking playability, skipping printed-resource restrictions.",
+      "change": "Continue applying the remaining finder restrictions after the playability check."
+    },
+    {
+      "cards": [
+        "61033a",
+        "61033b",
+        "61033c"
+      ],
+      "issue": "Selecting the play option then canceling payment avoided both playing a card and adding threat.",
+      "change": "Apply 2 threat if no selected card was played, including an unavailable payment."
+    }
+  ],
+  "limits": [
+    "Automated headless gameplay, not browser/UI click-through or human playtesting.",
+    "Covers the heroes' own sets and nemeses, not every aspect/basic card supplied in the packs.",
+    "Targeted scenarios are not proof of every possible interaction. Multi-villain scenarios and full campaign combinations remain unvalidated.",
+    "Experimental registration remains opt-in. Normal data/cards.json was not changed."
+  ],
+  "cards": [
+    {
+      "card_id": "61001a",
+      "name": "* Jessica Jones",
+      "printed_text": "[star] <i>Gather Evidence</i> — <b>Response</b>: After you use a basic power, place 1 evidence counter on Alias Investigations.",
+      "checked_behavior": "Gather Evidence",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_jessica_basic_thwart_and_alias_response_generate_evidence",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_breakthrough_readies_and_shuffles_after_basic_attack",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_leather_jacket_basic_defense_adds_two_evidence"
+      ]
+    },
+    {
+      "card_id": "61001b",
+      "name": "* Jessica Jones",
+      "printed_text": "<i>Incognito Mode</i> — <b>Action</b>: Change to hero form. You cannot change back to alter-ego form this phase.\n<b>Setup</b>: Put the Alias Investigations support into play.",
+      "checked_behavior": "Setup and Incognito Mode; form lock and expiry",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_jessica_setup_has_alias",
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_incognito_blocks_changing_back_for_the_phase",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_incognito_form_lock_expires_through_real_villain_phase"
+      ]
+    },
+    {
+      "card_id": "61002",
+      "name": "* Alias Investigations",
+      "printed_text": "Permanent.\n<b>Response</b>: After a side scheme is defeated, exhaust this card → place 2 evidence counters here. Then, you may remove evidence counters from here equal to the villain's remaining hit points to defeat the villain's current stage.",
+      "checked_behavior": "Evidence, exhaustion, optional stage defeat, other-player defeats",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_jessica_basic_thwart_and_alias_response_generate_evidence",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_alias_threshold_spends_evidence_to_advance_villain_stage",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_alias_and_piecing_reward_other_player_defeating_scheme"
+      ]
+    },
+    {
+      "card_id": "61003",
+      "name": "* Luke Cage",
+      "printed_text": "Toughness.\n<b>Action</b>: Exhaust Luke Cage and deal 1 damage to him → give him a tough status card.",
+      "checked_behavior": "Toughness, consequential damage, paid action and lethal cost",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_luke_ally_toughness_consequential_damage_and_action",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_luke_ally_does_not_return_after_lethal_action_cost"
+      ]
+    },
+    {
+      "card_id": "61004",
+      "name": "\"Big Mistake\"",
+      "printed_text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy. You may remove 1 evidence counter from Alias Investigations to deal 2 additional damage and for this attack to gain either overkill or piercing.",
+      "checked_behavior": "Paid base attack, evidence, piercing, overkill, stun replacement",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_big_mistake_base_paid_attack",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_big_mistake_evidence_overkill_and_piercing",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_big_mistake_stunned_cancels_evidence_spend_and_attack"
+      ]
+    },
+    {
+      "card_id": "61005",
+      "name": "Breakthrough",
+      "printed_text": "<b>Response</b>: After an evidence counter is placed on Alias Investigations, ready your identity. Shuffle this card into your deck.",
+      "checked_behavior": "Ready, shuffle, counter-removal exclusion and ownership",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_breakthrough_readies_and_shuffles_after_basic_attack",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_breakthrough_does_not_trigger_when_evidence_is_removed",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_breakthrough_only_responds_to_owners_alias"
+      ]
+    },
+    {
+      "card_id": "61006",
+      "name": "Snooping Around",
+      "printed_text": "<b>Alter-Ego Action</b> <i>(thwart)</i>: Remove 4 threat from a scheme and place 2 evidence counters on Alias Investigations. Discard the top card of the encounter deck. If that card is a minion or side scheme, reveal it.",
+      "checked_behavior": "Thwart, evidence, encounter discard/reveal types, confusion",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_snooping_around_thwarts_and_reveals_only_minions_and_schemes",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_snooping_confused_cancels_all_effects",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_stakeout_applies_to_event_thwart"
+      ]
+    },
+    {
+      "card_id": "61007",
+      "name": "* Piecing It All Together",
+      "printed_text": "This scheme does not count against the player side scheme limit.\n<b>When Defeated</b>: The defeating player draws 3 cards.",
+      "checked_behavior": "Play, side-scheme limit exception, draw and defeating-player recipient",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_piecing_it_all_together_does_not_use_side_scheme_slot",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_piecing_it_all_together_draws_three_when_defeated",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_alias_and_piecing_reward_other_player_defeating_scheme"
+      ]
+    },
+    {
+      "card_id": "61008",
+      "name": "Calling in Favors",
+      "printed_text": "<b>Alter-Ego Action</b>: Remove 2 evidence counters from Alias Investigations and exhaust Calling in Favors → search your deck for an ally and play it as if it were in your hand, reducing its resource cost by 2. <i>(Shuffle.)</i>",
+      "checked_behavior": "Evidence/exhaust costs, deck search, discounted payment and insufficient resources",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_calling_in_favors_searches_deck_and_pays_discounted_cost",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_calling_in_favors_cannot_play_unaffordable_ally_for_free"
+      ]
+    },
+    {
+      "card_id": "61009",
+      "name": "4K Digital Camcorder",
+      "printed_text": "<b>Alter-Ego Action</b>: Exhaust this card and choose a non-[[Elite]] minion. Remove X evidence counters from Alias Investigations, where X is equal to 2 less than that minion's remaining hit points → discard that minion.",
+      "checked_behavior": "Remaining-health evidence cost, Elite exclusion, unaffordable targets, discard versus defeat",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_camcorder_uses_remaining_health_and_discards_without_defeating",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_camcorder_cannot_afford_undamaged_minion_without_evidence",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_camcorder_cannot_discard_elite_minions"
+      ]
+    },
+    {
+      "card_id": "61010",
+      "name": "Circumstantial Evidence",
+      "printed_text": "<b>Response</b>: After an enemy is defeated, exhaust Circumstantial Evidence → place 1 evidence counter on Alias Investigations.",
+      "checked_behavior": "Evidence for damage and non-damage enemy defeats; no reward for discard",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_camcorder_uses_remaining_health_and_discards_without_defeating",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_circumstantial_evidence_rewards_enemy_defeat_once",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_circumstantial_evidence_also_rewards_alias_nondamage_defeat"
+      ]
+    },
+    {
+      "card_id": "61011",
+      "name": "Leather Jacket",
+      "printed_text": "Jessica Jones gets +2 DEF.\n<b>Response</b>: After you defend, place 1 evidence counter on Alias Investigations.",
+      "checked_behavior": "DEF bonus; evidence for basic and ability defenses",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_leather_jacket_basic_defense_adds_two_evidence",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_reluctant_flier_threshold_and_defense_response"
+      ]
+    },
+    {
+      "card_id": "61012",
+      "name": "\"Now I'm Ticked Off!\"",
+      "printed_text": "<b>Forced Response</b> <i>(attack)</i>: After the villain activates against a player, if you are in alter-ego form, change to hero form. Deal 5 damage to the villain and each minion engaged with that player. Discard this card.",
+      "checked_behavior": "Activation/form condition, damage, discard, stun, blocked flip, correct multiplayer minions",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_now_im_ticked_off_after_scheme_damages_villain_and_minions",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_now_im_ticked_off_does_not_trigger_in_hero_form",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_now_im_ticked_off_resolves_independent_sentences_if_form_change_blocked",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_stunned_now_im_ticked_off_is_replaced_without_flipping_or_discarding",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_now_im_ticked_off_hits_activated_players_minions"
+      ]
+    },
+    {
+      "card_id": "61013",
+      "name": "Reluctant Flier",
+      "printed_text": "<b>Hero Interrupt</b> <i>(defense)</i>: When you would take at least 3 damage from an attack, discard this card → prevent all of that attack's damage. Take 1 damage.",
+      "checked_behavior": "Attack threshold, prevention plus 1 damage, discard cost, nonattack exclusion",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_reluctant_flier_threshold_and_defense_response",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_reluctant_flier_does_not_prevent_nonattack_damage"
+      ]
+    },
+    {
+      "card_id": "61014",
+      "name": "Stakeout",
+      "printed_text": "<b>Action</b>: If this card is in your play area, attach it to a non-permanent encounter side scheme.\n<b>Interrupt</b>: When a character thwarts attached scheme, that thwart removes 2 additional threat. If that thwart defeats attached scheme, place 2 evidence counters on Alias Investigations.",
+      "checked_behavior": "Attach, basic/event/other-player thwart bonus; reward only on defeat",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_stakeout_thwart_bonus_and_defeat_reward",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_stakeout_does_not_reward_nonlethal_thwart",
+        "unit_test.test_jj_hero_gameplay.TestJessicaHeroGameplay.test_stakeout_applies_to_event_thwart",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_stakeout_rewards_jessica_for_lukes_basic_thwart"
+      ]
+    },
+    {
+      "card_id": "61030",
+      "name": "Work-Life Balance",
+      "printed_text": "<b><i>Give to the Jessica Jones player.</i></b>\nAs an additional cost to change forms, discard 1 card from your hand.\n<b>Alter-Ego Action</b>: Choose:\n• Remove an ally you control from the game → remove this card from the game.\n• Confuse your identity → discard this card.",
+      "checked_behavior": "Additional form-change cost, both removal choices, correct recipient",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_work_life_balance_form_change_pays_hand_card",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_work_life_balance_blocks_form_change_without_payment",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_work_life_balance_confuse_to_discard",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_work_life_balance_removes_ally_and_obligation",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_work_life_balance_reveal_given_to_jessica_from_lukes_turn"
+      ]
+    },
+    {
+      "card_id": "61031",
+      "name": "* Purple Man",
+      "printed_text": "[star] Purple Man's SCH is equal to the highest SCH or THW among characters in play. His ATK is equal to the highest ATK among characters in play.",
+      "checked_behavior": "Highest ATK and SCH/THW; updates on form changes, entering and leaving play",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_purple_man_copies_highest_stats_and_updates_when_cards_leave"
+      ]
+    },
+    {
+      "card_id": "61032",
+      "name": "Indomitable Will",
+      "printed_text": "[star] Hinder 3[per_hero].\n<b>When Revealed</b>: Place 2 pheromone counters on each Suggestion obligation in play.\n<b>Forced Response</b>: After a Suggestion obligation enters play, place 2 <i>(additional)</i> pheromone counters on it.",
+      "checked_behavior": "Per-player starting threat/Hinder, existing and newly entering Suggestions",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_reveal_hinder_and_counters_on_existing_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_adds_counters_to_new_suggestion",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_indomitable_will_hinder_scales_per_player"
+      ]
+    },
+    {
+      "card_id": "61033a",
+      "name": "Suggestion ([energy])",
+      "printed_text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [energy] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme.",
+      "checked_behavior": "Energy requirement, payment, fallback threat, forced action, exhaustion and Uses",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_reveal_hinder_and_counters_on_existing_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_adds_counters_to_new_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestions_exhaust_spend_counter_and_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_can_play_matching_printed_resource_and_pays_cost",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_disappears_after_last_use",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_does_not_allow_canceling_payment_to_avoid_both_penalties",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_with_unaffordable_matching_card_must_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_wrong_printed_resource_cannot_be_selected",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_must_be_used_before_ending_turn"
+      ]
+    },
+    {
+      "card_id": "61033b",
+      "name": "Suggestion ([mental])",
+      "printed_text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [mental] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme.",
+      "checked_behavior": "Mental requirement, payment, fallback threat, forced action, exhaustion and Uses",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_reveal_hinder_and_counters_on_existing_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_adds_counters_to_new_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestions_exhaust_spend_counter_and_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_can_play_matching_printed_resource_and_pays_cost",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_disappears_after_last_use",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_does_not_allow_canceling_payment_to_avoid_both_penalties",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_with_unaffordable_matching_card_must_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_wrong_printed_resource_cannot_be_selected",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_must_be_used_before_ending_turn"
+      ]
+    },
+    {
+      "card_id": "61033c",
+      "name": "Suggestion ([physical])",
+      "printed_text": "Uses (3 pheromone counters).\n<b>Forced Action</b>: Exhaust this card and remove 1 pheromone counter from it → choose to either play a card that has a printed [physical] resource icon <i>(paying its costs)</i> or add 2 threat to the main scheme.",
+      "checked_behavior": "Physical requirement, payment, fallback threat, forced action, exhaustion and Uses",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_reveal_hinder_and_counters_on_existing_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_indomitable_will_adds_counters_to_new_suggestion",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestions_exhaust_spend_counter_and_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_can_play_matching_printed_resource_and_pays_cost",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_disappears_after_last_use",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_does_not_allow_canceling_payment_to_avoid_both_penalties",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_with_unaffordable_matching_card_must_add_threat",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_wrong_printed_resource_cannot_be_selected",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestJessicaNemesisGameplay.test_suggestion_must_be_used_before_ending_turn"
+      ]
+    },
+    {
+      "card_id": "62001a",
+      "name": "* Luke Cage",
+      "printed_text": "<i>Unbreakable Skin</i> — Luke Cage can have any number of tough status cards. Attacks against Luke Cage lose piercing.\n<b>Forced Response</b>: After a tough status card is discarded from Luke Cage, he takes 1 unpreventable damage <i>(ignoring tough)</i>.",
+      "checked_behavior": "Multiple Tough, piercing immunity, damage per Tough discarded, prevention immunity",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_luke_keeps_multiple_tough_across_forms_and_pays_per_discard",
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_tough_damage_and_ally_scaling",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_piercing_attack_still_consumes_only_one_tough_in_both_forms",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_unpreventable_tough_loss_does_not_offer_metal_bracer"
+      ]
+    },
+    {
+      "card_id": "62001b",
+      "name": "* Luke Cage",
+      "printed_text": "<i>Unbreakable Skin</i> — Luke Cage can have any number of tough status cards. Attacks against Luke Cage lose piercing.\n<b>Action</b>: Search your deck and discard pile for the Burstein Process upgrade and add it to your hand. (Limit once per phase.)",
+      "checked_behavior": "Search deck/discard, once per phase and reset, multiple Tough and piercing immunity",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_luke_keeps_multiple_tough_across_forms_and_pays_per_discard",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_piercing_attack_still_consumes_only_one_tough_in_both_forms",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_burstein_identity_searches_deck_and_discard_once_per_phase",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_burstein_identity_search_limit_resets_next_phase"
+      ]
+    },
+    {
+      "card_id": "62002",
+      "name": "* Jessica Jones",
+      "printed_text": "[star] Jessica Jones gets +1 THW for each tough status card on your identity (to a maximum of +4 THW).",
+      "checked_behavior": "Tough-based THW scaling, cap and updates across form/Tough changes",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_tough_damage_and_ally_scaling",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_jessica_ally_thwart_updates_and_caps_at_four_bonus"
+      ]
+    },
+    {
+      "card_id": "62003",
+      "name": "Harlem's Hero",
+      "printed_text": "<b>Hero Action</b>: Give Luke Cage a tough status card. For each tough status card on Luke Cage, choose a character you control and ready it.",
+      "checked_behavior": "Tough gain and exact number of controlled characters readied",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_harlem_hero_readies_hero_and_allies_up_to_tough_count",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_harlem_hero_with_one_tough_readies_exactly_one_character"
+      ]
+    },
+    {
+      "card_id": "62004",
+      "name": "Knuckle Sandwich",
+      "printed_text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy. You may discard a tough status card from Luke Cage to return this event to your hand.",
+      "checked_behavior": "Paid attack, optional return cost, unpreventable damage, stun",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_knuckle_sandwich_optional_return_pays_tough_damage",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_stunned_knuckle_sandwich_spends_no_tough_and_stays_discarded"
+      ]
+    },
+    {
+      "card_id": "62005",
+      "name": "\"Stand with Me!\"",
+      "printed_text": "<b>Hero Action</b> <i>(thwart)</i>: Give Luke Cage a tough status card. Remove 1 threat from a scheme for each tough status card on Luke Cage (to a maximum of 5).",
+      "checked_behavior": "Tough gained before thwart, scaling/cap, confusion replaces entire effect",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_stand_with_me_tough_and_thwart_cap",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_confused_stand_does_not_gain_tough"
+      ]
+    },
+    {
+      "card_id": "62006",
+      "name": "\"Sweet Christmas!\"",
+      "printed_text": "[star] Reduce the cost to play this card by 1 for each tough status card on Luke Cage.\n<b>Hero Action</b> <i>(attack)</i>: Deal 5 damage to the villain and each minion engaged with you.",
+      "checked_behavior": "Cost reduction/floor, multi-target damage, stun, own engaged minions only",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_sweet_christmas_cost_reduction_and_area_damage",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_stunned_sweet_christmas_cancels_entire_multi_target_attack",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_sweet_christmas_does_not_damage_other_players_minions"
+      ]
+    },
+    {
+      "card_id": "62007",
+      "name": "* Fogwell's Gym",
+      "printed_text": "<b>Response</b>: After a tough status card is discarded from a [[Defender]] character, exhaust Fogwell's gym → ready that character.",
+      "checked_behavior": "Ready Defender on Tough loss, other player's character and round readiness",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_fogwells_gym_readies_defender_after_tough_loss",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_power_man_and_gym_ready_and_trigger_again_across_full_round",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_fogwells_gym_can_ready_other_players_defender"
+      ]
+    },
+    {
+      "card_id": "62008",
+      "name": "* Burstein Process",
+      "printed_text": "<b>Alter-Ego Action</b>: Exhaust Burstein Process → give Luke Cage a tough status card (2 tough status cards instead if he has none).",
+      "checked_behavior": "Two Tough when none, one when already Tough, exhaust and form restriction",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_burstein_process_adds_two_then_one_tough",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_burstein_cannot_activate_in_hero_form"
+      ]
+    },
+    {
+      "card_id": "62009",
+      "name": "Cruisin' for a Bruisin'",
+      "printed_text": "Attach to a minion. Max 1 per minion.\nAttacks against attached minion deal 2 additional damage and gain overkill.\n<b>Response</b>: After you play this card, engage attached minion.",
+      "checked_behavior": "Paid attachment, engagement, attack/event/other-player bonus and overkill; nonattack exclusion",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_cruisin_paid_play_adds_attack_damage_and_overkill",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_cruisin_does_not_increase_nonattack_damage",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_cruisin_also_modifies_attack_event",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_cruisin_engages_minion_from_other_player_on_paid_play",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_cruisin_bonus_applies_to_other_players_attack"
+      ]
+    },
+    {
+      "card_id": "62010",
+      "name": "Metal Bracer",
+      "printed_text": "Luke Cage gets retaliate 1.\n<b>Hero Interrupt</b>: When any amount of damage would be dealt to Luke Cage, exhaust Metal Bracer → reduce that damage by 1.",
+      "checked_behavior": "Pre-Tough damage reduction, stacked retaliate, unpreventable damage exclusion",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_metal_bracer_can_stop_one_damage_before_tough",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_two_metal_bracers_stack_retaliate",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_unpreventable_tough_loss_does_not_offer_metal_bracer"
+      ]
+    },
+    {
+      "card_id": "62011",
+      "name": "* Power Man",
+      "printed_text": "<b>Hero Response</b>: After a tough status card is discarded from Luke Cage, exhaust Power Man → draw a card.",
+      "checked_behavior": "Draw, exhaust, Hero-only response, round reset",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_power_man_draws_only_once_until_readied",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_power_man_does_not_draw_in_alter_ego",
+        "unit_test.test_luke_hero_gameplay.TestLukeHeroGameplay.test_power_man_and_gym_ready_and_trigger_again_across_full_round"
+      ]
+    },
+    {
+      "card_id": "62028",
+      "name": "Internal Injury",
+      "printed_text": "<b><i>Give to the Luke Cage player.</i></b>\n<b>Forced Response</b>: After the player phase ends, take 3 unpreventable damage <i>(ignoring tough status cards)</i>.\n<b>Alter-Ego Response</b>: After you recover, remove Internal Injury from the game.",
+      "checked_behavior": "Actual player-phase-end damage through Tough; removal only after basic recovery",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_internal_injury_player_phase_end_ignores_tough",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_internal_injury_removed_after_basic_recovery",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_internal_injury_not_removed_after_nonbasic_healing"
+      ]
+    },
+    {
+      "card_id": "62029",
+      "name": "* Cottonmouth",
+      "printed_text": "[star] <b>Forced Response</b>: After Cottonmouth attacks, he attacks the same character 2 additional times. (Limit once per phase.)\n<i>(Luke Cage's nemesis minion.)</i>\n<hr />\n[star] <b>Boost</b>: Deal this card to the Luke Cage player as a facedown encounter card.",
+      "checked_behavior": "Two repeat attacks, phase limit, defending ally, boost recipient in another seat",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_cottonmouth_attacks_three_times_only_once_per_phase",
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_augmented_jaws_discards_all_tough_before_cottonmouth_attacks",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_cottonmouth_repeats_against_defending_ally_until_it_is_defeated",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_cottonmouth_boost_dealt_to_luke_in_other_seat"
+      ]
+    },
+    {
+      "card_id": "62030",
+      "name": "Venomous Whispers",
+      "printed_text": "Each [[Serpent Society]] minion cannot be attacked.\n<b>When Defeated</b>: The defeating player discards cards from the top of the encounter deck until a [[Serpent Society]] minion is discarded and reveals that minion.\n<hr />\n[star] <b>Boost</b>: You are confused.",
+      "checked_behavior": "Serpent attack restriction, nonattack allowance, defeat search/reveal and boost recipient",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_asp_boost_stuns_and_venomous_whispers_boost_confuses",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_venomous_whispers_blocks_attacks_but_not_nonattack_damage",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_venomous_whispers_defeat_searches_and_reveals_serpent",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_boost_status_applies_to_activated_player"
+      ]
+    },
+    {
+      "card_id": "62031",
+      "name": "Augmented Jaws",
+      "printed_text": "Attach to Cottonmouth. Otherwise, attach to the villain.\n[star] <b>Forced Interrupt</b>: When attached enemy attacks a character, discard each tough status card from that character.\n<b>Hero Action</b>: Spend [mental] [mental] resources → discard this card.",
+      "checked_behavior": "Cottonmouth/villain attachment, Tough stripping, ATK bonus, mental payment",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_augmented_jaws_discards_all_tough_before_cottonmouth_attacks",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_augmented_jaws_fallback_villain_and_paid_removal",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_augmented_jaws_cannot_be_paid_with_wrong_resource"
+      ]
+    },
+    {
+      "card_id": "62032",
+      "name": "* Asp",
+      "printed_text": "[star] <b>Forced Response</b>: After Asp schemes against you, you are stunned.\n<hr />\n[star] <b>Boost</b>: You are stunned.",
+      "checked_behavior": "Stun after scheme and boost; correct multiplayer recipient",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_asp_schemes_and_stuns",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_asp_boost_stuns_and_venomous_whispers_boost_confuses",
+        "unit_test.test_jj_luke_multiplayer_gameplay.TestHeroMultiplayerGameplay.test_boost_status_applies_to_activated_player"
+      ]
+    },
+    {
+      "card_id": "62033",
+      "name": "* Sidewinder",
+      "printed_text": "Quickstrike.\n<b>Forced Interrupt</b>: When Sidewinder is attacked, discard the top card of the encounter deck. If the discarded card has a \"<b>Boost</b>\" ability, deal Sidewinder to the attacking player as a facedown encounter card.",
+      "checked_behavior": "Quickstrike, boost-star escape, normal boost icons do not cause escape",
+      "result": "passed",
+      "tests": [
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_sidewinder_moves_to_encounters_when_discarded_card_has_boost_ability",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_sidewinder_only_escapes_for_boost_star",
+        "unit_test.test_jj_luke_nemesis_gameplay.TestLukeNemesisGameplay.test_sidewinder_quickstrike_only_attacks_hero"
+      ]
+    }
+  ]
+}

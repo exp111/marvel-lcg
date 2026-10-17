@@ -1040,7 +1040,7 @@ class SenderCard:
     ################################################################################
 
     class WhenCardFaceActivated(TriggerFaceMessage, HasEndEventMessage):
-        """Refresh continuous effects after a flip, without entering play."""
+        """Initialize the active face and refresh its effects without an entry."""
         def __init__(self, face: 'CardFace', by_effect: 'Effect') -> None:
             from game.message import Message
             self.by_effect: Final = by_effect

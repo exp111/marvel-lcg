@@ -69,6 +69,9 @@ class Ability:
 
         self.selectors: List['Selector|None'] = [] # Only use the first one, the others are used to check if it has the legal target, remove "Zero" in range
         self.cost_funcs: List[CostFunc.Base] = []
+        # The ordinary exhaustion cost can be waived by a granted basic power
+        # without waiving any additional costs imposed by other cards.
+        self.basic_power_exhaust_cost: CostFunc.Base|None = None
         self.const_condition: List[Callable[['Effect', when], bool]] = conditions
         self.conditions: List[Callable[['Effect', when], bool]] = conditions
 

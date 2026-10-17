@@ -36,9 +36,11 @@ Verify the downloaded archive with its accompanying `.sha256` file.
 
 ## Community build highlights
 
+Jessica Jones and Luke Cage are available in the current source build. The published v1.3.3.1 executable predates these two packs.
+
 - **Campaigns:** Complete playable campaign flows for **Fear No Evil**, **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
-- **Playable heroes:** Full **Wonder Man**, **Hercules**, **Daredevil**, and **Echo** hero expansions, each with a starter deck, identity-specific cards, an obligation, and a registered nemesis set. Daredevil includes his separate Sense deck, while Echo includes her tucked-event mechanics.
-- **Player cards:** The complete **Fear No Evil** player-card set, including Starting and Team-Up cards, together with the aspect and basic player cards released alongside Wonder Man and Hercules.
+- **Playable heroes:** Full **Wonder Man**, **Hercules**, **Daredevil**, **Echo**, **Jessica Jones**, and **Luke Cage** hero expansions, each with a starter deck, identity-specific cards, an obligation, and a registered nemesis set. Daredevil includes his separate Sense deck, while Echo includes her tucked-event mechanics. Jessica Jones and Luke Cage include their complete player-card packs and reviewed Hall of Heroes artwork, with six documented reprint matches.
+- **Player cards:** The complete **Fear No Evil** player-card set, including Starting and Team-Up cards, together with the aspect and basic player cards released alongside Wonder Man, Hercules, Jessica Jones and Luke Cage.
 - **Fear No Evil scenarios:** Five interchangeable Underlings—**Bullseye**, **Electro**, **Hammerhead**, **Purple Man**, and **Typhoid Mary**—can be paired with **Art Museum Heist**, **The Getaway**, **Protection Racket**, **The Raft Breakout**, or **Stop the Presses!**. **Kingpin** is implemented as a complete standalone scenario, together with the Disasters, Cops, Drive, The Owl, Tombstone, and Tracksuit Mafia modular sets.
 - **Synthezoid Smackdown:** Standard and expert cooperative scenarios against **She-Hulk** and **Vision**, supported by the S.H.I.E.L.D. Ops, Thunderbolts, Taskmaster, Deadly Duo, Young Avengers, Scarlet Twins, Moon Knight, and Royal Guard encounter sets.
 - **Trickster Takeover:** Complete standard and expert **Loki: God of Lies** scenarios, including the Loki Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic content.
@@ -75,5 +77,12 @@ This game runs Python card scripts. Do not install or run third-party card scrip
 
 ## Screenshots
 
-![](/docs/assets/image-1.jpg)
-![](/docs/assets/image-2.jpg)
+**Main menu — Community Build v1.3.3.1r**
+
+![Current main menu with game setup, replay library, deck editor, card browser, and artwork controls](/docs/assets/image-1.jpg)
+
+**Two-player hotseat — round six**
+
+Daredevil and Echo face Typhoid Mary in The Raft Breakout, with both players' upgrades and supports in play.
+
+![Two-player hotseat game showing Daredevil and Echo's developed board against Typhoid Mary](/docs/assets/image-2.jpg)

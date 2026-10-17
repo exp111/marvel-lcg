@@ -148,9 +148,11 @@ not relocate saves, decks, campaign settings, statistics or replays.
   first, because these personal overrides take priority. Old `assets/cache`
   contents do not certify a scan as reviewed. Do not erase the managed library
   to fix an individual image: removing it requires downloading it again.
-- **Unsupported cards:** Jessica Jones and Luke Cage cards that have not been
-  implemented lack both artwork and gameplay support. Importing them from
-  MarvelCDB or retrying preparation does not add support.
+- **Jessica Jones and Luke Cage:** The current development build includes both
+  complete packs, their starter decks and all 81 reviewed card faces. Updating
+  from the previous complete artwork library downloads about 37 MB of new or
+  changed packs. Existing application executables need a new build to gain the
+  gameplay support; downloading artwork alone does not update the application.
 
 Only the host needs the full collection. Remote players receive the images they
 view from the host; Cloudflare multiplayer still needs its normal internet

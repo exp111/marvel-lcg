@@ -32,6 +32,7 @@ class PlayerSideSchemeLimit:
             faces = [
                 x for x in world.area_schemes_side.Get(True)
                 if PlayerSideScheme.IsType(x) and
+                not x.ignores_player_side_scheme_limit and
                 not x.paper.IsFromSet("Next Evolution Campaign")
             ]
             exceed_num = len(faces) - limit_num

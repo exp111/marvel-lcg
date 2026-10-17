@@ -588,21 +588,29 @@ class Effect(Object):
             display_in_target_order = False
             full_search_display_targets = []
 
+        is_trigger = self.ability.flags.is_interrupt or self.ability.flags.is_response
+        target_count = len(self.context.all_legal_targets)
+        select_all_required = bool(
+            is_trigger and selector and
+            selector.selector_range.select_all and
+            self.context.target_range == (target_count, target_count) and
+            not selector.selector_rule.select_rule and
+            not selector.selector_rule.repeat_rules and
+            not display_in_target_order
+        )
         automatic_targets: List[int] = []
         if selector and \
-            self.context.target_range == (1, 1) and \
-            len(self.context.all_legal_targets) == 1 and \
+            (select_all_required or (self.context.target_range == (1, 1) and target_count == 1)) and \
             not selector.force_choose and \
             not is_search and \
             not full_search_display_targets:
             automatic_targets = [
-                self.context.all_legal_targets[0].card.object_id
+                face.card.object_id for face in self.context.all_legal_targets
             ]
-        # A deterministic target can be preselected without deciding whether
+        # Deterministic targets can be preselected without deciding whether
         # the player wants to use an optional printed Interrupt or Response.
         # Keep those targets selected, but wait for an explicit confirmation.
         # Forced trigger prompts also require OK, although they cannot be passed.
-        is_trigger = self.ability.flags.is_interrupt or self.ability.flags.is_response
         is_basic_defense = (
             self.ability.type == AbilityType.BasicPower and
             self.ability.IsFunction("DEF")

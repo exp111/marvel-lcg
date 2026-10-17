@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-16",
+  "textures": [
+    {
+      "path": "assets/textures/sets/61. Jessica Jones.webp",
+      "source_page": "https://www.fantasyflightgames.com/product/jessica-jones/",
+      "source_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/image-converter/2026/09/mc61-image0500.webp",
+      "sha256": "27817d7c89b156ee8a8fa669a050d71c977caeeb0bf7da8a3e98a655ba353576",
+      "dimensions": [
+        500,
+        500
+      ],
+      "bytes": 31296,
+      "preparation": "Exact publisher-provided transparent WebP bytes; no local image editing. Replaces the white-background storefront JPEG."
+    },
+    {
+      "path": "assets/textures/sets/62. Luke Cage.webp",
+      "source_page": "https://www.fantasyflightgames.com/product/luke-cage/",
+      "source_url": "https://cdn.svc.asmodee.net/production-fantasyflightgames/uploads/image-converter/2026/09/mc62-image0500.webp",
+      "sha256": "ee0b27b9bf2c3c6334fc2dafc0ae12f32bc94964ff04fcbe423c206e79da29cb",
+      "dimensions": [
+        500,
+        500
+      ],
+      "bytes": 33872,
+      "preparation": "Exact publisher-provided transparent WebP bytes; no local image editing. Replaces the white-background storefront JPEG."
+    }
+  ]
+}

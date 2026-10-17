@@ -12,7 +12,7 @@ def GetAbilities() -> Sequence['Ability']:
             player.player_deck.Shuffle(effect)
 
     return [
-        AbilityFactory.ThisEnterPlayWithCounters(1, 'pouch'),
+        AbilityFactory.ThisEnterPlayWithCounters(1, 'pouch', include_face_changes=True),
         AbilityFactory.WhenInYourPlayTurn(
             AbilityType.Action,
             geared_up,

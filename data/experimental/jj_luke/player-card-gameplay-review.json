@@ -1,0 +1,616 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "passed_experimental_headless_gameplay",
+  "scope": {
+    "player_card_faces": 42,
+    "jessica_jones_faces": 22,
+    "luke_cage_faces": 20,
+    "includes": "Aspect, basic, Team-Up, player side scheme and resource/reprint cards outside the previous 39-face hero audit."
+  },
+  "method": "Deterministic solo and two-player scenarios through the real game loop, controllers, rendered choices, resource payments and timing windows. Puzzle commands establish board and deck states; card behavior is not mocked. Includes actual attacks, defenses, thwarts, searches, healing, defeat, phase and round transitions.",
+  "validation": {
+    "result": "passed_after_test_fixture_correction",
+    "distinct_tests_passed": 376,
+    "new_player_gameplay_tests": 76,
+    "previous_hero_and_pack_tests": 127,
+    "existing_regression_tests": 173,
+    "counting": "Distinct unittest methods; subcases and reruns are not counted again.",
+    "runs": [
+      {
+        "path": "release-artifacts/jj-luke-player-full-regression.log",
+        "tests": 376,
+        "passed": 375,
+        "failed": 1,
+        "failure": "Old Leather Jacket fixture used a response-card selector to choose basic defense. The tightened helper correctly no longer selects basic powers as responses."
+      },
+      {
+        "path": "release-artifacts/leather-jacket-choice-regression.log",
+        "tests": 1,
+        "passed": 1,
+        "correction": "Select the actual Defense option explicitly; all original gameplay assertions remain intact."
+      }
+    ],
+    "new_modules": [
+      "unit_test.test_jj_player_cards_gameplay",
+      "unit_test.test_luke_player_cards_gameplay",
+      "unit_test.test_jj_luke_shared_player_gameplay"
+    ],
+    "reproduce": ".venv-release\\Scripts\\python.exe -X utf8 -m unittest unit_test.test_jj_luke_first_pass unit_test.test_jj_engine_support unit_test.test_jj_hero_gameplay unit_test.test_luke_hero_gameplay unit_test.test_jj_luke_nemesis_gameplay unit_test.test_jj_luke_multiplayer_gameplay unit_test.test_form_change_lifecycle unit_test.test_overkill_damage_modifiers unit_test.test_bulletproof_belle_boost_damage unit_test.test_resource_cost_reduction unit_test.test_kingpin_side_scheme_reveals unit_test.test_fear_no_evil_player_cards unit_test.test_fear_no_evil_modular_sets unit_test.test_wonder_man_jarvis unit_test.test_thwart_target_restrictions unit_test.test_attached_identity_restrictions unit_test.test_attached_health_flip unit_test.test_optional_choice_confirmation unit_test.test_end_phase_hand_limit unit_test.test_v18_timing_integration unit_test.test_purple_man_obligation_readiness unit_test.test_sense_enemy_defeat unit_test.test_attack_defender_player unit_test.test_victory_defeat unit_test.test_jj_player_cards_gameplay unit_test.test_luke_player_cards_gameplay unit_test.test_jj_luke_shared_player_gameplay -q"
+  },
+  "fixes": [
+    {
+      "card_id": "61016",
+      "name": "Spider-Woman",
+      "issue": "Declining the optional discard still fell through to discarding her.",
+      "fix": "Use the explicit optional-choice factory with a Cancel option, retaining gained limb counters when declined."
+    },
+    {
+      "card_id": "61026",
+      "name": "Joys of Life",
+      "issue": "A union passed directly as the exhaustion-cost selector admitted noncharacters, including the main scheme.",
+      "fix": "Use an explicit Hero-or-Ally CardFinder for that cost."
+    },
+    {
+      "card_id": "61029",
+      "name": "Defend Our City",
+      "issue": "The Team-Up discount stopped applying after the defeated scheme left play.",
+      "fix": "Allow the temporary cost reduction to operate out of play until phase-end cleanup."
+    },
+    {
+      "card_id": "62014",
+      "name": "Valkyrie",
+      "issue": "Printed Toughness was missing from metadata.",
+      "fix": "Register Toughness so actual paid play gives her a Tough status card."
+    },
+    {
+      "card_id": "62019",
+      "name": "Righteous Purpose",
+      "issue": "The support used an upgrade attachment play path, raising an AttachTo2 error.",
+      "fix": "Use normal support play under any player's control, including its one-per-player check."
+    }
+  ],
+  "sources": [
+    {
+      "source": "data/experimental/jj_luke/cards.json",
+      "use": "Exact printed text transcribed in the existing experimental pack metadata; retained per face in this audit."
+    },
+    {
+      "source": "https://www.fantasyflightgames.com/on-the-case/",
+      "use": "Publisher confirmation that Defend Our City's prerequisite refers to the identity's Defender trait, and Joys of Life's Alliance permits other players to pay exhaustion costs."
+    }
+  ],
+  "limits": [
+    "Headless real-engine gameplay; no manual browser interaction or artwork rendering validation in this pass.",
+    "Targeted solo/two-player scenarios, not exhaustive combinations across every hero, scenario, campaign or multi-villain setup.",
+    "Additional scenarios reuse earlier coverage for Run Them to Ground, Grapnel Launcher and Mitigated Threat.",
+    "The packs remain opt-in experimental content; normal data/cards.json is unchanged."
+  ],
+  "cards": [
+    {
+      "card_id": "61015",
+      "name": "* Captain Marvel",
+      "pack": "jj",
+      "printed_text": "<b>Response</b>: After Captain Marvel enters play, discard the top 4 cards of your deck. If you discard a printed [energy] resource, remove 2 threat from a scheme. If you discard more than one printed [energy] resource, also confuse an enemy.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Zero, one and two printed energy icons; a double-resource card counts both icons; threat removal and confuse threshold.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_captain_marvel_counts_energy_icons_and_confuses_at_two"
+      ]
+    },
+    {
+      "card_id": "61016",
+      "name": "* Spider-Woman",
+      "pack": "jj",
+      "printed_text": "<b>Response</b>: After a character you control thwarts, place 1 limb counter here (to a maximum of 8). You may discard Spider-Woman to deal 1 damage to an enemy for each limb counter here.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Hero, ally and event thwarts; counter cap; optional discard accepted and declined; other-player and confused-thwart exclusions.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_spider_woman_gains_counters_on_hero_and_ally_thwarts",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_spider_woman_eight_counter_cap_and_discard_damage",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_spider_woman_event_thwart_also_counts",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_spider_woman_ignores_other_players_thwart_and_confused_attempt"
+      ]
+    },
+    {
+      "card_id": "61017",
+      "name": "* Squirrel Girl",
+      "pack": "jj",
+      "printed_text": "<b>Response</b>: After you play Squirrel Girl from your hand, place 1 squirrel counter here for each card in your hand (to a maximum of 4).\n<b>Action</b>: Remove 1 squirrel counter from here → remove 1 threat from a scheme.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Hand size after payment, four-counter cap, no entry reward when simply put into play, repeated counter actions without exhausting.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_squirrel_girl_counts_hand_after_payment_with_cap",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_squirrel_girl_no_counters_when_put_into_play",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_squirrel_girl_removes_threat_without_exhausting_until_empty"
+      ]
+    },
+    {
+      "card_id": "61018",
+      "name": "Lay Down the Law",
+      "pack": "jj",
+      "printed_text": "<b>Hero Response</b> <i>(thwart)</i>: After you change form, remove 3 threat from a scheme (4 threat instead if you paid for this card using a [mental] resource).",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Paid form-change response with and without the mental-resource bonus.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_lay_down_the_law_reprint_mental_resource_bonus"
+      ]
+    },
+    {
+      "card_id": "61019",
+      "name": "Strategy Session",
+      "pack": "jj",
+      "printed_text": "<b>Alter-Ego Action</b>: Choose a player to search their deck for a player side scheme and add it to their hand.\n<b>Hero Action</b> <i>(thwart)</i>: Remove 3 threat from a player side scheme.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Hero thwart targets player side schemes; alter-ego searches own or chosen teammate's deck and adds the result to that player's hand.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_strategy_session_hero_thwarts_only_player_side_scheme",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_strategy_session_alter_ego_searches_and_adds_scheme",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_strategy_session_searches_chosen_players_deck"
+      ]
+    },
+    {
+      "card_id": "61020",
+      "name": "* Run Them to Ground",
+      "pack": "jj",
+      "printed_text": "Victory 0.\n<b>When Defeated</b>: Resolve each of the following:\n• Skip the next villain phase.\n• Deal each player 1 facedown encounter card <i>(immediately)</i>.\n• The villain cannot take damage until the start of the next <i>(unskipped)</i> villain phase.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Whole villain phase skipped; each player receives an immediate encounter card; villain immunity lasts through skipped phases until an actual villain phase starts.",
+      "tests": [
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_run_them_to_ground_skips_whole_phase_and_keeps_immunity",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_run_them_to_ground_immunity_ends_at_actual_villain_phase_start",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_run_them_to_ground_deals_each_player_an_immediate_card"
+      ]
+    },
+    {
+      "card_id": "61021",
+      "name": "* Lay the Trap",
+      "pack": "jj",
+      "printed_text": "Victory 0.\n<b>When Defeated</b>: The player who defeated this scheme deals 5[per_hero] damage to the villain.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Defeat reward deals five damage solo and ten with two players.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_lay_the_trap_reprint_damage_when_defeated",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_lay_the_trap_multiplayer_damage_scales"
+      ]
+    },
+    {
+      "card_id": "61022",
+      "name": "Determination",
+      "pack": "jj",
+      "printed_text": "Max 1 per deck.\n<b>Hero Response</b>: After you spend this card, remove 1 threat from the main scheme.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Resource payment removes one main-scheme threat only in hero form.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_determination_reprint_only_removes_threat_in_hero_form"
+      ]
+    },
+    {
+      "card_id": "61023",
+      "name": "Grapnel Launcher",
+      "pack": "jj",
+      "printed_text": "Restricted.\n<b>Hero Action</b>: Discard this card → make a basic thwart without exhausting <i>(even if you are exhausted)</i>. For this thwart, your hero gets +1 THW and ignores the patrol keyword and any crisis icons <i>([crisis])</i> in play.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Granted basic thwart while exhausted or ready, +1 THW, confusion, Patrol/Crisis bypass, additional basic-power costs and cleanup.",
+      "tests": [
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_while_exhausted_uses_basic_power_and_cleans_up",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_does_not_exhaust_a_ready_hero",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_confused_replaces_basic_thwart",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_ignores_crisis_and_patrol_for_only_its_thwart",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_retains_additional_basic_thwart_cost",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_grapnel_does_not_waive_an_additional_exhaust_cost"
+      ]
+    },
+    {
+      "card_id": "61024",
+      "name": "Entrapment",
+      "pack": "jj",
+      "printed_text": "Max 1 per player.\n<b>Alter-Ego Response</b> <i>(attack)</i>: After the villain schemes, change to hero form and discard this card → deal damage to the villain equal to the amount of threat placed by that activation.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Form change and discard costs precede attack; damage equals threat placed; blocked form change, stunned identity and confused villain cases.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_entrapment_stun_spends_costs_but_replaces_damage",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_entrapment_no_scheme_resolution_when_villain_is_confused",
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_entrapment_pays_form_change_before_damage",
+        "unit_test.test_jj_luke_first_pass.TestFirstPassPacks.test_entrapment_stops_when_form_change_cost_fails"
+      ]
+    },
+    {
+      "card_id": "61025",
+      "name": "* Hellcat",
+      "pack": "jj",
+      "printed_text": "If your identity has the [[Defender]] trait, this card gains: \"<b>Action</b>: Put Hellcat into play from your hand. At the end of the phase, discard her.\"",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Free Defender action versus normal paid play; alter-ego restriction; only the free entry expires at phase end.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_hellcat_free_action_requires_defender_and_expires_at_phase_end",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_hellcat_free_action_unavailable_to_civilian_alter_ego",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_hellcat_paid_play_does_not_expire"
+      ]
+    },
+    {
+      "card_id": "61026",
+      "name": "Joys of Life",
+      "pack": "jj",
+      "printed_text": "Alliance.\n<b>Action</b>: Choose:\n• Exhaust a [[Civilian]] alter-ego → ready a hero or ally.\n• Exhaust a hero or ally → ready a [[Civilian]] alter-ego.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Both exhaust/ready choices; alliance payment with another player's hero; schemes are excluded from character exhaustion costs.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_joys_of_life_both_exhaust_ready_choices",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_joys_of_life_can_exhaust_other_players_hero"
+      ]
+    },
+    {
+      "card_id": "61027",
+      "name": "Unbreakable Bond",
+      "pack": "jj",
+      "printed_text": "Team-Up <i>(Jessica Jones and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b>: <i>(thwart)</i>: Remove 3 threat from a scheme. Heal a total of 3 damage from among Jessica Jones and Luke Cage.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Both printings; 3/0 and 2/1 healing, teammate identity, paid thwart, confusion replaces the whole thwart and missing-partner restriction.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_both_printings_heal_three_to_one_character",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_distributes_healing_between_characters",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_confused_replaces_entire_thwart_including_healing",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_team_up_requires_both_named_characters_in_play",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_works_with_other_players_identity"
+      ]
+    },
+    {
+      "card_id": "61028",
+      "name": "* Second Chance",
+      "pack": "jj",
+      "printed_text": "Victory 0.\n<b>When Defeated</b>: Each player may shuffle all of their identity-specific cards from their discard pile into their deck.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Defeat shuffles all eligible identity cards, excludes aspect/basic cards, and allows declining the reward.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_second_chance_shuffles_only_identity_cards_and_allows_decline"
+      ]
+    },
+    {
+      "card_id": "61029",
+      "name": "* Defend Our City",
+      "pack": "jj",
+      "printed_text": "[star] Hinder 1[per_hero].\nPrerequisite ([[Defender]]). Victory 0.\n<b>When Defeated</b>: Each player may search their deck and discard pile for a Team-Up card and add it to their hand. Until the end of the phase, reduce the cost to play each Team-Up card by 1.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Identity prerequisite, Hinder scaling, both players search, discount persists after defeat and ends at phase end.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_defend_our_city_requires_identity_defender_and_hinder_scales",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_defend_our_city_search_and_team_up_discount_expires",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_defend_our_city_search_and_discount_reach_each_player"
+      ]
+    },
+    {
+      "card_id": "61034",
+      "name": "Innate Aggression",
+      "pack": "jj",
+      "printed_text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nYour hero gets +1 ATK.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Hero ATK bonus and cleanup; optional Starting selection before the opening draw, including decline.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_innate_aggression_and_perception_apply_only_to_hero",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_starting_each_innate_can_enter_opening_hand_before_draw",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_starting_can_be_declined_without_adding_extra_opening_cards"
+      ]
+    },
+    {
+      "card_id": "61035",
+      "name": "Shakedown",
+      "pack": "jj",
+      "printed_text": "Play under any player's control. Max 1 per player.\n<b>Response</b>: After you attack and exactly defeat a minion, exhaust this card → remove threat from a scheme equal to that minion's base SCH.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Exact attack defeat versus excess/nonattack damage, base SCH reward, exhaustion, other-player control and max one per player.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_shakedown_only_triggers_on_exact_attack_defeat",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_shakedown_under_other_control_only_rewards_that_player",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_shakedown_max_one_per_player"
+      ]
+    },
+    {
+      "card_id": "61036",
+      "name": "Innate Perception",
+      "pack": "jj",
+      "printed_text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nYour hero gets +1 THW.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Hero THW bonus and cleanup; Starting selection leaves the correct six-card opening hand.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_innate_aggression_and_perception_apply_only_to_hero",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_starting_each_innate_can_enter_opening_hand_before_draw"
+      ]
+    },
+    {
+      "card_id": "61037",
+      "name": "Innate Inspiration",
+      "pack": "jj",
+      "printed_text": "Starting. <i>(You may add this card to your hand before drawing your starting hand.)</i>\nEach ally you control gets +1 hit point.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Existing and newly entering owned allies gain health; teammate allies are excluded; cleanup and Starting selection.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_innate_inspiration_affects_existing_and_new_allies_and_cleans_up",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_starting_each_innate_can_enter_opening_hand_before_draw",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_innate_inspiration_does_not_buff_other_players_allies"
+      ]
+    },
+    {
+      "card_id": "61038",
+      "name": "* Echo",
+      "pack": "jj",
+      "printed_text": "Reduce the amount of damage Echo takes from each enemy attack by your hero's DEF.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Enemy attack damage reduced by current hero DEF, including Leather Jacket; nonattack damage is unaffected.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_echo_reduces_enemy_attack_by_current_hero_defense",
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_echo_does_not_reduce_nonattack_damage"
+      ]
+    },
+    {
+      "card_id": "61039",
+      "name": "* Lay Low",
+      "pack": "jj",
+      "printed_text": "Victory 0.\n<b>When Defeated</b>: Each player may change to alter-ego form. Heal damage from each alter-ego equal to its REC.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Optional form change and healing by REC, including an existing alter-ego when another hero declines to flip.",
+      "tests": [
+        "unit_test.test_jj_player_cards_gameplay.TestJessicaPlayerCards.test_lay_low_flips_and_heals_by_recovery_without_exhausting",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_lay_low_heals_existing_alter_ego_even_when_other_hero_declines_flip"
+      ]
+    },
+    {
+      "card_id": "61040",
+      "name": "Mitigated Threat",
+      "pack": "jj",
+      "printed_text": "Attach to a card. Attached card loses each [acceleration], [amplify], [crisis], and [hazard] icon.\n<b>Forced Response</b>: At the end of the round, each player may spend 1 resource of any type. If any player does not, discard this card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Paid attachment play; dynamic icon removal, stacking, blanking/reattachment cleanup, every-player upkeep and skipped-villain-phase upkeep.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_mitigated_threat_paid_play_attaches_and_removes_icons",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_suppresses_new_icons_and_restores_them",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_round_upkeep_declined_restores_icons",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_each_player_pays_from_their_own_resources",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_upkeep_still_resolves_when_villain_phase_is_skipped",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_one_player_declining_discards_after_every_player_is_asked",
+        "unit_test.test_jj_engine_support.TestJessicaEngineSupport.test_mitigated_stacks_and_cleans_up_when_reattached_or_blanked"
+      ]
+    },
+    {
+      "card_id": "62012",
+      "name": "* Iron Fist",
+      "pack": "luke_cage",
+      "printed_text": "<b>Interrupt</b>: When Iron Fist defends against an enemy attack, prevent damage from that attack equal to Iron Fist's ATK.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Actual ally defense prevents enemy attack damage; nonattack damage still applies.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_iron_fist_prevents_attack_damage_only_while_defending"
+      ]
+    },
+    {
+      "card_id": "62013",
+      "name": "* Misty Knight",
+      "pack": "luke_cage",
+      "printed_text": "Toughness.\n[star] Misty Knight gets +2 ATK and +2 THW while she has a tough status card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Entry Toughness grants +2 ATK/THW; consequential damage removes Tough without harming the ally; reapplying Tough restores the bonus.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_misty_knight_tough_bonus_and_consequential_damage"
+      ]
+    },
+    {
+      "card_id": "62014",
+      "name": "* Valkyrie",
+      "pack": "luke_cage",
+      "printed_text": "Toughness.\n<b>Interrupt</b>: When another ally would be defeated, discard Valkyrie <i>(from play)</i> → instead heal that ally until they have 1 hit point remaining.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Paid entry Toughness, accepted/declined defeat replacement, lethal and consequential damage, self exclusion and teammate ally rescue.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_valkyrie_paid_play_enters_with_toughness",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_valkyrie_prevents_another_ally_defeat_and_heals_to_one",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_valkyrie_can_save_consequential_defeat_but_not_herself",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_valkyrie_can_save_other_players_ally"
+      ]
+    },
+    {
+      "card_id": "62015",
+      "name": "Take a Stand",
+      "pack": "luke_cage",
+      "printed_text": "<b>Hero Response</b>: After your hero defends, each ally you control gets +1 THW and +1 ATK until the end of the player phase.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Paid response after actual hero defense; player-phase expiration and persistence through a villain phase into the following player phase.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_take_a_stand_after_player_phase_defense_expires_at_phase_end",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_take_a_stand_villain_phase_defense_lasts_through_next_player_phase"
+      ]
+    },
+    {
+      "card_id": "62016",
+      "name": "Innovation",
+      "pack": "luke_cage",
+      "printed_text": "Max 1 per deck.\n<b>Hero Response</b>: After you spend this card, heal 1 damage from an ally you control.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Resource payment heals an owned ally only in hero form.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_innovation_heals_owned_ally_only_in_hero_form"
+      ]
+    },
+    {
+      "card_id": "62017",
+      "name": "The Power of Leadership",
+      "pack": "luke_cage",
+      "printed_text": "Max 2 per deck.\nDouble the number of resources this card generates while paying for a Leadership <i>(blue)</i> card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "One card pays a two-cost Leadership support; remains a single wild resource when paying another aspect.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_power_of_leadership_pays_two_for_leadership_support",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_power_of_leadership_only_generates_one_for_other_aspect"
+      ]
+    },
+    {
+      "card_id": "62018",
+      "name": "Defensive Formation",
+      "pack": "luke_cage",
+      "printed_text": "Uses (3 block counters).\n<b>Action</b>: Exhaust this card and remove 1 block counter from it → give a [[Defender]] ally a tough status card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Three counters, exhaustion, final-use discard, Tough target restrictions and another player's Defender ally.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_defensive_formation_charges_exhaustion_and_last_use_discard",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_defensive_formation_cannot_target_nondefender_or_already_tough",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_defensive_formation_can_protect_other_players_defender"
+      ]
+    },
+    {
+      "card_id": "62019",
+      "name": "Righteous Purpose",
+      "pack": "luke_cage",
+      "printed_text": "Play under any player's control. Max 1 per player.\nEach character you control that has exactly 1 hit point remaining gets +2 THW and +2 ATK.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Normal paid support play under either player; max one per player; exact-one-HP stat changes, healing, form changes and removal cleanup.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_righteous_purpose_paid_support_tracks_exactly_one_hp",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_righteous_purpose_other_controller_and_one_per_player",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_righteous_purpose_tracks_hero_health_and_form_changes"
+      ]
+    },
+    {
+      "card_id": "62020",
+      "name": "* Hulk",
+      "pack": "luke_cage",
+      "printed_text": "Hulk gets +1 ATK for each rage counter here.\n<b>Response</b>: After the villain attacks you, place 1 rage counter here.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Rage after own villain attack, no rage for minion or other-player attacks, modified ATK and two consequential damage.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_hulk_gains_rage_after_villain_attack_not_minion_attack",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_she_hulk_toughness_and_entry_gives_luke_additional_tough",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_hulk_does_not_gain_rage_for_other_players_villain_attack"
+      ]
+    },
+    {
+      "card_id": "62021",
+      "name": "* She-Hulk",
+      "pack": "luke_cage",
+      "printed_text": "Toughness.\n<b>Response</b>: After She-Hulk enters play, give your identity a tough status card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Entry Toughness and optional additional Tough for Luke's identity.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_she_hulk_toughness_and_entry_gives_luke_additional_tough"
+      ]
+    },
+    {
+      "card_id": "62022",
+      "name": "Dynamic Duo",
+      "pack": "luke_cage",
+      "printed_text": "<b>Action</b>: Search your deck and discard pile for a Team-Up card and an ally named by that card's Team-Up keyword. Add those cards to your hand. <i>(Shuffle.)</i>",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Real searches of deck/discard find the new Team-Up and its named ally and add both to hand.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_dynamic_duo_finds_new_team_up_and_named_ally"
+      ]
+    },
+    {
+      "card_id": "62023",
+      "name": "Power Man and Iron Fist",
+      "pack": "luke_cage",
+      "printed_text": "Team-Up <i>(Iron Fist and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b> <i>(attack)</i>: Deal 2 damage to an enemy and give a tough status card to a character.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Attack and selected character Tough, including an enemy; missing partner restriction and stun replaces the whole attack.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_team_up_requires_both_named_characters_in_play",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_power_man_iron_fist_deals_damage_and_gives_chosen_character_tough",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_power_man_iron_fist_stun_replaces_entire_attack"
+      ]
+    },
+    {
+      "card_id": "62024",
+      "name": "Unbreakable Bond",
+      "pack": "luke_cage",
+      "printed_text": "Team-Up <i>(Jessica Jones and Luke Cage)</i>. Max 1 per deck.\n<b>Hero Action</b>: <i>(thwart)</i>: Remove 3 threat from a scheme. Heal a total of 3 damage from among Jessica Jones and Luke Cage.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Linked Unbreakable Bond printing: paid three-threat removal and three healing; shared script distribution and multiplayer cases.",
+      "tests": [
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_both_printings_heal_three_to_one_character",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_distributes_healing_between_characters",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_confused_replaces_entire_thwart_including_healing",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_team_up_requires_both_named_characters_in_play",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_unbreakable_bond_works_with_other_players_identity"
+      ]
+    },
+    {
+      "card_id": "62025",
+      "name": "Energy",
+      "pack": "luke_cage",
+      "printed_text": "Max 1 per deck.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Energy pays a two-cost support using its two printed energy resources.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_native_double_resource_reprints_each_pay_two"
+      ]
+    },
+    {
+      "card_id": "62026",
+      "name": "Genius",
+      "pack": "luke_cage",
+      "printed_text": "Max 1 per deck.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Genius pays a two-cost support using its two printed mental resources.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_native_double_resource_reprints_each_pay_two"
+      ]
+    },
+    {
+      "card_id": "62027",
+      "name": "Strength",
+      "pack": "luke_cage",
+      "printed_text": "Max 1 per deck.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Strength pays a two-cost support using its two printed physical resources.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_native_double_resource_reprints_each_pay_two"
+      ]
+    },
+    {
+      "card_id": "62034",
+      "name": "Size Advantage",
+      "pack": "luke_cage",
+      "printed_text": "<b>Hero Action</b> <i>(attack)</i>: Deal 3 damage to an enemy (6 damage instead if you have the [[Giant]] trait or more remaining hit points than that enemy).",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Strict remaining-health comparison including equality; Giant trait overrides the comparison.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_size_advantage_compares_remaining_health_strictly",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_size_advantage_giant_overrides_health_comparison"
+      ]
+    },
+    {
+      "card_id": "62035",
+      "name": "Observe",
+      "pack": "luke_cage",
+      "printed_text": "<b>Hero Action</b>: The villain schemes. Give your hero a tough status card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Villain schemes, then identity receives Tough; confused villain cancels scheming without preventing the subsequent Tough.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_observe_schemes_then_gives_tough_even_if_confused"
+      ]
+    },
+    {
+      "card_id": "62036",
+      "name": "Toughen Up",
+      "pack": "luke_cage",
+      "printed_text": "<b>Response</b>: After you recover, if your remaining hit points are equal to or greater than your base hit points, exhaust Toughen Up → give your identity a tough status card.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Basic REC reaching base HP, insufficient recovery and nonbasic healing exclusions, and base-versus-increased-maximum HP.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_toughen_up_requires_basic_recovery_reaching_base_health",
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_toughen_up_nonbasic_heal_does_not_trigger",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_toughen_up_uses_base_health_even_with_higher_maximum"
+      ]
+    },
+    {
+      "card_id": "62037",
+      "name": "Black Belt",
+      "pack": "luke_cage",
+      "printed_text": "Play only if any player controls a [[Martial Artist]] card.\nAttach to a friendly character. Max 1 per character.\nAttached character gets +1 hit point and gains the [[Martial Artist]] trait.",
+      "status": "passed_targeted_headless_gameplay",
+      "coverage": "Martial Artist prerequisite can come from another player's card; +1 HP and trait persist across forms; cleanup and one-per-character limit.",
+      "tests": [
+        "unit_test.test_luke_player_cards_gameplay.TestLukePlayerCards.test_black_belt_requires_controlled_martial_artist_and_grants_trait_health",
+        "unit_test.test_jj_luke_shared_player_gameplay.TestSharedPlayerCards.test_black_belt_can_use_other_players_martial_artist_but_max_one_per_character"
+      ]
+    }
+  ]
+}

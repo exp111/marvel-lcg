@@ -421,6 +421,24 @@
         "encounters": ["disasters", "cops", "drive", "the_owl", "tombstone", "tracksuit_mafia"],
         "max_id": "60210"
     },
+    "61. Jessica Jones": {
+        "name": "jj",
+        "scenarios": [],
+        "heroes": [
+            "jessica_jones"
+        ],
+        "encounters": [],
+        "max_id": "61040"
+    },
+    "62. Luke Cage": {
+        "name": "luke_cage",
+        "scenarios": [],
+        "heroes": [
+            "luke_cage"
+        ],
+        "encounters": [],
+        "max_id": "62037"
+    },
     "90. Ronan Modular Set": {
         "name": "ron",
         "scenarios": [],
@@ -460,5 +478,5 @@
         "heroes": [],
         "encounters": []
     },
-    "checksum": "4429276f84f9d63b118c0f98af7b362c4bf8b878f9d49378e6ee447c74286acd"
+    "checksum": "401ef1897ab78a528bea77a591cc5edb6633bbe609c933e248e8285151996832"
 }

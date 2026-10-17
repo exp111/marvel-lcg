@@ -33,13 +33,15 @@ def MoveGliderToTheMainSchemeWithLeastThreat(player: 'Player', by_effect: 'Effec
 
 def LoseTheGameIfAtLeast2SymbioteEnviromentsInPlay() -> 'Ability':
 
-    def manhattan(effect: 'Effect', message: 'Message.AfterCardEnterPlay') -> None:
+    def manhattan(effect: 'Effect', message: 'Message.AfterCardEnterPlay|Message.AfterCardFaceActivated') -> None:
         if Worlds.FindCardSizeOnField(effect, CardFinder2("SYMBIOTE", Environment)) >= 2:
             Worlds.SetGameOver(False, effect)
 
     return AbilityFactory.AfterCardEnterPlay(
         AbilityType.NonKeywordBold,
         "This",
-        manhattan
+        manhattan,
+        # Main schemes become these environments by flipping in play.
+        include_face_changes=True,
     )
 

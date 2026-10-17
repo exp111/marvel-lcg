@@ -75,6 +75,19 @@ a reviewed exception, never an automatic fallback. For example:
 .venv-release\Scripts\python.exe packaging/artwork/importer.py stage-alternate --mapping packaging/artwork/reviewed-mapping.json --id CARD_ID --source-id REVIEWED_SOURCE_ID --url https://marvelcdb.com/bundles/cards/CARD_ID.jpg --file release-artifacts/artwork/source-image.jpg --sha256 SOURCE_SHA256 --cache release-artifacts/artwork/sheets --output-mapping release-artifacts/artwork/proposed-alternate.json
 ```
 
+Hall of Heroes original image uploads are also supported as explicitly pinned
+alternate sources. Add `--preserve-original` when staging an original to retain
+JPEG/PNG bytes unchanged for an uncropped, unrotated image. Any required crop or
+quarter-turn rotation is encoded as lossless PNG at native resolution. This mode
+does not trim borders, upscale, sharpen, or remove watermarks; review and runtime
+size limits still apply. Existing mappings keep their original JPEG95 behavior.
+
+The complete [Jessica Jones and Luke Cage collection](collections/jessica-jones-luke-cage/README.md)
+contains 81 reviewed faces, including six explicitly matched reprints. Its
+reviewed mappings are integrated into the main recipe and the published
+`artwork-2026-10-16-1` application catalog. The separate artwork inventory and
+standalone build recipe remain as the original review record.
+
 Use `--kind pdf_image --page ZERO_BASED_PAGE --xref EMBEDDED_IMAGE_XREF` for a
 native embedded image in a pinned official PDF. Install `requirements-pdf.txt` in
 the maintainer environment first. `--crop LEFT TOP RIGHT BOTTOM` selects explicit
