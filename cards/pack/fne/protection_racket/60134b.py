@@ -2,6 +2,8 @@ from . import *
 
 
 def GetAbilities() -> Sequence['Ability']:
+    # Fear No Evil, p. 13: villains are not in any player's play area.
+    # Attacking this scheme's owner does not make a villain eligible here.
     def attacked(effect: 'Effect', message: 'Message.AfterUnitAttackEnd') -> None:
         effect.this.DealDamage([message.attacker], 1, effect)
         PlaceThreatHere(effect, 1)

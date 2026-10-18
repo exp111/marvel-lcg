@@ -224,6 +224,7 @@ export class SelectStep {
         } else {
             BtnOk.setCancel('Cost')
         }
+        return ok
         // console.log('current_select_step:', SelectStep.current_select_step)
     }
     static cancel() {

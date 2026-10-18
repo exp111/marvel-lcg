@@ -731,7 +731,11 @@ export class Effect {
         console.log(options)
 
         function UpdateCards(option: EffectDescriptor, can_auto_activate = false) {
-            Effect.select_effect_obj = new EffectDescriptor(option)
+            const selected = new EffectDescriptor(option)
+            if( selected.failure_reason ) {
+                return
+            }
+            Effect.select_effect_obj = selected
 
             // Opening a response (including a forced one) only selects it.
             // Never enter the automatic submission/payment paths below, even

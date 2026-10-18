@@ -149,8 +149,8 @@ export class Button{
                     }
                 }
             }
-            SelectStep.setCost(true)
-            if( !need_resource && press_by_btn ) {
+            const paid = SelectStep.setCost(true)
+            if( !need_resource && press_by_btn && paid ) {
                 Button.doPost(false)
             } else {
                 Effect.updateHighLight()
@@ -158,6 +158,11 @@ export class Button{
         }
         else if( SelectStep.isCost() ) {
             if( Button.is_posting ) {
+                return
+            }
+            // Automatic activation and direct calls must obey the same payment
+            // check as the OK button. An empty command still passes/cancels.
+            if( Effect.select_effect_obj.id != -1 && !SelectStep.setCost(true) ) {
                 return
             }
 

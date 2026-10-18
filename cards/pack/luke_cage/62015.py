@@ -7,4 +7,5 @@ def GetAbilities():
         for ally in effect.GetInitiator().GetControlAllies():
             ally.TemporaryGain(effect,None,end_event=Message.WhenPhaseEnd,
                 until_player_phase_end=True,attack=1,thwart=1)
-    return [AbilityFactory.AfterUnitDefendAgainstAttack(AbilityType.HeroResponse,"You",stand).SetPlay()]
+    return [AbilityFactory.AfterUnitDefendAgainstAttack(AbilityType.HeroResponse,"You",stand,
+        conditions=[lambda effect,message: bool(effect.GetInitiator().GetControlAllies())]).SetPlay()]
