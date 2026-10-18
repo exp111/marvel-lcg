@@ -1,11 +1,41 @@
-# Unreleased
+# Marvel Champions Digital v1.3.4
+
+Application version: **1.3.4r**
+Windows file version: **1.3.4.0**
+
+Changes since v1.3.3.1. See the [release summary](docs/releases/v1.3.4.md) for the concise release description.
 
 ## Jessica Jones and Luke Cage
 
 - Enabled both complete hero packs in normal play, with their 40-card Justice and Leadership starter decks, obligations, nemesis sets and all player cards.
 - Added engine support for thwart redirection, basic thwarting without exhausting, Mitigated Threat, stacked Tough status cards and unpreventable damage. Both packs have targeted solo and multiplayer gameplay coverage.
 - Activated reviewed artwork for all 81 card faces: 75 Hall of Heroes originals and six documented reprint matches. The published artwork update reuses the existing library and downloads about 37 MB of new or changed packs.
-- Validated 376 gameplay tests and 115 registration/artwork checks, including normal starter-deck launches through a complete round. These changes are in the source build; the published v1.3.3.1 executable is unchanged.
+- Corrected card-text, targeting, healing, costs, and interaction bugs across both packs, with expanded solo and multiplayer gameplay coverage.
+
+## Civil War and Synthezoid Smackdown
+
+- Separated leader and scheme selection for both packs. Registration and Resistance each share five stage-one and five stage-two schemes, including the Synthezoid Smackdown schemes. Selection permits one scheme per stage.
+- Selecting a leader chooses its preconstructed schemes and modular sets. The scheme and modular rows each have a **Default** button to restore their own defaults; required modular sets remain selected.
+- Added a **Resistance/Registration** modular button for a random selection from the appropriate faction, including Synthezoid Smackdown modular sets. Ordinary random selection remains available.
+- Completed Guerilla Warfare and Superhero Jailbreak scripting, corrected shortfall handling in encounter-card searches, and updated the scheme artwork.
+- Fixed linked setup abilities so Going Underground, Open Rebellion, and Rallying Call reveal the chosen leader's side scheme.
+- Negative Zone Prison now completes immediately when a captured ally lowers its threat limit to the current threat. Hunting Rebel Heroes resolves its damage once, after the trait-granting card finishes revealing, for all affected heroes.
+- Expanded coverage for all 20 schemes, including setup, stage changes, targeting, and one- through four-player scaling.
+
+## Other card and interface fixes
+
+- Corrected Protection Racket triggers and excess-damage handling to match the printed cards. Battle in the Bodega checks attacks on characters in the assigned player's play area.
+- Fixed character-specific targeting, unpaid action handling, permanent-scheme defeat and flip interactions, Energy Conversion choices, and Drained of Power payments.
+- Corrected Jessica Jones and Luke Cage deck loading and pack artwork. The Card Artwork page now shows **Supported up to: Luke Cage**.
+- Refreshed the scenario catalog checksum to remove the startup mismatch warning. The main menu, Credits, gameplay cache version, and Windows executable version identify the new build.
+
+## Windows release package
+
+- Uses the established Python 3.12.13 release environment, pinned dependencies, verified custom bootloader, one-folder layout, and disabled UPX.
+- Existing verified artwork stays in the persistent user library and is reused by the new installation. Extract the release package into a new folder and copy personal saves, decks, and `campaign_settings.json` if needed.
+- Original development: **Irefrixs Team**. Community build maintenance: **Sam (sdolle1775)**. Artwork credits remain in `ATTRIBUTION.md`.
+
+---
 
 # Marvel Champions Digital v1.3.3.1
 

@@ -1,54 +1,40 @@
 # Marvel LCG Digital — Community Build
 
-This community-maintained build is based on [Marvel LCG Digital](https://irefrixs.itch.io/marvel-lcg), originally developed by the Irefrixs Team. It adds campaign support, community content, gameplay corrections, and interface improvements while keeping the game free to play.
+## Community build highlights
 
-The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project and intellectual-property notices.
+- **Full campaigns:** Fear No Evil, Mutant Genesis, NeXt Evolution, Age of Apocalypse, Agents of S.H.I.E.L.D., Galaxy's Most Wanted, and The Mad Titan's Shadow, with setup, progression, campaign logs, rewards, persistent cards and health, and campaign-specific rules.
+- **New heroes:** Wonder Man, Hercules, Daredevil, Echo, Jessica Jones, and Luke Cage, including starter decks, signature cards, obligations, nemesis sets, and their accompanying aspect and basic cards.
+- **Rules Reference v1.8:** Default-on simultaneous timing with player-chosen interrupt and response order, updated keywords, and corrected attack, damage, defeat, and completion timing. Legacy timing remains selectable.
+- **Fear No Evil:** The complete box, with five interchangeable Underlings and five scenarios, standalone Kingpin, six modular sets, and dedicated campaign tracking.
+- **Synthezoid Smackdown:** Standard and expert cooperative She-Hulk and Vision scenarios, plus all eight modular encounter sets.
+- **Trickster Takeover:** Standard and expert Loki: God of Lies scenarios, Loki Avatars, Synergy environments, Shatter the Illusion, and Trickster Magic.
+- **Civil War modularity:** Separate leader and scheme selection for Civil War and Synthezoid Smackdown, shared Registration/Resistance pools covering all 20 main schemes, preconstructed defaults, and faction-based random modular selection.
+- **Reliable artwork:** Automatically downloaded, verified card images supported through Luke Cage. The persistent library survives updates, works offline once prepared, and supplies images to LAN and Cloudflare players.
+- **Replay and setup tools:** A local replay library, playback controls and recovery, saved campaign setup, optional unrestricted Standard/Expert sets, and full-deck search previews.
+- **Gameplay improvements:** Expanded multiplayer targeting, Starting and Team-Up abilities, alternate costs, and card-text, timing, payment, and interaction fixes across heroes and scenarios.
 
-## Latest release: v1.3.3.1
+## Latest release: v1.3.4
 
-[Download Community Build v1.3.3.1 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.3.1).
+[Download Community Build v1.3.4 for Windows](https://github.com/sdolle1775/marvel-lcg/releases/tag/v1.3.4).
 
-v1.3.3.1 replaces on-demand card-image downloads with a verified, persistent local artwork library. The application **automatically downloads card images and stores them locally on the host computer**. The application ZIP stays small: the host prepares the approximately **1.7 GiB** collection separately before first play, then reuses it across restarts and application updates. LAN and Cloudflare players receive images from the host. Open **Card artwork** on the main menu for progress, recovery controls and library maintenance instructions. The main menu and Credits display **Community Build v1.3.3.1r**.
+This release adds Jessica Jones and Luke Cage, reworks Civil War and Synthezoid Smackdown setup, and fixes card and scheme interactions. The main menu and Credits display **Community Build v1.3.4r**. See the [v1.3.4 changes](docs/releases/v1.3.4.md) or [complete patch notes](PATCH_NOTES.md).
 
-The hotfix also adds the default-off **Remove Standard Set Restriction** option and preselects sole eligible response prompts while still requiring confirmation. See the [release summary](docs/releases/v1.3.3.1.md), [complete patch notes](PATCH_NOTES.md), and [installation and artwork maintenance guide](docs/install_guide.md#6-card-images).
+## Installing and updating
 
-**Antivirus notice:** The [VirusTotal report for this executable](https://www.virustotal.com/gui/file/8277bb66d2a228c6c6c10f23e599184889e04a5a5be044944c8b63de7788794e?nocache=1) reports Microsoft and SecureAge detections as of October 11, 2026, despite the earlier clean local Defender scan. Review the warning in the release summary before running the package. A connection to the artwork changes is unconfirmed.
-
-### Included from earlier releases
-
-v1.3.3 added a complete local replay library with playback that stops at the recording's endpoint, restored optional discard and Psi-Weapon choices, corrected card and scenario timing, restored the sparkles animation, and updated community credits. It also fixed form-change entry triggers, upgrade discounts, Victory ordering, Kang's keywords, Purple Man's obligations, Nightcrawler's forced choices, Bulletproof Belle/Tough prevention, Kingpin's side-scheme reveals, and Synth-Suit. This hotfix includes all earlier v1.3 releases and content, including:
-
-- The complete **Fear No Evil** box: Daredevil and Echo, all player cards, five interchangeable Underling villains, five interchangeable scenarios, Kingpin's standalone scenario, all six modular encounter sets, and the full campaign.
-- Rules Reference v1.8 simultaneous timing, enabled by default for new games. Interrupts and responses created by one occurrence share the correct timing window and can be resolved in player-chosen order. The legacy timing dispatcher remains available through the Rule settings.
-- Updated v1.8 timing for Surge, Incite, Quickstrike, Teamwork, Toughness, Retaliate, Vulnerable, Villainous, Victory, When Defeated, When Completed, and related attack/damage workflows.
-- A new optional **Show Deck During Full Search** setting, allowing players to inspect the complete searched deck or discard pile while still preserving random searches and shuffles.
-- A dedicated Fear No Evil campaign setup interface for tracking scenario outcomes, Underlings, campaign cards, rewards, removed allies and Persona supports, and randomized scenario progression.
-
-Campaign setup choices are saved in `campaign_settings.json`. When installing a new release, extract it into a new folder and copy this file from the previous installation to preserve those choices. Also copy any saves, replays, custom decks, and explicit local artwork overrides you want to retain. Artwork-enabled builds automatically reuse the persistent user artwork library across installations; see the [artwork migration instructions](docs/install_guide.md#6-card-images). Keep `marvel-lcg.exe` beside its `_internal` folder, and do not copy the old executable or old `public` or `data` folders into the new installation.
-
-See the [complete patch notes](PATCH_NOTES.md) and [installation guide](docs/install_guide.md) for details.
+- Extract the ZIP into a **new folder** and keep `marvel-lcg.exe` beside its `_internal` folder.
+- Copy `campaign_settings.json` from the previous installation to preserve campaign setup choices. Also copy personal saves, replays, custom decks, and artwork overrides you want to keep. Keep the new executable, `public`, and `data` folders.
+- Open **Card artwork** from the main menu for preparation progress, Pause, Resume, Retry, and library maintenance. The approximately **1.7 GiB** collection downloads separately before first play; updates reuse verified artwork and download only missing or changed packs.
+- Keep the persistent artwork library in place, or retain the same custom `artwork_folder` setting. See the [installation and artwork guide](docs/install_guide.md#6-card-images).
 
 ## Windows packaging
 
-v1.3.3.1 uses the established v1.3.2/v1.3.3 release environment: Python 3.12.13, the same pinned dependencies and verified locally compiled bootloader, PyInstaller's one-folder package with an embedded Python module archive, and UPX disabled. The one-folder layout avoids extracting the executable into a temporary directory at startup.
+Uses the established Python 3.12.13 release environment, pinned dependencies, verified custom bootloader, and PyInstaller one-folder layout with UPX disabled. Verify the ZIP against its accompanying `.sha256` file. The published executable matches the [v1.3.4 VirusTotal report](https://www.virustotal.com/gui/file/20d9c8682195c20f52cbd4674d6d118362b178f0973b3552a0f8ceffab871413?nocache=1).
 
-Verify the downloaded archive with its accompanying `.sha256` file.
+## About this build
 
-## Community build highlights
+This free community-maintained build is based on [Marvel LCG Digital](https://irefrixs.itch.io/marvel-lcg), originally developed by the **Irefrixs Team**. Community build maintenance: **Sam (sdolle1775)**.
 
-Jessica Jones and Luke Cage are available in the current source build. The published v1.3.3.1 executable predates these two packs.
-
-- **Campaigns:** Complete playable campaign flows for **Fear No Evil**, **Mutant Genesis**, **NeXt Evolution**, **Age of Apocalypse**, **Agents of S.H.I.E.L.D.**, **Galaxy's Most Wanted**, and **The Mad Titan's Shadow**.
-- **Playable heroes:** Full **Wonder Man**, **Hercules**, **Daredevil**, **Echo**, **Jessica Jones**, and **Luke Cage** hero expansions, each with a starter deck, identity-specific cards, an obligation, and a registered nemesis set. Daredevil includes his separate Sense deck, while Echo includes her tucked-event mechanics. Jessica Jones and Luke Cage include their complete player-card packs and reviewed Hall of Heroes artwork, with six documented reprint matches.
-- **Player cards:** The complete **Fear No Evil** player-card set, including Starting and Team-Up cards, together with the aspect and basic player cards released alongside Wonder Man, Hercules, Jessica Jones and Luke Cage.
-- **Fear No Evil scenarios:** Five interchangeable Underlings—**Bullseye**, **Electro**, **Hammerhead**, **Purple Man**, and **Typhoid Mary**—can be paired with **Art Museum Heist**, **The Getaway**, **Protection Racket**, **The Raft Breakout**, or **Stop the Presses!**. **Kingpin** is implemented as a complete standalone scenario, together with the Disasters, Cops, Drive, The Owl, Tombstone, and Tracksuit Mafia modular sets.
-- **Synthezoid Smackdown:** Standard and expert cooperative scenarios against **She-Hulk** and **Vision**, supported by the S.H.I.E.L.D. Ops, Thunderbolts, Taskmaster, Deadly Duo, Young Avengers, Scarlet Twins, Moon Knight, and Royal Guard encounter sets.
-- **Trickster Takeover:** Complete standard and expert **Loki: God of Lies** scenarios, including the Loki Avatar stages, Synergy environments, Shatter the Illusion, and Trickster Magic content.
-- **Civil War:** Expert scenario variants for **Iron Man**, **Captain Marvel**, **Captain America**, and **Spider-Woman**.
-- Campaign implementations cover setup, progression, campaign logs, persistent health and cards, player assignments, missions, evidence, rewards, and campaign-specific scenario changes.
-- Rules and card-engine implementations support default-on Rules Reference v1.8 timing, Starting abilities, Team-Up ally replacement, multi-villain targeting, alternate resource costs, and reusable modular-difficulty setup.
-- The optional full-deck-search display exposes all cards in a complete search without changing random selection, shuffle, or hidden-information behavior when the option is disabled.
-- The community content is registered throughout the card database, starter-deck library, scenario loader, encounter-set system, and campaign framework for play alongside the original Irefrixs content.
+The upstream developers have given permission for modified builds to be published while they finalize a permissive software license. See [ATTRIBUTION.md](ATTRIBUTION.md) for project, artwork, and intellectual-property notices.
 
 ## Release and distribution
 
