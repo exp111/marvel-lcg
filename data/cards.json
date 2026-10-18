@@ -59865,6 +59865,44 @@
             "text": "If there is more than 1 player on your team, this stage gains hinder 2[per_hero].\nThe enemy leader gains steady."
         },
         {
+            "card_id": "56201a",
+            "full_link": "56142a"
+        },
+        {
+            "card_id": "56201b",
+            "type": "MainScheme",
+            "name": "Guerilla Warfare",
+            "subtitle": "",
+            "desc": {
+                "StartingThreat": "0",
+                "TargetThreat": "9*",
+                "EscalationThreat": "1*",
+                "Stage": "2B"
+            },
+            "traits": [],
+            "set_name": "Resistance",
+            "text": "<b>Forced Response</b>: After a status card is placed on the enemy leader, place 1 threat here.\n<b>If this stage is completed, the players lose the game.</b>"
+        },
+        {
+            "card_id": "56202a",
+            "full_link": "56142a"
+        },
+        {
+            "card_id": "56202b",
+            "type": "MainScheme",
+            "name": "Superhero Jailbreak",
+            "subtitle": "",
+            "desc": {
+                "StartingThreat": "0",
+                "TargetThreat": "9*",
+                "EscalationThreat": "1*",
+                "Stage": "2B"
+            },
+            "traits": [],
+            "set_name": "Resistance",
+            "text": "[star] <b>Forced Response</b>: After resolving step 1 of the villain phase, each player discards the top card of the encounter deck. Each player who discards a minion this way puts it into play engaged with them.\n<b>If this stage is completed, the players lose the game.</b>"
+        },
+        {
             "card_id": "56203",
             "full_link": "56125"
         },
@@ -65665,5 +65703,5 @@
             "text": "Play only if any player controls a [[Martial Artist]] card.\nAttach to a friendly character. Max 1 per character.\nAttached character gets +1 hit point and gains the [[Martial Artist]] trait."
         }
     ],
-    "checksum": "2cc61bbe715d9b4a3499a4031f5a7127473edd8f0e99d74a52b24a9b6d1964bd"
+    "checksum": "ac7270578bca505b6778bd6b5bdf932608096aba01b024aaec7a92f3bfa607f0"
 }

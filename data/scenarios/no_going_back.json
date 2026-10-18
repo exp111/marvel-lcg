@@ -1,0 +1,17 @@
+{
+    "version": "0.5.8",
+    "name": "No Going Back",
+    "kind": "main-scenario",
+    "scenario_side": "registration",
+    "scheme_stage": 2,
+    "selector_image": "56124b",
+    "villain": [],
+    "expert": false,
+    "schemes": [
+        "56124a,56124b"
+    ],
+    "set_aside": [],
+    "encounters": [],
+    "encounter_sets": [],
+    "modular_sets": []
+}

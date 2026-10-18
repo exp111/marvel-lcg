@@ -23,6 +23,7 @@ def GetAbilities() -> Sequence['Ability']:
             Ally,
             negative_zone_prison,
             attacker=Enemy,
+            by_attack=True,
         ),
     ]
 

@@ -1,0 +1,17 @@
+{
+    "version": "0.5.8",
+    "name": "The Initiative",
+    "kind": "main-scenario",
+    "scenario_side": "registration",
+    "scheme_stage": 2,
+    "selector_image": "56123b",
+    "villain": [],
+    "expert": false,
+    "schemes": [
+        "56123a,56123b"
+    ],
+    "set_aside": [],
+    "encounters": [],
+    "encounter_sets": [],
+    "modular_sets": []
+}

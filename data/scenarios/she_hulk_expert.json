@@ -7,5 +7,8 @@
     "set_aside": [],
     "encounters": ["57007", "57007", "57008", "57008", "57009", "57009", "57010", "57010", "57011", "57012"],
     "encounter_sets": ["standard", "expert"],
-    "modular_sets": ["shield_ops", "thunderbolts", "taskmaster", "deadly_duo"]
+    "modular_sets": ["shield_ops", "thunderbolts", "taskmaster", "deadly_duo"],
+    "scenario_side": "registration",
+    "modular_sets_random": ["mighty_avengers", "the_initiative", "maria_hill", "dangerous_recruits", "cape_killer", "martial_law", "heroes_for_hire", "paladin", "shield_ops", "thunderbolts", "taskmaster", "deadly_duo"],
+    "modular_sets_count": [3, 4]
 }
