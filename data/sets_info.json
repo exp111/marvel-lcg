@@ -387,14 +387,15 @@
     "56. Civil War": {
         "name": "cw",
         "leaders": ["iron_man", "captain_marvel", "captain_america", "spider_woman"],
-        "scenarios": ["cut_off_support", "shield_recruits", "homeland_security", "public_outrage", "negative_zone_prison", "hunting_rebel_heroes", "the_initiative", "no_going_back", "gathering_support", "open_rebellion", "rallying_call", "going_underground", "secret_avengers", "neighborhood_protectors", "guerilla_warfare", "superhero_jailbreak"],
+        "scenarios": ["cut_off_support", "shield_recruits", "homeland_security", "public_outrage", "negative_zone_prison", "hunting_rebel_heroes", "the_initiative", "no_going_back", "gathering_support", "open_rebellion", "rallying_call", "going_underground", "secret_avengers", "neighborhood_protectors", "guerilla_warfare", "superhero_jailbreak", "enforce_the_law", "mighty_avengers", "protect_secret_identities", "expose_overreach"],
         "heroes": ["tigra", "hulkling"],
         "encounters": ["mighty_avengers", "the_initiative", "maria_hill", "dangerous_recruits", "cape_killer", "martial_law", "heroes_for_hire", "paladin", "new_avengers", "secret_avengers", "namor", "atlanteans", "spider_man", "defenders", "hells_kitchen", "cloak_dagger"],
         "max_id": "56214"
     },
     "57. Synthezoid Smackdown": {
         "name": "synthezoid",
-        "scenarios": ["she_hulk", "vision"],
+        "leaders": ["she_hulk", "vision"],
+        "scenarios": ["cut_off_support", "shield_recruits", "homeland_security", "public_outrage", "negative_zone_prison", "hunting_rebel_heroes", "the_initiative", "no_going_back", "gathering_support", "open_rebellion", "rallying_call", "going_underground", "secret_avengers", "neighborhood_protectors", "guerilla_warfare", "superhero_jailbreak", "enforce_the_law", "mighty_avengers", "protect_secret_identities", "expose_overreach"],
         "heroes": [],
         "encounters": ["shield_ops", "thunderbolts", "taskmaster", "deadly_duo", "young_avengers", "scarlet_twins", "moon_knight", "royal_guard"],
         "max_id": "57073"

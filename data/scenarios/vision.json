@@ -3,12 +3,15 @@
     "name": "Vision",
     "villain": ["57040", "57041"],
     "expert": false,
-    "schemes": ["57044a,57044b", "57045a,57045b"],
+    "schemes": [],
     "set_aside": ["57046a,57046b"],
     "encounters": ["57047", "57048", "57049", "57050", "57051", "57051", "57052", "57053", "57054"],
     "encounter_sets": ["standard"],
     "modular_sets": ["young_avengers", "scarlet_twins", "moon_knight", "royal_guard"],
     "scenario_side": "resistance",
     "modular_sets_random": ["new_avengers", "secret_avengers", "namor", "atlanteans", "spider_man", "defenders", "hells_kitchen", "cloak_dagger", "young_avengers", "scarlet_twins", "moon_knight", "royal_guard"],
-    "modular_sets_count": [3, 4]
+    "modular_sets_count": [3, 4],
+    "kind": "leader",
+    "scheme_options": [["56141a,56141b", "56172a,56172b", "56199a,56199b", "56200a,56200b", "57044a,57044b"], ["56142a,56142b", "56173a,56173b", "56201a,56201b", "56202a,56202b", "57045a,57045b"]],
+    "default_schemes": ["57044a,57044b", "57045a,57045b"]
 }

@@ -105,10 +105,13 @@ class SceneLoader:
 
         # Resolve defaults only for new scenes, never when loading a replay.
         # Explicit modular selections (including an empty list) remain unrestricted.
-        import random
-        randomizer = random.Random(seed if seed >= 0 else None)
-        if not campaign.schemes and campaign.scheme_options:
-            campaign.schemes = [randomizer.choice(stage) for stage in campaign.scheme_options]
+        if not campaign.schemes:
+            if campaign.default_schemes:
+                campaign.schemes = campaign.default_schemes[:]
+            elif campaign.scheme_options:
+                import random
+                randomizer = random.Random(seed if seed >= 0 else None)
+                campaign.schemes = [randomizer.choice(stage) for stage in campaign.scheme_options]
 
         if encounter_set_names != None:
             campaign.encounter_sets = SceneLoader.MergeEncounterSets(

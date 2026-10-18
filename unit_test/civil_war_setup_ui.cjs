@@ -13,6 +13,13 @@ function classes() {
 const sets = JSON.parse(fs.readFileSync(path.join(root, 'data/sets_info.json'), 'utf8'));
 const info = sets['56. Civil War'];
 const synthezoid = sets['57. Synthezoid Smackdown'];
+assert.deepEqual(synthezoid.scenarios, info.scenarios, 'Both packs expose the same complete scheme pool');
+assert.equal(info.scenarios.length, 20);
+const preconstructed = {
+    iron_man: ['56063', '56064'], captain_marvel: ['56096', '56097'],
+    captain_america: ['56141', '56142'], spider_woman: ['56172', '56173'],
+    she_hulk: ['57005', '57006'], vision: ['57044', '57045'],
+};
 const modules = [...info.encounters, ...synthezoid.encounters, 'bomb_scare', 'masters_of_evil', 'weapon_master', 'a_nemesis'].map(name =>
     ({dataset: {name, family: ''}, classList: classes()}));
 modules.at(-1).classList.add('nemesis');
@@ -50,6 +57,21 @@ extract('function campaignRandomIndex(', 'function randomizeFearNoEvilCampaign('
 extract('function random_modular(', 'function SetHero(');
 const selected = buttons => buttons.filter(b => b.classList.contains('click')).map(b => b.dataset.name);
 const selectedSchemes = stage => schemes.filter(b => b.classList.contains('click') && JSON.parse(b.dataset.scenario).scheme_stage === stage);
+function checkDefaultSchemes(leaderName) {
+    const expected = preconstructed[leaderName].map(cid => `${cid}a,${cid}b`);
+    assert.deepEqual(Array.from(context.scenario.schemes), expected);
+    for (const stage of [1, 2]) {
+        const selected = selectedSchemes(stage);
+        assert.equal(selected.length, 1);
+        assert.equal(JSON.parse(selected[0].dataset.scenario).schemes[0], expected[stage - 1]);
+    }
+}
+context.resetInterchangeableScenario();
+context.updateDefaultSchemeButton(true);
+assert(!element('#default-scheme-button').hidden);
+assert(element('#default-scheme-button').disabled, 'Choose a leader before using Default');
+context.default_schemes();
+assert.equal(context.scenario, '');
 
 // Default replaces every optional module, including nemeses, and leaves mandatory
 // modules and the chosen Standard/Expert variants alone.
@@ -79,13 +101,15 @@ function checkFactionRandomization(leader) {
     context.default_modular();
     assert.deepEqual(selected(modules).sort(), Array.from(leader.modular_sets).sort());
 }
-for (const leaderName of info.leaders) {
+for (const leaderName of [...info.leaders, ...synthezoid.leaders]) {
     const leader = read(leaderName);
     context.resetInterchangeableScenario();
     context.selectInterchangeableVillain(leader);
-    assert.equal(context.scenario, '', 'A leader alone is not a complete UI scenario');
+    checkDefaultSchemes(leaderName);
+    assert(!element('#default-scheme-button').hidden);
+    assert(!element('#default-scheme-button').disabled);
     const visible = schemes.filter(b => !b.hidden).map(b => JSON.parse(b.dataset.scenario));
-    assert.equal(visible.length, 8);
+    assert.equal(visible.length, 10);
     assert(visible.every(s => s.scenario_side === leader.scenario_side));
     assert.deepEqual(selected(modules).sort(), leader.modular_sets.slice().sort());
     checkFactionRandomization(leader);
@@ -95,7 +119,7 @@ for (const leaderName of info.leaders) {
     const first = visible.filter(s => s.scheme_stage === 1);
     const second = visible.filter(s => s.scheme_stage === 2);
     context.selectInterchangeableMainScenario(first[0]);
-    assert.equal(context.scenario, '', 'Both stages must be selected');
+    assert.equal(context.scenario.schemes[1], leader.default_schemes[1], 'Changing stage 1 preserves stage 2');
     context.selectInterchangeableMainScenario(second[0]);
     for (const choice of [...first, ...second]) {
         context.selectInterchangeableMainScenario(choice);
@@ -106,29 +130,44 @@ for (const leaderName of info.leaders) {
         assert.equal(context.scenario.schemes[choice.scheme_stage - 1], choice.schemes[0]);
         assert.deepEqual(selected(modules), ['bomb_scare']);
     }
+    standards[0].classList.remove('click'); standards[2].classList.add('click');
+    context.default_schemes();
+    context.default_schemes();
+    checkDefaultSchemes(leaderName);
+    assert.deepEqual(selected(modules), ['bomb_scare'], 'Scheme Default preserves custom modules');
+    assert.deepEqual(selected(standards), ['standard_iii'], 'Scheme Default preserves difficulty modules');
+    context.selectInterchangeableMainScenario(first.at(-1));
+    context.selectInterchangeableMainScenario(second.at(-1));
+    const customSchemes = Array.from(context.scenario.schemes);
+    context.default_modular();
+    assert.deepEqual(Array.from(context.scenario.schemes), customSchemes, 'Modular Default preserves schemes');
+    modules.find(b => b.dataset.name === 'bomb_scare').classList.add('click');
     context.selectInterchangeableVillain(read(leaderName + '_expert'));
     assert(context.scenario.expert);
-    assert.equal(context.scenario.schemes.length, 2, 'Changing difficulty preserves scheme choices');
-    context.default_modular();
+    checkDefaultSchemes(leaderName);
     assert.deepEqual(selected(modules).sort(), leader.modular_sets.slice().sort());
+    assert.deepEqual(selected(standards), ['standard', 'expert']);
     checkFactionRandomization(context.scenario);
 }
 assert(draws.size > 4, 'The faction button performs fresh randomized draws');
 assert(synthezoid.encounters.every(name => reached.has(name)), 'Civil War can draw all Synthezoid modular sets');
 context.selectInterchangeableVillain(read('iron_man'));
-assert.equal(context.scenario, '', 'Changing factions clears incompatible scheme choices');
-assert.equal(selectedSchemes(1).length + selectedSchemes(2).length, 0);
+checkDefaultSchemes('iron_man');
 context.selectInterchangeableMainScenario(read('guerilla_warfare'));
-assert.equal(selectedSchemes(2).length, 0, 'A foreign faction scheme cannot be selected');
+checkDefaultSchemes('iron_man');
+context.selectInterchangeableVillain(read('captain_marvel'));
+checkDefaultSchemes('captain_marvel');
+assert.deepEqual(selected(modules).sort(), read('captain_marvel').modular_sets.slice().sort());
 
 // Both Synthezoid leaders and difficulties share the expanded faction pools,
 // while Default keeps their preconstructed modules.
-for (const name of synthezoid.scenarios) {
+for (const name of synthezoid.leaders) {
     for (const suffix of ['', '_expert']) {
         context.resetInterchangeableScenario();
         assert(element('#faction-modular-button').hidden);
         const leader = read(name + suffix);
-        context.SetScenario(leader);
+        context.selectInterchangeableVillain(leader);
+        checkDefaultSchemes(name);
         const cw = read(leader.scenario_side === 'registration' ? 'iron_man' : 'captain_america');
         assert.deepEqual(leader.modular_sets_random, cw.modular_sets_random);
         assert.equal(leader.modular_sets_random.length, 12);
@@ -153,6 +192,7 @@ assert.equal(context.scenario.schemes.length, 5);
 assert.equal(context.scenario.encounters.length, 15);
 assert.deepEqual(Array.from(context.scenario.modular_sets), ['disasters', 'tracksuit_mafia']);
 assert(element('#faction-modular-button').hidden, 'Other scenarios hide the faction button');
+assert(element('#default-scheme-button').hidden, 'Fear No Evil does not show staged-scheme Default');
 assert(html.indexOf('onclick="default_modular()"') < html.indexOf('onclick="faction_modular()"'));
 assert(html.indexOf('onclick="faction_modular()"') < html.indexOf('onclick="random_modular()"'));
 console.log('Civil War stages, preconstructed defaults, and faction modular UI checks passed');

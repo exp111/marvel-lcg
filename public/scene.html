@@ -60,6 +60,7 @@
         display: none;
     }
     #split-scenarios button[hidden],
+    #default-scheme-button[hidden],
     #faction-modular-button[hidden] {
         display: none;
     }
@@ -427,6 +428,7 @@ function mergeInterchangeableScenario(resetSets = true) {
 function selectInterchangeableVillain(data) {
     if( selected_underling?.scenario_side !== data.scenario_side ) selected_main_stages = {}
     selected_underling = data
+    updateDefaultSchemeButton()
     document.querySelectorAll('#split-scenarios button').forEach(button => {
         const choice = JSON.parse(button.dataset.scenario)
         button.hidden = Boolean(choice.scenario_side && choice.scenario_side !== data.scenario_side)
@@ -434,7 +436,11 @@ function selectInterchangeableVillain(data) {
             button.classList.toggle('click', selected_main_stages[choice.scheme_stage]?.name === choice.name)
         }
     })
-    mergeInterchangeableScenario()
+    if( data.kind === 'leader' && data.default_schemes?.length ) {
+        default_schemes(true)
+    } else {
+        mergeInterchangeableScenario()
+    }
 }
 
 function selectInterchangeableMainScenario(data) {
@@ -451,11 +457,30 @@ function selectInterchangeableMainScenario(data) {
     mergeInterchangeableScenario(!data.scheme_stage)
 }
 
+function updateDefaultSchemeButton(show = selected_underling?.kind === 'leader') {
+    const button = document.querySelector('#default-scheme-button')
+    button.hidden = !show
+    button.disabled = !show || !selected_underling?.default_schemes?.length
+}
+
+function default_schemes(resetSets = false) {
+    if( selected_underling?.kind !== 'leader' || !selected_underling.default_schemes?.length ) return
+    const buttons = Array.from(document.querySelectorAll('#split-scenarios button'))
+    const choices = buttons.map(button => JSON.parse(button.dataset.scenario))
+    const defaults = selected_underling.default_schemes.map(scheme => choices.find(choice =>
+        choice.scenario_side === selected_underling.scenario_side && choice.schemes[0] === scheme))
+    if( defaults.some(choice => !choice) ) return
+    selected_main_stages = Object.fromEntries(defaults.map(choice => [choice.scheme_stage, choice]))
+    buttons.forEach((button, index) => button.classList.toggle('click', defaults.includes(choices[index])))
+    mergeInterchangeableScenario(resetSets)
+}
+
 function resetInterchangeableScenario() {
     selected_underling = null
     selected_main_scenario = null
     selected_main_stages = {}
     scenario = ""
+    updateDefaultSchemeButton()
     updateFactionModularButton()
 }
 
@@ -703,6 +728,7 @@ async function createScenarios() {
             const splitSelector = document.querySelector("#split-scenario-selector")
             const splitScenarios = document.querySelector("#split-scenarios")
             resetInterchangeableScenario()
+            updateDefaultSchemeButton(sets_json[key].leaders.length > 0)
             if( interchangeable ) {
                 scenarioTitle.textContent = "Villains"
                 splitSelector.hidden = false
@@ -754,6 +780,9 @@ async function createScenarios() {
 
 <fieldset id="split-scenario-selector" hidden style="flex-direction: column; position: relative;">
     <legend>Scenarios</legend>
+    <div>
+        <button id="default-scheme-button" onclick="default_schemes()" title="Select the leader's preconstructed schemes" hidden disabled>Default</button>
+    </div>
 
     <fieldset style="gap: 0; padding: 0; border: none">
         <div>

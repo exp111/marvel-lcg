@@ -42,6 +42,10 @@ class TestArtworkIntegration(unittest.TestCase):
         stack.enter_context(patch.object(Cache, "GetArtworkLibrary", return_value=self.library))
         for name in ("cache", "link_pic", "retry_after", "host_retry_after"):
             stack.enter_context(patch.object(Cache, name, {}))
+        # These fixtures define their own small card catalog. Other gameplay
+        # suites may already have loaded the complete catalog in this process.
+        for name in ("papers", "linked_papers", "full_link_cards"):
+            stack.enter_context(patch.object(CardsDB, name, {}))
         for var, value in ((module.IMAGE_FOLDERS, [str(self.pics)]),
                            (module.TEXTURE_FOLDER, str(self.root / "textures")),
                            (module.CACHE_FOLDER, str(self.legacy)),

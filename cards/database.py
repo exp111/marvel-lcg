@@ -122,14 +122,18 @@ class CardsDB:
         card_id = origin_card_id
 
         load_from_ability_link = False
-        if card_id in CardsDB.ability_link_cards:
-            paper = CardsDB.FindCardPaper(CardsDB.ability_link_cards[card_id])
-            card_id = paper.card_id
-            load_from_ability_link = True
-            pack = paper.pack
-            set_name = paper.set_name
-        elif card_id in CardsDB.full_link_cards:
-            paper = CardsDB.FindCardPaper(CardsDB.full_link_cards[card_id])
+        visited: Set[str] = set()
+        # A copied face can itself delegate its abilities (for example the
+        # Civil War Resistance setup faces). Follow the entire chain.
+        while card_id in CardsDB.ability_link_cards or card_id in CardsDB.full_link_cards:
+            assert card_id not in visited, f"Circular card ability link from {origin_card_id}: {card_id}"
+            visited.add(card_id)
+            if card_id in CardsDB.ability_link_cards:
+                target_id = CardsDB.ability_link_cards[card_id]
+                load_from_ability_link = True
+            else:
+                target_id = CardsDB.full_link_cards[card_id]
+            paper = CardsDB.FindCardPaper(target_id)
             card_id = paper.card_id
             pack = paper.pack
             set_name = paper.set_name

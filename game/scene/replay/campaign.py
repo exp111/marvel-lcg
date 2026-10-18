@@ -19,6 +19,7 @@ class CampaignDescriptor:
     modular_sets_random: List[str] = field(default_factory=list)
     modular_sets_count: List[int] = field(default_factory=list)
     scheme_options: List[List[str]] = field(default_factory=list)
+    default_schemes: List[str] = field(default_factory=list)
     campaign_log: Dict[str, str] = field(default_factory=lambda: {})
 
     def UpdateVersion(self):
