@@ -65,7 +65,9 @@ class TestUnpayableActionUI(unittest.TestCase):
         errors.assert_not_called()
         warnings.assert_not_called()
         notices.assert_not_called()
-        self.assertEqual(game.controller_manager.replay.current_step_id, 49)
+        # Re-recorded with Bodega's printed "is attacked" trigger. The same
+        # player decisions still reach the reported unpaid-action position.
+        self.assertEqual(game.controller_manager.replay.current_step_id, 51)
         self.assertEqual([entry.crc for entry in game.controller_manager.replay.history_inputs],
                          [entry.crc for entry in scene.inputs])
         player = game.world.GetFirstPlayer()

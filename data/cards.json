@@ -63346,7 +63346,7 @@
             "desc": {"StartingThreat": "0", "TargetThreat": "10", "EscalationThreat": "1", "Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Forced Response</b>: After a character in this play area attacks, deal 1 damage to that character and place 1 threat here. (Limit once per phase in standard mode.)\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
+            "text": "<b>Forced Response</b>: After a character in this play area is attacked, deal 1 damage to the attacker and place 1 threat here. (Limit once per phase in standard mode.)\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
         },
         {
             "card_id": "60135a",
@@ -65665,5 +65665,5 @@
             "text": "Play only if any player controls a [[Martial Artist]] card.\nAttach to a friendly character. Max 1 per character.\nAttached character gets +1 hit point and gains the [[Martial Artist]] trait."
         }
     ],
-    "checksum": "7b55fe23169091dfce8ef4950c2f04f1d50ee4def6a5765853aa16b3f87dd0c7"
+    "checksum": "7ed8335df7f9b922865d7df6fc72c298a4041fd083cba661f57dbce0c1d8881b"
 }
