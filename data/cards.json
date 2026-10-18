@@ -63336,7 +63336,7 @@
             "desc": {"Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Setup</b>: Each player chooses a different Protection Racket main scheme at random in expert mode and puts it into play in their play area, scheme side faceup. Set each unused main scheme aside."
+            "text": "<b>Contents</b>: Chosen [[UNDERLING]] villain (see rulebook p. 5). Chosen villain's set, Protection Racket set, and Standard set. Two modular encounter sets (<i>Disasters and Tracksuit Mafia</i>).\n<b>Setup</b>: Each player chooses a single Protection Racket main scheme (at random in expert mode), places it in their play area, and flips it to its 1B side. Set each unused main scheme aside, out of play."
         },
         {
             "card_id": "60134b",
@@ -63356,7 +63356,7 @@
             "desc": {"Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Setup</b>: Each player chooses a different Protection Racket main scheme at random in expert mode and puts it into play in their play area, scheme side faceup. Set each unused main scheme aside."
+            "text": "<b>Contents</b>: Chosen [[UNDERLING]] villain (see rulebook p. 5). Chosen villain's set, Protection Racket set, and Standard set. Two modular encounter sets (<i>Disasters and Tracksuit Mafia</i>).\n<b>Setup</b>: Each player chooses a single Protection Racket main scheme (at random in expert mode), places it in their play area, and flips it to its 1B side. Set each unused main scheme aside, out of play."
         },
         {
             "card_id": "60135b",
@@ -63366,7 +63366,7 @@
             "desc": {"StartingThreat": "0", "TargetThreat": "10", "EscalationThreat": "1", "Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Forced Interrupt</b>: When excess damage is dealt to an ally in this play area (or to an ally or minion in expert mode), place that amount of threat here.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
+            "text": "<b>Forced Interrupt</b>: When excess damage is dealt to an ally (in expert mode, an ally or a minion) in this play area, place an equal amount of threat on this scheme.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
         },
         {
             "card_id": "60136a",
@@ -63376,7 +63376,7 @@
             "desc": {"Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Setup</b>: Each player chooses a different Protection Racket main scheme at random in expert mode and puts it into play in their play area, scheme side faceup. Set each unused main scheme aside."
+            "text": "<b>Contents</b>: Chosen [[UNDERLING]] villain (see rulebook p. 5). Chosen villain's set, Protection Racket set, and Standard set. Two modular encounter sets (<i>Disasters and Tracksuit Mafia</i>).\n<b>Setup</b>: Each player chooses a single Protection Racket main scheme (at random in expert mode), places it in their play area, and flips it to its 1B side. Set each unused main scheme aside, out of play."
         },
         {
             "card_id": "60136b",
@@ -63386,7 +63386,7 @@
             "desc": {"StartingThreat": "0", "TargetThreat": "10", "EscalationThreat": "1", "Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Forced Response</b>: After a character enters play in this play area, deal 1 damage to that character and place 1 threat here.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
+            "text": "<b>Forced Response</b>: After a character enters play in this play area, deal 1 damage to it and place 1 threat here.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
         },
         {
             "card_id": "60137a",
@@ -63396,7 +63396,7 @@
             "desc": {"Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Setup</b>: Each player chooses a different Protection Racket main scheme at random in expert mode and puts it into play in their play area, scheme side faceup. Set each unused main scheme aside."
+            "text": "<b>Contents</b>: Chosen [[UNDERLING]] villain (see rulebook p. 5). Chosen villain's set, Protection Racket set, and Standard set. Two modular encounter sets (<i>Disasters and Tracksuit Mafia</i>).\n<b>Setup</b>: Each player chooses a single Protection Racket main scheme (at random in expert mode), places it in their play area, and flips it to its 1B side. Set each unused main scheme aside, out of play."
         },
         {
             "card_id": "60137b",
@@ -63416,7 +63416,7 @@
             "desc": {"Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Setup</b>: Each player chooses a different Protection Racket main scheme at random in expert mode and puts it into play in their play area, scheme side faceup. Set each unused main scheme aside."
+            "text": "<b>Contents</b>: Chosen [[UNDERLING]] villain (see rulebook p. 5). Chosen villain's set, Protection Racket set, and Standard set. Two modular encounter sets (<i>Disasters and Tracksuit Mafia</i>).\n<b>Setup</b>: Each player chooses a single Protection Racket main scheme (at random in expert mode), places it in their play area, and flips it to its 1B side. Set each unused main scheme aside, out of play."
         },
         {
             "card_id": "60138b",
@@ -63426,7 +63426,7 @@
             "desc": {"StartingThreat": "0", "TargetThreat": "10", "EscalationThreat": "1", "Stage": "1"},
             "traits": [],
             "set_name": "Protection Racket",
-            "text": "<b>Forced Response</b>: After a character in this play area defeats another character or a side scheme in any play area, heal 1 damage from the defeating character and place 1 threat here.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
+            "text": "<b>Forced Response</b>: After a character in this play area defeats another character or a side scheme <i>(in any play area)</i>, heal 1 damage from the defeating character and place 1 threat here.\n<b>If any main scheme is completed or any player is eliminated, the players lose the game.</b>"
         },
         {
             "card_id": "60139",
@@ -65665,5 +65665,5 @@
             "text": "Play only if any player controls a [[Martial Artist]] card.\nAttach to a friendly character. Max 1 per character.\nAttached character gets +1 hit point and gains the [[Martial Artist]] trait."
         }
     ],
-    "checksum": "7ed8335df7f9b922865d7df6fc72c298a4041fd083cba661f57dbce0c1d8881b"
+    "checksum": "2cc61bbe715d9b4a3499a4031f5a7127473edd8f0e99d74a52b24a9b6d1964bd"
 }
