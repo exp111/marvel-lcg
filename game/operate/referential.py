@@ -9,6 +9,11 @@ class Referential:
 
         check_faces: List[CardFace] = []
         set_name = face.paper.set_name
+        # Basic/aspect cards have no identity or encounter set. Treating
+        # their empty set name as a shared set lets unrelated cards (such as
+        # Iron Fist) hide the named characters on Unbreakable Bond.
+        if not set_name:
+            return legal_faces
         # Fix "50061"
         set_name_nemesis = set_name[:-8] if set_name.endswith(" Nemesis") else None
         set_id = face.paper.card_id[:2]

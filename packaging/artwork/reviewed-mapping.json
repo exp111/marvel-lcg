@@ -127517,6 +127517,40 @@
         710,
         1030
       ]
+    },
+    "56201b": {
+      "reviewed": true,
+      "review_note": "Visually checked Hall of Heroes original: Guerilla Warfare, Resistance, stage 2B, card 201, threat 9 per player, escalation 1 per player, and printed rules. Rotate landscape scan 90 degrees counterclockwise for game display; no crop or resize. Workshop candidates do not contain this card.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-civil-war-56201b",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2025/11/56201b.jpg",
+        "file_sha256": "94138516e94ee27647c9f458c617b8ef44d8efa78193cf35444a0a94c2f669ea",
+        "sheet_sha256": "94138516e94ee27647c9f458c617b8ef44d8efa78193cf35444a0a94c2f669ea",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve"
+    },
+    "56202b": {
+      "reviewed": true,
+      "review_note": "Visually checked Hall of Heroes original: Superhero Jailbreak, Resistance, stage 2B, card 202, threat 9 per player, escalation 1 per player, and printed rules. Rotate landscape scan 90 degrees counterclockwise for game display; no crop or resize. Workshop candidates do not contain this card.",
+      "source": {
+        "kind": "image",
+        "source_id": "hoh-civil-war-56202b",
+        "sheet_url": "https://hallofheroeslcg.com/wp-content/uploads/2025/11/56202b.jpg",
+        "file_sha256": "80fd75cd166b767e8ed4f6954351a5c9872f0c81014062ab0d72738652a6a043",
+        "sheet_sha256": "80fd75cd166b767e8ed4f6954351a5c9872f0c81014062ab0d72738652a6a043",
+        "face": "front",
+        "columns": 1,
+        "rows": 1,
+        "index": 0
+      },
+      "rotation": 90,
+      "encoding": "preserve"
     }
   },
   "nonnumbered": {
@@ -128223,6 +128257,18 @@
       "url": "https://hallofheroeslcg.com/wp-content/uploads/2026/10/62037.jpg",
       "sha256": "cc331c86ff46b1d3498adb7d7827e1641058fd4ff015ec86306fd3fc5a7f9888",
       "bytes": 358221,
+      "kind": "image"
+    },
+    "hoh-civil-war-56201b": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2025/11/56201b.jpg",
+      "sha256": "94138516e94ee27647c9f458c617b8ef44d8efa78193cf35444a0a94c2f669ea",
+      "bytes": 311916,
+      "kind": "image"
+    },
+    "hoh-civil-war-56202b": {
+      "url": "https://hallofheroeslcg.com/wp-content/uploads/2025/11/56202b.jpg",
+      "sha256": "80fd75cd166b767e8ed4f6954351a5c9872f0c81014062ab0d72738652a6a043",
+      "bytes": 329112,
       "kind": "image"
     }
   },

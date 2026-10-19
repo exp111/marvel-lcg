@@ -9,17 +9,19 @@ def GetAbilities() -> Sequence['Ability']:
         Unused(this)
 
         team = Worlds.GetEnemyTeam(effect)
-        faces = Search.EncounterCards(
+        faces = Search.SearchForCards(
             effect,
             team,
-            include_discard_pile=True,
-            total="1*",
+            include_encounter_deck=True,
+            include_encounter_discard_pile=True,
+            range=Select.ExactTargetCountUpToAvailable(Worlds.GetYourTeamSize(effect)),
             card_type=SchemeSide2
         )
 
         def action(player: 'Player'):
-            face = faces.pop()
-            player.DealEncounterCard(face, effect)
+            if faces:
+                face = faces.pop()
+                player.DealEncounterCard(face, effect)
 
         Players.ForEachPlayer(effect, action)
 

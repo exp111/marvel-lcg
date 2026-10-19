@@ -9,11 +9,11 @@ def GetAbilities() -> Sequence['Ability']:
         Unused(this)
 
         team = Worlds.GetEnemyTeam(effect)
-        faces = Search.EncounterCards(
+        faces = Search.SearchForCards(
             effect,
             team,
-            include_discard_pile=False,
-            total="1*",
+            include_encounter_deck=True,
+            range=Select.ExactTargetCountUpToAvailable(Worlds.GetYourTeamSize(effect)),
             card_type=Minion
         )
 

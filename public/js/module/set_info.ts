@@ -2,6 +2,7 @@ interface SetInfoObject {
     name?: string;
     scenarios?: string[];
     underlings?: string[];
+    leaders?: string[];
     fixed_scenarios?: string[];
     heroes?: string[];
     encounters?: string[];
@@ -12,6 +13,7 @@ export class SetInfo {
     name: string;
     scenarios: string[];
     underlings: string[];
+    leaders: string[];
     fixed_scenarios: string[];
     heroes: string[];
     encounters: string[];
@@ -21,6 +23,7 @@ export class SetInfo {
         this.name = '';
         this.scenarios = [];
         this.underlings = [];
+        this.leaders = [];
         this.fixed_scenarios = [];
         this.heroes = [];
         this.encounters = [];
@@ -30,6 +33,7 @@ export class SetInfo {
             this.name = obj.name || '';
             this.scenarios = obj.scenarios || [];
             this.underlings = obj.underlings || [];
+            this.leaders = obj.leaders || [];
             this.fixed_scenarios = obj.fixed_scenarios || [];
             this.heroes = obj.heroes || [];
             this.encounters = obj.encounters || [];

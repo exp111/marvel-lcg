@@ -2,26 +2,28 @@ from . import *
 
 
 def GetAbilities() -> Sequence['Ability']:
-    def attacked(effect: 'Effect', message: 'Message.AfterUnitAttackEnd') -> None:
+    # The printed trigger is "is attacked": check the target's play area,
+    # then damage the attacker (which can be the shared villain).
+    def attacked(effect: 'Effect', message: 'Message.AfterUnitAttackUnit') -> None:
         effect.this.DealDamage([message.attacker], 1, effect)
         PlaceThreatHere(effect, 1)
 
-    standard = AbilityFactory.AfterUnitAttackEnd(
+    standard = AbilityFactory.AfterUnitBeAttacked(
         AbilityType.ForcedResponse,
         Unit2,
         attacked,
         conditions=[
             lambda effect, message: Worlds.IsStandard(effect),
-            lambda effect, message: IsInThisPlayArea(message.attacker, effect),
+            lambda effect, message: IsInThisPlayArea(message.attacked, effect),
         ],
     ).LimitOncePerPhase()
-    expert = AbilityFactory.AfterUnitAttackEnd(
+    expert = AbilityFactory.AfterUnitBeAttacked(
         AbilityType.ForcedResponse,
         Unit2,
         attacked,
         conditions=[
             lambda effect, message: Worlds.IsExpert(effect),
-            lambda effect, message: IsInThisPlayArea(message.attacker, effect),
+            lambda effect, message: IsInThisPlayArea(message.attacked, effect),
         ],
     )
     return [standard, expert, *ProtectionRacketLossAbilities()]

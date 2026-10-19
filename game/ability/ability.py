@@ -1118,6 +1118,9 @@ class Ability:
         self.any_player_can_trigger_this_when = effect.ability.any_player_can_trigger_this_when[:]
         self.labels = effect.ability.labels[:]
         self.func_names = set(effect.ability.func_names)
+        # Target checks run on the delayed response as well as its registrar.
+        # Preserve keyword exceptions such as non-thwart threat removal's patrol bypass.
+        self.ignore.keyword = dict(effect.ability.ignore.keyword)
         # self.conditions += effect.ability.conditions
         for condition in [Condition.LimitOncePerRound,
                         Condition.LimitOncePerRoundPerPlayer,

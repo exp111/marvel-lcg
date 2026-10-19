@@ -6,12 +6,8 @@
         "56095"
     ],
     "expert": true,
-    "schemes": [
-        "56096a,56096b",
-        "56097a,56097b"
-    ],
-    "set_aside": [
-    ],
+    "schemes": [],
+    "set_aside": [],
     "encounters": [
         "56098",
         "56099",
@@ -33,5 +29,45 @@
         "martial_law",
         "heroes_for_hire",
         "paladin"
+    ],
+    "kind": "leader",
+    "scenario_side": "registration",
+    "modular_sets_random": [
+        "mighty_avengers",
+        "the_initiative",
+        "maria_hill",
+        "dangerous_recruits",
+        "cape_killer",
+        "martial_law",
+        "heroes_for_hire",
+        "paladin",
+        "shield_ops",
+        "thunderbolts",
+        "taskmaster",
+        "deadly_duo"
+    ],
+    "modular_sets_count": [
+        3,
+        4
+    ],
+    "scheme_options": [
+        [
+            "56063a,56063b",
+            "56096a,56096b",
+            "56121a,56121b",
+            "56122a,56122b",
+            "57005a,57005b"
+        ],
+        [
+            "56064a,56064b",
+            "56097a,56097b",
+            "56123a,56123b",
+            "56124a,56124b",
+            "57006a,57006b"
+        ]
+    ],
+    "default_schemes": [
+        "56096a,56096b",
+        "56097a,56097b"
     ]
 }

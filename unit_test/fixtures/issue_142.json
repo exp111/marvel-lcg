@@ -1,0 +1,275 @@
+{
+    "version": "1.3.3.1",
+    "metadata": {
+        "sign": "85375b5233c8a149c3899c5d090e5e19",
+        "seed": 180763534,
+        "time": "2026-10-13 16-20",
+        "playtime": "407.5",
+        "replay_complete": false
+    },
+    "rules": [
+        "fix_attached_health_flip",
+        "fix_attached_health_swap",
+        "v16_all",
+        "v18_timing"
+    ],
+    "campaign": {
+        "version": "0.5.8",
+        "campaign_id": "",
+        "name": "Hammerhead / Protection Racket",
+        "villain": [
+            "60087",
+            "60088"
+        ],
+        "expert": true,
+        "challenges": [],
+        "schemes": [
+            "60134a,60134b",
+            "60135a,60135b",
+            "60136a,60136b",
+            "60137a,60137b",
+            "60138a,60138b"
+        ],
+        "set_aside": [],
+        "encounters": [
+            "60089",
+            "60090",
+            "60091",
+            "60092",
+            "60092",
+            "60093",
+            "60093",
+            "60094",
+            "60095",
+            "60096",
+            "60096",
+            "60139",
+            "60140",
+            "60141",
+            "60141"
+        ],
+        "encounter_sets": [
+            "standard",
+            "expert",
+            "beasty_boys",
+            "sinister_syndicate"
+        ],
+        "campaign_log": {}
+    },
+    "players": [
+        {
+            "version": "0.5.8",
+            "name": "Bishop",
+            "hero": [
+                "45001a,45001b"
+            ],
+            "hero_deck": [
+                "45002",
+                "45003",
+                "45004",
+                "45005",
+                "45006",
+                "45006",
+                "45007",
+                "45007",
+                "45008",
+                "45008",
+                "45009",
+                "45009",
+                "45010",
+                "45010",
+                "45010"
+            ],
+            "obligations": [
+                "45025"
+            ],
+            "nemesis_set": [
+                "45026",
+                "45027",
+                "45028",
+                "45029",
+                "45029"
+            ],
+            "player_deck": [
+                "13022",
+                "13023",
+                "13024",
+                "13024",
+                "19022",
+                "26022",
+                "27024",
+                "40057",
+                "40059",
+                "40060",
+                "40060",
+                "40060",
+                "40064",
+                "43021",
+                "44025",
+                "44026",
+                "44027",
+                "44029",
+                "44030",
+                "44048",
+                "44048",
+                "44050",
+                "44053",
+                "44056",
+                "44057",
+                "05018",
+                "05023"
+            ],
+            "aspect": "",
+            "aspect2": ""
+        }
+    ],
+    "puzzle": [],
+    "inputs": [
+        {
+            "step": 0,
+            "event": "m144 WhenPlayerChooseAbility",
+            "effect": {
+                "id": "e1 Choose c1 45001b",
+                "targets": [
+                    "c30 40057",
+                    "c49 44053",
+                    "c53 05023"
+                ],
+                "resources": []
+            },
+            "crc": "{1:31,11:-4,27:-3,30:-2,41:-2,45:-2,47:-2,49:-2,53:-2,54:12,59:26,61:0,71:-3,97:-4}"
+        },
+        {
+            "step": 1,
+            "event": "m178 WhenPlayerInTurn",
+            "effect": {
+                "id": "e67 Play c47 44048",
+                "targets": [],
+                "resources": [
+                    "e34 Discard c41 44025"
+                ]
+            },
+            "crc": "{1:31,11:-4,27:-2,30:-4,31:-2,32:-3,41:-2,45:-2,46:-2,47:-2,53:-3,54:12,59:26,61:0,71:-3,97:-4}"
+        },
+        {
+            "step": 2,
+            "event": "m178 WhenPlayerInTurn",
+            "effect": {
+                "id": "e63 Play c44 44029",
+                "targets": [
+                    "c1 45001b"
+                ],
+                "resources": [
+                    "e25 Discard c32 40060",
+                    "e26 Discard c33 40060",
+                    "e45 Discard c52 05018"
+                ]
+            },
+            "crc": "{1:31,11:-4,18:-2,19:-2,25:-3,30:-4,32:-2,33:-2,44:-2,47:-3,52:-2,54:12,59:26,61:0,71:-3,97:-4}"
+        },
+        {
+            "step": 3,
+            "event": "m178 WhenPlayerInTurn",
+            "effect": {
+                "id": "e7 Change_Form c1 45001b",
+                "targets": [],
+                "resources": []
+            },
+            "crc": "{1:31,11:-4,18:-2,19:-2,25:-3,30:-4,44:2,52:-3,54:12,59:26,61:0,71:-3,97:-4}"
+        },
+        {
+            "step": 4,
+            "event": "m178 WhenPlayerInTurn",
+            "effect": {
+                "id": "e4 Attack c1 45001a",
+                "targets": [
+                    "c59 60087"
+                ],
+                "resources": []
+            },
+            "crc": "{1:31,11:-4,18:-2,19:-2,25:-3,30:-4,44:2,52:-3,54:12,59:26,61:0,71:-3,97:-4}"
+        },
+        {
+            "step": 5,
+            "event": "m380 AfterUnitAttackUnit",
+            "effect": {
+                "id": "timing2 t3 AfterUnitAttackEnd a1 ForcedResponse c54 60134b",
+                "targets": [],
+                "resources": []
+            },
+            "crc": "{1:32,11:-4,18:-2,19:-2,25:-3,30:-4,44:2,52:-3,54:12,59:26,71:-3,97:-4}"
+        },
+        {
+            "step": 6,
+            "event": "m178 WhenPlayerInTurn",
+            "effect": {
+                "id": "",
+                "targets": [],
+                "resources": []
+            },
+            "crc": "{1:30,11:-4,18:-2,19:-2,25:-3,30:-4,44:2,52:-3,54:13,59:26,71:-3,97:-4}"
+        },
+        {
+            "step": 7,
+            "event": "m412 WhenPlayerChooseAbility",
+            "effect": {
+                "id": "e1 Choose c1 45001a",
+                "targets": [
+                    "c18 45009"
+                ],
+                "resources": []
+            },
+            "crc": "{1:30,11:-4,18:-2,19:-2,25:-3,30:-4,44:2,52:-3,54:13,59:26,71:-3,97:-4}"
+        },
+        {
+            "step": 8,
+            "event": "m452 WhenUnitWouldAttack",
+            "effect": {
+                "id": "timing2 t0 WhenUnitWouldAttack a0 HeroInterrupt c19 45009",
+                "targets": [
+                    "c33 40060",
+                    "c32 40060",
+                    "c27 19022",
+                    "c41 44025"
+                ],
+                "resources": []
+            },
+            "crc": "{1:29,9:-2,11:-4,18:-3,19:-2,20:-2,25:-2,30:-4,40:-3,44:2,48:-2,54:14,59:26,71:-3,97:-4}"
+        },
+        {
+            "step": 9,
+            "event": "m494 WhenUnitBeingAttack",
+            "effect": {
+                "id": "",
+                "targets": [],
+                "resources": []
+            },
+            "crc": "{1:29,9:-2,19:-3,20:-2,25:-2,30:-4,41:-4,44:2,48:-2,51:-3,54:14,59:26,74:-3,97:-4}"
+        },
+        {
+            "step": 10,
+            "event": "m528 AfterUnitTookDamage",
+            "effect": {
+                "id": "timing2 t0 AfterUnitTookDamage a4 Response c1 45001a",
+                "targets": [
+                    "c1 45001a"
+                ],
+                "resources": []
+            },
+            "crc": "{1:26,9:-2,19:-3,20:-2,25:-2,30:-4,41:-4,44:2,48:-2,51:-3,54:14,59:28,71:-3,74:-3,97:-4,105:1}"
+        },
+        {
+            "step": 11,
+            "event": "m621 AfterPhaseBegin",
+            "effect": {
+                "id": "timing2 t0 AfterPhaseBegin a0 Response c44 44029",
+                "targets": [
+                    "c1 45001a"
+                ],
+                "resources": []
+            },
+            "crc": "{1:26,9:-2,15:-3,20:-2,25:-2,30:-4,35:-3,41:-4,43:-2,44:2,48:-2,54:14,59:26,68:-3,71:-3,74:17,97:-4,105:1}"
+        }
+    ],
+    "checksum": "d60d3c344adc16ad027830986a7a322e430063a6ff74318c5bfc7bb5147bea22"
+}

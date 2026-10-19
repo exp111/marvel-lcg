@@ -59,6 +59,11 @@
     #split-scenario-selector[hidden] {
         display: none;
     }
+    #split-scenarios button[hidden],
+    #default-scheme-button[hidden],
+    #faction-modular-button[hidden] {
+        display: none;
+    }
 
     div:has(#modular-sets),
     div:has(#encounter-sets),
@@ -366,6 +371,7 @@ class SetInfo{
             this.scenarios = obj['scenarios'];
             /** @type {string[]} */
             this.underlings = obj['underlings'] || [];
+            this.leaders = obj['leaders'] || [];
             /** @type {string[]} */
             this.fixed_scenarios = obj['fixed_scenarios'] || [];
             /** @type {string[]} */
@@ -381,35 +387,101 @@ let sets_json = {}
 
 let selected_underling = null
 let selected_main_scenario = null
+let selected_main_stages = {}
 
-function mergeInterchangeableScenario() {
-    if( !selected_underling || !selected_main_scenario ) {
+function mergeInterchangeableScenario(resetSets = true) {
+    const staged = selected_underling?.kind === 'leader'
+    const parts = staged ? [selected_main_stages[1], selected_main_stages[2]] : [selected_main_scenario]
+    if( !selected_underling || parts.some(part => !part) ) {
+        if( staged && resetSets ) SetScenario(selected_underling)
         scenario = ""
         return
     }
 
     const combine = (first, second) => [...(first || []), ...(second || [])]
     const combineUnique = (first, second) => [...new Set(combine(first, second))]
+    const main = parts.reduce((result, part) => ({
+        ...part,
+        schemes: combine(result.schemes, part.schemes),
+        set_aside: combine(result.set_aside, part.set_aside),
+        encounters: combine(result.encounters, part.encounters),
+        encounter_sets: combineUnique(result.encounter_sets, part.encounter_sets),
+        modular_sets: combineUnique(result.modular_sets, part.modular_sets),
+    }), {})
     const merged = {
         ...selected_underling,
-        ...selected_main_scenario,
-        name: `${selected_underling.name} / ${selected_main_scenario.name}`,
+        ...main,
+        name: `${selected_underling.name} / ${parts.map(part => part.name).join(' / ')}`,
         villain: [...selected_underling.villain],
         expert: selected_underling.expert,
-        schemes: [...selected_main_scenario.schemes],
-        set_aside: combine(selected_underling.set_aside, selected_main_scenario.set_aside),
-        encounters: combine(selected_underling.encounters, selected_main_scenario.encounters),
-        encounter_sets: combineUnique(selected_underling.encounter_sets, selected_main_scenario.encounter_sets),
-        modular_sets: combineUnique(selected_underling.modular_sets, selected_main_scenario.modular_sets),
+        schemes: [...main.schemes],
+        set_aside: combine(selected_underling.set_aside, main.set_aside),
+        encounters: combine(selected_underling.encounters, main.encounters),
+        encounter_sets: combineUnique(selected_underling.encounter_sets, main.encounter_sets),
+        modular_sets: combineUnique(selected_underling.modular_sets, main.modular_sets),
     }
     delete merged.kind
-    SetScenario(merged)
+    delete merged.scheme_stage
+    SetScenario(merged, resetSets)
+}
+
+function selectInterchangeableVillain(data) {
+    if( selected_underling?.scenario_side !== data.scenario_side ) selected_main_stages = {}
+    selected_underling = data
+    updateDefaultSchemeButton()
+    document.querySelectorAll('#split-scenarios button').forEach(button => {
+        const choice = JSON.parse(button.dataset.scenario)
+        button.hidden = Boolean(choice.scenario_side && choice.scenario_side !== data.scenario_side)
+        if( choice.scheme_stage ) {
+            button.classList.toggle('click', selected_main_stages[choice.scheme_stage]?.name === choice.name)
+        }
+    })
+    if( data.kind === 'leader' && data.default_schemes?.length ) {
+        default_schemes(true)
+    } else {
+        mergeInterchangeableScenario()
+    }
+}
+
+function selectInterchangeableMainScenario(data) {
+    if( data.scheme_stage && data.scenario_side !== selected_underling?.scenario_side ) return
+    if( data.scheme_stage ) {
+        selected_main_stages[data.scheme_stage] = data
+    } else {
+        selected_main_scenario = data
+    }
+    document.querySelectorAll('#split-scenarios button').forEach(button => {
+        const choice = JSON.parse(button.dataset.scenario)
+        if( choice.scheme_stage === data.scheme_stage ) button.classList.toggle('click', choice.name === data.name)
+    })
+    mergeInterchangeableScenario(!data.scheme_stage)
+}
+
+function updateDefaultSchemeButton(show = selected_underling?.kind === 'leader') {
+    const button = document.querySelector('#default-scheme-button')
+    button.hidden = !show
+    button.disabled = !show || !selected_underling?.default_schemes?.length
+}
+
+function default_schemes(resetSets = false) {
+    if( selected_underling?.kind !== 'leader' || !selected_underling.default_schemes?.length ) return
+    const buttons = Array.from(document.querySelectorAll('#split-scenarios button'))
+    const choices = buttons.map(button => JSON.parse(button.dataset.scenario))
+    const defaults = selected_underling.default_schemes.map(scheme => choices.find(choice =>
+        choice.scenario_side === selected_underling.scenario_side && choice.schemes[0] === scheme))
+    if( defaults.some(choice => !choice) ) return
+    selected_main_stages = Object.fromEntries(defaults.map(choice => [choice.scheme_stage, choice]))
+    buttons.forEach((button, index) => button.classList.toggle('click', defaults.includes(choices[index])))
+    mergeInterchangeableScenario(resetSets)
 }
 
 function resetInterchangeableScenario() {
     selected_underling = null
     selected_main_scenario = null
+    selected_main_stages = {}
     scenario = ""
+    updateDefaultSchemeButton()
+    updateFactionModularButton()
 }
 
 function setInterchangeableScenarioSelectionEnabled(enabled) {
@@ -494,7 +566,8 @@ async function createScenarios() {
 
     var select = document.querySelector("#set-images");
     for( let key in sets_json ) {
-        const hasInterchangeableParts = sets_json[key].underlings.length > 0
+        const villains = [...sets_json[key].underlings, ...sets_json[key].leaders]
+        const hasInterchangeableParts = villains.length > 0
         if( sets_json[key].scenarios.length == 0 && !hasInterchangeableParts ) {
             continue
         }
@@ -505,7 +578,7 @@ async function createScenarios() {
             img.style.pointerEvents = "none"
             img.src = "/sets/" + key
             const primaryChoices = hasInterchangeableParts
-                ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+                ? [...villains, ...sets_json[key].fixed_scenarios]
                 : sets_json[key].scenarios
             summary.dataset.total = primaryChoices.length * 2
             // summary.innerHTML = key
@@ -561,9 +634,12 @@ async function createScenarios() {
                     // or scheme available to use as the selector image.
                     const image_card = villain || scheme || data["set_aside"]?.[0]
                     image_name = image_card ? get_name(image_card) : "no_image"
+                    if( data.selector_image ) image_name = data.selector_image
                 }
                 option.setAttribute('data-text', (data['encounters'] || []).length)
                 option.dataset.scenario = JSON.stringify(data)
+                option.title = data.name
+                if( data.scheme_stage ) option.dataset.stage = data.scheme_stage
 
                 img.src = image_name
                 option.appendChild(img)
@@ -573,7 +649,7 @@ async function createScenarios() {
         }
 
         const primaryChoices = hasInterchangeableParts
-            ? [...sets_json[key].underlings, ...sets_json[key].fixed_scenarios]
+            ? [...villains, ...sets_json[key].fixed_scenarios]
             : sets_json[key].scenarios
         for( let text of primaryChoices ) {
             const choiceType = hasInterchangeableParts && !sets_json[key].fixed_scenarios.includes(text)
@@ -590,11 +666,26 @@ async function createScenarios() {
         scenarioDetails.classList.add("scenario-details")
         scenarioDetails.style.display = "none"
         if( hasInterchangeableParts ) {
+            const stageRows = {}
+            if( sets_json[key].leaders.length ) {
+                for( const stage of [1, 2] ) {
+                    const group = document.createElement('fieldset')
+                    const legend = document.createElement('legend')
+                    legend.textContent = `Stage ${stage} (choose one)`
+                    group.appendChild(legend)
+                    stageRows[stage] = group
+                    scenarioDetails.appendChild(group)
+                }
+                scenarioDetails.style.flexDirection = 'column'
+            }
             for( let text of sets_json[key].scenarios ) {
                 if( sets_json[key].fixed_scenarios.includes(text) ) {
                     continue
                 }
-                scenarioDetails.appendChild(await createButtons(text, "main-scenario"))
+                const button = await createButtons(text, "main-scenario")
+                const group = stageRows[button.dataset.stage] || scenarioDetails
+                if( button.dataset.stage ) button.hidden = true
+                group.appendChild(button)
             }
             if( sets_json[key].scenarios.length == 0 ) {
                 const message = document.createElement("p")
@@ -618,8 +709,7 @@ async function createScenarios() {
                     if( e.dataset.choiceType == "underling" ) {
                         setInterchangeableScenarioSelectionEnabled(true)
                         setStandardEncounterSetSelectionEnabled(true)
-                        selected_underling = JSON.parse(e.dataset.scenario)
-                        mergeInterchangeableScenario()
+                        selectInterchangeableVillain(JSON.parse(e.dataset.scenario))
                     } else {
                         resetInterchangeableScenario()
                         setInterchangeableScenarioSelectionEnabled(false)
@@ -638,6 +728,7 @@ async function createScenarios() {
             const splitSelector = document.querySelector("#split-scenario-selector")
             const splitScenarios = document.querySelector("#split-scenarios")
             resetInterchangeableScenario()
+            updateDefaultSchemeButton(sets_json[key].leaders.length > 0)
             if( interchangeable ) {
                 scenarioTitle.textContent = "Villains"
                 splitSelector.hidden = false
@@ -645,11 +736,7 @@ async function createScenarios() {
                 scenarioDetails.style.display = "flex"
                 scenarioDetails.querySelectorAll("button").forEach(e => {
                     e.onclick = () => {
-                        e.parentNode.querySelectorAll("button").forEach(e2 => {
-                            e2.classList.remove('click')
-                        })
-                        selected_main_scenario = JSON.parse(e.dataset.scenario)
-                        mergeInterchangeableScenario()
+                        selectInterchangeableMainScenario(JSON.parse(e.dataset.scenario))
                         generateInputs(selectedSet.dataset.package)
                         e.classList.add('click')
                     }
@@ -693,6 +780,9 @@ async function createScenarios() {
 
 <fieldset id="split-scenario-selector" hidden style="flex-direction: column; position: relative;">
     <legend>Scenarios</legend>
+    <div>
+        <button id="default-scheme-button" onclick="default_schemes()" title="Select the leader's preconstructed schemes" hidden disabled>Default</button>
+    </div>
 
     <fieldset style="gap: 0; padding: 0; border: none">
         <div>
@@ -715,8 +805,10 @@ async function createScenarios() {
 <fieldset style="flex-direction: column; position: relative;">
     <legend>Modular Sets</legend>
     <div>
-        <button onclick="document.querySelector(`#modular-sets`).classList.toggle('hide-not-click')">Expand</button>
+        <button onclick="default_modular()">Default</button>
+        <button id="faction-modular-button" onclick="faction_modular()" hidden></button>
         <button onclick="random_modular()">Random</button>
+        <button onclick="document.querySelector(`#modular-sets`).classList.toggle('hide-not-click')">Expand</button>
         <button onclick="document.querySelectorAll(`#modular-sets .nemesis`).forEach(e=>e.classList.toggle('hide'))">Nemesis</button>
         <button onclick="document.querySelector(`#modular-sets`).classList.toggle('show-set-name')">Name</button>
     </div>
@@ -2068,7 +2160,37 @@ p:has(#timeout_text) {
             randomElements.forEach(e => {e.classList.add("click")})
         }
 
-        function SetScenario(j) {
+        function default_modular() {
+            const source = scenario || selected_underling
+            if( !source ) return
+            select_modular(source, source.modular_sets || [])
+        }
+
+        function faction_modular() {
+            const source = scenario || selected_underling
+            if( !source?.modular_sets_random?.length ) return
+            const [minimum, maximum] = source.modular_sets_count || [3, 4]
+            const count = minimum + Math.floor(Math.random() * (maximum - minimum + 1))
+            select_modular(source, campaignRandomSample(source.modular_sets_random, count))
+        }
+
+        function updateFactionModularButton() {
+            const source = scenario || selected_underling
+            const button = document.querySelector('#faction-modular-button')
+            button.hidden = !source?.modular_sets_random?.length
+            button.textContent = source?.scenario_side === 'registration' ? 'Registration' : 'Resistance'
+            button.title = `Choose 3-4 random ${button.textContent.toLowerCase()} modular sets`
+        }
+
+        function select_modular(source, names) {
+            document.querySelectorAll('#modular-sets button').forEach(button => {
+                const required = button.classList.contains('lock') || source.encounter_sets.includes(button.dataset.name)
+                button.classList.toggle('click', required || names.includes(button.dataset.name))
+            })
+            document.querySelector('#default-modular-sets').textContent = names.join(', ')
+        }
+
+        function SetScenario(j, resetSets = true) {
             let image
             try {
                 if( j['villain'].length > 0 ) {
@@ -2079,7 +2201,7 @@ p:has(#timeout_text) {
                 document.querySelector('#default-encounter-sets').innerHTML = "<br/>" + j['encounter_sets'].join("<br/>")
                 document.querySelector('#encounter-size').innerHTML = j['encounters'].length
 
-                document.querySelector('#default-modular-sets').innerHTML = "<br/>" + j['modular_sets'].join("<br/>")
+                if( resetSets ) document.querySelector('#default-modular-sets').textContent = j['modular_sets'].join(', ')
 
                 let div = document.querySelector('#is-expert')
                 div.innerHTML = j['expert']
@@ -2090,6 +2212,7 @@ p:has(#timeout_text) {
                 }
                 // scenario = to_string(j)
                 scenario = j
+                updateFactionModularButton()
 
                 document.querySelectorAll('input[id^="encounter-sets-"]').forEach(
                     e => Reset(e)
@@ -2119,8 +2242,11 @@ p:has(#timeout_text) {
                     }
                 }
 
-                document.querySelectorAll("#encounter-sets button").forEach(click_encounter_set)
-                document.querySelectorAll("#modular-sets button").forEach(click_encounter_set)
+                if( resetSets ) {
+                    document.querySelectorAll("#encounter-sets button").forEach(click_encounter_set)
+                    document.querySelectorAll("#modular-sets button").forEach(click_encounter_set)
+                    default_modular()
+                }
                 const allowStandardSets = j['standard_sets'] !== false
                 setStandardEncounterSetSelectionEnabled(allowStandardSets)
                 document.querySelector("#modular-sets").classList.add('hide-not-click')

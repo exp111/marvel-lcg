@@ -184,8 +184,6 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
 
     @override
     def PlaceThreatInternal(self, value: INT_TYPE, by_effect: 'Effect', sch_message: 'Message.WhenUnitWouldScheme|None'=None) -> 'Message.AfterSchemePlaceThreat|None':
-        from game.effect.rule import Advance
-        from game.message import Message
         event_manager = self.card.world.event_manager
         timing_occurrence = (
             event_manager.BeginTimingOccurrence()
@@ -195,21 +193,25 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
         )
         place_message = super().PlaceThreatInternal(value, by_effect, sch_message)
         if place_message and self.target_threat != None:
-            if self.threat >= self.target_threat and not self.is_completed:
-                would_complete_message = Message.WhenMainSchemeStageWouldBeCompleted(self, sch_message)
-                would_complete_message.Send()
-                if not would_complete_message.is_be_instead:
-                    self.is_completed = True
-                    when_complete_message = Message.WhenMainSchemeStageCompleted(self, would_complete_message)
-                    when_complete_message.Send()
-                    effect = Advance(self)
-                    self.Advance(None, effect)
-                    after_message = Message.AfterMainSchemeCompleted(self, when_complete_message)
-                    after_message.Send()
+            self.CheckCompletion(sch_message)
             event_manager.EndTimingOccurrence(timing_occurrence)
             return place_message
         event_manager.EndTimingOccurrence(timing_occurrence)
         return None
+
+    def CheckCompletion(self, sch_message: 'Message.WhenUnitWouldScheme|None'=None) -> None:
+        from game.effect.rule import Advance
+
+        if self.target_threat == None or self.threat < self.target_threat or self.is_completed:
+            return
+        would_complete_message = Message.WhenMainSchemeStageWouldBeCompleted(self, sch_message)
+        would_complete_message.Send()
+        if not would_complete_message.is_be_instead:
+            self.is_completed = True
+            when_complete_message = Message.WhenMainSchemeStageCompleted(self, would_complete_message)
+            when_complete_message.Send()
+            self.Advance(None, Advance(self))
+            Message.AfterMainSchemeCompleted(self, when_complete_message).Send()
 
     @staticmethod
     def GetPatrolFaces(effect: 'Effect') -> Sequence['CardFace']:
@@ -242,4 +244,8 @@ class MainScheme(Scheme2, HasStage, EncounterCard, FinalType):
     def GainTargetThreatValue(self, value: int, effect: 'Effect'):
         if self.target_threat != None:
             self.target_threat += value
+            # A scheme can complete without placing threat, for example when
+            # Negative Zone Prison captures an ally and lowers its threshold.
+            if value < 0 and self.IsInPlay():
+                self.CheckCompletion()
 

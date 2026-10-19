@@ -70,6 +70,15 @@ export class EffectDescriptor {
             }
         }
         this.start_x = start_x;
+
+        // The server lists eligible resource generators, even when there are
+        // none. A required cost with no generators is not a free ability.
+        const payments = Object.values(this.target_payment);
+        if (!this.failure_reason && payments.length > 0 && !payments.some(payment =>
+            payment.payment.length > 0 || payment.rule?.includes('UpTo') ||
+            payment.cost.split('|').some(cost => Number(cost) <= 0))) {
+            this.failure_reason = 'No available resources for this cost';
+        }
     }
 
     /**

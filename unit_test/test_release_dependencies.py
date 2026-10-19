@@ -35,13 +35,14 @@ class TestReleaseDependencies(unittest.TestCase):
         for version_part in (
             "    MAJOR = 1",
             "    MINOR = 3",
-            "    PATCH = 3",
-            "    BUILD = 1",
+            "    PATCH = 4",
+            "    BUILD = 0",
         ):
             self.assertIn(version_part, build.splitlines())
-        self.assertIn("Application version: **1.3.3.1r**", patch_notes)
+        self.assertIn("Application version: **1.3.4r**", patch_notes)
+        self.assertIn("Windows file version: **1.3.4.0**", patch_notes)
         self.assertNotIn("1.0.0.5r", marvel_html)
-        self.assertGreaterEqual(marvel_html.count("?v=1.3.3.1r"), 2)
+        self.assertGreaterEqual(marvel_html.count("?v=1.3.4r"), 2)
 
     def test_main_menu_identifies_the_community_build_with_the_live_version(self):
         project_root = Path(__file__).resolve().parents[1]
